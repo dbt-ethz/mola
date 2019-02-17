@@ -20,7 +20,7 @@ def extrude(face,extrusion,capBottom=False,capTop=True):
   # calculate vertices
   new_vertices=[]
   for i in range(len(face.vertices)):
-    new_vertices.append(VectorAdd(face.vertices[i], normal))
+    new_vertices.append(vec.VectorAdd(face.vertices[i], normal))
   # faces
   new_faces=[] 
   if capBottom:
