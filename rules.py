@@ -1,10 +1,10 @@
-import reticula.vecmath
+import reticula.vecmath as vec
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
   indexEdge1=(indexEdge+1)%len(face.vertices)
   indexEdge2=(indexEdge+2)%len(face.vertices)
   indexEdge3=(indexEdge+3)%len(face.vertices)
-  p1 = VectorBetweenRel(face.vertices[indexEdge], face.vertices[indexEdge1], split1)
-  p2 = VectorBetweenRel(face.vertices[indexEdge2 ], face.vertices[indexEdge3], split2)
+  p1 = vec.VectorBetweenRel(face.vertices[indexEdge], face.vertices[indexEdge1], split1)
+  p2 = vec.VectorBetweenRel(face.vertices[indexEdge2 ], face.vertices[indexEdge3], split2)
   faces=[]
   if indexEdge == 0:
     faces.append(Face([face.vertices[0], p1, p2, face.vertices[3]]))
@@ -15,8 +15,8 @@ def splitRelFreeQuad(face, indexEdge,  split1,  split2):
   return faces
   
 def extrude(face,extrusion,capBottom=False,capTop=True):
-  normal=VectorNormal(face.vertices[0],face.vertices[1],face.vertices[2])
-  normal=VectorScale(normal,extrusion)
+  normal=vec.VectorNormal(face.vertices[0],face.vertices[1],face.vertices[2])
+  normal=vec.VectorScale(normal,extrusion)
   # calculate vertices
   new_vertices=[]
   for i in range(len(face.vertices)):
@@ -50,8 +50,8 @@ def extrudeToPoint(face, point):
   return faces
 
 def extrudeToPointCenter(face, extrusionHeight):
-  normal = FaceNormal(face)
-  normal = VectorScale(normal,extrusionHeight)
-  center = FaceCenterAverage(face)
-  center = VectorAdd(center,normal)
+  normal = vec.FaceNormal(face)
+  normal = vec.VectorScale(normal,extrusionHeight)
+  center = vec.FaceCenterAverage(face)
+  center = vec.VectorAdd(center,normal)
   return extrudeToPoint(face,center)
