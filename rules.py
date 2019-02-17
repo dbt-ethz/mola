@@ -1,4 +1,8 @@
 import reticula.vecmath as vec
+class Face:
+    def __init__(self,vertices):
+        self.vertices = vertices
+        self.color=(1,1,1,1)
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
   indexEdge1=(indexEdge+1)%len(face.vertices)
   indexEdge2=(indexEdge+2)%len(face.vertices)
