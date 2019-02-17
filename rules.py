@@ -1,4 +1,4 @@
-import vecmath
+import reticula.vecmath
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
   indexEdge1=(indexEdge+1)%len(face.vertices)
   indexEdge2=(indexEdge+2)%len(face.vertices)
