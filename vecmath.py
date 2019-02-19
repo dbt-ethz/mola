@@ -94,7 +94,7 @@ def VectorNormal(v1,v2,v3):
 def VectorNormalFromVertices(vertices):
   if len(vertices)==3:  
     return VectorNormal(vertices[0],vertices[1],vertices[2])
-  elif len(face.vertices)==4:
+  elif len(vertices)==4:
     n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
     angle = VectorAngle(n1,n2)
