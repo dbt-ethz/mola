@@ -54,7 +54,7 @@ def extrudeToPoint(face, point):
   return faces
 
 def extrudeToPointCenter(face, extrusionHeight):
-  normal = vec.FaceNormal(face)
+  normal = vec.VectorNormalFromVertices(face)
   normal = vec.VectorScale(normal,extrusionHeight)
   center = vec.FaceCenterAverage(face)
   center = vec.VectorAdd(center,normal)
