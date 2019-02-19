@@ -59,3 +59,24 @@ def extrudeToPointCenter(face, extrusionHeight):
   center = vec.VectorCenter(face.vertices)
   center = vec.VectorAdd(center,normal)
   return extrudeToPoint(face,center)
+
+def constructBoxFaces(x1,y1,z1,x2,y2,z2):
+  v1 = [x1,y1,z1]
+  v2 = [x1,y2,z1]
+  v3 = [x2,y2,z1]
+  v4 = [x2,y1,z1]
+  v5 = [x1,y1,z2]
+  v6 = [x1,y2,z2]
+  v7 = [x2,y2,z2]
+  v8 = [x2,y1,z2]
+  f1 = Face([v1, v2, v3, v4])
+  f2 = Face([v8, v7, v6, v5])
+  f3 = Face([v4, v3, v7, v8])
+  f4 = Face([v3, v2, v6, v7])
+  f5 = Face([v2, v1, v5, v6])
+  f6 = Face([v1, v4, v8, v5])
+  faces = []
+  faces.extend([f1,f2,f3,f4,f5,f6])
+  return faces
+faces = constructBoxFaces(-5,-5,-5,5,5,5)
+
