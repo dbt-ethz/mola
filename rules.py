@@ -109,3 +109,22 @@ def constructIcosahedronFaces(cx,cy,cz,radius):
     f = Face([vertices[indices[i]],vertices[indices[i + 1]],vertices[indices[i + 2]]])
     faces.append(f)
   return faces
+
+def constructTetrahedronFaces(cx,cy,cz,side):
+  coord = 1/math.sqrt(2)
+  vertices = [(+1,0,-coord),
+             (-1,0,-coord),
+             (0,+1,+coord),
+             (0,-1,+coord)]
+  
+  for i in range(len(vertices)):
+    vertices[i] = vec.VectorScale(vertices[i],side/2)
+    vertices[i] = vec.VectorAdd(vertices[i],(cx,cy,cz))
+  
+  f1 = Face([vertices[0],vertices[1],vertices[2]])
+  f2 = Face([vertices[1],vertices[0],vertices[3]])
+  f3 = Face([vertices[2],vertices[3],vertices[0]])
+  f4 = Face([vertices[3],vertices[2],vertices[1]])
+  
+  faces = [f1,f2,f3,f4]
+  return faces
