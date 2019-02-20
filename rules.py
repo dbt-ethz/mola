@@ -82,11 +82,10 @@ def constructBoxFaces(x1,y1,z1,x2,y2,z2):
   return faces
 
 def constructIcosahedronFaces(cx,cy,cz,radius):
-  	coordA = 1/(2*math.sin(2*math.pi/5))
-    coordB = math.phi/(2*math.sin(2*math.pi/5))
-    
-    vertices = [
-    (coordB, 0, coordA),  #vertices[1]
+	coordA = 1/(2*math.sin(2*math.pi/5))
+	coordB = math.phi/(2*math.sin(2*math.pi/5))
+	vertices = [
+	(coordB, 0, coordA),  #vertices[1]
 	(coordB, 0, -coordA), #vertices[2]
 	(-coordB, 0, -coordA), #vertices[3]
 	(-coordB, 0, coordA), #vertices[4]
@@ -97,13 +96,13 @@ def constructIcosahedronFaces(cx,cy,cz,radius):
 	(0, -coordA, -coordB), #vertices[9]
 	(0, coordA, -coordB), #vertices[10]
 	(0, coordA, coordB) #vertices[11] 
-    ]
-    for v in vertices:
-        v = vec.VectorScale(v,radius)
-        v = vec.VectorAdd(v,(cx,cy,cz))
+	]
+	for v in vertices:
+		v = vec.VectorScale(v,radius)
+		v = vec.VectorAdd(v,(cx,cy,cz))
         
-    indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
-    faces = []
-    for i in range(0,len(indices),3):
-        faces.append(vertices[indices[i]],vertices[indices[i + 1]],vertices[indices[i + 2]])
-    return faces
+	indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
+	faces = []
+	for i in range(0,len(indices),3):
+		faces.append(vertices[indices[i]],vertices[indices[i + 1]],vertices[indices[i + 2]])
+	return faces
