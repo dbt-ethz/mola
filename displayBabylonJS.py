@@ -3,6 +3,8 @@ code=""
 '''display variables'''
 backgroundColor = (0,0,0)
 doSkyBox = False
+skyboxInclination = 0.5
+skyboxAzimuth = 0.5
 
 def display(faces):
   begin3D()
@@ -47,22 +49,20 @@ def begin3D():
   code+='''
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);'''
-  
-  
   if(doSkyBox == False):
     code+='''scene.clearColor = new BABYLON.Color3'''
     code+= "(" + str(backgroundColor[0]) + ',' + str(backgroundColor[1]) + ',' + str(backgroundColor[2]) + ")"
   elif(doSkyBox == True):
     code+= '''
-    var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
-    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+	  var skyboxMaterial = new BABYLON.SkyMaterial("skyMaterial", scene);
     skyboxMaterial.backFaceCulling = false;
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
-    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
     skybox.material = skyboxMaterial;
-    '''
+    skyboxMaterial.inclination = '''
+    code += str(skyboxInclination) + ";"
+    code += '''
+    skyboxMaterial.azimuth = '''
+    code += str(skyboxAzimuth) + ";"
   code+='''
            var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
@@ -177,6 +177,8 @@ def background(r,g,b):
   global backgroundColor
   backgroundColor = (r,g,b)
 
-def skybox(b):
-  global doSkyBox
-  doSkyBox = b
+def skybox(inclination,azimuth):
+  global doSkyBox, skyboxInclination, skyboxAzimuth
+  doSkyBox = True
+  skyboxInclination = inclination
+  skyboxAzimuth = azimuth
