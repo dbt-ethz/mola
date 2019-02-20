@@ -82,8 +82,9 @@ def constructBoxFaces(x1,y1,z1,x2,y2,z2):
   return faces
 
 def constructIcosahedronFaces(cx,cy,cz,radius):
+	phi = (1 + 5 ** 0.5) / 2
 	coordA = 1/(2*math.sin(2*math.pi/5))
-	coordB = math.phi/(2*math.sin(2*math.pi/5))
+	coordB = phi/(2*math.sin(2*math.pi/5))
 	vertices = [
 	(coordB, 0, coordA),  #vertices[1]
 	(coordB, 0, -coordA), #vertices[2]
