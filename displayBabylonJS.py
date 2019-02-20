@@ -23,6 +23,7 @@ def display(faces):
 
 def begin3D():
   global code
+  global backgroundColor
   code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas> 
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         
