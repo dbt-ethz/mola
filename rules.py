@@ -85,18 +85,18 @@ def constructIcosahedronFaces(cx,cy,cz,radius):
   phi = (1 + 5 ** 0.5) / 2
   coordA = 1/(2*math.sin(2*math.pi/5))
   coordB = phi/(2*math.sin(2*math.pi/5))
-  vertices = [(0,-coordA,coordB), #vertices[0]
-  (coordB, 0, coordA),  #vertices[1]
-	(coordB, 0, -coordA), #vertices[2]
-	(-coordB, 0, -coordA), #vertices[3]
-	(-coordB, 0, coordA), #vertices[4]
-	(-coordA, coordB, 0), #vertices[5]
-	(coordA, coordB, 0), #vertices[6]
-	(coordA, -coordB, 0), #vertices[7]
-	(-coordA, -coordB, 0), #vertices[8]
-	(0, -coordA, -coordB), #vertices[9]
-	(0, coordA, -coordB), #vertices[10]
-	(0, coordA, coordB)] #vertices[11]
+  vertices = [(0,-coordA,coordB),
+	      (coordB, 0, coordA),
+	      (coordB, 0, -coordA),
+	      (-coordB, 0, -coordA),
+	      (-coordB, 0, coordA),
+	      (-coordA, coordB, 0),
+	      (coordA, coordB, 0),
+	      (coordA, -coordB, 0),
+	      (-coordA, -coordB, 0),
+	      (0, -coordA, -coordB),
+	      (0, coordA, -coordB),
+	      (0, coordA, coordB)]
   
   for i in range(len(vertices)):
     vertices[i] = vec.VectorScale(vertices[i],radius)
