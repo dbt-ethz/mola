@@ -1,7 +1,7 @@
 code=""
 
 '''display variables'''
-backgroundColor=(1,0,0)
+backgroundColor=(0,0,0)
 
 def display(faces):
   begin3D()
@@ -160,6 +160,4 @@ def end3D():
   
 def background(r,g,b):
   global backgroundColor
-  backgroundColor[0] = r
-  backgroundColor[1] = g
-  backgroundColor[2] = b
+  backgroundColor = (r,g,b)
