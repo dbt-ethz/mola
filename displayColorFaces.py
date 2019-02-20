@@ -46,11 +46,8 @@ def getTriangleArea3DCoords(xa,ya,za,xb,yb,zb,xc,yc,zc):
 	return 0.5 * math.sqrt(math.pow(determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
 def map(value, fromMin, fromMax, toMin, toMax):
-	if(fromMin!=toMin and fromMax!=toMax):
-		return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
-	else:
-		return value
-
+	return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
+	
 def getFaceArea(face):
 	if(len(face.vertices) == 3):
 		return getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2])
