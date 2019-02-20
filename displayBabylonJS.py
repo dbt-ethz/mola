@@ -23,7 +23,6 @@ def display(faces):
 
 def begin3D():
   global code
-  global backgroundColor
   code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas> 
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         
@@ -47,7 +46,9 @@ def begin3D():
   code+='''
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);
-           scene.clearColor = new BABYLON.Color3(backgroundColor[0],0,0)
+           scene.clearColor = new BABYLON.Color3'''
+  code+= "(" + str(backgroundColor[0]) + ',' + str(backgroundColor[1]) + ',' + str(backgroundColor[2]) + ")"
+  code+='''
            var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
         	 var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
