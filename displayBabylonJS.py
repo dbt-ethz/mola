@@ -1,7 +1,7 @@
 code=""
 
 '''display variables'''
-backgroundColor=(0,0,0)
+backgroundColor=(1,0,0)
 
 def display(faces):
   begin3D()
@@ -46,7 +46,7 @@ def begin3D():
   code+='''
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);
-           scene.clearColor = new BABYLON.Color3(1,0,0)
+           scene.clearColor = new BABYLON.Color3(backgroundColor[0],0,0)
            var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
         	 var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
