@@ -1,4 +1,8 @@
 code=""
+
+'''display variables'''
+backgroundColor=(0,0,0)
+
 def display(faces):
   begin3D()
   positions=[]
@@ -42,7 +46,8 @@ def begin3D():
   code+='''
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);
-        	 var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
+           scene.clearColor = new BABYLON.Color3(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
+           var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
         	 var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
             camera.setPosition(new BABYLON.Vector3(0, 5, -30));
@@ -150,3 +155,8 @@ def end3D():
         });
     </script> 
   '''
+  
+def background(r,g,b):
+  backgroundColor[0] = r
+  backgroundColor[1] = g
+  backgroundColor[2] = b
