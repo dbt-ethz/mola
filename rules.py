@@ -1,4 +1,4 @@
-import reticula.vecmath as vec
+import mola.vecmath as vec
 import math
 
 class Face:
