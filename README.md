@@ -1,2 +1,2 @@
-# Reticula
+# Mola
 Pure Python Mesh Structure
