@@ -1,6 +1,6 @@
 import math
 import colorsys
-import reticula.vecmath as vec
+import mola.vecmath as vec
 
 def getColorRgb(hue):
 	col = colorsys.hsv_to_rgb(hue,1,1)
