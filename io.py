@@ -1,4 +1,4 @@
-from reticula.rules import Face
+from mola.rules import Face
 def importOBJFaces(filename):
     """Loads a Wavefront OBJ file. """
     vertices = []
