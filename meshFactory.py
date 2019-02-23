@@ -1,3 +1,4 @@
+import core
 from core import Mesh 
 from core import Vertex 
 from core import Face
