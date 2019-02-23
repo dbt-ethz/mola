@@ -1,7 +1,6 @@
-from mola.core import Mesh 
-from mola.core import Vertex 
-from mola.core import Face
-
+from core import Mesh 
+from core import Vertex 
+from core import Face
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     mesh=Mesh()
     v1 = Vertex(x1,y1,z1)
