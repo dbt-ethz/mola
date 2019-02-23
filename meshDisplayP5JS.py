@@ -20,6 +20,7 @@ def beginDraw2D():
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
 <script>
 new p5();
+createCanvas(1024, 768);
 '''
 
 def endDraw2D():
