@@ -1,5 +1,5 @@
 def displayLines2D(lines):
-    code=beginDraw2D():
+    code=beginDraw2D()
     for line in lines:
         code+="line("+str(line.v1.x)+","+str(line.v1.y)+str(line.v2.x)+","+str(line.v2.y)+");"
     code+=endDraw2D()
