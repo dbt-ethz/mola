@@ -1,9 +1,9 @@
-import core
 from core import Mesh 
 from core import Vertex 
 from core import Face
+
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
-    mesh=Mesh()
+    mesh = Mesh()
     v1 = Vertex(x1,y1,z1)
     v2 = Vertex(x1,y2,z1)
     v3 = Vertex(x2,y2,z1)
