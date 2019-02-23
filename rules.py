@@ -137,8 +137,28 @@ def construct DodecahedronFaces(cx,cy,cz,radius):
     for i in range(len(vertices)):
         vertices[i] = vec.VectorScale(vertices[i],radius)
         vertices[i] = vec.VectorAdd(vertices[i],(cx,cy,cz))
-    indices = []
+    indices = [2,9,6,18,19,
+               4,11,0,19,18,
+               18,6,12,13,4,
+               19,0,15,14,2,
+               4,13,5,10,11,
+               14,15,1,17,3,
+               1,15,0,11,10,
+               3,17,16,7,8,
+               2,14,3,8,9,
+               6,9,8,7,12,
+               1,10,5,16,17,
+               12,7,16,5,13]
+
     faces = []
+    for i in range(0,len(indices),5):
+        f = Face([vertices[indices[i]],
+                  vertices[indices[i + 1]],
+                  vertices[indices[i + 2]],
+                  vertices[indices[i + 3]],
+                  vertices[indices[i + 4]]])
+        faces.append(f)
+    return faces
 
 def constructTetrahedronFaces(cx,cy,cz,side):
     coord = 1/math.sqrt(2)
