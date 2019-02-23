@@ -6,7 +6,7 @@ def displayLines2D(lines):
     return code
 
 def displayFaces2D(faces):
-    code=beginDraw2D():
+    code=beginDraw2D()
     for face in faces:
         code+="beginSphape();"
         for v in face.vertices:
