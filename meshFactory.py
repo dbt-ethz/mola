@@ -1,5 +1,5 @@
 import mola.core
-import Mesh from mola.core
+from mola.core import Mesh 
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     mesh=Mesh()
