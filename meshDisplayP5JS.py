@@ -8,7 +8,7 @@ def displayLines2D(lines):
 def displayFaces2D(faces):
     code=beginDraw2D()
     for face in faces:
-        code+="beginSphape();"
+        code+="beginShape();"
         for v in face.vertices:
             code+="vertex("+str(v.x)+","+str(v.y)+");"
         code+="endShape();"
