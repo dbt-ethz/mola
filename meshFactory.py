@@ -1,4 +1,3 @@
-import mola.core
 from mola.core import Mesh 
 from mola.core import Vertex 
 from mola.core import Face 
