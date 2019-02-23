@@ -111,7 +111,7 @@ def constructIcosahedronFaces(cx,cy,cz,radius):
         faces.append(f)
     return faces
 
-def construct DodecahedronFaces(cx,cy,cz,radius):
+def constructDodecahedronFaces(cx,cy,cz,radius):
     phi = (1 + 5**0.5)/2
     vertices = [( 1, 1, 1),
                 ( 1, 1,-1),
