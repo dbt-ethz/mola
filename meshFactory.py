@@ -2,6 +2,7 @@ from mola.core import Mesh
 from mola.core import Vertex
 from mola.core import Face
 import mola.meshMath as vec
+import math
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     mesh = Mesh()
