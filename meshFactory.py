@@ -1,5 +1,5 @@
-from mola.core import Mesh 
-from mola.core import Vertex 
+from mola.core import Mesh
+from mola.core import Vertex
 from mola.core import Face
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
@@ -77,9 +77,9 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
                 Vertex(-1/phi,0, phi),
                 Vertex( 1/phi,0, phi)]
 
-    for i in range(len(vertices)):
-        vertices[i] = vec.VectorScale(vertices[i],radius)
-        vertices[i] = vec.VectorAdd(vertices[i],(cx,cy,cz))
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = vec.VectorScale(mesh.vertices[i],radius)
+        mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],(cx,cy,cz))
     indices = [2,9,6,18,19,
                4,11,0,19,18,
                18,6,12,13,4,
@@ -95,11 +95,11 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
 
     faces = []
     for i in range(0,len(indices),5):
-        f = Face([vertices[indices[i]],
-                  vertices[indices[i + 1]],
-                  vertices[indices[i + 2]],
-                  vertices[indices[i + 3]],
-                  vertices[indices[i + 4]]])
+        f = Face([mesh.vertices[indices[i]],
+                  mesh.vertices[indices[i + 1]],
+                  mesh.vertices[indices[i + 2]],
+                  mesh.vertices[indices[i + 3]],
+                  mesh.vertices[indices[i + 4]]])
         faces.append(f)
     mesh.faces=faces
     return mesh
