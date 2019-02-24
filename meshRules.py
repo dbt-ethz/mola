@@ -1,4 +1,4 @@
-import mola.core
+from mola.core import *
 import mola.meshMath
 import mola.meshMath as vec
 
