@@ -43,10 +43,17 @@ def VectorDistance(v1,v2):
 
 def VectorCenter(vertices):
   # return the average of all boundarypoints
+  '''
   center=[0,0,0]
   for vertex in vertices:
     center=VectorAdd(vertex,center)
   return VectorDivide(center,len(vertices))
+  '''
+  n = len(vertices)
+  cx = sum([v.x for v in vertices])/n
+  cy = sum([v.y for v in vertices])/n
+  cz = sum([v.z for v in vertices])/n
+  return Vertex(cx,cy,cz)
 
 def VectorPerimeter(vertices):
   perimeter=0
