@@ -49,7 +49,8 @@ def determinant(a,b,c,d,e,f,g,h,i):
 	return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
 
 def getTriangleArea3D(a,b,c):
-	return getTriangleArea3DCoords(a[0],a[1],a[2],b[0],b[1],b[2],c[0],c[1],c[2])
+	return getTriangleArea3DCoords(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z)
+	#return getTriangleArea3DCoords(a[0],a[1],a[2],b[0],b[1],b[2],c[0],c[1],c[2])
 
 def getTriangleArea3DCoords(xa,ya,za,xb,yb,zb,xc,yc,zc):
 	return 0.5 * math.sqrt(math.pow(determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
