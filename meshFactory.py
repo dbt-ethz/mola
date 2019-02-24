@@ -41,15 +41,15 @@ def constructIcosahedronMesh(cx,cy,cz,radius):
                 Vertex(0, coordA, -coordB),
                 Vertex(0, coordA, coordB)]
 
-    for i in range(len(vertices)):
-        vertices[i] = vec.VectorScale(vertices[i],radius)
-        vertices[i] = vec.VectorAdd(vertices[i],(cx,cy,cz))
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = vec.VectorScale(mesh.vertices[i],radius)
+        mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],Vertex(cx,cy,cz))
 
     indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
     faces = []
 
     for i in range(0,len(indices),3):
-        f = Face([vertices[indices[i]],vertices[indices[i + 1]],vertices[indices[i + 2]]])
+        f = Face([mesh.vertices[indices[i]],mesh.vertices[indices[i + 1]],mesh.vertices[indices[i + 2]]])
         faces.append(f)
     mesh.faces=faces
     return mesh
@@ -80,7 +80,7 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
 
     for i in range(len(mesh.vertices)):
         mesh.vertices[i] = vec.VectorScale(mesh.vertices[i],radius)
-        mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],(cx,cy,cz))
+        mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],Vertex(cx,cy,cz))
     indices = [2,9,6,18,19,
                4,11,0,19,18,
                18,6,12,13,4,
@@ -109,18 +109,18 @@ def constructTetrahedronMesh(cx,cy,cz,side):
     mesh=Mesh()
     coord = 1/math.sqrt(2)
     mesh.vertices = [Vertex(+1,0,-coord),
-                Vertex(-1,0,-coord),
-                Vertex(0,+1,+coord),
-                Vertex(0,-1,+coord)]
+                     Vertex(-1,0,-coord),
+                     Vertex(0,+1,+coord),
+                     Vertex(0,-1,+coord)]
 
     for i in range(len(vertices)):
-        vertices[i] = vec.VectorScale(vertices[i],side/2)
-        vertices[i] = vec.VectorAdd(vertices[i],(cx,cy,cz))
+        mesh.vertices[i] = vec.VectorScale(mesh.vertices[i],side/2)
+        mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],Vertex(cx,cy,cz))
 
-    f1 = Face([vertices[0],vertices[1],vertices[2]])
-    f2 = Face([vertices[1],vertices[0],vertices[3]])
-    f3 = Face([vertices[2],vertices[3],vertices[0]])
-    f4 = Face([vertices[3],vertices[2],vertices[1]])
+    f1 = Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[2]])
+    f2 = Face([mesh.vertices[1],mesh.vertices[0],mesh.vertices[3]])
+    f3 = Face([mesh.vertices[2],mesh.vertices[3],mesh.vertices[0]])
+    f4 = Face([mesh.vertices[3],mesh.vertices[2],mesh.vertices[1]])
 
     mesh.faces = [f1,f2,f3,f4]
     return mesh
