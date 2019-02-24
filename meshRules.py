@@ -1,5 +1,6 @@
 import mola.core
 import mola.meshMath
+import mola.meshMath as vec
 
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
     indexEdge1=(indexEdge+1)%len(face.vertices)
