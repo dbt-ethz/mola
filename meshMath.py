@@ -94,10 +94,10 @@ def VectorNormal(v1,v2,v3):
 
 def VectorNormalFromVertices(vertices):
   if len(vertices)==3:
-    return VectorNormal(vertices.x,vertices.y,vertices.z)
+    return VectorNormal(vertices[0],vertices[1],vertices[2])
   elif len(vertices)==4:
-    n1 = VectorNormal(vertices.x,vertices.y,vertices.z)
-    n2 = VectorNormal(vertices.z,vertices[3],vertices.x)
+    n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
+    n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
     angle = VectorAngle(n1,n2)
     if(angle>math.pi-0.01):
       n2 = VectorScale(n2,-1)
