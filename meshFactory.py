@@ -103,7 +103,17 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
                   mesh.vertices[indices[i + 3]],
                   mesh.vertices[indices[i + 4]]])
         faces.append(f)
-    mesh.faces=faces
+
+    # make triangles
+    newfaces = []
+    for f in faces:
+        v = vec.VectorCenter(f.vertices)
+        mesh.vertices.append(v)
+        for i,cv in enumerate(f.vertices):
+            nv = f.vertices[(i+1)%len(f.vertices)]
+            newfaces.append(Face([cv,nv,v]))
+
+    mesh.faces = newfaces
     return mesh
 
 def constructTetrahedronMesh(cx,cy,cz,side):
