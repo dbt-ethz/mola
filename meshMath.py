@@ -1,7 +1,9 @@
 import math
+from core import Vertex
 
 def VectorAdd(v1,v2):
-  return [v1.x+v2.x,v1.y+v2.y,v1.z+v2.z]
+    return Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
+    #return [v1.x+v2.x,v1.y+v2.y,v1.z+v2.z]
 
 def VectorAngle(v1,v2):
   a=VectorUnitize(v1)
@@ -9,13 +11,16 @@ def VectorAngle(v1,v2):
   return math.acos(VectorDotProduct(a,b))
 
 def VectorSubtract(v1,v2):
-  return [v1.x-v2.x,v1.y-v2.y,v1.z-v2.z]
+    return Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
+    #return [v1.x-v2.x,v1.y-v2.y,v1.z-v2.z]
 
 def VectorScale(v,factor):
-  return [v.x*factor,v.y*factor,v.z*factor]
+    return Vertex(v.x*factor,v.y*factor,v.z*factor)
+    #return [v.x*factor,v.y*factor,v.z*factor]
 
 def VectorDivide(v,factor):
-  return [v.x/factor,v.y/factor,v.z/factor]
+    return Vertex(v.x/factor,v.y/factor,v.z/factor)
+    #return [v.x/factor,v.y/factor,v.z/factor]
 
 def VectorLength(v):
   return math.sqrt(v.x*v.x+v.y*v.y+v.z*v.z)
@@ -24,7 +29,8 @@ def VectorUnitize(v):
   return VectorDivide(v,VectorLength(v))
 
 def VectorCrossProduct(v1,v2):
-  return [v1.y * v2.z - v2.y * v1.z,v1.z * v2.x - v2.z * v1.x,v1.x * v2.y - v2.x * v1.y]
+    return Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)
+    #return [v1.y * v2.z - v2.y * v1.z,v1.z * v2.x - v2.z * v1.x,v1.x * v2.y - v2.x * v1.y]
 
 def VectorDotProduct(v1,v2):
   return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z
@@ -51,7 +57,8 @@ def VectorPerimeter(vertices):
   return perimeter
 
 def VectorBetweenRel( v1,  v2,  f):
-  return [(v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z]
+    return Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
+    #return [(v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z]
 
 def VectorBetweenAbs( v1,  v2,  f):
   d = VectorDistance(v1,v2)
@@ -69,7 +76,8 @@ def VectorLineLineIntersection(a,b,c,d):
   r = numerator / denominator
   x = a.x + r * deltaABX
   y = a.y + r * deltaABY
-  return [x,y,0]
+  return Vertex(x,y,0)
+  #return [x,y,0]
 
 def VectorOffsetLine(v1, v2,  offset):
   v = VectorSubtract(v2, v1)
@@ -79,7 +87,8 @@ def VectorOffsetLine(v1, v2,  offset):
   v.x = -v.y
   v.y = t
   v.z=0
-  return [VectorAdd(v1,v),VectorAdd(v2,v)]
+  return Vertex(VectorAdd(v1,v),VectorAdd(v2,v))
+  #return [VectorAdd(v1,v),VectorAdd(v2,v)]
 
 def VectorOffsetPoint(v1,  v2,  v3,  offset1,  offset2):
   line1= VectorOffsetLine(v1, v2, offset1);
