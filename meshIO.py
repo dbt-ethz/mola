@@ -1,4 +1,4 @@
-import mola.core 
+import mola.core
 
 def importOBJMesh(filename):
     """Loads a Wavefront OBJ file. """
@@ -54,7 +54,8 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
         file.write("usemtl material"+str(face.color)+"\n")
         faceString="f"
         for p in face.vertices:
-            ptuple=(p[0],p[1],p[2])
+            #ptuple=(p[0],p[1],p[2])
+            ptuple=(p.x,p.y,p.z)
             if ptuple in vertices:
                 faceString+=" "+str(vertices[ptuple])
             else:

@@ -124,7 +124,7 @@ def constructTetrahedronMesh(cx,cy,cz,side):
                      Vertex(0,+1,+coord),
                      Vertex(0,-1,+coord)]
 
-    for i in range(len(vertices)):
+    for i in range(len(mesh.vertices)):
         mesh.vertices[i] = vec.VectorScale(mesh.vertices[i],side/2)
         mesh.vertices[i] = vec.VectorAdd(mesh.vertices[i],Vertex(cx,cy,cz))
 
