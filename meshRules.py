@@ -52,7 +52,7 @@ def extrudeTapered(face, height, fraction):
     new_vertices = []
     for i in range(len(face.vertices)):
         n1 = face.vertices[i]
-        betw = vec.VectorSubtract(n1, center_vertex)
+        betw = vec.VectorSubtract(center_vertex, n1)
         betw = vec.VectorScale(betw, fraction)
         nn = vec.VectorAdd(n1, betw)
         nn = vec.VectorAdd(nn, scaled_normal)

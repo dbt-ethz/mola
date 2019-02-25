@@ -111,7 +111,7 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
             nv = f.vertices[(i+1)%len(f.vertices)]
-            newfaces.append(Face([cv,nv,v]))
+            newfaces.append(Face([cv,v,nv]))
 
     mesh.faces = newfaces
     return mesh
