@@ -43,6 +43,37 @@ def extrude(face,extrusion,capBottom=False,capTop=True):
         new_face.color=face.color
     return new_faces
 
+def extrudeTapered(face, height, fraction):
+    center_vertex = vec.VectorCenter(face.vertices)
+    normal = vec.VectorNormalFromVertices(face.vertices)
+    scaled_normal = vec.VectorScale(normal, height)
+
+    # calculate new vertex positions
+    new_vertices = []
+    for i in range(len(face.vertices)):
+        n1 = face.vertices[i]
+        betw = vec.VectorSubtract(center_vertex, n1)
+        betw = vec.VectorScale(betw, fraction)
+        nn = vec.VectorAdd(n1, betw)
+        nn = vec.VectorAdd(nn, scaled_normal)
+        new_vertices.append(Vertex(nn.x,nn.y,nn.z))
+
+    new_faces = []
+    # create the quads along the edges
+    for i in range(len(face.vertices)):
+        n1 = face.vertices[i]
+        n2 = face.vertices[(i+1) % len(face.vertices)]
+        n3 = new_vertices[(i+1) % len(face.vertices)]
+        n4 = new_vertices[i]
+        new_face = Face([n1,n2,n3,n4])
+        new_faces.append(new_face)
+
+    # create the closing cap face
+    cap_face = Face(new_vertices)
+    new_faces.append(cap_face)
+
+    return new_faces
+
 def extrudeToPoint(face, point):
     numV = len(face.vertices)
     faces = []
