@@ -52,18 +52,19 @@ def extrudeTapered(face, height, fraction):
     new_vertices = []
     for i in range(len(face.vertices)):
         n1 = face.vertices[i]
-        betw = vec.VectorSubtract(center_vertex, n1)
+        betw = vec.VectorSubtract(n1, center_vertex)
         betw = vec.VectorScale(betw, fraction)
         nn = vec.VectorAdd(n1, betw)
         nn = vec.VectorAdd(nn, scaled_normal)
-        new_vertices.append(Vertex(nn.x,nn.y,nn.z))
+        new_vertices.append(nn)
 
     new_faces = []
     # create the quads along the edges
-    for i in range(len(face.vertices)):
+    num = len(face.vertices)
+    for i in range(num):
         n1 = face.vertices[i]
-        n2 = face.vertices[(i+1) % len(face.vertices)]
-        n3 = new_vertices[(i+1) % len(face.vertices)]
+        n2 = face.vertices[(i+1) % num]
+        n3 = new_vertices[(i+1) % num]
         n4 = new_vertices[i]
         new_face = Face([n1,n2,n3,n4])
         new_faces.append(new_face)
