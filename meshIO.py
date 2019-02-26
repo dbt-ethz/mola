@@ -1,17 +1,19 @@
-import mola.core
+from mola.core import Mesh as _Mesh
+from mola.core import Vertex as _Vertex
+from mola.core import Face as _Face
 
 def importOBJMesh(filename):
     """Loads a Wavefront OBJ file. """
-    mesh=Mesh()
+    mesh=_Mesh()
     for line in open(filename, "r"):
         if line.startswith('#'): continue
         values = line.split()
         if not values: continue
         if values[0] == 'v':
             v = map(float, values[1:4])
-            mesh.vertices.append(Vertex(v[0],v[1],v[2]))
+            mesh.vertices.append(_Vertex(v[0],v[1],v[2]))
         elif values[0] == 'f':
-            face = Face([])
+            face = _Face([])
             for v in values[1:]:
                 w = v.split('/')
                 vertex=vertices[int(w[0])-1]
@@ -29,9 +31,9 @@ def importOBJFaces(filename):
         if not values: continue
         if values[0] == 'v':
             v = map(float, values[1:4])
-            vertices.append(Vertex(v[0],v[1],v[2]))
+            vertices.append(_Vertex(v[0],v[1],v[2]))
         elif values[0] == 'f':
-            face = Face([])
+            face = _Face([])
             for v in values[1:]:
                 w = v.split('/')
                 vertex=vertices[int(w[0])-1]
