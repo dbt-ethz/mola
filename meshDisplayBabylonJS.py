@@ -1,13 +1,13 @@
 code=""
 
 '''display variables'''
-backgroundColor = (0,0,0)
+__backgroundColor = (0,0,0)
 
 def displayMesh(mesh):
   return display(mesh.faces)
 
 def display(faces):
-  begin3D()
+  __begin3D()
   positions=[]
   indices=[]
   colors=[]
@@ -20,11 +20,11 @@ def display(faces):
     if len(face.vertices)==4:
       indices.extend([cIndex+2,cIndex+3,cIndex])
     cIndex+=len(face.vertices)
-  drawMeshWithColors(positions,indices,colors)
-  end3D()
+  __drawMeshWithColors(positions,indices,colors)
+  __end3D()
   return code
 
-def begin3D():
+def __begin3D():
   global code
   code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
@@ -59,7 +59,7 @@ def begin3D():
         	 camera.attachControl(canvas, true);
         	'''
 
-def drawMeshWithColors(vertices,faces,vertexColors):
+def __drawMeshWithColors(vertices,faces,vertexColors):
   global code
   code+="var positions = "
   code+=str(vertices)
@@ -73,12 +73,12 @@ def drawMeshWithColors(vertices,faces,vertexColors):
   return code
 
 
-def drawTestMesh():
+def __drawTestMesh():
   global code
   code+='''	var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
         	var indices = [0, 1, 2, 3, 4, 5];	'''
 
-def end3D():
+def __end3D():
   global code
   code+= '''
           //Create a custom mesh
@@ -162,5 +162,5 @@ def end3D():
   '''
 
 def background(r,g,b):
-  global backgroundColor
-  backgroundColor = (r,g,b)
+  global __backgroundColor
+  __backgroundColor = (r,g,b)
