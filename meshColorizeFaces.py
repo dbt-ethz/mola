@@ -1,8 +1,8 @@
-import colorsys
+import colorsys as _colorsys
 import mola.meshAnalysis as _analysis
 
 def __getColorRgb(hue):
-	col = colorsys.hsv_to_rgb(hue,1,1)
+	col = _colorsys.hsv_to_rgb(hue,1,1)
 	return (col[0],col[1],col[2],1)
 
 def mapValuesToColor(values):
