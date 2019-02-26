@@ -1,4 +1,5 @@
 import math
+import mola.meshMath as _vec
 
 def determinant(a,b,c,d,e,f,g,h,i):
 	return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
@@ -20,9 +21,9 @@ def getFacePerimeter(face):
 	for i in range(len(face.vertices)):
 		v1 = face.vertices[i]
 		v2 = face.vertices[(i+1)%len(face.vertices)]
-		sum += vec.VectorDistance(v1,v2)
+		sum += _vec.VectorDistance(v1,v2)
 	return sum
 
 def getFaceVerticality(face):
-	normal = vec.VectorNormalFromVertices(face.vertices)
+	normal = _vec.VectorNormalFromVertices(face.vertices)
 	return math.atan2(normal[1] * normal[1], normal[0] * normal[0])
