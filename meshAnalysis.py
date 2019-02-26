@@ -26,4 +26,5 @@ def getFacePerimeter(face):
 
 def getFaceVerticality(face):
 	normal = _vec.VectorNormalFromVertices(face.vertices)
-	return math.atan2(normal[1] * normal[1], normal[0] * normal[0])
+	return math.atan2(normal.y * normal.y, normal.x * normal.x)
+	#return math.atan2(normal[1] * normal[1], normal[0] * normal[0])
