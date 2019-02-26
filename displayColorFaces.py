@@ -2,7 +2,7 @@ import math
 import colorsys
 import mola.vecmath as vec
 
-def getColorRgb(hue):
+def __getColorRgb(hue):
 	col = colorsys.hsv_to_rgb(hue,1,1)
 	return (col[0],col[1],col[2],1)
 	
@@ -14,7 +14,7 @@ def colorFacesByArea(faces):
 	valueMax = max(values)
 	for i, face in enumerate(faces):
 		h = map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = getColorRgb(h)
+		face.color = __getColorRgb(h)
 
 def colorFacesByPerimeter(faces):
 	values = []
@@ -24,7 +24,7 @@ def colorFacesByPerimeter(faces):
 	valueMax = max(values)
 	for i , face in enumerate(faces):
 		h = map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = getColorRgb(h)
+		face.color = __getColorRgb(h)
 		
 def colorFacesByVerticality(faces):
 	values = []
@@ -34,7 +34,7 @@ def colorFacesByVerticality(faces):
 	valueMax = max(values)
 	for i , face in enumerate(faces):
 		h = map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = getColorRgb(h)
+		face.color = __getColorRgb(h)
 		
 def determinant(a,b,c,d,e,f,g,h,i):
 	return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
