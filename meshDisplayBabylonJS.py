@@ -50,7 +50,7 @@ def __begin3D():
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);'''
   __code+='''scene.clearColor = new BABYLON.Color3'''
-  __code+= "(" + str(backgroundColor[0]) + ',' + str(backgroundColor[1]) + ',' + str(backgroundColor[2]) + ")"
+  __code+= "(" + str(__backgroundColor[0]) + ',' + str(__backgroundColor[1]) + ',' + str(__backgroundColor[2]) + ")"
   __code+='''
            var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
