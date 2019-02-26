@@ -1,10 +1,10 @@
-code=""
+__code=""
 
 '''display variables'''
-backgroundColor = (0,0,0)
+__backgroundColor = (0,0,0)
 
 def display(faces):
-    begin3D()
+    __begin3D()
     positions=[]
     indices=[]
     colors=[]
@@ -17,13 +17,13 @@ def display(faces):
     if len(face.vertices)==4:
         indices.extend([cIndex+2,cIndex+3,cIndex])
     cIndex+=len(face.vertices)
-    drawMeshWithColors(positions,indices,colors)
-    end3D()
-    return code
+    __drawMeshWithColors(positions,indices,colors)
+    __end3D()
+    return __code
 
-def begin3D():
-    global code
-    code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas>
+def __begin3D():
+    global __code
+    __code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
 
         <style>
@@ -43,12 +43,12 @@ def begin3D():
         </style>
         <script>
       var canvas = document.getElementById("renderCanvas");'''
-    code+='''
+    __code+='''
           var createScene = function () {
         	 var scene = new BABYLON.Scene(engine);'''
-    code+='''scene.clearColor = new BABYLON.Color3'''
-    code+= "(" + str(backgroundColor[0]) + ',' + str(backgroundColor[1]) + ',' + str(backgroundColor[2]) + ")"
-    code+='''
+    __code+='''scene.clearColor = new BABYLON.Color3'''
+    __code+= "(" + str(backgroundColor[0]) + ',' + str(backgroundColor[1]) + ',' + str(backgroundColor[2]) + ")"
+    __code+='''
            var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);
         	 var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);
         	 var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
@@ -56,28 +56,28 @@ def begin3D():
         	 camera.attachControl(canvas, true);
         	'''
 
-def drawMeshWithColors(vertices,faces,vertexColors):
-    global code
-    code+="var positions = "
-    code+=str(vertices)
-    code+=";"
-    code+="var indices = "
-    code+=str(faces)
-    code+=";"
-    code+="var colors = "
-    code+=str(vertexColors);
-    code+=";"
-    return code
+def __drawMeshWithColors(vertices,faces,vertexColors):
+    global __code
+    __code+="var positions = "
+    __code+=str(vertices)
+    __code+=";"
+    __code+="var indices = "
+    __code+=str(faces)
+    __code+=";"
+    __code+="var colors = "
+    __code+=str(vertexColors);
+    __code+=";"
+    return __code
 
 
-def drawTestMesh():
-    global code
-    code+='''	var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
+def __drawTestMesh():
+    global __code
+    __code+='''	var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
         	var indices = [0, 1, 2, 3, 4, 5];	'''
 
-def end3D():
-    global code
-    code+= '''
+def __end3D():
+    global __code
+    __code+= '''
           //Create a custom mesh
         	var customMesh = new BABYLON.Mesh("custom", scene);
           //Empty array to contain calculated values
@@ -159,5 +159,5 @@ def end3D():
   '''
 
 def background(r,g,b):
-    global backgroundColor
-    backgroundColor = (r,g,b)
+    global __backgroundColor
+    __backgroundColor = (r,g,b)
