@@ -4,7 +4,7 @@ import mola.meshAnalysis as _analysis
 __grayscale = False;
 
 def __getColorRgb(hue):
-	if(__grayscale is True):
+	if __grayscale:
 		return (hue,hue,hue,1)
 	else:
 		col = _colorsys.hsv_to_rgb(hue,1,1)
