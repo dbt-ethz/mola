@@ -1,6 +1,5 @@
 import colorsys
-import mola.meshMath as vec
-import mola.meshAnalysis as analysis
+import mola.meshAnalysis as _analysis
 
 def __getColorRgb(hue):
 	col = colorsys.hsv_to_rgb(hue,1,1)
@@ -18,7 +17,7 @@ def mapValuesToColor(values):
 def colorFacesByArea(faces):
 	values = []
 	for face in faces:
-		values.append(analysis.getFaceArea(face))
+		values.append(_analysis.getFaceArea(face))
 	valueMin = min(values)
 	valueMax = max(values)
 	for i, face in enumerate(faces):
@@ -28,7 +27,7 @@ def colorFacesByArea(faces):
 def colorFacesByPerimeter(faces):
 	values = []
 	for face in faces:
-		values.append(analysis.getFacePerimeter(face))
+		values.append(_analysis.getFacePerimeter(face))
 	valueMin = min(values)
 	valueMax = max(values)
 	for i , face in enumerate(faces):
@@ -38,7 +37,7 @@ def colorFacesByPerimeter(faces):
 def colorFacesByVerticality(faces):
 	values = []
 	for face in faces:
-		values.append(analysis.getFaceVerticality(face))
+		values.append(_analysis.getFaceVerticality(face))
 	valueMin = min(values)
 	valueMax = max(values)
 	for i , face in enumerate(faces):
