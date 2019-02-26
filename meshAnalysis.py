@@ -1,4 +1,4 @@
-import math
+import math as _math
 import mola.meshMath as _vec
 
 def __determinant(a,b,c,d,e,f,g,h,i):
@@ -8,7 +8,7 @@ def __getTriangleArea3D(a,b,c):
 	return __getTriangleArea3DCoords(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z)
 
 def __getTriangleArea3DCoords(xa,ya,za,xb,yb,zb,xc,yc,zc):
-	return 0.5 * math.sqrt(math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
+	return 0.5 * _math.sqrt(_math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + _math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + _math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
 def getFaceArea(face):
 	if(len(face.vertices) == 3):
@@ -26,5 +26,5 @@ def getFacePerimeter(face):
 
 def getFaceVerticality(face):
 	normal = _vec.VectorNormalFromVertices(face.vertices)
-	return math.atan2(normal.y * normal.y, normal.x * normal.x)
-	#return math.atan2(normal[1] * normal[1], normal[0] * normal[0])
+	return _math.atan2(normal.y * normal.y, normal.x * normal.x)
+	#return _math.atan2(normal[1] * normal[1], normal[0] * normal[0])
