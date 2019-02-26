@@ -1,35 +1,35 @@
-import math
-from mola.core import Vertex
+import math as _math
+from mola.core import Vertex as _Vertex
 
 def VectorAdd(v1,v2):
-    return Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
+    return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
     #return [v1.x+v2.x,v1.y+v2.y,v1.z+v2.z]
 
 def VectorAngle(v1,v2):
   a=VectorUnitize(v1)
   b=VectorUnitize(v2)
-  return math.acos(VectorDotProduct(a,b))
+  return _math.acos(VectorDotProduct(a,b))
 
 def VectorSubtract(v1,v2):
-    return Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
+    return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
     #return [v1.x-v2.x,v1.y-v2.y,v1.z-v2.z]
 
 def VectorScale(v,factor):
-    return Vertex(v.x*factor,v.y*factor,v.z*factor)
+    return _Vertex(v.x*factor,v.y*factor,v.z*factor)
     #return [v.x*factor,v.y*factor,v.z*factor]
 
 def VectorDivide(v,factor):
-    return Vertex(v.x/factor,v.y/factor,v.z/factor)
+    return _Vertex(v.x/factor,v.y/factor,v.z/factor)
     #return [v.x/factor,v.y/factor,v.z/factor]
 
 def VectorLength(v):
-  return math.sqrt(v.x*v.x+v.y*v.y+v.z*v.z)
+  return _math.sqrt(v.x*v.x+v.y*v.y+v.z*v.z)
 
 def VectorUnitize(v):
   return VectorDivide(v,VectorLength(v))
 
 def VectorCrossProduct(v1,v2):
-    return Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)
+    return _Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)
     #return [v1.y * v2.z - v2.y * v1.z,v1.z * v2.x - v2.z * v1.x,v1.x * v2.y - v2.x * v1.y]
 
 def VectorDotProduct(v1,v2):
@@ -39,7 +39,7 @@ def VectorDistance(v1,v2):
   dX=v2.x-v1.x
   dY=v2.y-v1.y
   dZ=v2.z-v1.z
-  return math.sqrt(dX*dX+dY*dY+dZ*dZ)
+  return _math.sqrt(dX*dX+dY*dY+dZ*dZ)
 
 def VectorCenter(vertices):
   # return the average of all boundarypoints
@@ -53,7 +53,7 @@ def VectorCenter(vertices):
   cx = sum([v.x for v in vertices])/n
   cy = sum([v.y for v in vertices])/n
   cz = sum([v.z for v in vertices])/n
-  return Vertex(cx,cy,cz)
+  return _Vertex(cx,cy,cz)
 
 def VectorPerimeter(vertices):
   perimeter=0
@@ -64,8 +64,7 @@ def VectorPerimeter(vertices):
   return perimeter
 
 def VectorBetweenRel( v1,  v2,  f):
-    return Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
-    #return [(v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z]
+    return _Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
 
 def VectorBetweenAbs( v1,  v2,  f):
   d = VectorDistance(v1,v2)
@@ -83,8 +82,7 @@ def VectorLineLineIntersection(a,b,c,d):
   r = numerator / denominator
   x = a.x + r * deltaABX
   y = a.y + r * deltaABY
-  return Vertex(x,y,0)
-  #return [x,y,0]
+  return _Vertex(x,y,0)
 
 def VectorOffsetLine(v1, v2,  offset):
   v = VectorSubtract(v2, v1)
@@ -94,8 +92,7 @@ def VectorOffsetLine(v1, v2,  offset):
   v.x = -v.y
   v.y = t
   v.z=0
-  return Vertex(VectorAdd(v1,v),VectorAdd(v2,v))
-  #return [VectorAdd(v1,v),VectorAdd(v2,v)]
+  return _Vertex(VectorAdd(v1,v),VectorAdd(v2,v))
 
 def VectorOffsetPoint(v1,  v2,  v3,  offset1,  offset2):
   line1= VectorOffsetLine(v1, v2, offset1);
@@ -115,7 +112,7 @@ def VectorNormalFromVertices(vertices):
     n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
     angle = VectorAngle(n1,n2)
-    if(angle>math.pi-0.01):
+    if(angle>_math.pi-0.01):
       n2 = VectorScale(n2,-1)
     sum = VectorAdd(n1,n2)
     sum = VectorScale(sum, 0.5)
