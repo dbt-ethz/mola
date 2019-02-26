@@ -53,4 +53,5 @@ def __map(value, fromMin, fromMax, toMin, toMax):
 	return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
 
 def grayscale(boolean):
+	global __grayscale
 	__grayscale = boolean
