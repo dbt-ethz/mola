@@ -4,6 +4,26 @@ from mola.core import Face as _Face
 import mola.meshMath as _vec
 
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
+    """
+    Splits a quad in two new quads through the points specified
+    by relative position along the edge.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    indexEdge : int
+        direction of split, 0: 0->2, 1: 1->3
+    split1, split2 : float
+        relative position of split on each edge (0..1)
+    """
+    # only works with quads, therefore return original face if triangular
+    if len(face.vertices) != 4:
+        return face
+
+    # constrain indexEdge to be either 0 or 1
+    indexEdge = indexEdge%2
+
     indexEdge1=(indexEdge+1)%len(face.vertices)
     indexEdge2=(indexEdge+2)%len(face.vertices)
     indexEdge3=(indexEdge+3)%len(face.vertices)
@@ -18,9 +38,23 @@ def splitRelFreeQuad(face, indexEdge,  split1,  split2):
         faces.append(_Face([p2, p1, face.vertices[2], face.vertices[3]]))
     return faces
 
-def extrude(face,extrusion,capBottom=False,capTop=True):
+def extrude(face, height=0.0, capBottom=False, capTop=True):
+    """
+    Extrudes the face straight by distance height.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    height : float
+        The extrusion distance, default 0
+    capBottom : bool
+        Toggle if bottom face (original face) should be created, default False
+    capTop : bool
+        Toggle if top face (extrusion face) should be created, default True
+    """
     normal=_vec.VectorNormal(face.vertices[0],face.vertices[1],face.vertices[2])
-    normal=_vec.VectorScale(normal,extrusion)
+    normal=_vec.VectorScale(normal,height)
     # calculate vertices
     new_vertices=[]
     for i in range(len(face.vertices)):
@@ -44,7 +78,22 @@ def extrude(face,extrusion,capBottom=False,capTop=True):
         new_face.color=face.color
     return new_faces
 
-def extrudeTapered(face, height, fraction):
+def extrudeTapered(face, height=0.0, fraction=0.5):
+    """
+    Extrudes the face tapered like a window by creating an
+    offset face and quads between every original edge and the
+    corresponding new edge.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    height : float
+        The distance of the new face to the original face, default 0
+    fraction : float
+        The relative offset distance, 0: original vertex, 1: center point
+        default 0.5 (halfway)
+    """
     center_vertex = _vec.VectorCenter(face.vertices)
     normal = _vec.VectorNormalFromVertices(face.vertices)
     scaled_normal = _vec.VectorScale(normal, height)
@@ -77,6 +126,17 @@ def extrudeTapered(face, height, fraction):
     return new_faces
 
 def extrudeToPoint(face, point):
+    """
+    Extrudes the face to a point by creating a
+    triangular face from each edge to the point.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    point : mola.core.Vertex
+        The point to extrude to
+    """
     numV = len(face.vertices)
     faces = []
     for i in range(numV):
@@ -85,9 +145,21 @@ def extrudeToPoint(face, point):
         faces.append(_Face([v1,v2,point]))
     return faces
 
-def extrudeToPointCenter(face, extrusionHeight):
+def extrudeToPointCenter(face, height=0.0):
+    """
+    Extrudes the face to the center point moved by height
+    normal to the face and creating a triangular face from
+    each edge to the point.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    height : float
+        The distance of the new point to the face center, default 0
+    """
     normal = _vec.VectorNormalFromVertices(face.vertices)
-    normal = _vec.VectorScale(normal,extrusionHeight)
+    normal = _vec.VectorScale(normal,height)
     center = _vec.VectorCenter(face.vertices)
     center = _vec.VectorAdd(center,normal)
     return extrudeToPoint(face,center)
