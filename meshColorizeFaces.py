@@ -20,6 +20,10 @@ def mapValuesToColor(values):
 	return colors
 
 def colorFacesByArea(faces):
+	"""
+	Assigns a color to all the faces by area,
+	from smallest (red) to biggest (purple).
+	"""
 	values = []
 	for face in faces:
 		values.append(_analysis.getFaceArea(face))
@@ -30,6 +34,10 @@ def colorFacesByArea(faces):
 		face.color = __getColorRgb(h)
 
 def colorFacesByPerimeter(faces):
+	"""
+	Assigns a color to all the faces by perimeter,
+	from smallest (red) to biggest (purple).
+	"""
 	values = []
 	for face in faces:
 		values.append(_analysis.getFacePerimeter(face))
@@ -40,6 +48,10 @@ def colorFacesByPerimeter(faces):
 		face.color = __getColorRgb(h)
 
 def colorFacesByCompactness(faces):
+	"""
+	Assigns a color to all the faces by compactness (area/perimeter),
+	from smallest (red) to biggest (purple).
+	"""
 	values = []
 	for face in faces:
 		a = _analysis.getFaceArea(face)
@@ -52,6 +64,10 @@ def colorFacesByCompactness(faces):
 		face.color = __getColorRgb(h)
 
 def colorFacesByVerticality(faces):
+	"""
+	Assigns a color to all the faces by verticality,
+	from smallest (red) to biggest (purple).
+	"""
 	values = []
 	for face in faces:
 		values.append(_analysis.getFaceVerticality(face))
