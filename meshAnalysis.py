@@ -14,7 +14,7 @@ def getFaceArea(face):
 	if(len(face.vertices) == 3):
 		return __getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2])
 	else:
-		return __getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2]) + __getTriangleArea3D(face.vertices[1],face.vertices[2],face.vertices[3])
+		return __getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2]) + __getTriangleArea3D(face.vertices[2],face.vertices[3],face.vertices[0])
 
 def getFacePerimeter(face):
 	sum = 0;
