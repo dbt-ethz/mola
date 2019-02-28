@@ -7,6 +7,7 @@ def __getColorRgb(hue):
 	if __grayscale:
 		return (hue,hue,hue,1)
 	else:
+		hue = __map(hue,0.0,1.0,0.0,0.8) #limit hue red-red to red-magenta
 		col = _colorsys.hsv_to_rgb(hue,1,1)
 		return (col[0],col[1],col[2],1)
 
@@ -15,7 +16,7 @@ def mapValuesToColor(values):
 	valueMax = max(values)
 	colors=[]
 	for v in values:
-		h = __map(v,valueMin,valueMax,0.0,0.8)
+		h = __map(v,valueMin,valueMax,0.0,1.0)
 		colors.append(__getColorRgb(h))
 	return colors
 
@@ -30,7 +31,7 @@ def colorFacesByArea(faces):
 	valueMin = min(values)
 	valueMax = max(values)
 	for i, face in enumerate(faces):
-		h = __map(values[i],valueMin,valueMax,0.0,0.8)
+		h = __map(values[i],valueMin,valueMax,0.0,1.0)
 		face.color = __getColorRgb(h)
 
 def colorFacesByPerimeter(faces):
@@ -44,7 +45,7 @@ def colorFacesByPerimeter(faces):
 	valueMin = min(values)
 	valueMax = max(values)
 	for i , face in enumerate(faces):
-		h = __map(values[i],valueMin,valueMax,0.0,0.8)
+		h = __map(values[i],valueMin,valueMax,0.0,1.0)
 		face.color = __getColorRgb(h)
 
 def colorFacesByCompactness(faces):
@@ -60,7 +61,7 @@ def colorFacesByCompactness(faces):
 	valueMin = min(values)
 	valueMax = max(values)
 	for i , face in enumerate(faces):
-		h = __map(values[i],valueMin,valueMax,0.0,0.8)
+		h = __map(values[i],valueMin,valueMax,0.0,1.0)
 		face.color = __getColorRgb(h)
 
 def colorFacesByVerticality(faces):
@@ -74,7 +75,7 @@ def colorFacesByVerticality(faces):
 	valueMin = min(values)
 	valueMax = max(values)
 	for i , face in enumerate(faces):
-		h = __map(values[i],valueMin,valueMax,0.0,0.8)
+		h = __map(values[i],valueMin,valueMax,0.0,1.0)
 		face.color = __getColorRgb(h)
 
 def __map(value, fromMin, fromMax, toMin, toMax):
