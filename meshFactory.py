@@ -7,7 +7,7 @@ import math as _math
 def constructSingleFaceMesh(vertices):
     mesh = _Mesh()
     mesh.vertices=vertices
-    mesh.faces=[Face(vertices)]
+    mesh.faces=[_Face(vertices)]
     return mesh
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
