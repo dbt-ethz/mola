@@ -4,6 +4,12 @@ from mola.core import Face as _Face
 import mola.meshMath as _vec
 import math as _math
 
+def constructSingleFaceMesh(vertices):
+    mesh = _Mesh()
+    mesh.vertices=vertices
+    mesh.faces=[Face(vertices)]
+    return mesh
+
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     mesh = _Mesh()
     v1 = _Vertex(x1,y1,z1)
