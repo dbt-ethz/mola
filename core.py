@@ -76,6 +76,7 @@ class Mesh:
         self.vertices=weldedVertices.values()
 
     def updateAdjacencies(self):
+        self.weldVertices()
         self.edges=[]
         for v in self.vertices:
             v.edges=[]
