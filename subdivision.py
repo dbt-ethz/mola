@@ -24,7 +24,7 @@ def subdivide(_mesh):
                 new_mesh.faces.append(newFace)
             v1=v2
             v2=v3
-    new_mesh.weldVertices()
+            
     new_mesh.updateAdjacencies()
     return new_mesh
 
@@ -84,7 +84,6 @@ def subdivideCatmull(_mesh):
                 newMesh.faces.append(newFace)
             v1=v2
             v2=v3
-
-    newMesh.weldVertices()
+            
     newMesh.updateAdjacencies()
     return newMesh
