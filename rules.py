@@ -1,7 +1,7 @@
 from mola.core import Mesh as _Mesh
 from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
-import mola.meshMath as _vec
+import mola.vec as _vec
 
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
     """

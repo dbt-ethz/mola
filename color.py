@@ -1,5 +1,5 @@
 import colorsys as _colorsys
-import mola.meshAnalysis as _analysis
+import mola.analysis as _analysis
 
 __grayscale = False;
 

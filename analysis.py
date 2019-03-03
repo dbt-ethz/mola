@@ -1,5 +1,5 @@
 import math as _math
-import mola.meshMath as _vec
+import mola.vec as _vec
 
 def __determinant(a,b,c,d,e,f,g,h,i):
 	return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
