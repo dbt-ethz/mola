@@ -11,6 +11,14 @@ def __getTriangleArea3DCoords(xa,ya,za,xb,yb,zb,xc,yc,zc):
 	return 0.5 * _math.sqrt(_math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + _math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + _math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
 def getFaceCompactness(face):
+    """
+    Returns the compactness of a face as the ratio between area and perimeter.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be measured
+    """
 	return analysis.getFaceArea(face)/analysis.getFacePerimeter(face)
 
 def getFaceArea(face):
