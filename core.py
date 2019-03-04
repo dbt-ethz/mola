@@ -7,6 +7,12 @@ class Vertex:
 
     def __str__(self):
         return ' '.join([str(v) for v in [self.x,self.y,self.z]])
+    
+    def getEdgeAdjacentToVertex(self,v):
+        for edge in self.edges:
+            if edge.v2==v or edge.v1==v:
+                return edge
+        return None
 
 class Face:
     def __init__(self,vertices=[]):
@@ -92,7 +98,7 @@ class Mesh:
         for f in self.faces:
             v1=f.vertices[-1]
             for v2 in f.vertices:
-                edge=self.getEdgeAdjacentToVertices(v1,v2)
+                edge=v1.getEdgeAdjacentToVertex(v2)
                 if edge == None:
                     edge=Edge(v1,v2)
                     v1.edges.append(edge)
