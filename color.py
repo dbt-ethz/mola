@@ -25,6 +25,13 @@ def colorFacesByFunction(faces,faceFunction):
 		h = __map(values[i],valueMin,valueMax,0.0,1.0)
 		face.color = __getColorRgb(h)
 
+def colorFacesByCurvatur(faces):
+	"""
+	Assigns a color to all the faces by curvature (require topological meshinformation),
+	from smallest (red) to biggest (purple).
+	"""
+	colorFacesByFunction(faces,analysis.getFaceCurvature)
+	
 def colorFacesByArea(faces):
 	"""
 	Assigns a color to all the faces by area,
