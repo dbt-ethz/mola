@@ -79,7 +79,7 @@ def getFaceCurvature(face):
 			if nbFace is None:
 				return 0
 		num_faces += 1
-		nbNormal = _vec.VectorNormalFromVertices(num_faces)
+		nbNormal = _vec.VectorNormalFromVertices(nbFace.vertices)
 		sumD+=_vec.VectorDistance(nbNormal,normal)
 		vPrev=v
-	return sumD / len(face.vertices)
+	return sumD / len(num_faces)
