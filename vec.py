@@ -55,6 +55,9 @@ def VectorCenter(vertices):
   cz = sum([v.z for v in vertices])/n
   return _Vertex(cx,cy,cz)
 
+def VectorCenterFromLine(v1,v2):
+  return _Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
+
 def VectorPerimeter(vertices):
   perimeter=0
   for i in range(len(vertices)):
