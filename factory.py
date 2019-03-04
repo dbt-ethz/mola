@@ -5,12 +5,30 @@ import mola.vec as _vec
 import math as _math
 
 def constructSingleFaceMesh(vertices):
+    """
+    Creates and returns a single face mesh from the vertices.
+
+    Arguments:
+    ----------
+    vertices : list of mola.core.Vertex
+        The vertices describing the face
+    """
     mesh = _Mesh()
     mesh.vertices=vertices
     mesh.faces=[_Face(vertices)]
     return mesh
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
+    """
+    Creates and returns a mesh box with six quad faces.
+
+    Arguments:
+    ----------
+    x1,y1,z1 : float
+        The coordinates of the bottom left front corner
+    x2,y2,z2 : float
+        The coordinates of the top right back corner
+    """
     mesh = _Mesh()
     v1 = _Vertex(x1,y1,z1)
     v2 = _Vertex(x1,y2,z1)
@@ -31,6 +49,16 @@ def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     return mesh
 
 def constructIcosahedronMesh(cx,cy,cz,radius):
+    """
+    Creates and returns a mesh in the form of an icosahedron.
+
+    Arguments:
+    ----------
+    cx,cy,cz : float
+        The coordinates of the center point
+    radius : float
+        The radius of the containing sphere
+    """
     mesh=_Mesh()
     phi = (1 + 5 ** 0.5) / 2
     coordA = 1/(2*_math.sin(2*_math.pi/5))
