@@ -139,17 +139,29 @@ def splitRoof(face, height):
     faces = []
     normal = _vec.VectorNormalFromVertices(face.vertices)
     normal = _vec.VectorScale(normal,height)
+    if len(face.vertices)==4:
+        ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
+        ev1=_vec.VectorAdd(ev1,normal)
+        ev2=_vec.VectorCenterFromLine(face.vertices[2],face.vertices[3])
+        ev2=_vec.VectorAdd(ev2,normal)
 
-    ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
-    ev1=_vec.VectorAdd(ev1,normal)
-    ev2=_vec.VectorCenterFromLine(face.vertices[2],face.vertices[3])
-    ev2=_vec.VectorAdd(ev2,normal)
+        faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
+        faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
+        faces.append(_Face([face.vertices[2],face.vertices[3],ev2]))
+        faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
+        return faces
+    elif len(face.vertices)==3:
+        ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
+        ev1=_vec.VectorAdd(ev1,normal)
+        ev2=_vec.VectorCenterFromLine(face.vertices[1],face.vertices[2])
+        ev2=_vec.VectorAdd(ev2,normal)
 
-    faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
-    faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
-    faces.append(_Face([face.vertices[2],face.vertices[3],ev2]))
-    faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
-    return faces
+        faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
+        faces.append(_Face([face.vertices[1],ev2,ev1))
+        faces.append(_Face([face.vertices[1],face.vertices[2],ev2]))
+        faces.append(_Face([face.vertices[2],face.vertices[0],ev1,ev2]))
+        return faces
+    return [face]
 
 def extrudeToPoint(face, point):
     """
