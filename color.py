@@ -51,16 +51,7 @@ def colorFacesByCompactness(faces):
 	Assigns a color to all the faces by compactness (area/perimeter),
 	from smallest (red) to biggest (purple).
 	"""
-	values = []
-	for face in faces:
-		a = analysis.getFaceArea(face)
-		p = analysis.getFacePerimeter(face)
-		values.append(a/p)
-	valueMin = min(values)
-	valueMax = max(values)
-	for i , face in enumerate(faces):
-		h = __map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = __getColorRgb(h)
+	colorFacesByFunction(faces,analysis.getFaceCompactness)
 
 def colorFacesByVerticality(faces):
 	"""
