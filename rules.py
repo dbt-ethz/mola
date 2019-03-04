@@ -125,6 +125,30 @@ def extrudeTapered(face, height=0.0, fraction=0.5):
 
     return new_faces
 
+def splitRoof(face, height):
+    """
+    Extrudes a pitched roof
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    height : mola.core.Vertex
+        Th height of the roof
+    """
+    faces = []
+    normal = _vec.VectorNormalFromVertices(face.vertices)
+    normal = _vec.VectorScale(normal,height)
+    ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
+	ev1=_vec.VectorAdd(ev1,normal)
+    ev2=_vec.VectorCenterFromLine(face.vertices[2],face.vertices[3])
+	ev2=_vec.VectorAdd(ev1,normal)
+	faces.append(Face([face.vertices[0]face.vertices[1],ev1]))
+    faces.append(Face([face.vertices[1]face.vertices[2],ev2,ev1]))
+    faces.append(Face([face.vertices[2]face.vertices[3],ev2]))
+	faces.append(Face([face.vertices[3]face.vertices[0],ev1,ev2]))
+	return faces
+
 def extrudeToPoint(face, point):
     """
     Extrudes the face to a point by creating a
