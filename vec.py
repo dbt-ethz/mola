@@ -115,6 +115,7 @@ def VectorNormalFromVertices(vertices):
     # elif len(vertices)==4:
     #     n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
     #     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
+    # there there is an error. planar surfaces will have identical normals. angle calculation fails?
     #     angle = VectorAngle(n1,n2)
     #     if(angle>_math.pi-0.01):
     #         n2 = VectorScale(n2,-1)
