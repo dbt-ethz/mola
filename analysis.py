@@ -82,4 +82,5 @@ def getFaceCurvature(face):
 		nbNormal = _vec.VectorNormalFromVertices(nbFace.vertices)
 		sumD+=_vec.VectorDistance(nbNormal,normal)
 		vPrev=v
-	return sumD / len(num_faces)
+	num_faces = max(1,num_faces)
+	return sumD / num_faces
