@@ -65,13 +65,13 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
         new_faces.append(face)
     for i in range(len(face.vertices)):
         i2=i+1
-    if i2>=len(face.vertices):
-        i2=0
-    v0=face.vertices[i]
-    v1=face.vertices[i2]
-    v2=new_vertices[i2]
-    v3=new_vertices[i]
-    new_faces.append(_Face([v0,v1,v2,v3]))
+        if i2>=len(face.vertices):
+            i2=0
+        v0=face.vertices[i]
+        v1=face.vertices[i2]
+        v2=new_vertices[i2]
+        v3=new_vertices[i]
+        new_faces.append(_Face([v0,v1,v2,v3]))
     if capTop:
         new_faces.append(_Face(new_vertices))
     for new_face in new_faces:
