@@ -20,6 +20,20 @@ def mapValuesToColor(values):
 		colors.append(__getColorRgb(h))
 	return colors
 
+def colorFacesByFunction(faces,faceFunction):
+	"""
+	Assigns a color to all the faces by faceFunction which has to return a float value for a face as argument,
+	from smallest (red) to biggest (purple).
+	"""
+	values = []
+	for face in faces:
+		values.append(faceFunction(face))
+	valueMin = min(values)
+	valueMax = max(values)
+	for i, face in enumerate(faces):
+		h = __map(values[i],valueMin,valueMax,0.0,1.0)
+		face.color = __getColorRgb(h)
+
 def colorFacesByArea(faces):
 	"""
 	Assigns a color to all the faces by area,
