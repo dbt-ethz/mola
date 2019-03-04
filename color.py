@@ -22,7 +22,7 @@ def mapValuesToColor(values):
 
 def colorFacesByFunction(faces,faceFunction):
 	"""
-	Assigns a color to all the faces by faceFunction which has to return a float value for a face as argument,
+	Assigns a color to all the faces by face-function which has to return a float value for a face as argument,
 	from smallest (red) to biggest (purple).
 	"""
 	values = []
