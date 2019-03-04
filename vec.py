@@ -109,15 +109,16 @@ def VectorNormal(v1,v2,v3):
   return VectorUnitize(cross)
 
 def VectorNormalFromVertices(vertices):
-  if len(vertices)==3:
     return VectorNormal(vertices[0],vertices[1],vertices[2])
-  elif len(vertices)==4:
-    n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
-    n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
-    angle = VectorAngle(n1,n2)
-    if(angle>_math.pi-0.01):
-      n2 = VectorScale(n2,-1)
-    sum = VectorAdd(n1,n2)
-    sum = VectorScale(sum, 0.5)
-    sum = VectorUnitize(sum)
-    return sum
+    # if len(vertices)==3:
+    #     return VectorNormal(vertices[0],vertices[1],vertices[2])
+    # elif len(vertices)==4:
+    #     n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
+    #     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
+    #     angle = VectorAngle(n1,n2)
+    #     if(angle>_math.pi-0.01):
+    #         n2 = VectorScale(n2,-1)
+    #         sum = VectorAdd(n1,n2)
+    #         sum = VectorScale(sum, 0.5)
+    #         sum = VectorUnitize(sum)
+    #         return sum
