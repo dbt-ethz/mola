@@ -14,12 +14,28 @@ def getFaceCompactness(face):
 	return analysis.getFaceArea(face)/analysis.getFacePerimeter(face)
 
 def getFaceArea(face):
+    """
+    Returns the area of a face, for quads that of two triangles.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be measured
+    """
 	if(len(face.vertices) == 3):
 		return __getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2])
 	else:
 		return __getTriangleArea3D(face.vertices[0],face.vertices[1],face.vertices[2]) + __getTriangleArea3D(face.vertices[2],face.vertices[3],face.vertices[0])
 
 def getFacePerimeter(face):
+    """
+    Returns the perimeter of a face as the sum of all the edges' lengths.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be measured
+    """
 	sum = 0;
 	for i in range(len(face.vertices)):
 		v1 = face.vertices[i]
@@ -28,6 +44,14 @@ def getFacePerimeter(face):
 	return sum
 
 def getFaceVerticality(face):
+    """
+    Returns the verticality of a face as the angle between ??.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be measured
+    """
 	normal = _vec.VectorNormalFromVertices(face.vertices)
 	return _math.atan2(normal.y * normal.y, normal.x * normal.x)
 	#return _math.atan2(normal[1] * normal[1], normal[0] * normal[0])
