@@ -46,8 +46,8 @@ def colorFacesByCompactness(faces):
 	"""
 	values = []
 	for face in faces:
-		a = _analysis.getFaceArea(face)
-		p = _analysis.getFacePerimeter(face)
+		a = analysis.getFaceArea(face)
+		p = analysis.getFacePerimeter(face)
 		values.append(a/p)
 	valueMin = min(values)
 	valueMax = max(values)
