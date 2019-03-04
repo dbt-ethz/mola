@@ -157,7 +157,7 @@ def splitRoof(face, height):
         ev2=_vec.VectorAdd(ev2,normal)
 
         faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
-        faces.append(_Face([face.vertices[1],ev2,ev1))
+        faces.append(_Face([face.vertices[1],ev2,ev1]))
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2]))
         faces.append(_Face([face.vertices[2],face.vertices[0],ev1,ev2]))
         return faces
