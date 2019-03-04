@@ -45,6 +45,18 @@ def exportOBJMeshWithColors(mesh,fileNameOBJ,fileNameMTL):
     exportOBJFacesWithColors(mesh.faces,fileNameOBJ,fileNameMTL)
 
 def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
+    """
+    Exports the faces as an Alias wavefront obj file.
+
+    Arguments:
+    ----------
+    faces : list of mola.core.Face
+        The face to be measured
+    fileNameOBJ : String
+        The path and filename for the *.obj mesh file
+    fileNameMTL : String
+        The path and filename for the *.mtl material file
+    """
     file = open(fileNameOBJ, "w")
     file.write("mtllib ./"+fileNameMTL+"\n");
     fileMTL = open(fileNameMTL, "w")
