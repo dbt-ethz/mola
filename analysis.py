@@ -28,3 +28,17 @@ def getFaceVerticality(face):
 	normal = _vec.VectorNormalFromVertices(face.vertices)
 	return _math.atan2(normal.y * normal.y, normal.x * normal.x)
 	#return _math.atan2(normal[1] * normal[1], normal[0] * normal[0])
+
+def getFaceCurvature(face):
+	normal=_vec.VectorCenter(face.vertices)
+	sumD=0
+	vPrev=face.vertices[-1]
+	for v in face.vertices:
+		edge=v.getEdgeAdjacentToVertex(vPrev)
+		nbFace=edge.face1
+		if (edge.face1==face):
+			nbFace=edge.face2
+		nbNormal = _vec.VectorCenter(nbFace.vertices)
+		sumD+=_vec.VectorDistance(nbNormal,normal)
+		vPrev=v
+	return sumD / len(face.vertices)
