@@ -66,10 +66,10 @@ class Box:
         self.z2=max(z,self.z2)
 
 class Mesh:
-    def __init__(self,_vertices=[],_faces=[],_edges=[]):
-        self.vertices=_vertices
-        self.faces=_faces
-        self.edges=_edges
+    def __init__(self):
+        self.vertices=[]
+        self.faces=[]
+        self.edges=[]
 
     def getEdgeAdjacentToVertices(self,v1,v2):
         for edge in v1.edges:
