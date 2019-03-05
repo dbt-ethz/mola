@@ -4,21 +4,38 @@ from mola.core import Vertex as _Vertex
 def VectorAdd(v1,v2):
     return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
     #return [v1.x+v2.x,v1.y+v2.y,v1.z+v2.z]
+def add(v1,v2):
+    return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
 
 def VectorAngle(v1,v2):
   a=VectorUnitize(v1)
   b=VectorUnitize(v2)
   return _math.acos(VectorDotProduct(a,b))
 
+def angle(v1,v2):
+    a=VectorUnitize(v1)
+    b=VectorUnitize(v2)
+    return _math.acos(VectorDotProduct(a,b))
+
 def VectorSubtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
     #return [v1.x-v2.x,v1.y-v2.y,v1.z-v2.z]
+
+def subtract(v1,v2):
+    return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
 
 def VectorScale(v,factor):
     return _Vertex(v.x*factor,v.y*factor,v.z*factor)
     #return [v.x*factor,v.y*factor,v.z*factor]
 
+def scale(v,factor):
+    return _Vertex(v.x*factor,v.y*factor,v.z*factor)
+
 def VectorDivide(v,factor):
+    return _Vertex(v.x/factor,v.y/factor,v.z/factor)
+    #return [v.x/factor,v.y/factor,v.z/factor]
+
+def divide(v,factor):
     return _Vertex(v.x/factor,v.y/factor,v.z/factor)
     #return [v.x/factor,v.y/factor,v.z/factor]
 
