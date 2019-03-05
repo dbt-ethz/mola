@@ -18,6 +18,42 @@ def constructSingleFaceMesh(vertices):
     mesh.faces=[_Face(vertices)]
     return mesh
 
+def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
+    """
+    Creates and returns a conic cylinder.
+    """
+    delaAngle=_math.radians(360.0/nSegments)
+    angle=0
+    verticesBottom=[]
+    verticesTop=[]
+    for i in range(nSegements):
+        x1=radius1*_math.cos(angle)
+        y1=radius1*_math.sin(angle)
+        verticesBottom.append(Vertex(x1,y1,z1))
+        x2=radius2*_math.cos(angle)
+        y2=radius2*_math.sin(angle)
+        verticesTop.append(Vertex(x2,y2,z2))
+        angle+=delaAngle
+    mesh=Mesh()
+    mesh.vertices.extend(verticesBottom)
+    mesh.vertices.extend(verticesTop)
+    for i in range(nSegments):
+        i2=(i+1)%nSegments
+        mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
+    if capBottom:
+        centerBottom=Vertex(0,0,z1)
+        mesh.vertices.append(centerBottom)
+        for i in range(nSegments):
+            i2=(i+1)%nSegments
+            mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],centerBottom]))
+    if capTop:
+        centerTop=Vertex(0,0,z2)
+        mesh.vertices.append(centerTop)
+        for i in range(nSegments):
+            i2=(i+1)%nSegments
+            mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
+    return mesh
+
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     """
     Creates and returns a mesh box with six quad faces.
