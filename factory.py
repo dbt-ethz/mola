@@ -29,29 +29,29 @@ def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
     for i in range(nSegments):
         x1=radius1*_math.cos(angle)
         y1=radius1*_math.sin(angle)
-        verticesBottom.append(Vertex(x1,y1,z1))
+        verticesBottom.append(_Vertex(x1,y1,z1))
         x2=radius2*_math.cos(angle)
         y2=radius2*_math.sin(angle)
-        verticesTop.append(Vertex(x2,y2,z2))
+        verticesTop.append(_Vertex(x2,y2,z2))
         angle+=delaAngle
-    mesh=Mesh()
+    mesh=_Mesh()
     mesh.vertices.extend(verticesBottom)
     mesh.vertices.extend(verticesTop)
     for i in range(nSegments):
         i2=(i+1)%nSegments
         mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
     if capBottom:
-        centerBottom=Vertex(0,0,z1)
+        centerBottom=_Vertex(0,0,z1)
         mesh.vertices.append(centerBottom)
         for i in range(nSegments):
             i2=(i+1)%nSegments
-            mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],centerBottom]))
+            mesh.faces.append(_Face([verticesBottom[i],verticesBottom[i2],centerBottom]))
     if capTop:
-        centerTop=Vertex(0,0,z2)
+        centerTop=_Vertex(0,0,z2)
         mesh.vertices.append(centerTop)
         for i in range(nSegments):
             i2=(i+1)%nSegments
-            mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
+            mesh.faces.append(_Face([verticesTop[i],verticesTop[i2],centerTop]))
     return mesh
 
 def constructBoxMesh(x1,y1,z1,x2,y2,z2):
