@@ -39,7 +39,7 @@ def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
     mesh.vertices.extend(verticesTop)
     for i in range(nSegments):
         i2=(i+1)%nSegments
-        mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
+        mesh.faces.append(_Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
     if capBottom:
         centerBottom=_Vertex(0,0,z1)
         mesh.vertices.append(centerBottom)
