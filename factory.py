@@ -26,7 +26,7 @@ def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
     angle=0
     verticesBottom=[]
     verticesTop=[]
-    for i in range(nSegements):
+    for i in range(nSegments):
         x1=radius1*_math.cos(angle)
         y1=radius1*_math.sin(angle)
         verticesBottom.append(Vertex(x1,y1,z1))
