@@ -1,6 +1,6 @@
 from copy import deepcopy as _deepcopy
 import math as _math
-import vec as _vec
+import mola.vec as _vec
 
 class MCube:
   
