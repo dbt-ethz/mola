@@ -3,6 +3,7 @@ import math as _math
 import mola.vec as _vec
 from mola.core import Vertex as _Vertex
 from mola.core import Mesh as _Mesh
+from mola.core import Face as _Face
 
 class MCube:
   
@@ -147,7 +148,7 @@ class MCube:
                   v.id = len(mesh.vertices)-1
                 facePoints.append(v)
                 
-              face = Face(facePoints)
+              face = _Face(facePoints)
               if(len(facePoints)==3):
                 mesh.faces.append(face)
 
