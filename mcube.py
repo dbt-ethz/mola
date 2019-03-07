@@ -1,6 +1,8 @@
 from copy import deepcopy as _deepcopy
 import math as _math
 import mola.vec as _vec
+from mola.core import Vertex as _Vertex
+from mola.core import Mesh as _Mesh
 
 class MCube:
   
@@ -21,7 +23,7 @@ class MCube:
 	
               
   def marchingCubesMesh(self, nX, nY, nZ, values, iso, scale, tX, tY, tZ):     
-    mesh = Mesh()
+    mesh = _Mesh()
               
     nYZ = nY*nZ
     nVs = 0
@@ -69,8 +71,8 @@ class MCube:
           cV = values[index]
           xNb = values[index+nYZ]
           if(self._isBorder(cV,xNb,iso)):
-            vertex = Vertex(self._getValue(iso,cV,xNb)+x,y,z)
-            vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),Vertex(tX,tY,tZ))
+            vertex = _Vertex(self._getValue(iso,cV,xNb)+x,y,z)
+            vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),_Vertex(tX,tY,tZ))
             vertices.append(vertex)
             xEdges[y][z] = nVs
             nVs+=1
@@ -79,16 +81,16 @@ class MCube:
           if(y<nY-1):
             yNb = values[index+nZ]
             if(self._isBorder(cV,yNb,iso)):
-              vertex = Vertex(x+1,self._getValue(iso,cV,yNb)+y,z)
-              vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),Vertex(tX,tY,tZ))
+              vertex = _Vertex(x+1,self._getValue(iso,cV,yNb)+y,z)
+              vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),_Vertex(tX,tY,tZ))
               vertices.append(vertex)
               yEdgesUp[y][z] = nVs
               nVs+=1
           if(z<nZ-1):
             zNb = values[index+1]
             if(self._isBorder(cV,zNb,iso)):
-              vertex = Vertex(x+1,y,self._getValue(iso,cV,zNb)+z)
-              vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),Vertex(tX,tY,tZ))
+              vertex = _Vertex(x+1,y,self._getValue(iso,cV,zNb)+z)
+              vertex = _vec.VectorAdd(_vec.VectorScale(vertex,scale),_Vertex(tX,tY,tZ))
               vertices.append(vertex)
               zEdgesUp[y][z] = nVs
               nVs+=1
