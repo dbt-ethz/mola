@@ -12,10 +12,6 @@ class MCube:
     self.yc = []
     self.zc = []
     self.triangles = []
-
-    #babylon structure
-    self.positions = []
-    self.indices = []
     
     self.faces = self._getFaces()
      
