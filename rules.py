@@ -3,6 +3,30 @@ from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 import mola.vec as _vec
 
+# def splitGrid(face,nU,nV):
+#     """
+#     splits a quad or a rectangle into a regular grid
+#     """
+#     if len(face.vertices>4):
+#         print('too many vertices')
+#         return face
+#     verticesU1=_getVerticesBetween[face.vertices[0],face.vertices[1],nU)
+#     if len(face.vertices==3)
+#     verticesU2=getVerticesBetween[face.vertices[2],face.vertices[],nU)
+#     new_vertices=[]
+#     for u in nU:
+#         new_vertices[u]=[]
+
+def _getVerticesBetween(v1,v2,n):
+    row=[]
+    deltaV=_vec.subtract(v2,v1)
+    deltaV=_vec.div(deltaV,n)
+    for i in range(n):
+        addV=_vec.scale(deltaV,i)
+        row.append(_vec.add(addV,v1))
+    row.append(v2)
+    return row
+
 def splitRelFreeQuad(face, indexEdge,  split1,  split2):
     """
     Splits a quad in two new quads through the points specified
@@ -37,6 +61,8 @@ def splitRelFreeQuad(face, indexEdge,  split1,  split2):
         faces.append(_Face([face.vertices[0], face.vertices[1], p1, p2]))
         faces.append(_Face([p2, p1, face.vertices[2], face.vertices[3]]))
     return faces
+
+
 
 def extrude(face, height=0.0, capBottom=False, capTop=True):
     """

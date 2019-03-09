@@ -1,3 +1,4 @@
+from __future__ import division
 import math as _math
 from mola.core import Vertex as _Vertex
 
