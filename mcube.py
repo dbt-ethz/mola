@@ -12,10 +12,6 @@ class MCube:
     self.yc = []
     self.zc = []
     self.triangles = []
-
-    #babylon structure
-    self.positions = []
-    self.indices = []
     
     self.faces = self._getFaces()
      
@@ -270,9 +266,9 @@ class MCube:
               triangleList.append(v1)
               triangleList.append(v2)
       
-    self.output(vertices,triangleList,scale,tX,tY,tZ)
+    self._output(vertices,triangleList,scale,tX,tY,tZ)
       
-  def output(self, vertices, triangleList, scale, tX, tY, tZ):
+  def _output(self, vertices, triangleList, scale, tX, tY, tZ):
     for v in vertices:
       v[0] = v[0] * scale + tX
       v[1] = v[1] * scale + tY
