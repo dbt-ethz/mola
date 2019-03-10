@@ -81,7 +81,7 @@ def background(r,g,b):
 def beginDraw():
     global p5code
     p5code=_beginDraw2D()
-    p5code+="rectMode(CORNER);"
+    p5code+="rectMode(CORNERS);"
 
 def endDraw():
     global p5code
