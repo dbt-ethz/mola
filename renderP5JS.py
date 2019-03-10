@@ -19,11 +19,20 @@ def displayFaces2D(faces):
     code+=_endDraw2D()
     return code
 
+
 def _beginDraw2D():
     return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas(1024, 768);'''
 
 def _endDraw2D():
     return '''</script>'''
+
+def textSize(size):
+    global p5code
+    p5code+="textSize("+str(size)+");"
+
+def text(text,x,y):
+    global p5code
+    p5code+="text("+str(text)+","+str(x)+","+str(y)+");"
 
 def noStroke():
     global p5code
