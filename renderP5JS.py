@@ -74,9 +74,14 @@ def vertex(x,y):
     global p5code
     p5code+="vertex("+str(x)+","+str(y)+");"
 
+def background(r,g,b):
+    global p5code
+    p5code+="background("+str(r)+","+str(g)+","+str(b)+");"
+
 def beginDraw():
     global p5code
     p5code=_beginDraw2D()
+    p5code+="rectMode(CORNER);"
 
 def endDraw():
     global p5code
