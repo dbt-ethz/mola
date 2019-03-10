@@ -4,7 +4,7 @@ from mola.core import Vertex as _Vertex
 
 def VectorAdd(v1,v2):
     return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
-    #return [v1.x+v2.x,v1.y+v2.y,v1.z+v2.z]
+
 def add(v1,v2):
     return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
 
@@ -20,7 +20,6 @@ def angle(v1,v2):
 
 def VectorSubtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
-    #return [v1.x-v2.x,v1.y-v2.y,v1.z-v2.z]
 
 def subtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
@@ -54,7 +53,6 @@ def unitize(v):
 
 def VectorCrossProduct(v1,v2):
     return _Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)
-    #return [v1.y * v2.z - v2.y * v1.z,v1.z * v2.x - v2.z * v1.x,v1.x * v2.y - v2.x * v1.y]
 
 def cross(v1,v2):
     return _Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)
@@ -78,8 +76,8 @@ def distance(v1,v2):
   return _math.sqrt(dX*dX+dY*dY+dZ*dZ)
 
 def VectorCenter(vertices):
-  # return the average of all boundarypoints
   '''
+  return the average of all boundarypoints
   center=[0,0,0]
   for vertex in vertices:
     center=VectorAdd(vertex,center)
@@ -126,7 +124,6 @@ def VectorBetweenRel( v1,  v2,  f):
 
 def betweenRel( v1,  v2,  f):
     return _Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
-
 
 def VectorBetweenAbs( v1,  v2,  f):
   d = VectorDistance(v1,v2)
