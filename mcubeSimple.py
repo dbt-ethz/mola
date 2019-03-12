@@ -27,11 +27,7 @@ def marchingCubes(nX,nY,nZ,values,iso,tX,tY,tZ):
 		9:lambda: Vertex(x + 1, y + 1, z + _v(n[1], n[5], iso)),
 		10:lambda: Vertex(x, y, z + _v(n[3], n[7], iso)),
 		11:lambda: Vertex(x + 1, y, z + _v(n[2], n[6], iso))
-	}
-	for i in range(len(switcher)):
-		v = switcher[i]()
-		v = _vec.VectorAdd(v,Vertex[tX,tY,tZ])
-		
+	}	
 	for x in range(nX - 1):
 		for y in range(nY - 1):
 			for z in range(nZ - 1):
