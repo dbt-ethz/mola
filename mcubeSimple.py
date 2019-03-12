@@ -2,21 +2,20 @@ import math
 from mola.core import Vertex
 from mola.core import Mesh
 from mola.core import Face
-
+import mola.vec as _vec
 
 def _v( v1,  v2,  iso):
 	if (abs(v2 - v1) < 0.0000001):
 		return 0
 	return (iso - v1) / (v2 - v1)
 
-def marchingCubes(nX,nY,nZ,values,iso):
+def marchingCubes(nX,nY,nZ,values,iso,tX,tY,tZ):
 	mesh =  Mesh()
 	nYZ = nY * nZ
 	index = 0
 	n =[0]*8
 	switcher = {
-		#0:lambda Vertex(x + _v(n[0], n[1], iso), y + 1, z),
-        0:lambda: Vertex(x + _v(n[0], n[1], iso), y + 1, z),
+		0:lambda: Vertex(x + _v(n[0], n[1], iso), y + 1, z),
 		1:lambda: Vertex(x + 1, y + _v(n[2], n[1], iso), z),
 		2:lambda: Vertex(x + _v(n[3], n[2], iso), y, z),
 		3:lambda: Vertex(x, y + _v(n[3], n[0], iso), z),
@@ -29,6 +28,10 @@ def marchingCubes(nX,nY,nZ,values,iso):
 		10:lambda: Vertex(x, y, z + _v(n[3], n[7], iso)),
 		11:lambda: Vertex(x + 1, y, z + _v(n[2], n[6], iso))
 	}
+	for i in range(len(switcher)):
+		v = switcher[i]()
+		v = _vec.VectorAdd(v,Vertex[tX,tY,tZ])
+		
 	for x in range(nX - 1):
 		for y in range(nY - 1):
 			for z in range(nZ - 1):
