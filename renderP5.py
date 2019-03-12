@@ -1,20 +1,21 @@
 def displayLines(lines):
-  for l in lines:
-    line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
-    
+	for l in lines:
+		line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
+
 def displayMesh(mesh):
-    return display(mesh.faces)
-    
+	return display(mesh.faces)
+
 def display(faces):
-  for f in faces:
-    beginShape()
-    for v in f.vertices:
-      vertex(v.x,v.y,v.z)
-    endShape(CLOSE)
+	for f in faces:
+        fill(f.color[0]*255,f.color[1]*255,f.color[2]*255)
+		beginShape()
+		for v in f.vertices:
+			vertex(v.x,v.y,v.z)
+		endShape(CLOSE)
 
 def display2D(faces):
-  for f in faces:
-    beginShape()
-    for v in f.vertices:
-      vertex(v.x,v.y)
-    endShape(CLOSE)
+	for f in faces:
+		beginShape()
+		for v in f.vertices:
+			vertex(v.x,v.y)
+		endShape(CLOSE)

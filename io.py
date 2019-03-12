@@ -84,3 +84,32 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
         fileMTL.write("newmtl material"+str(mat)+"\n");
         fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
     fileMTL.close()
+
+def exportOBJFaces(faces,fileNameOBJ):
+    """
+    Exports the faces as an Alias wavefront obj file.
+
+    Arguments:
+    ----------
+    faces : list of mola.core.Face
+        The face to be measured
+    fileNameOBJ : String
+        The path and filename for the *.obj mesh file
+    """
+    file = open(fileNameOBJ, "w")
+    vertexCount=0
+    vertices={}
+    for face in faces:
+        faceString="f"
+        for p in face.vertices:
+            ptuple=(p.x,p.y,p.z)
+            if ptuple in vertices:
+                faceString+=" "+str(vertices[ptuple])
+            else:
+                vertexCount+=1
+                faceString+=" "+str(vertexCount)
+                vertices[ptuple]=vertexCount
+                file.write("v "+str(p.x)+" "+str(p.y)+" "+str(p.z)+"\n")
+        faceString+="\n"
+        file.write(faceString)
+    file.close()
