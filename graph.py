@@ -2,12 +2,17 @@
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
 #http://en.wikipedia.org/wiki/Dijkstra_algorithm
 from Queue import PriorityQueue
+
+'works with graphs which provide 3 methods: getNumNodes(), getNbs(), and getWeight()'
+
 class Dijkstra:
     def __init__(self, graph):
     	n = graph.getNumNodes()
         self.graph=graph
         self.dist = [1000000]*n
         self.pred = [-1]*n
+        self.traffic = [0]*n
+    	self.centrality = [0]*n
 
     def computeAllDistancesFromA(self,startIndexes):
     	pq = PriorityQueue()
