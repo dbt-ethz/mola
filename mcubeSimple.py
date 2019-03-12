@@ -9,7 +9,10 @@ def _v( v1,  v2,  iso):
 		return 0
 	return (iso - v1) / (v2 - v1)
 
-def marchingCubes(nX,nY,nZ,values,iso,tX,tY,tZ):
+def marchingCubesFromVoxelSpace(vs,iso):
+    return marchingCubes(vs.nX,vs.nY,vs.nZ,vs.values,iso)
+
+def marchingCubes(nX,nY,nZ,values,iso):
 	mesh =  Mesh()
 	nYZ = nY * nZ
 	index = 0
