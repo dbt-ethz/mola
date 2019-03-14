@@ -58,6 +58,9 @@ def line(x1,y1,x2,y2):
     global p5code
     p5code+="line("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+");"
 
+def circle(x,y,radius):
+    p5code+="circle("+str(x)+","+str(y)+","+str(radius)+");"
+
 def rect(x1,y1,x2,y2):
     global p5code
     p5code+="rect("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+");"
