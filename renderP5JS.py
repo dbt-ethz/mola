@@ -64,7 +64,7 @@ def ellipse(x,y,w,h):
 
 def circle(x,y,radius):
     global p5code
-    p5code+="ellipse("+str(x)+","+str(y)+","+str(radius)+","+str(radius");"
+    p5code+="ellipse("+str(x)+","+str(y)+","+str(radius*2)+","+str(radius*2)+");"
 
 def rect(x1,y1,x2,y2):
     global p5code
