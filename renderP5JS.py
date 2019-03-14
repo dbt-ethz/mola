@@ -57,6 +57,10 @@ def fill(r,g,b):
 def line(x1,y1,x2,y2):
     global p5code
     p5code+="line("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+");"
+    
+def ellipse(x,y,w,h):
+    global p5code
+    p5code+="ellipse("+str(x)+","+str(y)+","+str(w)+","+str(h)+");"
 
 def circle(x,y,radius):
     global p5code
