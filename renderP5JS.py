@@ -53,7 +53,7 @@ def stroke(r,g,b):
 def fill(r,g=None,b=None):
     global p5code
     if isinstance(r,list) or isinstance(r,tuple):
-        p5code+="fill("+str(t[0])+","+str(t[1])+","+str(t[2])+");"
+        p5code+="fill("+str(r[0])+","+str(r[1])+","+str(r[2])+");"
     else:
         p5code+="fill("+str(r)+","+str(g)+","+str(b)+");"
 
