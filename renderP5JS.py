@@ -50,7 +50,7 @@ def stroke(r,g,b):
     global p5code
     p5code+="stroke("+str(r)+","+str(g)+","+str(b)+");"
 
-def fill(r,g,b):
+def fill(r,g=None,b=None):
     global p5code
     if isinstance(r,list) or isinstance(r,tuple):
         p5code+="fill("+str(t[0])+","+str(t[1])+","+str(t[2])+");"
