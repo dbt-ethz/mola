@@ -54,6 +54,10 @@ def fill(r,g,b):
     global p5code
     p5code+="fill("+str(r)+","+str(g)+","+str(b)+");"
 
+def fill(t):
+    global p5code
+    p5code+="fill("+str(t[0])+","+str(t[1])+","+str(t[2])+");"
+
 def line(x1,y1,x2,y2):
     global p5code
     p5code+="line("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+");"
