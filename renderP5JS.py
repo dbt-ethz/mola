@@ -52,11 +52,10 @@ def stroke(r,g,b):
 
 def fill(r,g,b):
     global p5code
-    p5code+="fill("+str(r)+","+str(g)+","+str(b)+");"
-
-def fill(t):
-    global p5code
-    p5code+="fill("+str(t[0])+","+str(t[1])+","+str(t[2])+");"
+    if isinstance(r,list) or isinstance(r,tuple):
+        p5code+="fill("+str(t[0])+","+str(t[1])+","+str(t[2])+");"
+    else:
+        p5code+="fill("+str(r)+","+str(g)+","+str(b)+");"
 
 def line(x1,y1,x2,y2):
     global p5code
