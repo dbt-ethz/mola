@@ -33,7 +33,7 @@ class Graph:
         return cls(neighbours)
 
     @classmethod
-    def fromHexGrid(cls,nX,nY,continous=False):
+    def fromHexGrid2D(cls,nX,nY,continous=False):
         gm=GridManager(nX,nY)
         neighbours=[0]*gm.length
         for i in range(gm.length):
