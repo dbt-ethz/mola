@@ -3,19 +3,44 @@ from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 import mola.vec as _vec
 
-# def splitGrid(face,nU,nV):
-#     """
-#     splits a quad or a rectangle into a regular grid
-#     """
-#     if len(face.vertices>4):
-#         print('too many vertices')
-#         return face
-#     verticesU1=_getVerticesBetween[face.vertices[0],face.vertices[1],nU)
-#     if len(face.vertices==3)
-#     verticesU2=getVerticesBetween[face.vertices[2],face.vertices[],nU)
-#     new_vertices=[]
-#     for u in nU:
-#         new_vertices[u]=[]
+def splitGrid(face,nU,nV):
+    """
+    splits a triangle, quad or a rectangle into a regular grid
+    """
+    if len(face.vertices)>4:
+        print('too many vertices')
+        return face
+    if len(face.vertices)==4:
+        vsU1=_getVerticesBetween(face.vertices[0],face.vertices[1],nU)
+        vsU2=_getVerticesBetween(face.vertices[3],face.vertices[2],nU)
+        gridVertices=[]
+        for u in range(len(vsU1)):
+            gridVertices.append(_getVerticesBetween(vsU1[u],vsU2[u],nV))
+        faces=[]
+        for u in range(len(vsU1)-1):
+            vs1=gridVertices[u]
+            vs2=gridVertices[u+1]
+            for v in range(len(vs1)-1):
+                faces.append(_Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]]))
+        return faces
+    if len(face.vertices)==3:
+        vsU1=_getVerticesBetween(face.vertices[0],face.vertices[1],nU)
+        vsU2=_getVerticesBetween(face.vertices[0],face.vertices[2],nU)
+        gridVertices=[]
+        for u in range(1,len(vsU1)):
+            gridVertices.append(_getVerticesBetween(vsU1[u],vsU2[u],nV))
+        faces=[]
+        # triangles
+        v0=face.vertices[0]
+        vs1=gridVertices[0]
+        for v in range(len(vs1)-1):
+            faces.append(_Face([v0,vs1[v],vs1[v+1]]))
+        for u in range(len(gridVertices)-1):
+            vs1=gridVertices[u]
+            vs2=gridVertices[u+1]
+            for v in range(len(vs1)-1):
+                faces.append(_Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]]))
+        return faces
 
 def _getVerticesBetween(v1,v2,n):
     row=[]
