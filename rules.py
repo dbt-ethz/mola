@@ -129,7 +129,7 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
         new_face.color=face.color
     return new_faces
 
-def extrudeTapered(face, height=0.0, fraction=0.5):
+def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
     """
     Extrudes the face tapered like a window by creating an
     offset face and quads between every original edge and the
@@ -171,8 +171,9 @@ def extrudeTapered(face, height=0.0, fraction=0.5):
         new_faces.append(new_face)
 
     # create the closing cap face
-    cap_face = _Face(new_vertices)
-    new_faces.append(cap_face)
+    if doCap:
+        cap_face = _Face(new_vertices)
+        new_faces.append(cap_face)
 
     return new_faces
 
