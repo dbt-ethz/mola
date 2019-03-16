@@ -3,14 +3,14 @@ import mola.analysis as analysis
 
 __grayscale = False;
 
-def getColorRgb(hue):
+def getColorRGB(hue):
 	if __grayscale:
 		return (hue,hue,hue,1)
 	else:
 		hue = __map(hue,0.0,1.0,0.0,0.8) #limit hue red-red to red-magenta
 		col = colorsys.hsv_to_rgb(hue,1,1)
 		return (col[0],col[1],col[2],1)
-		
+
 def __getColorRgb(hue):
 	if __grayscale:
 		return (hue,hue,hue,1)
