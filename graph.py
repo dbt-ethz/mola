@@ -1,7 +1,10 @@
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
 #http://en.wikipedia.org/wiki/Dijkstra_algorithm
-from Queue import PriorityQueue
+try:
+    from Queue import PriorityQueue
+except ImportError:
+    from queue import PriorityQueue
 from mola.grid import GridManager
 from mola.core import *
 
