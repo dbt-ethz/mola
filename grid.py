@@ -8,9 +8,9 @@ class GridManager:
     def getIndex(self,x,y,z=0):
         return x * self.nYZ + y * self.nZ + z
     def getX(self,index):
-        return index / self.nYZ
+        return index // self.nYZ
     def getY(self,index):
-        return (index / self.nZ) % self.nY
+        return (index // self.nZ) % self.nY
     def getZ(self,index):
         return index % self.nZ
 
