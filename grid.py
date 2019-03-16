@@ -53,16 +53,16 @@ class GridManager:
         if not continous:
             if x<self.nX-1: nbs.append(self.getIndex(x+1,y))
             if nbs8:
-                if x<self.nX-1 and y<self.nY-1: nbs.append(self.getIndex(x+1,y+1))
+                if x<self.nX-1 and y<self.nY-1:nbs.append(self.getIndex(x+1,y+1))
             if y<self.nY-1: nbs.append(self.getIndex(x,y+1))
             if nbs8:
-                if x>0 and y<self.nY-1: nbs.append(self.getIndex(x-1,y+1))
-            if x>0: nbs.append(self.getIndex(x-1,y))
+                if x>0 and y<self.nY-1:nbs.append(self.getIndex(x-1,y+1))
+            if x>0:nbs.append(self.getIndex(x-1,y))
             if nbs8:
-                if x>0 and y>0: nbs.append(self.getIndex(x-1,y-1))
+                if x>0 and y>0:nbs.append(self.getIndex(x-1,y-1))
             if y>0: nbs.append(self.getIndex(x,y-1))
             if nbs8:
-                if x<self.nX-1 and y>0: nbs.append(self.getIndex(x+1,y-1))
+                if x<self.nX-1 and y>0:nbs.append(self.getIndex(x+1,y-1))
         else:
             xPrev=x-1 if x>0 else self.nX-1
             xNext=x+1 if x<self.nX-1 else 0
