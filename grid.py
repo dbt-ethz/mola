@@ -120,16 +120,16 @@ class Grid(GridManager):
                             v4=Vertex(x,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
                         if y==self.nY-1 or functionOut(self.get(x,y+1,z)):
-                            v1=Vertex(x,y,z)
-                            v2=Vertex(x+1,y,z)
-                            v3=Vertex(x+1,y,z+1)
-                            v4=Vertex(x,y,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if y==0 or functionOut(self.get(x,y-1,z)):
                             v1=Vertex(x,y+1,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x,y+1,z+1)
+                            faces.append(Face([v1,v2,v3,v4]))
+                        if y==0 or functionOut(self.get(x,y-1,z)):
+                            v1=Vertex(x,y,z)
+                            v2=Vertex(x+1,y,z)
+                            v3=Vertex(x+1,y,z+1)
+                            v4=Vertex(x,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
                         if z==self.nZ-1 or functionOut(self.get(x,y,z+1)):
                             v1=Vertex(x,y,z)
