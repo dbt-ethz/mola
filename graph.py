@@ -41,7 +41,7 @@ class Graph:
         return cls(neighbours)
 
     @classmethod
-    def fromMeshFaces(mesh):
+    def fromMeshFaces(cls,mesh):
         faceIds={}
         neighbours=[0]*len(mesh.faces)
         for index, face in enumerate(mesh.faces):
@@ -53,7 +53,7 @@ class Graph:
                 face=mesh.getFaceAdjacentToVertices(v1,v0)
                 nbs.append(faceids[face])
             neighbours[index]=nbs
-        return Graph(neighbours)
+        return cls(neighbours)
 
     def fromMeshEdges(mesh):
         pass
