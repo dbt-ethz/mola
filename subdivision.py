@@ -1,7 +1,7 @@
 from mola.core import *
 import mola.vec as _vec
 
-def _collectNewFaces(mesh):
+def _collectNewFaces(_mesh):
     newMesh=Mesh()
     for face in _mesh.faces:
         v1=face.vertices[-2]
@@ -25,7 +25,7 @@ def subdivide(_mesh):
         edge.vertex = edge.getCenter()
     for vertex in _mesh.vertices:
         vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
-    return _collectNewFaces()
+    return _collectNewFaces(_mesh)
 
 def subdivideCatmull(_mesh):
     for face in _mesh.faces:
@@ -64,4 +64,4 @@ def subdivideCatmull(_mesh):
         v=_vec.VectorScale(v,1.0/nEdges)
         vertex.vertex=v
 
-    return _collectNewFaces(mesh)
+    return _collectNewFaces(_mesh)
