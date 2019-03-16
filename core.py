@@ -7,7 +7,7 @@ class Vertex:
 
     def __str__(self):
         return ' '.join([str(v) for v in [self.x,self.y,self.z]])
-    
+
     def getEdgeAdjacentToVertex(self,v):
         for edge in self.edges:
             if edge.v2==v or edge.v1==v:
@@ -25,12 +25,12 @@ class Edge:
         self.v2=v2
         self.face1=None
         self.face2=None
-        
+
     def getCenter(self):
         return Vertex((self.v2.x+self.v1.x)/2.0,(self.v2.y+self.v1.y)/2.0,(self.v2.z+self.v1.z)/2.0)
 
 class Box:
-    
+
     def __init__(self,x1=-float('inf'),y1=-float('inf'),z1=-float('inf'),x2=float('inf'),y2=float('inf'),z2=float('inf')):
         self.x1=x1
         self.y1=y1
@@ -38,25 +38,25 @@ class Box:
         self.x2=x2
         self.y2=y2
         self.z2=z2
-        
+
     def getDimX(self):
         return self.x2-self.x1
-    
+
     def getDimY(self):
         return self.y2-self.y1
-    
+
     def getDimZ(self):
         return self.z2-self.z1
-    
+
     def getCenterX(self):
         return (self.x2+self.x1)/2
-    
+
     def getCenterY(self):
         return (self.y2-self.y1)/2
-    
+
     def getCenterZ(self):
         return (self.z2-self.z1)/2
-    
+
     def addPoint(self,x,y,z):
         self.x1=min(x,self.x1)
         self.y1=min(y,self.y1)
@@ -76,6 +76,13 @@ class Mesh:
             if edge.v2==v2 or edge.v1==v2:
                 return edge
         return None
+
+    def getFaceAdjacentToVertices(self,vertex1,vertex2):
+        edge=vertex1.getEdgeAdjacentToVertex(v2)
+        if edge != None:
+            if edge.v1==vertex1: return edge.faces1
+            else: return edge.faces2
+            return None
 
     def weldVertices(self):
         weldedVertices={}
@@ -109,4 +116,3 @@ class Mesh:
                 else:
                     edge.face2=f
                 v1=v2
-

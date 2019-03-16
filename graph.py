@@ -40,8 +40,20 @@ class Graph:
             neighbours[i]=gm.getNbs2DHex(i,continous)
         return cls(neighbours)
 
+    @classmethod
     def fromMeshFaces(mesh):
-        pass
+        faceIds={}
+        neighbours=[0]*len(mesh.faces)
+        for index, face in enumerate(mesh.faces):
+            faceIds[f]=index
+        for index, face in enumerate(mesh.faces):
+            nbs=[]
+            v0=vace.vertices[-1]
+            for v1 in face.vertices:
+                face=mesh.getFaceAdjacentToVertices(v1,v0)
+                nbs.append(faceids[face])
+            neighbours[index]=nbs
+        return Graph(neighbours)
 
     def fromMeshEdges(mesh):
         pass
