@@ -94,3 +94,15 @@ class Grid(GridManager):
         self.values[self.getIndex(x,y,z)]=value
     def get(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
+
+class HexGrid(Grid):
+    def __init__(self,nX,nY,nZ=1,values=None):
+        self.nX=nX
+        self.nY=nY
+        self.nZ=nZ
+        self.nYZ=nY*nZ
+        if values==None:
+            self.values=[0]*nX*nY*nZ
+        self.dimY=math.sqrt(3)*0.5f
+    def getPosition(x,y):
+        return (x+(x%2)*0.5)*dimX, y*dimY)
