@@ -11,14 +11,6 @@ def getColorRGB(hue):
 		col = colorsys.hsv_to_rgb(hue,1,1)
 		return (col[0],col[1],col[2],1)
 
-def __getColorRgb(hue):
-	if __grayscale:
-		return (hue,hue,hue,1)
-	else:
-		hue = __map(hue,0.0,1.0,0.0,0.8) #limit hue red-red to red-magenta
-		col = colorsys.hsv_to_rgb(hue,1,1)
-		return (col[0],col[1],col[2],1)
-
 def colorFacesByFunction(faces,faceFunction):
 	"""
 	Assigns a color to all the faces by face-function which has to return a float value for a face as argument,
@@ -31,7 +23,7 @@ def colorFacesByFunction(faces,faceFunction):
 	valueMax = max(values)
 	for i, face in enumerate(faces):
 		h = __map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = __getColorRgb(h)
+		face.color = getColorRgb(h)
 
 def colorFacesByCurvature(faces):
 	"""
