@@ -48,7 +48,7 @@ def strokeWeight(weight):
 
 def colorMode(mode,max):
     global p5code
-    p5code+="colorMode("+str(mode)+str(max)+");"
+    p5code+="colorMode("+str(mode)+","+str(max)+");"
 
 def stroke(r,g,b):
     global p5code
