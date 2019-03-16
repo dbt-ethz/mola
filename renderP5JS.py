@@ -20,8 +20,8 @@ def displayFaces2D(faces):
     return code
 
 
-def _beginDraw2D():
-    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas(1024, 768);'''
+def _beginDraw2D(width=1024,height=768):
+    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas('''+str(width)+","+str(height)+'''768);'''
 
 def _endDraw2D():
     return '''</script>'''
@@ -93,9 +93,9 @@ def background(r,g,b):
     global p5code
     p5code+="background("+str(r)+","+str(g)+","+str(b)+");"
 
-def beginDraw():
+def beginDraw(width=1024,height=768):
     global p5code
-    p5code=_beginDraw2D()
+    p5code=_beginDraw2D(width,height)
     p5code+="rectMode(CORNERS);"
 
 def endDraw():
