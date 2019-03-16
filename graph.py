@@ -45,7 +45,7 @@ class Graph:
         faceIds={}
         neighbours=[0]*len(mesh.faces)
         for index, face in enumerate(mesh.faces):
-            faceIds[f]=index
+            faceIds[face]=index
         for index, face in enumerate(mesh.faces):
             nbs=[]
             v0=vace.vertices[-1]
