@@ -78,7 +78,7 @@ class Mesh:
         return None
 
     def getFaceAdjacentToVertices(self,vertex1,vertex2):
-        edge=vertex1.getEdgeAdjacentToVertex(v2)
+        edge=vertex1.getEdgeAdjacentToVertex(vertex2)
         if edge != None:
             if edge.v1==vertex1: return edge.faces1
             else: return edge.faces2
