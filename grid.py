@@ -135,7 +135,7 @@ class Grid(GridManager):
                             v1=Vertex(x,y,z)
                             v2=Vertex(x+1,y,z)
                             v3=Vertex(x+1,y+1,z)
-                            v4=Vertex(x,y_1,z)
+                            v4=Vertex(x,y+1,z)
                             faces.append(Face([v1,v2,v3,v3]))
                         if z==0 or functionOut(self.get(x,y,z-1)):
                             v1=Vertex(x,y,z+1)
