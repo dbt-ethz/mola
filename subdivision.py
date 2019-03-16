@@ -1,17 +1,8 @@
 from mola.core import *
 import mola.vec as _vec
 
-def subdivide(_mesh):
-    new_mesh=_mesh()
-    new_mesh.faces=[]
-    new_mesh.edges=[]
-    new_mesh.vertices=[]
-    for face in _mesh.faces:
-        face.vertex=_vec.VectorCenter(face.vertices)
-    for edge in _mesh.edges:
-        edge.vertex = edge.getCenter()
-    for vertex in _mesh.vertices:
-        vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
+def _collectNewFaces(mesh):
+    newMesh=Mesh()
     for face in _mesh.faces:
         v1=face.vertices[-2]
         v2=face.vertices[-1]
@@ -21,21 +12,22 @@ def subdivide(_mesh):
             if (edge1 != None) and (edge2!= None):
                 newFace=Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
                 newFace.color=face.color
-                new_mesh.faces.append(newFace)
+                newMesh.faces.append(newFace)
             v1=v2
             v2=v3
-            
-    new_mesh.updateAdjacencies()
-    return new_mesh
+    newMesh.updateAdjacencies()
+    return newMesh
+
+def subdivide(_mesh):
+    for face in _mesh.faces:
+        face.vertex=_vec.VectorCenter(face.vertices)
+    for edge in _mesh.edges:
+        edge.vertex = edge.getCenter()
+    for vertex in _mesh.vertices:
+        vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
+    return _collectNewFaces()
 
 def subdivideCatmull(_mesh):
-    newMesh=Mesh()
-
-    # why do i have faces in the lists?
-    newMesh.faces=[]
-    newMesh.edges=[]
-    newMesh.vertices=[]
-
     for face in _mesh.faces:
         face.vertex=_vec.VectorCenter(face.vertices)
 
@@ -72,18 +64,4 @@ def subdivideCatmull(_mesh):
         v=_vec.VectorScale(v,1.0/nEdges)
         vertex.vertex=v
 
-    for face in _mesh.faces:
-        v1=face.vertices[-2]
-        v2=face.vertices[-1]
-        for v3 in face.vertices:
-            edge1=_mesh.getEdgeAdjacentToVertices(v1,v2)
-            edge2=_mesh.getEdgeAdjacentToVertices(v2,v3)
-            if (edge1 != None) and (edge2!= None):
-                newFace=Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
-                newFace.color=face.color
-                newMesh.faces.append(newFace)
-            v1=v2
-            v2=v3
-            
-    newMesh.updateAdjacencies()
-    return newMesh
+    return _collectNewFaces(mesh)
