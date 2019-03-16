@@ -21,7 +21,7 @@ def displayFaces2D(faces):
 
 
 def _beginDraw2D(width=1024,height=768):
-    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas('''+str(width)+","+str(height)+'''768);'''
+    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas('''+str(width)+","+str(height)+''');'''
 
 def _endDraw2D():
     return '''</script>'''
