@@ -83,9 +83,9 @@ class GraphAnalyser:
         return p
 
     def computeTrafficAndCentrality(self,nodes):
-        self.traffic = [0]*n
-    	self.centrality = [0]*n
-    	for i in range(len(nodes)-1):
+        self.traffic=[0]*n
+        self.centrality=[0]*n
+        for i in range(len(nodes)-1):
             startI=nodes[i]
             self.dist = [100000]*n
             self.pred = [-1]*n
