@@ -107,13 +107,13 @@ class Grid(GridManager):
                 for z in range(self.nZ):
                     index=self.getIndex(x,y,z)
                     if functionIn(self.values[index]):
-                        if x==self.nX-1 or functionOut(self.get(x+1,y.z)):
+                        if x==self.nX-1 or functionOut(self.get(x+1,y,z)):
                             v1=Vertex(x+1,y,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x+1,y,z+1)
                             faces.append(Face([v1,v2,v3,v3]))
-                        if x==0 or functionOut(self.get(x-1,y.z)):
+                        if x==0 or functionOut(self.get(x-1,y,z)):
                             v1=Vertex(x,y,z)
                             v2=Vertex(x,y+1,z)
                             v3=Vertex(x,y+1,z+1)
