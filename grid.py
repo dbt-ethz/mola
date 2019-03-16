@@ -96,6 +96,50 @@ class Grid(GridManager):
     def get(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
 
+    def getQuadMesh(functionIn,functionOut):
+        faces=[]
+        for x in range(self.nX):
+            for y in range(self.nY):
+                for z in range(self.nZ):
+                    index=self.getIndex(x,y,z)
+                    if functionIn(values[index])):
+                        if x==self.nX-1 or functionOut(get(x+1,y.z):
+                            v1=Vertex(x+1,y,z)
+                            v2=Vertex(x+1,y+1,z)
+                            v3=Vertex(x+1,y+1,z+1)
+                            v4=Vertex(x+1,y,z+1)
+                            faces.append([v1,v2,v3,v3])
+                        if x==0 or functionOut(get(x-1,y.z):
+                            v1=Vertex(x,y,z)
+                            v2=Vertex(x,y+1,z)
+                            v3=Vertex(x,y+1,z+1)
+                            v4=Vertex(x,y,z+1)
+                            faces.append([v1,v2,v3,v3])
+                        if y==self.nY-1 or functionOut(get(x,y+1,z):
+                            v1=Vertex(x,y,z)
+                            v2=Vertex(x+1,y,z)
+                            v3=Vertex(x+1,y,z+1)
+                            v4=Vertex(x,y,z+1)
+                            faces.append([v1,v2,v3,v3])
+                        if y==0 or functionOut(get(x,y-1,z):
+                            v1=Vertex(x,y+1,z)
+                            v2=Vertex(x+1,y+1,z)
+                            v3=Vertex(x+1,y+1,z+1)
+                            v4=Vertex(x,y+1,z+1)
+                            faces.append([v1,v2,v3,v3])
+                        if z==self.nZ-1 or functionOut(get(x,y,z+1):
+                            v1=Vertex()
+                            v2=Vertex()
+                            v3=Vertex()
+                            v4=Vertex()
+                            faces.append([v1,v2,v3,v3])
+                        if z==0 or functionOut(get(x,y,z-1):
+                            v1=Vertex()
+                            v2=Vertex()
+                            v3=Vertex()
+                            v4=Vertex()
+                            faces.append([v1,v2,v3,v3])
+
 class HexGrid(Grid):
     def __init__(self,nX,nY,nZ=1,values=None):
         self.nX=nX
