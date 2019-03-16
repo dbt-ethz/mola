@@ -1,3 +1,4 @@
+import math
 class GridManager:
     def __init__(self,nX,nY,nZ=1):
         self.nX=nX
@@ -103,6 +104,6 @@ class HexGrid(Grid):
         self.nYZ=nY*nZ
         if values==None:
             self.values=[0]*nX*nY*nZ
-        self.dimY=math.sqrt(3)*0.5f
-    def getPosition(x,y):
-        return (x+(x%2)*0.5)*dimX, y*dimY)
+        self.dimY=math.sqrt(3)*0.5
+    def getPosition(x,y,z=0):
+        return (x+(x%2)*0.5)*dimX, y*dimY,z)
