@@ -52,6 +52,7 @@ class Graph:
             for v1 in face.vertices:
                 face=mesh.getFaceAdjacentToVertices(v1,v0)
                 nbs.append(faceids[face])
+                v0=v1
             neighbours[index]=nbs
         return cls(neighbours)
 
