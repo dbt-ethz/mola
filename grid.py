@@ -106,4 +106,4 @@ class HexGrid(Grid):
             self.values=[0]*nX*nY*nZ
         self.dimY=math.sqrt(3)*0.5
     def getPosition(x,y,z=0):
-        return (x+(x%2)*0.5)*dimX, y*dimY,z)
+        return [x+(x%2)*0.5, y*self.dimY,z]
