@@ -77,10 +77,10 @@ class GraphAnalyser:
 
     def getShortestPath(self,v):
         p=[]
-    	while (v != -1):
+        while v!=-1:
             p.append(v)
-    	    v = self.pred[v]
-    	return p
+            v=self.pred[v]
+        return p
 
     def computeTrafficAndCentrality(self,nodes):
         self.traffic = [0]*n
