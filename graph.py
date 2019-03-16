@@ -61,10 +61,10 @@ class GraphAnalyser:
         self.pred = [-1]*n
 
     def computeDistancesToNodes(self,startIndexes):
-    	pq = PriorityQueue()
+        pq=PriorityQueue()
         for i in startIndexes:
-            self.dist[i] = 0
-            pq.put((0, i))
+            self.dist[i]=0
+            pq.put((0,i))
     	while not pq.empty(): #and not tree[end]:
             u= pq.get()[1]
             nbs = self.graph.getNeighbours(u)
