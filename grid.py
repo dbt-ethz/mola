@@ -106,7 +106,7 @@ class Grid(GridManager):
             for y in range(self.nY):
                 for z in range(self.nZ):
                     index=self.getIndex(x,y,z)
-                    if functionIn(values[index]):
+                    if functionIn(self.values[index]):
                         if x==self.nX-1 or functionOut(self.get(x+1,y.z)):
                             v1=Vertex(x+1,y,z)
                             v2=Vertex(x+1,y+1,z)
