@@ -14,11 +14,11 @@ class Graph:
     def __init__(self,neighbours):
         self.neighbours=neighbours
         self.weightFunction=lambda a,b:1
-    def neighbours(self,u):
+    def getNeighbours(self,u):
         return self.neighbours[u]
     def size(self):
         return len(self.neighbours)
-    def weight(index1,index2):
+    def weight(self,index1,index2):
         return self.weightFunction(index1,index2)
 
     @classmethod
@@ -46,30 +46,34 @@ class Graph:
     def fromMeshVertices(mesh):
         pass
 
-class Dijkstra:
-    '''works with graphs which provide 3 methods: size(), neighbours(), and weight()'''
+class GraphAnalyser:
+    '''works with graphs which provide 3 methods: size(), getNeighbours(), and weight()
+       this class stores all distances in order to allow a fast calculation of path to predefined starting points
+       usage: construct a Graphanalyser
+       1. compute distance to a list of starting points
+       2. getShortest Path from end point to those starting point
+    '''
     def __init__(self, graph):
     	n = graph.size()
         self.graph=graph
         self.dist = [1000000]*n
         self.pred = [-1]*n
 
-    def computeAllDistancesFromA(self,startIndexes):
+    def computeDistancesToNodes(self,startIndexes):
     	pq = PriorityQueue()
         for i in startIndexes:
-            self.dist[i] == 0
+            self.dist[i] = 0
             pq.put((0, i))
     	while not pq.empty(): #and not tree[end]:
-            u = pq.get()[1]
-            nbs = self.graph.neighbours(u)
+            u= pq.get()[1]
+            nbs = self.graph.getNeighbours(u)
             for v in nbs:
-                d = self.dist[u] + graph.weight(u, v)
+                d=self.dist[u]+self.graph.weight(u,v)
                 if d < self.dist[v]:
-    				self.dist[v] = d
-    				self.pred[v] = u
-    				pq.put((d, v))
+                    self.dist[v] = d
+                    self.pred[v] = u
+                    pq.put((d, v))
 
-    #def getShortestPathFromAtoB(self):
     def getShortestPath(self,v):
         p=[]
     	while (v != -1):
@@ -84,7 +88,7 @@ class Dijkstra:
             startI=nodes[i]
             self.dist = [100000]*n
             self.pred = [-1]*n
-            computeAllDistancesFromA([startI])
+            computeDistancesToNodes([startI])
             for j in range(i,len(nodes)):
                 endI = nodes[j]
                 if endI != startI:
