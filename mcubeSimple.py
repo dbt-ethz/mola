@@ -30,7 +30,7 @@ def marchingCubes(nX,nY,nZ,values,iso):
 		9:lambda: Vertex(x + 1, y + 1, z + _v(n[1], n[5], iso)),
 		10:lambda: Vertex(x, y, z + _v(n[3], n[7], iso)),
 		11:lambda: Vertex(x + 1, y, z + _v(n[2], n[6], iso))
-	}	
+	}
 	for x in range(nX - 1):
 		for y in range(nY - 1):
 			for z in range(nZ - 1):
@@ -46,7 +46,6 @@ def marchingCubes(nX,nY,nZ,values,iso):
 				n[6] = values[index + nYZ + 1]# 1,0,1
 				n[7] = values[index + 1]# 0,0,1
 				for i in range(7,-1,-1):
-				#for (int i = 7; i > -1; i--):
 					if n[i] > iso:
 						caseNumber+=1
 					if i > 0:
@@ -54,11 +53,9 @@ def marchingCubes(nX,nY,nZ,values,iso):
 				# collecting the faces
 				offset = caseNumber * 15
 				for i in range(offset,offset + 15,3):
-				#for (int i = offset; i < offset + 15; i += 3) {
 					if _faces[i] > -1:
 						vs=[]
 						for j in range(i,i+3):
-						#for (int j = i; j < i + 3; j++) {
 							v = switcher[_faces[j]]()
 							mesh.vertices.append(v)
 							vs.append(v)
