@@ -48,7 +48,7 @@ class Graph:
             faceIds[face]=index
         for index, face in enumerate(mesh.faces):
             nbs=[]
-            v0=vace.vertices[-1]
+            v0=face.vertices[-1]
             for v1 in face.vertices:
                 nbFace=mesh.getFaceAdjacentToVertices(v1,v0)
                 nbs.append(faceids[nbFace])
