@@ -47,15 +47,15 @@ class Graph:
         pass
 
 class GraphAnalyser:
-    '''
+    """
     works with graphs which provide 3 methods: size(), getNeighbours(), and weight()
     this class stores all distances in order to allow a fast calculation of path to predefined starting points
     usage: construct a Graphanalyser
     1. compute distance to a list of starting points
     2. getShortest Path from end point to those starting point
-    '''
-    def __init__(self, graph):
-    	n = graph.size()
+    """
+    def __init__(self,graph):
+        n=graph.size()
         self.graph=graph
         self.dist = [1000000]*n
         self.pred = [-1]*n
