@@ -100,7 +100,7 @@ class Grid(GridManager):
     def get(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
 
-    def getQuadMesh(functionIn,functionOut):
+    def getQuadMesh(self,functionIn,functionOut):
         faces=[]
         for x in range(self.nX):
             for y in range(self.nY):
