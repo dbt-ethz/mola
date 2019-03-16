@@ -82,7 +82,7 @@ class Mesh:
         if edge != None:
             if edge.v1==vertex1: return edge.face1
             else: return edge.face2
-            return None
+        return None
 
     def weldVertices(self):
         weldedVertices={}
