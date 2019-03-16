@@ -92,10 +92,10 @@ class GraphAnalyser:
             computeDistancesToNodes([startI])
             for j in range(i,len(nodes)):
                 endI = nodes[j]
-                if endI != startI:
+                if endI!=startI:
                     self.centrality[startI] += self.dist[endI]
                     self.centrality[endI] += self.dist[endI]
                     path = getShortestPath(endI)
                     for ii in path:
-    					cI = path[ii]
-    					self.traffic[cI]+=1
+                        cI = path[ii]
+                        self.traffic[cI]+=1
