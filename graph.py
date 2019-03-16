@@ -65,7 +65,7 @@ class GraphAnalyser:
         for i in startIndexes:
             self.dist[i]=0
             pq.put((0,i))
-    	while not pq.empty(): #and not tree[end]:
+        while not pq.empty():
             u= pq.get()[1]
             nbs = self.graph.getNeighbours(u)
             for v in nbs:
