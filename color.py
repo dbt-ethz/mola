@@ -23,7 +23,7 @@ def colorFacesByFunction(faces,faceFunction):
 	valueMax = max(values)
 	for i, face in enumerate(faces):
 		h = __map(values[i],valueMin,valueMax,0.0,1.0)
-		face.color = getColorRgb(h)
+		face.color = getColorRGB(h)
 
 def colorFacesByCurvature(faces):
 	"""
