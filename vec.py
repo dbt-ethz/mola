@@ -195,8 +195,8 @@ def offsetPoint(v1,  v2,  v3,  offset1,  offset2):
 def VectorNormal(v1,v2,v3):
   v = VectorSubtract(v2, v1)
   u = VectorSubtract(v3, v1)
-  cross=VectorCrossProduct(v,u)
-  return VectorUnitize(cross)
+  c=VectorCrossProduct(v,u)
+  return VectorUnitize(c)
 
 def normal(v1,v2,v3):
   v = subtract(v2, v1)
