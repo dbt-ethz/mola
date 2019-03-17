@@ -16,8 +16,11 @@ class Vertex:
         return None
 
 class Face:
-    def __init__(self,vertices=[]):
-        self.vertices = vertices
+    def __init__(self,vertices=None):
+        if (vertices==None):
+            self.vertices=[]
+        else:
+            self.vertices = vertices
         self.color=(1,1,1,1)
 
 
