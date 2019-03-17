@@ -204,6 +204,22 @@ def normal(v1,v2,v3):
   cross=cross(v,u)
   return unitize(cross)
 
+def areaTriangle(v0,v1,v2):
+    d1 = distance(v0, v1)
+    d2 = distance(v1, v2)
+    d3 = distance(v2, v0)
+    s = (d1+d2+d3)/2.0
+    a = math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
+    return a
+
+def area(vertices):
+    if len(vertices) == 3:
+        return areaTriangle(vertices[0],vertices[1],vertices[2])
+    elif len(_face.vertices) == 4:
+        a1 = areaTriangle(vertices[0],vertices[1],vertices[2])
+        a2 = areaTriangle(vertices[2],vertices[3],vertices[0])
+        return a1+a2
+
 def VectorNormalFromVertices(vertices):
     return VectorNormal(vertices[0],vertices[1],vertices[2])
     # if len(vertices)==3:
