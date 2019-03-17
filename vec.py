@@ -209,7 +209,7 @@ def areaTriangle(v0,v1,v2):
     d2 = distance(v1, v2)
     d3 = distance(v2, v0)
     s = (d1+d2+d3)/2.0
-    a = math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
+    a = _math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
     return a
 
 def area(vertices):
