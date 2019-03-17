@@ -104,20 +104,20 @@ def centerFromLine(v1,v2):
   return _Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
 def VectorPerimeter(vertices):
-  perimeter=0
+  per=0
   for i in range(len(vertices)):
     n1=vertices[i]
     n2=vertices[(i+1)%len(self.nodes)]
-    perimeter=perimeter+VectorDistance(n1,n2)
-  return perimeter
+    per+=VectorDistance(n1,n2)
+  return per
 
 def perimeter(vertices):
-  perimeter=0
+  per=0
   for i in range(len(vertices)):
     n1=vertices[i]
     n2=vertices[(i+1)%len(self.nodes)]
-    perimeter=perimeter+distance(n1,n2)
-  return perimeter
+    per=+=distance(n1,n2)
+  return per
 
 def VectorBetweenRel( v1,  v2,  f):
     return _Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
