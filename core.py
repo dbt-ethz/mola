@@ -1,4 +1,3 @@
-import mola.vec as vec
 
 class Vertex:
     def __init__(self,x=0,y=0,z=0):
@@ -21,11 +20,6 @@ class Face:
         self.vertices = vertices
         self.color=(1,1,1,1)
 
-    def normal(self):
-        return vec.normalFromVertices(self.vertices)
-
-    def area(self):
-        return vec.area(self.vertices)
 
 class Edge:
     def __init__(self,v1,v2):
