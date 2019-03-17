@@ -201,8 +201,8 @@ def VectorNormal(v1,v2,v3):
 def normal(v1,v2,v3):
   v = subtract(v2, v1)
   u = subtract(v3, v1)
-  cross=cross(v,u)
-  return unitize(cross)
+  crossProduct=cross(v,u)
+  return unitize(crossProduct)
 
 def areaTriangle(v0,v1,v2):
     d1 = distance(v0, v1)
