@@ -215,7 +215,7 @@ def areaTriangle(v0,v1,v2):
 def area(vertices):
     if len(vertices) == 3:
         return areaTriangle(vertices[0],vertices[1],vertices[2])
-    elif len(_face.vertices) == 4:
+    elif len(vertices) == 4:
         a1 = areaTriangle(vertices[0],vertices[1],vertices[2])
         a2 = areaTriangle(vertices[2],vertices[3],vertices[0])
         return a1+a2
