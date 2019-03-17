@@ -107,7 +107,7 @@ def VectorPerimeter(vertices):
   per=0
   for i in range(len(vertices)):
     n1=vertices[i]
-    n2=vertices[(i+1)%len(self.nodes)]
+    n2=vertices[(i+1)%len(vertices)]
     per+=VectorDistance(n1,n2)
   return per
 
@@ -115,7 +115,7 @@ def perimeter(vertices):
   per=0
   for i in range(len(vertices)):
     n1=vertices[i]
-    n2=vertices[(i+1)%len(self.nodes)]
+    n2=vertices[(i+1)%len(vertices)]
     per=+=distance(n1,n2)
   return per
 
