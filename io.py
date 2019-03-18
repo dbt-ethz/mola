@@ -29,6 +29,9 @@ def exportOBJMeshWithColors(mesh,fileNameOBJ,fileNameMTL):
     exportOBJFacesWithColors(mesh.faces,fileNameOBJ,fileNameMTL)
 
 def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
+    exportMtl=True
+    weldVertices=True
+
     """
     Exports the faces as an Alias wavefront obj file.
 
@@ -41,15 +44,19 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
     fileNameMTL : String
         The path and filename for the *.mtl material file
     """
+
     file = open(fileNameOBJ, "w")
-    file.write("mtllib ./"+fileNameMTL+"\n");
-    fileMTL = open(fileNameMTL, "w")
+    if exportMtl:
+        file.write("mtllib ./"+fileNameMTL+"\n");
+        fileMTL = open(fileNameMTL, "w")
+        materials=set()
+
     vertexCount=0
-    materials=set()
     vertices={}
     for face in faces:
-        materials.add(face.color)
-        file.write("usemtl material"+str(face.color)+"\n")
+        if exportMtl:
+            materials.add(face.color)
+            file.write("usemtl material"+str(face.color)+"\n")
         faceString="f"
         for p in face.vertices:
             #ptuple=(p[0],p[1],p[2])
@@ -64,10 +71,12 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,fileNameMTL):
         faceString+="\n"
         file.write(faceString)
     file.close()
-    for mat in materials:
-        fileMTL.write("newmtl material"+str(mat)+"\n");
-        fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
-    fileMTL.close()
+
+    if exportMtl:
+        for mat in materials:
+            fileMTL.write("newmtl material"+str(mat)+"\n");
+            fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
+            fileMTL.close()
 
 def exportOBJFaces(faces,fileNameOBJ):
     """

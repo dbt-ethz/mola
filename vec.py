@@ -8,7 +8,10 @@ def add(v1,v2):
 def angle(v1,v2):
     a=unitize(v1)
     b=unitize(v2)
-    return _math.acos(dot(a,b))
+    f=dot(a,b)
+    if f<-1:f=-1
+    if f>1:f=1
+    return _math.acos(f)
 
 def subtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
