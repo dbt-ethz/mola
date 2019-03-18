@@ -16,7 +16,7 @@ def importOBJMesh(filename):
             face = _Face([])
             for v in values[1:]:
                 w = v.split('/')
-                vertex=vertices[int(w[0])-1]
+                vertex=mesh.vertices[int(w[0])-1]
                 face.vertices.append(vertex)
                 mesh.faces.append(face)
     return mesh
