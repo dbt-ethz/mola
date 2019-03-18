@@ -177,7 +177,7 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
     # make triangles
     newfaces = []
     for f in faces:
-        v = _vec.VectorCenter(f.vertices)
+        v = _vec.center(f.vertices)
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
             nv = f.vertices[(i+1)%len(f.vertices)]
