@@ -48,7 +48,7 @@ def getFacePerimeter(face):
 	for i in range(len(face.vertices)):
 		v1 = face.vertices[i]
 		v2 = face.vertices[(i+1)%len(face.vertices)]
-		sum += _vec.VectorDistance(v1,v2)
+		sum += _vec.distance(v1,v2)
 	return sum
 
 def getFaceVerticality(face):
@@ -60,12 +60,11 @@ def getFaceVerticality(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	normal = _vec.VectorNormalFromVertices(face.vertices)
+	normal = _vec.normalFromVertices(face.vertices)
 	return _math.atan2(normal.y * normal.y, normal.x * normal.x)
-	#return _math.atan2(normal[1] * normal[1], normal[0] * normal[0])
 
 def getFaceCurvature(face):
-	normal=_vec.VectorNormalFromVertices(face.vertices)
+	normal=_vec.normalFromVertices(face.vertices)
 	sumD=0
 	vPrev=face.vertices[-1]
 	num_faces = 0
@@ -79,8 +78,8 @@ def getFaceCurvature(face):
 			if nbFace is None:
 				return 0
 		num_faces += 1
-		nbNormal = _vec.VectorNormalFromVertices(nbFace.vertices)
-		sumD+=_vec.VectorDistance(nbNormal,normal)
+		nbNormal = _vec.normalFromVertices(nbFace.vertices)
+		sumD+=_vec.distance(nbNormal,normal)
 		vPrev=v
 	num_faces = max(1,num_faces)
 	return sumD / num_faces
