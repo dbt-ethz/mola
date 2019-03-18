@@ -23,23 +23,7 @@ def importOBJMesh(filename):
 
 def importOBJFaces(filename):
     """Loads a Wavefront OBJ file. """
-    vertices = []
-    faces = []
-    for line in open(filename, "r"):
-        if line.startswith('#'): continue
-        values = line.split()
-        if not values: continue
-        if values[0] == 'v':
-            v = map(float, values[1:4])
-            vertices.append(_Vertex(v[0],v[1],v[2]))
-        elif values[0] == 'f':
-            face = _Face([])
-            for v in values[1:]:
-                w = v.split('/')
-                vertex=vertices[int(w[0])-1]
-                face.vertices.append(vertex)
-                faces.append(face)
-    return faces
+    return importOBJMesh(fileName).faces
 
 def exportOBJMeshWithColors(mesh,fileNameOBJ,fileNameMTL):
     exportOBJFacesWithColors(mesh.faces,fileNameOBJ,fileNameMTL)
