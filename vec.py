@@ -116,7 +116,7 @@ def perimeter(vertices):
   for i in range(len(vertices)):
     n1=vertices[i]
     n2=vertices[(i+1)%len(vertices)]
-    per=+=distance(n1,n2)
+    per+=distance(n1,n2)
   return per
 
 def VectorBetweenRel( v1,  v2,  f):
