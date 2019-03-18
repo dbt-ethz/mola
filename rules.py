@@ -104,12 +104,12 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
     capTop : bool
         Toggle if top face (extrusion face) should be created, default True
     """
-    normal=_vec.VectorNormal(face.vertices[0],face.vertices[1],face.vertices[2])
-    normal=_vec.VectorScale(normal,height)
+    normal=_vec.normal(face.vertices[0],face.vertices[1],face.vertices[2])
+    normal=_vec.scale(normal,height)
     # calculate vertices
     new_vertices=[]
     for i in range(len(face.vertices)):
-        new_vertices.append(_vec.VectorAdd(face.vertices[i], normal))
+        new_vertices.append(_vec.add(face.vertices[i], normal))
     # faces
     new_faces=[]
     if capBottom:
@@ -146,17 +146,17 @@ def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
         default 0.5 (halfway)
     """
     center_vertex = _vec.VectorCenter(face.vertices)
-    normal = _vec.VectorNormalFromVertices(face.vertices)
-    scaled_normal = _vec.VectorScale(normal, height)
+    normal = _vec.normalFromVertices(face.vertices)
+    scaled_normal = _vec.scale(normal, height)
 
     # calculate new vertex positions
     new_vertices = []
     for i in range(len(face.vertices)):
         n1 = face.vertices[i]
         betw = _vec.VectorSubtract(center_vertex, n1)
-        betw = _vec.VectorScale(betw, fraction)
-        nn = _vec.VectorAdd(n1, betw)
-        nn = _vec.VectorAdd(nn, scaled_normal)
+        betw = _vec.scale(betw, fraction)
+        nn = _vec.add(n1, betw)
+        nn = _vec.add(nn, scaled_normal)
         new_vertices.append(nn)
 
     new_faces = []
@@ -189,13 +189,13 @@ def splitRoof(face, height):
         Th height of the roof
     """
     faces = []
-    normal = _vec.VectorNormalFromVertices(face.vertices)
-    normal = _vec.VectorScale(normal,height)
+    normal = _vec.normalFromVertices(face.vertices)
+    normal = _vec.scale(normal,height)
     if len(face.vertices)==4:
         ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
-        ev1=_vec.VectorAdd(ev1,normal)
+        ev1=_vec.add(ev1,normal)
         ev2=_vec.VectorCenterFromLine(face.vertices[2],face.vertices[3])
-        ev2=_vec.VectorAdd(ev2,normal)
+        ev2=_vec.add(ev2,normal)
 
         faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
@@ -204,9 +204,9 @@ def splitRoof(face, height):
         return faces
     elif len(face.vertices)==3:
         ev1=_vec.VectorCenterFromLine(face.vertices[0],face.vertices[1])
-        ev1=_vec.VectorAdd(ev1,normal)
+        ev1=_vec.add(ev1,normal)
         ev2=_vec.VectorCenterFromLine(face.vertices[1],face.vertices[2])
-        ev2=_vec.VectorAdd(ev2,normal)
+        ev2=_vec.add(ev2,normal)
 
         faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
         faces.append(_Face([face.vertices[1],ev2,ev1]))
@@ -248,8 +248,8 @@ def extrudeToPointCenter(face, height=0.0):
     height : float
         The distance of the new point to the face center, default 0
     """
-    normal = _vec.VectorNormalFromVertices(face.vertices)
-    normal = _vec.VectorScale(normal,height)
+    normal = _vec.normalFromVertices(face.vertices)
+    normal = _vec.scale(normal,height)
     center = _vec.VectorCenter(face.vertices)
-    center = _vec.VectorAdd(center,normal)
+    center = _vec.add(center,normal)
     return extrudeToPoint(face,center)

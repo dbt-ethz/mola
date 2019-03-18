@@ -113,8 +113,8 @@ def constructIcosahedronMesh(cx,cy,cz,radius):
                 _Vertex(0, coordA, coordB)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = _vec.VectorScale(mesh.vertices[i],radius)
-        mesh.vertices[i] = _vec.VectorAdd(mesh.vertices[i],_Vertex(cx,cy,cz))
+        mesh.vertices[i] = _vec.scale(mesh.vertices[i],radius)
+        mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
 
     indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
     faces = []
@@ -150,8 +150,8 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
                 _Vertex( 1/phi,0, phi)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = _vec.VectorScale(mesh.vertices[i],radius)
-        mesh.vertices[i] = _vec.VectorAdd(mesh.vertices[i],_Vertex(cx,cy,cz))
+        mesh.vertices[i] = _vec.scale(mesh.vertices[i],radius)
+        mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
     indices = [2,9,6,18,19,
                4,11,0,19,18,
                18,6,12,13,4,
@@ -195,8 +195,8 @@ def constructTetrahedronMesh(cx,cy,cz,side):
                      _Vertex(0,-1,+coord)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = _vec.VectorScale(mesh.vertices[i],side/2)
-        mesh.vertices[i] = _vec.VectorAdd(mesh.vertices[i],_Vertex(cx,cy,cz))
+        mesh.vertices[i] = _vec.scale(mesh.vertices[i],side/2)
+        mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
 
     f1 = _Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[2]])
     f2 = _Face([mesh.vertices[1],mesh.vertices[0],mesh.vertices[3]])
