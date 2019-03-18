@@ -23,7 +23,6 @@ class Face:
             self.vertices = vertices
         self.color=(1,1,1,1)
 
-
 class Edge:
     def __init__(self,v1,v2):
         self.v1=v1

@@ -2,7 +2,6 @@ from __future__ import division
 import math as _math
 from mola.core import Vertex as _Vertex
 
-
 def add(v1,v2):
     return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
 
@@ -11,17 +10,14 @@ def angle(v1,v2):
     b=unitize(v2)
     return _math.acos(dot(a,b))
 
-
 def subtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
-
 
 def scale(v,factor):
     return _Vertex(v.x*factor,v.y*factor,v.z*factor)
 
 def divide(v,factor):
     return _Vertex(v.x/factor,v.y/factor,v.z/factor)
-    #return [v.x/factor,v.y/factor,v.z/factor]
 
 def length(v):
     return _math.sqrt(v.x*v.x+v.y*v.y+v.z*v.z)
@@ -42,13 +38,6 @@ def distance(v1,v2):
   return _math.sqrt(dX*dX+dY*dY+dZ*dZ)
 
 def center(vertices):
-    '''
-    return the average of all boundarypoints
-    center=[0,0,0]
-    for vertex in vertices:
-    center=VectorAdd(vertex,center)
-    return VectorDivide(center,len(vertices))
-    '''
     # return the average of all boundarypoints
     n = len(vertices)
     cx = sum([v.x for v in vertices])/n
@@ -59,7 +48,6 @@ def center(vertices):
 def centerFromLine(v1,v2):
     return _Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
-
 def perimeter(vertices):
     per=0
     for i in range(len(vertices)):
@@ -68,10 +56,8 @@ def perimeter(vertices):
         per+=distance(n1,n2)
     return per
 
-
 def betweenRel( v1,  v2,  f):
     return _Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
-
 
 def betweenAbs( v1,  v2,  f):
     d = distance(v1,v2)
@@ -127,7 +113,6 @@ def area(vertices):
         a1 = areaTriangle(vertices[0],vertices[1],vertices[2])
         a2 = areaTriangle(vertices[2],vertices[3],vertices[0])
         return a1+a2
-
 
 def normalFromVertices(vertices):
     return normal(vertices[0],vertices[1],vertices[2])

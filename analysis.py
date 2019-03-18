@@ -19,7 +19,7 @@ def getFaceCompactness(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	return analysis.getFaceArea(face)/analysis.getFacePerimeter(face)
+	return getFaceArea(face)/getFacePerimeter(face)
 
 def getFaceArea(face):
 	"""
@@ -44,7 +44,7 @@ def getFacePerimeter(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	sum = 0;
+	sum = 0
 	for i in range(len(face.vertices)):
 		v1 = face.vertices[i]
 		v2 = face.vertices[(i+1)%len(face.vertices)]
