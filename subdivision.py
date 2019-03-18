@@ -20,7 +20,7 @@ def _collectNewFaces(_mesh):
 
 def subdivide(_mesh):
     for face in _mesh.faces:
-        face.vertex=_vec.VectorCenter(face.vertices)
+        face.vertex=_vec.center(face.vertices)
     for edge in _mesh.edges:
         edge.vertex = edge.getCenter()
     for vertex in _mesh.vertices:
@@ -29,18 +29,18 @@ def subdivide(_mesh):
 
 def subdivideCatmull(_mesh):
     for face in _mesh.faces:
-        face.vertex=_vec.VectorCenter(face.vertices)
+        face.vertex=_vec.center(face.vertices)
 
     for edge in _mesh.edges:
         edge.vertex = edge.getCenter()
 
     for edge in _mesh.edges:
         vsum=Vertex()
-        vsum=_vec.VectorAdd(vsum,edge.v1)
-        vsum=_vec.VectorAdd(vsum,edge.v2)
-        vsum=_vec.VectorAdd(vsum,edge.face1.vertex)
-        vsum=_vec.VectorAdd(vsum,edge.face2.vertex)
-        vsum=_vec.VectorScale(vsum,0.25)
+        vsum=_vec.add(vsum,edge.v1)
+        vsum=_vec.add(vsum,edge.v2)
+        vsum=_vec.add(vsum,edge.face1.vertex)
+        vsum=_vec.add(vsum,edge.face2.vertex)
+        vsum=_vec.scale(vsum,0.25)
         edge.vertex=vsum
 
     for vertex in _mesh.vertices:
@@ -52,16 +52,16 @@ def subdivideCatmull(_mesh):
             face=edge.face1
             if edge.v2==vertex:
                 face=edge.face2
-            averageFaces=_vec.VectorAdd(averageFaces,face.vertex)
-            averageEdges=_vec.VectorAdd(averageEdges,edge.getCenter())
-        averageEdges=_vec.VectorScale(averageEdges,2.0/nEdges)
-        averageFaces=_vec.VectorScale(averageFaces,1.0/nEdges)
+            averageFaces=_vec.add(averageFaces,face.vertex)
+            averageEdges=_vec.add(averageEdges,edge.getCenter())
+        averageEdges=_vec.scale(averageEdges,2.0/nEdges)
+        averageFaces=_vec.scale(averageFaces,1.0/nEdges)
 
         v=Vertex(vertex.x,vertex.y,vertex.z)
-        v=_vec.VectorScale(v,nEdges-3)
-        v=_vec.VectorAdd(v,averageFaces)
-        v=_vec.VectorAdd(v,averageEdges)
-        v=_vec.VectorScale(v,1.0/nEdges)
+        v=_vec.scale(v,nEdges-3)
+        v=_vec.add(v,averageFaces)
+        v=_vec.add(v,averageEdges)
+        v=_vec.scale(v,1.0/nEdges)
         vertex.vertex=v
 
     return _collectNewFaces(_mesh)
