@@ -1,3 +1,4 @@
+from __future__ import division
 from mola.core import Mesh as Mesh
 from mola.core import Vertex as Vertex
 from mola.core import Face as Face
@@ -20,21 +21,26 @@ def split(mesh,z):
                 edges.append(edge)
     return edges
 
-def splitTriangle(vertices,z):
+def splitWithZ(v1,v2,z):
+    if v1.z==z: return Vertex(v1.x,v1.y,z)
+    if v1.z<=z and v2.z<=z:
+        return None
+    if v1.z>=z and v2.z>=z:
+        return None
+    dX=v2.x-v1.x
+    dY=v2.y-v1.y
+    dZ=v2.z-v1.z
+    if dZ==0:return None
+    f=(z-v1.z)/dZ
+    return Vertex(f*dX+v1.x,f*dY+v1.y,z)
+
+def splitTriangle(_vertices,z):
     intersections=[]
-    vPrev=vertices[-1]
-    for v in vertices:
-        if v.z==z:
-
-            intersections.append(Vertex(v.x,v.y,v.z))
-        elif vPrev.z<z!=v.z<z:
-            deltaZ=v.z-vPrev.z
-
-            if deltaZ!=0:
-                f=(z-vPrev.z)/deltaZ
-                x=f*(v.x-vPrev.x)+vPrev.x
-                y=f*(v.y-vPrev.y)+vPrev.y
-                intersections.append(Vertex(x,y,z))
+    vPrev=_vertices[-1]
+    for v in _vertices:
+        intersection=splitWithZ(vPrev,v,z)
+        if intersection!=None:
+            intersections.append(intersection)
         vPrev=v
     if len(intersections)==2:
         dX=intersections[0].x-intersections[1].x
