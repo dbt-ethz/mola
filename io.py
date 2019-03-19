@@ -61,8 +61,8 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,exportColors=True,exportGroups=Tr
     currentGroup=None
 
     for face in faces:
-        if exportGroups and face.type!=currentGroup:
-            file.write("g "+str(face.type)+"\n")
+        if exportGroups and face.group!=currentGroup:
+            file.write("g "+str(face.group)+"\n")
             currentGroup=face.group
         if exportColors:
             materials.add(face.color)
