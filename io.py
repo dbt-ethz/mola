@@ -93,4 +93,4 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,exportColors=True,exportGroups=Tr
         for mat in materials:
             fileMTL.write("newmtl material"+str(mat)+"\n");
             fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
-            fileMTL.close()
+        fileMTL.close()
