@@ -76,7 +76,7 @@ def angleOnXYPlane(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	normal = _vec.normalFromVertices(face.vertices)
+	normal = normalFromFace(face)
 	return _math.atan2(normal.y,normal.x )
 
 def angleToXYPlane(f):
@@ -88,12 +88,12 @@ def angleToXYPlane(f):
 	face : mola.core.Face
 			The face to be measured
 	"""
-    n = _vec.normalFromVertices(f.vertices)
+    n = normalFromFace(f)
     nXY = Vertex(n.x, n.y, 0.0)
     return _vec.angle(n, nXY)
 
 def curvature(face):
-	normal=_vec.normalFromVertices(face.vertices)
+	normal=normalFromVertices(face.vertices)
 	sumD=0
 	vPrev=face.vertices[-1]
 	num_faces = 0
@@ -107,12 +107,12 @@ def curvature(face):
 			if nbFace is None:
 				return 0
 		num_faces += 1
-		nbNormal = _vec.normalFromVertices(nbFace.vertices)
+		nbNormal = normalFromFace(nbFace)
 		sumD+=_vec.distance(nbNormal,normal)
 		vPrev=v
 	num_faces = max(1,num_faces)
 	return sumD / num_faces
-	
+
 def center(face):
 	return centerFromVertices(face.vertices)
 
@@ -127,11 +127,17 @@ def centerFromVertices(vertices):
 def centerFromLine(v1,v2):
     return _Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
-def normal(face):
-	return _vec.normal(face.vertices[0],face.vertices[1],face.vertices[2])
+def normalFromFace(face):
+	return normal(face.vertices[0],face.vertices[1],face.vertices[2])
+
+def normal(v1,v2,v3):
+  v = subtract(v2, v1)
+  u = subtract(v3, v1)
+  crossProduct=cross(v,u)
+  return unitize(crossProduct)
 
 def normalFromVertices(vertices):
-    return _vec.normal(vertices[0],vertices[1],vertices[2])
+    return normal(vertices[0],vertices[1],vertices[2])
     # if len(vertices)==3:
     #     return VectorNormal(vertices[0],vertices[1],vertices[2])
     # elif len(vertices)==4:
