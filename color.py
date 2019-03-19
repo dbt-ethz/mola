@@ -1,5 +1,5 @@
 import colorsys as colorsys
-import mola.analysis as analysis
+import mola.faceUtils as faceUtils
 
 __grayscale = False;
 
@@ -30,35 +30,35 @@ def colorFacesByCurvature(faces):
 	Assigns a color to all the faces by curvature (require topological meshinformation),
 	from smallest (red) to biggest (purple).
 	"""
-	colorFacesByFunction(faces,analysis.getFaceCurvature)
+	colorFacesByFunction(faces,faceUtils.curvature)
 
 def colorFacesByArea(faces):
 	"""
 	Assigns a color to all the faces by area,
 	from smallest (red) to biggest (purple).
 	"""
-	colorFacesByFunction(faces,analysis.getFaceArea)
+	colorFacesByFunction(faces,faceUtils.area)
 
 def colorFacesByPerimeter(faces):
 	"""
 	Assigns a color to all the faces by perimeter,
 	from smallest (red) to biggest (purple).
 	"""
-	colorFacesByFunction(faces,analysis.getFacePerimeter)
+	colorFacesByFunction(faces,faceUtils.perimeter)
 
 def colorFacesByCompactness(faces):
 	"""
 	Assigns a color to all the faces by compactness (area/perimeter),
 	from smallest (red) to biggest (purple).
 	"""
-	colorFacesByFunction(faces,analysis.getFaceCompactness)
+	colorFacesByFunction(faces,faceUtils.compactness)
 
 def colorFacesByVerticality(faces):
 	"""
 	Assigns a color to all the faces by verticality,
 	from smallest (red) to biggest (purple).
 	"""
-	colorFacesByFunction(faces,analysis.getFaceVerticality)
+	colorFacesByFunction(faces,faceUtils.angleToXYPlane)
 
 def __map(value, fromMin, fromMax, toMin, toMax):
 	return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
