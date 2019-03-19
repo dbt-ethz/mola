@@ -1,2 +1,2 @@
 # Mola
-Pure Python Mesh Structure
+Lightweight Computational Design Library
