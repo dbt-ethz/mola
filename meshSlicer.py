@@ -49,22 +49,22 @@ def splitTriangle(_vertices,z):
             return Edge(intersections[0],intersections[1])
     return None
 
-# def weldVertices(edges):
-#     dictVertices={}
-#     for edge in edges:
-#         tuple=(edge.v1.x,edge.v1.y)
-#         if tuple in dictVertices:
-#             edge.v1=dictVertices[tuple]
-#         else:
-#             dictVertices[tuple]=edge.v1
-#         edge.v1.edges.append(edge)
-#
-#         tuple=(edge.v2.x,edge.v2.y)
-#         if tuple in dictVertices:
-#             edge.v2=dictVertices[tuple]
-#         else:
-#             dictVertices[tuple]=edge.v2
-#         edge.v2.edges.append(edge)
+def weldVertices(edges):
+    dictVertices={}
+    for edge in edges:
+        tuple=(edge.v1.x,edge.v1.y)
+        if tuple in dictVertices:
+            edge.v1=dictVertices[tuple]
+        else:
+            dictVertices[tuple]=edge.v1
+        edge.v1.edges.append(edge)
+
+        tuple=(edge.v2.x,edge.v2.y)
+        if tuple in dictVertices:
+            edge.v2=dictVertices[tuple]
+        else:
+            dictVertices[tuple]=edge.v2
+        edge.v2.edges.append(edge)
 #
 # def edgesToRing(edges):
 #     # can be multiple rings
@@ -81,7 +81,7 @@ def splitTriangle(_vertices,z):
 #                 ring.append(nextE.v1)
 #                 edgesToCheck.remove(nextE)
 #                 for nE in nextE.v2.edges:
-#                     if nE!=nextE
+#                     if nE!=nextE:
 #                         nextE=nE
 #                         break
 #             ring.append(nextE.v2)
@@ -96,7 +96,7 @@ def splitTriangle(_vertices,z):
 #             ring.append(nextE.v1)
 #             edgesToCheck.remove(nextE)
 #             for nE in nextE.v2.edges:
-#                 if nE!=nextE
+#                 if nE!=nextE:
 #                     nextE=nE
 #                     break
 #             if nextE==startE:
