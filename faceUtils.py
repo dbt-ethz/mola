@@ -88,8 +88,8 @@ def angleToXYPlane(f):
 	face : mola.core.Face
 			The face to be measured
 	"""
-    n = normalFromFace(f)
-    nXY = Vertex(n.x, n.y, 0.0)
+	n = normalFromFace(f)
+	nXY = Vertex(n.x, n.y, 0.0)
     return _vec.angle(n, nXY)
 
 def curvature(face):
