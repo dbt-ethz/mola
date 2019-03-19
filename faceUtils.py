@@ -21,7 +21,7 @@ def area(face):
 	if(len(face.vertices) == 3):
 		return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2])
 	else:
-		return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2]) + __getTriangleArea3D(face.vertices[2],face.vertices[3],face.vertices[0])
+		return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2]) + areaTriangle3D(face.vertices[2],face.vertices[3],face.vertices[0])
 
 def areaFromVertices(vertices):
     if len(vertices) == 3:
