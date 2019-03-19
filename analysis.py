@@ -63,6 +63,19 @@ def getFaceVerticality(face):
 	normal = _vec.normalFromVertices(face.vertices)
 	return _math.atan2(normal.y * normal.y, normal.x * normal.x)
 
+def getFaceAngle(f):
+	"""
+	Returns angle between normal from face and normal from face projected to XY Plane
+	
+	Arguments:
+	----------
+	face : mola.core.Face
+			The face to be measured
+	"""
+    n = _vec.normalFromVertices(f.vertices)
+    nXY = Vertex(n.x, n.y, 0.0)
+    return _vec.angle(n, nXY)
+
 def getFaceCurvature(face):
 	normal=_vec.normalFromVertices(face.vertices)
 	sumD=0
