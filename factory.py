@@ -4,7 +4,7 @@ from mola.core import Face as _Face
 import mola.vec as _vec
 import math as _math
 
-def constructSingleFaceMesh(vertices):
+def constructSingleFace(vertices):
     """
     Creates and returns a single face mesh from the vertices.
 
@@ -54,7 +54,7 @@ def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
             mesh.faces.append(_Face([verticesTop[i],verticesTop[i2],centerTop]))
     return mesh
 
-def constructBoxMesh(x1,y1,z1,x2,y2,z2):
+def constructBox(x1,y1,z1,x2,y2,z2):
     """
     Creates and returns a mesh box with six quad faces.
 
@@ -84,7 +84,7 @@ def constructBoxMesh(x1,y1,z1,x2,y2,z2):
     mesh.faces=[f1,f2,f3,f4,f5,f6]
     return mesh
 
-def constructIcosahedronMesh(cx,cy,cz,radius):
+def constructIcosahedron(cx,cy,cz,radius):
     """
     Creates and returns a mesh in the form of an icosahedron.
 
@@ -125,7 +125,7 @@ def constructIcosahedronMesh(cx,cy,cz,radius):
     mesh.faces=faces
     return mesh
 
-def constructDodecahedronMesh(cx,cy,cz,radius):
+def constructDodecahedron(cx,cy,cz,radius):
     mesh=_Mesh()
     phi = (1 + 5**0.5)/2
     mesh.vertices = [_Vertex( 1, 1, 1),
@@ -186,7 +186,7 @@ def constructDodecahedronMesh(cx,cy,cz,radius):
     mesh.faces = newfaces
     return mesh
 
-def constructTetrahedronMesh(cx,cy,cz,side):
+def constructTetrahedron(cx,cy,cz,side):
     mesh=_Mesh()
     coord = 1/_math.sqrt(2)
     mesh.vertices = [_Vertex(+1,0,-coord),
