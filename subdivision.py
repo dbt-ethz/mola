@@ -22,7 +22,7 @@ def _collectNewFaces(_mesh):
 
 def subdivide(_mesh):
     for face in _mesh.faces:
-        face.vertex=faceUtils.center(face.vertices)
+        face.vertex=faceUtils.center(face)
     for edge in _mesh.edges:
         edge.vertex = edge.getCenter()
     for vertex in _mesh.vertices:
@@ -31,7 +31,7 @@ def subdivide(_mesh):
 
 def subdivideCatmull(_mesh):
     for face in _mesh.faces:
-        face.vertex=faceUtils.center(face.vertices)
+        face.vertex=faceUtils.center(face)
 
     for edge in _mesh.edges:
         edge.vertex = edge.getCenter()

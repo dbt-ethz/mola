@@ -112,8 +112,11 @@ def curvature(face):
 		vPrev=v
 	num_faces = max(1,num_faces)
 	return sumD / num_faces
+	
+def center(face):
+	return centerFromVertices(face.vertices)
 
-def center(vertices):
+def centerFromVertices(vertices):
     # return the average of all boundarypoints
     n = len(vertices)
     cx = sum([v.x for v in vertices])/n
