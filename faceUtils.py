@@ -132,10 +132,10 @@ def normalFromFace(face):
 	return normal(face.vertices[0],face.vertices[1],face.vertices[2])
 
 def normal(v1,v2,v3):
-  v = subtract(v2, v1)
-  u = subtract(v3, v1)
-  crossProduct=cross(v,u)
-  return unitize(crossProduct)
+  v = _vec.subtract(v2, v1)
+  u = _vec.subtract(v3, v1)
+  crossProduct=_vec.cross(v,u)
+  return _vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
     return normal(vertices[0],vertices[1],vertices[2])
