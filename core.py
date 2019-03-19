@@ -24,7 +24,7 @@ class Face:
         else:
             self.vertices = vertices
         self.color=(1,1,1,1)
-        self.type=None
+        self.group=None
 
 class Edge:
     def __init__(self,_v1,_v2):

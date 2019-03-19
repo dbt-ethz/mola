@@ -12,6 +12,7 @@ def _collectNewFaces(_mesh):
             if (edge1 != None) and (edge2!= None):
                 newFace=Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
                 newFace.color=face.color
+                newFace.group=face.group
                 newMesh.faces.append(newFace)
             v1=v2
             v2=v3

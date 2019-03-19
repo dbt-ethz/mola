@@ -17,7 +17,7 @@ def importOBJMesh(filename):
             mesh.vertices.append(_Vertex(v[0],v[1],v[2]))
         elif values[0] == 'f':
             face = _Face([])
-            face.type=group
+            face.group=group
             for v in values[1:]:
                 w = v.split('/')
                 vertex=mesh.vertices[int(w[0])-1]
@@ -54,7 +54,7 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,exportColors=True,exportGroups=Tr
         materials=set()
 
     if exportGroups:
-        faces.sort(key=lambda x: x.type)
+        faces.sort(key=lambda x: x.group)
 
     vertexCount=0
     vertices={}
@@ -63,7 +63,7 @@ def exportOBJFacesWithColors(faces,fileNameOBJ,exportColors=True,exportGroups=Tr
     for face in faces:
         if exportGroups and face.type!=currentGroup:
             file.write("g "+str(face.type)+"\n")
-            currentGroup=face.type
+            currentGroup=face.group
         if exportColors:
             materials.add(face.color)
             file.write("usemtl material"+str(face.color)+"\n")
