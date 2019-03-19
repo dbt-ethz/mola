@@ -77,7 +77,7 @@ def angleOnXYPlane(face):
 			The face to be measured
 	"""
 	normal = normalFromFace(face)
-	return _math.atan2(normal.y,normal.x )
+	return _math.atan2(normal.y,normal.x)
 
 def angleToXYPlane(f):
 	"""
@@ -90,7 +90,7 @@ def angleToXYPlane(f):
 	"""
 	n = normalFromFace(f)
 	nXY = Vertex(n.x, n.y, 0.0)
-    return _vec.angle(n, nXY)
+	return _vec.angle(n, nXY)
 
 def curvature(face):
 	normal=normalFromVertices(face.vertices)
