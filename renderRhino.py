@@ -2,6 +2,8 @@ import rhinoscriptsyntax as rs
 def displayMesh(mesh):
     display(mesh.faces)
 
+#todo: method to turn rhino mesh into molamesh
+
 def display(faces):
     vertices=[]
     facesIndices=[]
