@@ -4,6 +4,8 @@ class Vertex:
         self.x=x
         self.y=y
         self.z=z
+        self.fix=False
+        self.generation=0
         self.edges=[]
 
     def __str__(self):
@@ -22,6 +24,7 @@ class Face:
         else:
             self.vertices = vertices
         self.color=(1,1,1,1)
+        self.type=None
 
 class Edge:
     def __init__(self,v1,v2):
@@ -30,12 +33,22 @@ class Edge:
         self.face1=None
         self.face2=None
 
+    def __str__(self):
+        return "from " + str(self.v1)+" to "+ str(self.v2)
+
+    def getOtherVertex(self,vertex):
+        if self.v1==vertex:
+            return self.v2
+        if self.v2==vertex:
+            return self.v1
+        return None
+
     def getCenter(self):
         return Vertex((self.v2.x+self.v1.x)/2.0,(self.v2.y+self.v1.y)/2.0,(self.v2.z+self.v1.z)/2.0)
 
 class Box:
 
-    def __init__(self,x1=-float('inf'),y1=-float('inf'),z1=-float('inf'),x2=float('inf'),y2=float('inf'),z2=float('inf')):
+    def __init__(self,x1=float('inf'),y1=float('inf'),z1=float('inf'),x2=-float('inf'),y2=-float('inf'),z2=-float('inf')):
         self.x1=x1
         self.y1=y1
         self.z1=z1
@@ -56,10 +69,10 @@ class Box:
         return (self.x2+self.x1)/2
 
     def getCenterY(self):
-        return (self.y2-self.y1)/2
+        return (self.y2+self.y1)/2
 
     def getCenterZ(self):
-        return (self.z2-self.z1)/2
+        return (self.z2+self.z1)/2
 
     def addPoint(self,x,y,z):
         self.x1=min(x,self.x1)
@@ -74,6 +87,13 @@ class Mesh:
         self.vertices=[]
         self.faces=[]
         self.edges=[]
+
+    def getBounds(self):
+        box=Box()
+        for f in self.faces:
+            for v in f.vertices:
+                box.addPoint(v.x,v.y,v.z)
+        return box
 
     def getEdgeAdjacentToVertices(self,v1,v2):
         for edge in v1.edges:
