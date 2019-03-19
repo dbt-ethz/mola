@@ -1,5 +1,6 @@
 import math as _math
 import mola.vec as _vec
+from mola.core import Vertex
 
 # def areaTriangle(v0,v1,v2):
 #     d1 = distance(v0, v1)
@@ -122,10 +123,10 @@ def centerFromVertices(vertices):
     cx = sum([v.x for v in vertices])/n
     cy = sum([v.y for v in vertices])/n
     cz = sum([v.z for v in vertices])/n
-    return _Vertex(cx,cy,cz)
+    return Vertex(cx,cy,cz)
 
 def centerFromLine(v1,v2):
-    return _Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
+    return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
 def normalFromFace(face):
 	return normal(face.vertices[0],face.vertices[1],face.vertices[2])
