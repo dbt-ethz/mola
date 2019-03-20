@@ -3,6 +3,7 @@ from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 import mola.vec as _vec
 
+
 def splitGrid(face,nU,nV):
     """
     splits a triangle, quad or a rectangle into a regular grid
