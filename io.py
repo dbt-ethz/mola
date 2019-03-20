@@ -2,7 +2,7 @@ from mola.core import Mesh as _Mesh
 from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 
-def importOBJMesh(filename):
+def importOBJ(filename):
     """Loads a Wavefront OBJ file. """
     mesh=_Mesh()
     group=""
@@ -27,12 +27,12 @@ def importOBJMesh(filename):
 
 def importOBJFaces(filename):
     """Loads a Wavefront OBJ file. """
-    return importOBJMesh(fileName).faces
+    return importOBJ(fileName).faces
 
-def exportOBJMeshWithColors(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
-    exportOBJFacesWithColors(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
+def exportOBJ(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
+    exportOBJFaces(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
 
-def exportOBJFacesWithColors(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
+def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
 
     """
     Exports the faces as an Alias wavefront obj file.
