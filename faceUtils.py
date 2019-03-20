@@ -97,7 +97,7 @@ def angleToXYPlane(f):
 	# return _math.asin(n.z)
 
 def curvature(face):
-	normal=normalFromVertices(face.vertices)
+	normal=normal(face)
 	sumD=0
 	vPrev=face.vertices[-1]
 	num_faces = 0
