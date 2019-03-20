@@ -92,6 +92,9 @@ def angleToXYPlane(f):
 	n = normalFromFace(f)
 	nXY = Vertex(n.x, n.y, 0.0)
 	return _vec.angle(n, nXY)
+	
+	# alternative, probably less computationally intense:
+	# return _math.asin(n.z)
 
 def curvature(face):
 	normal=normalFromVertices(face.vertices)
