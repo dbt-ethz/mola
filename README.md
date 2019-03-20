@@ -1,3 +1,5 @@
+![alt text](https://docs.google.com/drawings/d/e/2PACX-1vRoP2HqMsB_c6zIruq1oqvYZ2b1jlXSe9mKGeDNs38SOBh-v853UQC3NQctYHhdvSRnFrP1ls7vr0uy/pub?w=198&h=287)
+
 # Mola
 Lightweight Computational Design Library
 
