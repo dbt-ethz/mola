@@ -92,11 +92,19 @@ def angleToXYPlane(f):
 	n = normalFromFace(f)
 	nXY = Vertex(n.x, n.y, 0.0)
 	return _vec.angle(n, nXY)
-	
+
 	# alternative, probably less computationally intense:
 	# return _math.asin(n.z)
 
 def curvature(face):
+	"""
+	Returns the local curvature of a mesh face, by measuring the angle to the neighbour faces.
+
+	Arguments:
+	----------
+	face : mola.core.Face
+			The face to be measured
+	"""
 	normal=normalFromVertices(face.vertices)
 	sumD=0
 	vPrev=face.vertices[-1]
@@ -118,9 +126,27 @@ def curvature(face):
 	return sumD / num_faces
 
 def center(face):
+	"""
+	Returns the center point (type Vertex) of a face.
+	Note: not the center of gravity, just the average of its vertices.
+
+	Arguments:
+	----------
+	face : mola.core.Face
+			The face to be measured
+	"""
 	return centerFromVertices(face.vertices)
 
 def centerFromVertices(vertices):
+	"""
+	Returns the center point (type Vertex) of a list of vertices.
+	Note: not the center of gravity, just the average of the vertices.
+
+	Arguments:
+	----------
+	vertices : list of mola.core.Vertex
+			The list of vertices to be measured
+	"""
     # return the average of all boundarypoints
     n = len(vertices)
     cx = sum([v.x for v in vertices])/n
