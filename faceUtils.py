@@ -77,7 +77,7 @@ def angleOnXYPlane(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	normal = normalFromFace(face)
+	normal = normal(face)
 	return _math.atan2(normal.y,normal.x)
 
 def angleToXYPlane(f):
@@ -89,7 +89,7 @@ def angleToXYPlane(f):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	n = normalFromFace(f)
+	n = normal(f)
 	nXY = Vertex(n.x, n.y, 0.0)
 	return _vec.angle(n, nXY)
 
@@ -111,7 +111,7 @@ def curvature(face):
 			if nbFace is None:
 				return 0
 		num_faces += 1
-		nbNormal = normalFromFace(nbFace)
+		nbNormal = normal(nbFace)
 		sumD+=_vec.distance(nbNormal,normal)
 		vPrev=v
 	num_faces = max(1,num_faces)
