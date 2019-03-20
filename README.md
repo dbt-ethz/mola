@@ -15,9 +15,13 @@ Lightweight Computational Design Library
 - factory
   - Factory to create different mesh primitives like single face, cone, box, platonic solids
 - meshSlicer
+  - ...
 - marchingCubes
+  - Create an isosurface mesh in a 3D grid of voxels
 - grid
+  - classes `GridManager` and `Grid`, orthogonal grid in 2d or 3d, and `Hexgrid`
 - graph
+  - classes `Graph` and `GraphAnalyser` (for shortest path or centrality calculation)
 - io
   - import / export of OBJ Wavefront Files
 - renderP5
