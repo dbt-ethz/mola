@@ -23,8 +23,8 @@ Lightweight Computational Design Library
 - renderP5
   - display in Processing Python Mode
 - renderP5JS
-  - display in P5.js for 2D graphics in Google Colab
+  - display in [P5.js](http://p5js.org) for 2D graphics in Google Colab
 - renderBabylonJS
-  - display in Babylon.js for 3D graphics in Google Colab
+  - display in [Babylon.js](https://www.babylonjs.com) for 3D graphics in Google Colab
 - renderRhino
   - construct and load mesh geometry in Rhino
