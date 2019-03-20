@@ -92,7 +92,7 @@ def angleToXYPlane(f):
 	n = normalFromFace(f)
 	nXY = Vertex(n.x, n.y, 0.0)
 	return _vec.angle(n, nXY)
-	
+
 	# alternative, probably less computationally intense:
 	# return _math.asin(n.z)
 
@@ -131,17 +131,17 @@ def centerFromVertices(vertices):
 def centerFromLine(v1,v2):
     return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
-def normalFromFace(face):
-	return normal(face.vertices[0],face.vertices[1],face.vertices[2])
+def normal(face):
+	return normalFromTriangle(face.vertices[0],face.vertices[1],face.vertices[2])
 
-def normal(v1,v2,v3):
+def normalFromTriangle(v1,v2,v3):
   v = _vec.subtract(v2, v1)
   u = _vec.subtract(v3, v1)
   crossProduct=_vec.cross(v,u)
   return _vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
-    return normal(vertices[0],vertices[1],vertices[2])
+    return normalFromTriangle(vertices[0],vertices[1],vertices[2])
     # if len(vertices)==3:
     #     return VectorNormal(vertices[0],vertices[1],vertices[2])
     # elif len(vertices)==4:
