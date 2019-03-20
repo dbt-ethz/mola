@@ -11,11 +11,11 @@ Lightweight Computational Design Library
 - faceUtils
   - utilities to calculate different properties of a `Face`, e.g. normal, center, perimeter, etc.
 - subdivision
-  - CatmullClark subdivision of an entire mesh, also method to collect vertices.
+  - CatmullClark and simple Quad-split subdivision of an entire mesh, also method to collect vertices.
 - factory
   - Factory to create different mesh primitives like single face, cone, box, platonic solids
 - meshSlicer
-  - ...
+  - slicing tools for mesh geometry
 - marchingCubes
   - Create an isosurface mesh in a 3D grid of voxels
 - grid
