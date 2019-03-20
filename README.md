@@ -15,7 +15,7 @@ Lightweight Computational Design Library
   - rules for mesh subdivision, input `Face`, output list of `Face`s
 - factory
   - Factory to create different mesh primitives like single face, cone, box, platonic solids
-- meshSlicer
+- slicer
   - slicing tools for mesh geometry
 - marchingCubes
   - Create an isosurface mesh in a 3D grid of voxels
