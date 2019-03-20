@@ -15,7 +15,12 @@ Lightweight Computational Design Library
 - grid
 - graph
 - io
+  - import / export of OBJ Wavefront Files
 - renderP5
-- renderRhino
+  - display in Processing Python Mode
 - renderP5JS
+  - display in P5.js for 2D graphics in Google Colab
 - renderBabylonJS
+  - display in Babylon.js for 3D graphics in Google Colab
+- renderRhino
+  - construct and load mesh geometry in Rhino
