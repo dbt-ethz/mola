@@ -58,7 +58,7 @@ def colorFacesByVerticality(faces):
     Assigns a color to all the faces by verticality,
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.angleToXYPlane)
+    colorFacesByFunction(faces,faceUtils.vertical_angle)
 
 def __map(value, fromMin, fromMax, toMin, toMax):
     return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
