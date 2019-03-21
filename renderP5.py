@@ -48,7 +48,7 @@ def display(faces):
     endShape()
     for f in faces:
         if len(f.vertices)>4:
-                        fill(f.color[0]*255,f.color[1]*255,f.color[2]*255)
+            fill(f.color[0]*255,f.color[1]*255,f.color[2]*255)
             beginShape()
             for v in f.vertices:
                 vertex(v.x,v.y,v.z)
