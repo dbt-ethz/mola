@@ -6,9 +6,12 @@ def displayMesh(mesh):
     return display(mesh.faces)
 
 def createLinesShape(lines):
-    shape = createShape(LINES)
+    shape = createShape()
+    shape.beginShape(LINES)
     for l in lines:
-        shape.line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
+        shape.vertex(l.v1.x,l.v1.y,l.v1.z)
+        shape.vertex(l.v2.x,l.v2.y,l.v2.z)
+    shape.endShape()
     return shape
 
 def createMeshShape(mesh):
