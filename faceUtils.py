@@ -68,9 +68,9 @@ def perimeter(face):
 		sum += _vec.distance(v1,v2)
 	return sum
 
-def angleOnXYPlane(face):
+def horizontal_angle(face):
 	"""
-	Returns the verticality of a face as the angle between ??.
+	Returns the azimuth, the orientation of the face around the z-axis in the XY-plane
 
 	Arguments:
 	----------
@@ -80,9 +80,9 @@ def angleOnXYPlane(face):
 	normal = normal(face)
 	return _math.atan2(normal.y,normal.x)
 
-def angleToXYPlane(f):
+def vertical_angle(f):
 	"""
-	Returns angle between normal from face and normal from face projected to XY Plane
+	Returns the altitude, 0 if the face is vertical, -π if it faces downwards, +π if it faces upwards.
 
 	Arguments:
 	----------
@@ -90,11 +90,10 @@ def angleToXYPlane(f):
 			The face to be measured
 	"""
 	n = normal(f)
-	nXY = Vertex(n.x, n.y, 0.0)
-	return _vec.angle(n, nXY)
-
+	#nXY = Vertex(n.x, n.y, 0.0)
+	#return _vec.angle(n, nXY)
 	# alternative, probably less computationally intense:
-	# return _math.asin(n.z)
+	return _math.asin(n.z)
 
 def curvature(face):
 	"""
