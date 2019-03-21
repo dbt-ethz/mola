@@ -19,7 +19,7 @@ def createMeshShape(mesh):
     quadshape.beginShape(QUADS)
     for f in faces:
         cShape = trishape
-        if len(f.vertices) == 4):
+        if len(f.vertices) == 4:
             cShape = quadshape
         cShape.fill(f.color[0]*255,f.color[1]*255,f.color[2]*255)
         for v in f.vertices:
