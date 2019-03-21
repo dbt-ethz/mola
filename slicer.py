@@ -1,8 +1,5 @@
 from __future__ import division
-from mola.core import Mesh as Mesh
 from mola.core import Vertex as Vertex
-from mola.core import Face as Face
-from mola.core import Edge as Edge
 from mola.core import Edge as Edge
 
 def split(mesh,z):
