@@ -1,4 +1,6 @@
 import rhinoscriptsyntax as rs
+
+
 def displayMesh(mesh):
     display(mesh.faces)
 
