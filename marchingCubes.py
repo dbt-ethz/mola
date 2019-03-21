@@ -10,7 +10,7 @@ def _v( v1,  v2,  iso):
 	return (iso - v1) / (v2 - v1)
 
 def marchingCubesFromGrid(grid,iso):
-    return marchingCubes(grid.nX,grid.nY,grid.nZ,grid.values,iso)
+	return marchingCubes(grid.nX,grid.nY,grid.nZ,grid.values,iso)
 
 def marchingCubes(nX,nY,nZ,values,iso):
 	mesh =  Mesh()

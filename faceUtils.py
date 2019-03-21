@@ -77,12 +77,12 @@ def horizontal_angle(face):
 	face : mola.core.Face
 			The face to be measured
 	"""
-	normal = normal(face)
-	return _math.atan2(normal.y,normal.x)
+	n = normal(face)
+	return _math.atan2(n.y,n.x)
 
 def vertical_angle(f):
 	"""
-	Returns the altitude, 0 if the face is vertical, -π if it faces downwards, +π if it faces upwards.
+	Returns the altitude, 0 if the face is vertical, -Pi if it faces downwards, +Pi if it faces upwards.
 
 	Arguments:
 	----------
@@ -146,27 +146,26 @@ def centerFromVertices(vertices):
 	vertices : list of mola.core.Vertex
 			The list of vertices to be measured
 	"""
-    # return the average of all boundarypoints
-    n = len(vertices)
-    cx = sum([v.x for v in vertices])/n
-    cy = sum([v.y for v in vertices])/n
-    cz = sum([v.z for v in vertices])/n
-    return Vertex(cx,cy,cz)
+	n = len(vertices)
+	cx = sum([v.x for v in vertices])/n
+	cy = sum([v.y for v in vertices])/n
+	cz = sum([v.z for v in vertices])/n
+	return Vertex(cx,cy,cz)
 
 def centerFromLine(v1,v2):
-    return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
+	return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
 def normal(face):
 	return normalFromTriangle(face.vertices[0],face.vertices[1],face.vertices[2])
 
 def normalFromTriangle(v1,v2,v3):
-  v = _vec.subtract(v2, v1)
-  u = _vec.subtract(v3, v1)
-  crossProduct=_vec.cross(v,u)
-  return _vec.unitize(crossProduct)
+	v = _vec.subtract(v2, v1)
+	u = _vec.subtract(v3, v1)
+	crossProduct=_vec.cross(v,u)
+	return _vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
-    return normalFromTriangle(vertices[0],vertices[1],vertices[2])
+	return normalFromTriangle(vertices[0],vertices[1],vertices[2])
     # if len(vertices)==3:
     #     return VectorNormal(vertices[0],vertices[1],vertices[2])
     # elif len(vertices)==4:

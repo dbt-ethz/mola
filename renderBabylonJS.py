@@ -4,25 +4,25 @@ __code=""
 __backgroundColor = (0,0,0)
 
 def displayMesh(mesh):
-  return display(mesh.faces)
+    return display(mesh.faces)
 
 def display(faces):
-  __begin3D()
-  positions=[]
-  indices=[]
-  colors=[]
-  cIndex=0
-  for face in faces:
-    for v in face.vertices:
-      positions.extend((v.x,v.y,v.z))
-      colors.extend(face.color)
-    indices.extend([cIndex,cIndex+1,cIndex+2])
-    if len(face.vertices)==4:
-      indices.extend([cIndex+2,cIndex+3,cIndex])
-    cIndex+=len(face.vertices)
-  __drawMeshWithColors(positions,indices,colors)
-  __end3D()
-  return __code
+    __begin3D()
+    positions=[]
+    indices=[]
+    colors=[]
+    cIndex=0
+    for face in faces:
+        for v in face.vertices:
+            positions.extend((v.x,v.y,v.z))
+            colors.extend(face.color)
+        indices.extend([cIndex,cIndex+1,cIndex+2])
+        if len(face.vertices)==4:
+            indices.extend([cIndex+2,cIndex+3,cIndex])
+        cIndex+=len(face.vertices)
+    __drawMeshWithColors(positions,indices,colors)
+    __end3D()
+    return __code
 
 def __begin3D():
   global __code
