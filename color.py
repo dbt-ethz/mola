@@ -61,7 +61,9 @@ def colorFacesByVerticality(faces):
     colorFacesByFunction(faces,faceUtils.vertical_angle)
 
 def __map(value, fromMin, fromMax, toMin, toMax):
-    return toMin + ((toMax - toMin) / (fromMax - fromMin)) * (value - fromMin)
+    delta=fromMax - fromMin
+    if delta==0:return 0
+    return toMin + ((toMax - toMin) / delta) * (value - fromMin)
 
 def grayscale(boolean):
     global __grayscale

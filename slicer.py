@@ -2,23 +2,23 @@ from __future__ import division
 from mola.core import Vertex as Vertex
 from mola.core import Edge as Edge
 
-def split(mesh,z):
+def slice(mesh,z):
     edges=[]
     for face in mesh.faces:
         if len(face.vertices)==4:
-            edge=splitTriangle((face.vertices[0],face.vertices[1],face.vertices[2]),z)
+            edge=sliceTriangle((face.vertices[0],face.vertices[1],face.vertices[2]),z)
             if edge!=None:
                 edges.append(edge)
-            edge=splitTriangle((face.vertices[2],face.vertices[3],face.vertices[0]),z)
+            edge=sliceTriangle((face.vertices[2],face.vertices[3],face.vertices[0]),z)
             if edge!=None:
                 edges.append(edge)
         if len(face.vertices)==3:
-            edge=splitTriangle(face.vertices,z)
+            edge=sliceTriangle(face.vertices,z)
             if edge!=None:
                 edges.append(edge)
     return edges
 
-def splitWithZ(v1,v2,z):
+def sliceWithZ(v1,v2,z):
     if v1.z==z: return Vertex(v1.x,v1.y,z)
     if v1.z<=z and v2.z<=z:
         return None
@@ -31,11 +31,11 @@ def splitWithZ(v1,v2,z):
     f=(z-v1.z)/dZ
     return Vertex(f*dX+v1.x,f*dY+v1.y,z)
 
-def splitTriangle(_vertices,z):
+def sliceTriangle(_vertices,z):
     intersections=[]
     vPrev=_vertices[-1]
     for v in _vertices:
-        intersection=splitWithZ(vPrev,v,z)
+        intersection=sliceWithZ(vPrev,v,z)
         if intersection!=None:
             intersections.append(intersection)
         vPrev=v
