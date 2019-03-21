@@ -17,17 +17,17 @@ def createMeshShape(mesh):
     trishape.beginShape(TRIANGLES)
     quadshape = createShape()
     quadshape.beginShape(QUADS)
-    for f in faces:
+    for f in mesh.faces:
         cShape = trishape
         if len(f.vertices) == 4:
             cShape = quadshape
         cShape.fill(f.color[0]*255,f.color[1]*255,f.color[2]*255)
         for v in f.vertices:
             cShape.vertex(v.x,v.y,v.z)
-        trishape.endShape()
-        quadshape.endShape()
-        shape.addChild(trishape)
-        shape.addChild(quadshape)
+    trishape.endShape()
+    quadshape.endShape()
+    shape.addChild(trishape)
+    shape.addChild(quadshape)
     return shape
 
 # split between triangles, quads and more..
