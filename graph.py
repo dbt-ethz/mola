@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
+__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__    = 'MIT License'
+__email__      = ['<dbt@arch.ethz.ch>']
+
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
 #http://en.wikipedia.org/wiki/Dijkstra_algorithm

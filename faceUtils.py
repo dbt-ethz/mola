@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
+__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__    = 'MIT License'
+__email__      = ['<dbt@arch.ethz.ch>']
+
 import math as _math
 import mola.vec as _vec
 from mola.core import Vertex
@@ -82,7 +89,7 @@ def horizontal_angle(face):
 
 def vertical_angle(f):
     """
-    Returns the altitude, 0 if the face is vertical, -Pi if it faces downwards, +Pi if it faces upwards.
+    Returns the altitude, 0 if the face is vertical, -Pi/2 if it faces downwards, +Pi/2 if it faces upwards.
 
     Arguments:
     ----------

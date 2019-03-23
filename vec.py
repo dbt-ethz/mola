@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
+__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__    = 'MIT License'
+__email__      = ['<dbt@arch.ethz.ch>']
+
 from __future__ import division
 import math as _math
 from mola.core import Vertex as _Vertex

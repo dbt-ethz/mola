@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
+__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__    = 'MIT License'
+__email__      = ['<dbt@arch.ethz.ch>']
+
 def displayLines(lines):
     for l in lines:
         line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
