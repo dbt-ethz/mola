@@ -86,4 +86,4 @@ def offsetPoint(v1,  v2,  v3,  offset1,  offset2):
   return lineLineIntersection(line1.x,line1.y,line2.x,line2.y)
 
 def rot2D90(vertex):
-    return Vertex(-vertex.y,vertex.x,vertex.z)
+    return _Vertex(-vertex.y,vertex.x,vertex.z)
