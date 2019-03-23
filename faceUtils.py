@@ -104,24 +104,21 @@ def curvature(face):
     face : mola.core.Face
             The face to be measured
     """
-    normal=normal(face)
+    facenormal=normal(face)
     sumD=0
     vPrev=face.vertices[-1]
-    num_faces = 0
+    num_faces = 1
     for v in face.vertices:
         edge=v.getEdgeAdjacentToVertex(vPrev)
-        if edge is None:
-            return 0
-        nbFace=edge.face1
-        if (edge.face1==face):
-            nbFace=edge.face2
-            if nbFace is None:
-                return 0
-        num_faces += 1
-        nbNormal = normal(nbFace)
-        sumD+=_vec.distance(nbNormal,normal)
+        if edge != None:
+            nbFace=edge.face1
+            if edge.face1==face:
+                nbFace=edge.face2
+            if nbFace != None:
+                num_faces += 1
+                nbNormal = normal(nbFace)
+                sumD+=_vec.distance(nbNormal,facenormal)
         vPrev=v
-    num_faces = max(1,num_faces)
     return sumD / num_faces
 
 def center(face):
