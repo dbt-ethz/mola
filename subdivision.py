@@ -172,7 +172,7 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
     capTop : bool
         Toggle if top face (extrusion face) should be created, default True
     """
-    normal=_vec.normal(face.vertices[0],face.vertices[1],face.vertices[2])
+    normal=faceUtils.normal(face)
     normal=_vec.scale(normal,height)
     # calculate vertices
     new_vertices=[]
@@ -213,8 +213,8 @@ def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
         The relative offset distance, 0: original vertex, 1: center point
         default 0.5 (halfway)
     """
-    center_vertex = _vec.center(face.vertices)
-    normal = _vec.normalFromVertices(face.vertices)
+    center_vertex = faceUtils.center(face)
+    normal = faceUtils.normal(face)
     scaled_normal = _vec.scale(normal, height)
 
     # calculate new vertex positions
@@ -257,7 +257,7 @@ def splitRoof(face, height):
         Th height of the roof
     """
     faces = []
-    normal = _vec.normalFromVertices(face.vertices)
+    normal = faceUtils.normal(face)
     normal = _vec.scale(normal,height)
     if len(face.vertices)==4:
         ev1=_vec.centerFromLine(face.vertices[0],face.vertices[1])
@@ -316,7 +316,7 @@ def extrudeToPointCenter(face, height=0.0):
     height : float
         The distance of the new point to the face center, default 0
     """
-    normal = _vec.normalFromVertices(face.vertices)
+    normal = faceUtils.normal(face)
     normal = _vec.scale(normal,height)
     center = _vec.center(face.vertices)
     center = _vec.add(center,normal)
