@@ -8,6 +8,8 @@ __email__      = ['<dbt@arch.ethz.ch>']
 from mola.core import Mesh as _Mesh
 from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
+import ntpath
+
 
 def importOBJ(filename):
     """Loads a Wavefront OBJ file. """
@@ -52,12 +54,12 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
         The path and filename for the *.obj mesh file
     """
 
-    file = open(fileNameOBJ, "w")
 
+    file = open(fileNameOBJ, "w")
     if exportColors:
-        fileNameMTL=fileNameOBJ+".mtl"
+        fileNameMTL=ntpath.basename(fileNameOBJ)+".mtl"
         file.write("mtllib ./"+fileNameMTL+"\n");
-        fileMTL = open(fileNameMTL, "w")
+        fileMTL = open(fileNameOBJ+".mtl", "w")
         materials=set()
 
     if exportGroups:
@@ -73,7 +75,7 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
             currentGroup=face.group
         if exportColors:
             materials.add(face.color)
-            file.write("usemtl material"+str(face.color)+"\n")
+            file.write("usemtl material"+__strColor(face.color)+"\n")
         faceString="f"
 
         if weldVertices:
@@ -98,6 +100,6 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
 
     if exportColors:
         for mat in materials:
-            fileMTL.write("newmtl material"+str(mat)+"\n");
+            fileMTL.write("newmtl material"+__strColor(mat)+"\n");
             fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
         fileMTL.close()
