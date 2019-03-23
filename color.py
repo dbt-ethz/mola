@@ -53,7 +53,10 @@ def colorFacesByCompactness(faces):
     """
     colorFacesByFunction(faces,faceUtils.compactness)
 
-def colorFacesByVerticality(faces):
+def colorFacesByHorizontalAngle(faces):
+    colorFacesByFunction(faces,faceUtils.horizontal_angle)
+    
+def colorFacesByVerticalAngle(faces):
     """
     Assigns a color to all the faces by verticality,
     from smallest (red) to biggest (purple).
