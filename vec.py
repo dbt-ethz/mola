@@ -84,3 +84,6 @@ def offsetPoint(v1,  v2,  v3,  offset1,  offset2):
   line1= offsetLine(v1, v2, offset1);
   line2= offsetLine(v2, v3, offset2);
   return lineLineIntersection(line1.x,line1.y,line2.x,line2.y)
+
+def rot2D90(vertex):
+    return Vertex(-vertex.y,vertex.x,vertex.z)
