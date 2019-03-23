@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
+__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__    = 'MIT License'
+__email__      = ['<dbt@arch.ethz.ch>']
+
 import colorsys as colorsys
 import mola.faceUtils as faceUtils
 
@@ -55,7 +62,7 @@ def colorFacesByCompactness(faces):
 
 def colorFacesByHorizontalAngle(faces):
     colorFacesByFunction(faces,faceUtils.horizontal_angle)
-    
+
 def colorFacesByVerticalAngle(faces):
     """
     Assigns a color to all the faces by verticality,
