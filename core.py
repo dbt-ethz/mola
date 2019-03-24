@@ -127,12 +127,14 @@ class Mesh:
         self.edges=[]
 
     def scale(self,sx,sy,sz):
+        vs=Vertex(sx,sy,sz)
         for v in self.vertices:
-            v.scale(sx,sy,sz)
+            v.scale(vs)
 
     def translate(self,tx,ty,tz):
+        vt=Vertex(tx,ty,tz)
         for v in self.vertices:
-            v.add(tx,ty,tz)
+            v.add(vt)
 
     def getBounds(self):
         box=Box()
