@@ -17,12 +17,16 @@ class GridManager:
         self.nZ=nZ
         self.length=nX*nY*nZ
         self.nYZ=nY*nZ
+
     def getIndex(self,x,y,z=0):
         return x * self.nYZ + y * self.nZ + z
+
     def getX(self,index):
         return index // self.nYZ
+
     def getY(self,index):
         return (index // self.nZ) % self.nY
+
     def getZ(self,index):
         return index % self.nZ
 
@@ -100,7 +104,7 @@ class Grid(GridManager):
         self.nY=nY
         self.nZ=nZ
         self.nYZ=nY*nZ
-        if values==None:
+        if values is None:
             self.values=[0]*nX*nY*nZ
         else:
             self.values = values
