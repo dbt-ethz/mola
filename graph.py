@@ -35,19 +35,19 @@ class Graph:
         return self.weightFunction(index1,index2)
 
     @classmethod
-    def fromGrid2D(cls,nX,nY,nbs8=False,continous=False):
+    def fromGrid2D(cls,nX,nY,nbs8=False,continuous=False):
         gm=GridManager(nX,nY)
         neighbours=[0]*gm.length
         for i in range(gm.length):
-            neighbours[i]=gm.getNbs2D(i,nbs8,continous)
+            neighbours[i]=gm.getNbs2D(i,nbs8,continuous)
         return cls(neighbours)
 
     @classmethod
-    def fromHexGrid2D(cls,nX,nY,continous=False):
+    def fromHexGrid2D(cls,nX,nY,continuous=False):
         gm=GridManager(nX,nY)
         neighbours=[0]*gm.length
         for i in range(gm.length):
-            neighbours[i]=gm.getNbs2DHex(i,continous)
+            neighbours[i]=gm.getNbs2DHex(i,continuous)
         return cls(neighbours)
 
     @classmethod
@@ -55,7 +55,7 @@ class Graph:
         gm = GridManager(nX,nY,nZ)
         neighbours = [0]*gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs3D(i,mode,continous)
+            neighbours[i] = gm.getNbs3D(i,mode,continuous)
         return cls(neighbours)
 
     @classmethod

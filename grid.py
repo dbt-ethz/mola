@@ -30,11 +30,11 @@ class GridManager:
     def getZ(self,index):
         return index % self.nZ
 
-    def getNbs2DHex(self,index,continous=False):
+    def getNbs2DHex(self,index,continuous=False):
         nbs=[]
         x=self.getX(index)
         y=self.getY(index)
-        if not continous:
+        if not continuous:
             if x<self.nX-1:
                 nbs.append(self.getIndex(x+1,y))
             if x>0:
@@ -70,11 +70,11 @@ class GridManager:
                 nbs.append(self.getIndex(xPrev,yPrev))
         return nbs
 
-    def getNbs2D(self,index,nbs8=False,continous=False):
+    def getNbs2D(self,index,nbs8=False,continuous=False):
         nbs=[]
         x=self.getX(index)
         y=self.getY(index)
-        if not continous:
+        if not continuous:
             if x<self.nX-1: nbs.append(self.getIndex(x+1,y))
             if nbs8:
                 if x<self.nX-1 and y<self.nY-1:
