@@ -149,6 +149,10 @@ class GridManager:
             ex = x+d[0]
             ey = y+d[1]
             ez = z+d[2]
+            if continuous:
+                ex = ex%self.nX
+                ey = ey%self.nY
+                ez = ez%self.nZ
             if 0<=ex<self.nX and 0<=ey<self.nY and 0<=ez<self.nZ:
                 nbs.append(self.getIndex(ex,ey,ez))
 
