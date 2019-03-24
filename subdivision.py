@@ -281,9 +281,9 @@ def splitRoof(face, height):
     normal = faceUtils.normal(face)
     normal = _vec.scale(normal,height)
     if len(face.vertices)==4:
-        ev1=_vec.centerFromLine(face.vertices[0],face.vertices[1])
+        ev1=_vec.center(face.vertices[0],face.vertices[1])
         ev1=_vec.add(ev1,normal)
-        ev2=_vec.centerFromLine(face.vertices[2],face.vertices[3])
+        ev2=_vec.center(face.vertices[2],face.vertices[3])
         ev2=_vec.add(ev2,normal)
 
         faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
@@ -292,9 +292,9 @@ def splitRoof(face, height):
         faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
         return faces
     elif len(face.vertices)==3:
-        ev1=_vec.centerFromLine(face.vertices[0],face.vertices[1])
+        ev1=_vec.center(face.vertices[0],face.vertices[1])
         ev1=_vec.add(ev1,normal)
-        ev2=_vec.centerFromLine(face.vertices[1],face.vertices[2])
+        ev2=_vec.center(face.vertices[1],face.vertices[2])
         ev2=_vec.add(ev2,normal)
 
         faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
