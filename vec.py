@@ -50,6 +50,9 @@ def distance(v1,v2):
   dZ=v2.z-v1.z
   return _math.sqrt(dX*dX+dY*dY+dZ*dZ)
 
+def center(v1,v2):
+    return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
+
 def betweenRel( v1,  v2,  f):
     return _Vertex((v2.x - v1.x) * f + v1.x, (v2.y - v1.y) * f + v1.y, (v2.z - v1.z) * f + v1.z)
 
