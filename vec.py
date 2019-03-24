@@ -36,7 +36,7 @@ def length(v):
 def unitize(v):
     l=length(v)
     if l==0: return v
-    return divide(v,length(v))
+    return divide(v,l)
 
 def cross(v1,v2):
     return _Vertex(v1.y * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y)

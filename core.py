@@ -23,6 +23,38 @@ class Vertex:
                 return edge
         return None
 
+    def add(self,vertex):
+        self.x+=vertex.x
+        self.y+=vertex.y
+        self.z+=vertex.z
+        return self
+
+    def subtract(self,vertex):
+        self.x-=vertex.x
+        self.y-=vertex.y
+        self.z-=vertex.z
+        return self
+
+    def scale(self,factor):
+        self.x*=factor
+        self.y*=factor
+        self.z*=factor
+        return self
+
+    def divide(self,factor):
+        self.x/=factor
+        self.y/=factor
+        self.z/=factor
+        return self
+
+    def length(self):
+        return _math.sqrt(self.x*self.x+self.y*self.y+self.z*self.z)
+
+    def unitize(self):
+        l=length()
+        if l==0: return self
+        return divide(l)
+
 class Face:
     def __init__(self,vertices=None):
         if (vertices==None):
@@ -93,6 +125,14 @@ class Mesh:
         self.vertices=[]
         self.faces=[]
         self.edges=[]
+
+    def scale(self,sx,sy,sz):
+        for v in self.vertices:
+            v.scale(sx,sy,sz)
+
+    def translate(self,tx,ty,tz):
+        for v in self.vertices:
+            v.add(tx,ty,tz)
 
     def getBounds(self):
         box=Box()
