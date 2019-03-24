@@ -102,8 +102,12 @@ class Grid(GridManager):
         self.nYZ=nY*nZ
         if values==None:
             self.values=[0]*nX*nY*nZ
+        else:
+            self.values = values
+
     def set(self,value,x,y,z=0):
         self.values[self.getIndex(x,y,z)]=value
+
     def get(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
 
