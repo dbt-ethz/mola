@@ -339,6 +339,6 @@ def extrudeToPointCenter(face, height=0.0):
     """
     normal = faceUtils.normal(face)
     normal = _vec.scale(normal,height)
-    center = _vec.center(face.vertices)
+    center = faceUtils.center(face)
     center = _vec.add(center,normal)
     return extrudeToPoint(face,center)
