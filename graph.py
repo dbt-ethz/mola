@@ -24,10 +24,13 @@ class Graph:
     def __init__(self,neighbours):
         self.neighbours=neighbours
         self.weightFunction=lambda a,b:1
+
     def getNeighbours(self,u):
         return self.neighbours[u]
+
     def size(self):
         return len(self.neighbours)
+
     def weight(self,index1,index2):
         return self.weightFunction(index1,index2)
 
