@@ -37,6 +37,14 @@ def textSize(size):
     global p5code
     p5code+="textSize("+str(size)+");"
 
+def translate(x,y):
+    global p5code
+    p5code+="translate("+str(x)+","+str(y)+");"
+
+def scale(x,y):
+    global p5code
+    p5code+="scale("+str(x)+","+str(y)+");"
+    
 def text(text,x,y):
     global p5code
     p5code+="text("+str(text)+","+str(x)+","+str(y)+");"
