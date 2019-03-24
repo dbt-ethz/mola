@@ -9,6 +9,7 @@ from mola.core import Mesh as _Mesh
 from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 import mola.vec as _vec
+import mola.faceUtils as _faceUtils
 import math as _math
 
 def constructSingleFace(vertices):
@@ -184,7 +185,7 @@ def constructDodecahedron(cx,cy,cz,radius):
     # make triangles
     newfaces = []
     for f in faces:
-        v = _vec.center(f.vertices)
+        v = _faceUtils.center(f)
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
             nv = f.vertices[(i+1)%len(f.vertices)]
