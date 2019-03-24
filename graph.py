@@ -51,6 +51,14 @@ class Graph:
         return cls(neighbours)
 
     @classmethod
+    def fromGrid3D(cls,nX,nY,nZ,mode=3,continuous=False):
+        gm = GridManager(nX,nY,nZ)
+        neighbours = [0]*gm.length
+        for i in range(gm.length):
+            neighbours[i] = gm.getNbs3D(i,mode,continous)
+        return cls(neighbours)
+
+    @classmethod
     def fromMeshFaces(cls,mesh):
         faceIds={}
         neighbours=[0]*len(mesh.faces)

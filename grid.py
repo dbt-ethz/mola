@@ -35,16 +35,24 @@ class GridManager:
         x=self.getX(index)
         y=self.getY(index)
         if not continous:
-            if x<self.nX-1:nbs.append(self.getIndex(x+1,y))
-            if x>0:nbs.append(self.getIndex(x-1,y))
-            if y>0: nbs.append(self.getIndex(x,y-1))
-            if y<self.nY-1:nbs.append(self.getIndex(x,y+1))
+            if x<self.nX-1:
+                nbs.append(self.getIndex(x+1,y))
+            if x>0:
+                nbs.append(self.getIndex(x-1,y))
+            if y>0:
+                nbs.append(self.getIndex(x,y-1))
+            if y<self.nY-1:
+                nbs.append(self.getIndex(x,y+1))
             if y%2==0:
-                if x<self.nX-1 and y<self.nY-1:nbs.append(self.getIndex(x+1,y+1))
-                if x<self.nX-1 and y>0:nbs.append(self.getIndex(x+1,y-1))
+                if x<self.nX-1 and y<self.nY-1:
+                    nbs.append(self.getIndex(x+1,y+1))
+                if x<self.nX-1 and y>0:
+                    nbs.append(self.getIndex(x+1,y-1))
             else:
-                if x>0 and y<self.nY-1:nbs.append(self.getIndex(x-1,y+1))
-                if x>0 and y>0:nbs.append(self.getIndex(x-1,y-1))
+                if x>0 and y<self.nY-1:
+                    nbs.append(self.getIndex(x-1,y+1))
+                if x>0 and y>0:
+                    nbs.append(self.getIndex(x-1,y-1))
         else:
             xNext= x+1 if x<self.nX-1 else 0
             xPrev= x-1 if x>0 else self.nX-1
@@ -69,16 +77,23 @@ class GridManager:
         if not continous:
             if x<self.nX-1: nbs.append(self.getIndex(x+1,y))
             if nbs8:
-                if x<self.nX-1 and y<self.nY-1:nbs.append(self.getIndex(x+1,y+1))
-            if y<self.nY-1: nbs.append(self.getIndex(x,y+1))
+                if x<self.nX-1 and y<self.nY-1:
+                    nbs.append(self.getIndex(x+1,y+1))
+            if y<self.nY-1:
+                nbs.append(self.getIndex(x,y+1))
             if nbs8:
-                if x>0 and y<self.nY-1:nbs.append(self.getIndex(x-1,y+1))
-            if x>0:nbs.append(self.getIndex(x-1,y))
+                if x>0 and y<self.nY-1:
+                    nbs.append(self.getIndex(x-1,y+1))
+            if x>0:
+                nbs.append(self.getIndex(x-1,y))
             if nbs8:
-                if x>0 and y>0:nbs.append(self.getIndex(x-1,y-1))
-            if y>0: nbs.append(self.getIndex(x,y-1))
+                if x>0 and y>0:
+                    nbs.append(self.getIndex(x-1,y-1))
+            if y>0:
+                nbs.append(self.getIndex(x,y-1))
             if nbs8:
-                if x<self.nX-1 and y>0:nbs.append(self.getIndex(x+1,y-1))
+                if x<self.nX-1 and y>0:
+                    nbs.append(self.getIndex(x+1,y-1))
         else:
             xPrev=x-1 if x>0 else self.nX-1
             xNext=x+1 if x<self.nX-1 else 0
@@ -96,6 +111,47 @@ class GridManager:
             nbs.append(self.getIndex(x,yPrev))
             if nbs8:
                 nbs.append(self.getIndex(xNext,yPrev))
+        return nbs
+
+    def getNbs3D(self,index,mode=3,continuous=False):
+        nbs = []
+        x=self.getX(index)
+        y=self.getY(index)
+        z=self.getZ(index)
+
+        # mode: neighbourhood type
+        # 1 :  6 nbs, shared face
+        # 2 : 18 nbs, shared face or edge
+        # 3 : 26 nbs, shared face, edge or vertex
+        if not mode:
+            mode==3
+        if mode<1:
+            mode==1
+        if mode>3:
+            mode==3
+
+        # precalculate distances
+        dists = [1, math.sqrt(2), math.sqrt(3)]
+
+        # create a list of directions with x,y and z offsets
+        directions = []
+        for i in range(-1,2):
+            for j in range(-1,2):
+                for k in range(-1,2):
+                    l = [i,j,k]
+                    s = sum([abs(v) for v in l])
+                    # check for neighbourhood type
+                    if s>0 and s<=mode:
+                        l.append(s-1)
+                        directions.append(l)
+
+        for d in directions:
+            ex = x+d[0]
+            ey = y+d[1]
+            ez = z+d[2]
+            if 0<=ex<self.nX and 0<=ey<self.nY and 0<=ez<self.nZ:
+                nbs.append(self.getIndex(ex,ey,ez))
+
         return nbs
 
 class Grid(GridManager):
