@@ -17,6 +17,12 @@ class Vertex:
     def __str__(self):
         return ' '.join([str(v) for v in [self.x,self.y,self.z]])
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return (self.x== other.x) and (self.y== other.y) and (self.z== other.z)
+        else:
+            return False
+
     def getEdgeAdjacentToVertex(self,v):
         for edge in self.edges:
             if edge.v2==v or edge.v1==v:
@@ -75,9 +81,9 @@ class Edge:
         return "from " + str(self.v1)+" to "+ str(self.v2)
 
     def getOtherVertex(self,vertex):
-        if self.v1==vertex:
+        if self.v1 is vertex:
             return self.v2
-        if self.v2==vertex:
+        if self.v2 is vertex:
             return self.v1
         return None
 

@@ -13,12 +13,6 @@ from mola.core import Vertex as _Vertex
 def add(v1,v2):
     return _Vertex(v1.x+v2.x,v1.y+v2.y,v1.z+v2.z)
 
- def __eq__(self, other):
-       if isinstance(other, self.__class__):
-           return (self.x== other.x) and (self.y== other.y) and (self.z== other.z)
-       else:
-           return False
-
 def angle(v1,v2):
     a=unitize(v1)
     b=unitize(v2)
