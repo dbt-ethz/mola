@@ -15,6 +15,8 @@ Lightweight Computational Design Library
   - rules for mesh subdivision, input `Face`, output list of `Face`s
 - factory
   - Factory to create different mesh primitives like single face, cone, box, platonic solids
+- polyUtils
+-   utilities for `2D Polygons`, e.g. construction of circle and 2D subdivision
 - slicer
   - slicing tools for mesh geometry
 - marchingCubes
