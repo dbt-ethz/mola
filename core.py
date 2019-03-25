@@ -129,7 +129,9 @@ class Mesh:
     def scale(self,sx,sy,sz):
         vs=Vertex(sx,sy,sz)
         for v in self.vertices:
-            v.scale(vs)
+            v.x*=sx
+            v.y*=sy
+            v.z*=sz
 
     def translate(self,tx,ty,tz):
         vt=Vertex(tx,ty,tz)
