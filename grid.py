@@ -175,6 +175,12 @@ class Grid(GridManager):
     def get(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
 
+    def set_i(self,value,index):
+        self.values[index] = value
+
+    def get_i(self,index):
+        return self.values[index]
+
     def getQuadMesh(self,functionIn,functionOut):
         faces=[]
         for x in range(self.nX):
