@@ -6,17 +6,19 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 __code=""
-__showAxis=False
-__showEdges=False
-__showWireframe=False
 
 '''display variables'''
+__showAxis=False
+__showEdges=False
+__edgesWidth=1.0
+__showWireframe=False
 __backgroundColor = (0,0,0)
 
-def displayMesh(mesh,showAxis=True,showEdges=False,showWireframe=False,backgroundColor=(0,0,0)):
-  global __showAxis,__showEdges,__showWireframe,__backgroundColor
+def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
+  global __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
   __showAxis=showAxis
   __showEdges=showEdges
+  __edgesWidth=edgesWidth
   __showWireframe=showWireframe
   __backgroundColor=backgroundColor
   return display(mesh.faces)
@@ -112,7 +114,7 @@ def __end3D():
   __code+='''customMesh.material = mat;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
-    __code+= '''customMesh.edgesWidth = 3.0'''
+    __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
   __code+='''
         /*******************************************************************************/
 
