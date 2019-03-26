@@ -43,12 +43,13 @@ def normalVertex2D(vprev,v,vnext):
     vec1=vec.subtract(v,vprev)
     vec1=vec.unitize(vec1)
     vec2=vec.subtract(vnext,v)
-    vec2=vec.unitize(vec1)
+    vec2=vec.unitize(vec2)
     n=vec.add(vec1,vec2)
     n=vec.scale(n,0.5)
-    t=n.x
-    n.x=-n.y
-    n.y=t
+    n = vec.rot2D90(n)
+    #t=n.x
+    #n.x=-n.y
+    #n.y=t
     return n
 
 def constructCircle(radius,segments,z=0):
