@@ -8,14 +8,16 @@ __email__      = ['<dbt@arch.ethz.ch>']
 __code=""
 __showAxis=False
 __showEdges=False
+__showWireframe=False
 
 '''display variables'''
 __backgroundColor = (0,0,0)
 
-def displayMesh(mesh,showAxis=True,showEdges=False,backgroundColor=(0,0,0)):
+def displayMesh(mesh,showAxis=True,showEdges=False,showWireframe=False,backgroundColor=(0,0,0)):
   global __showAxis,__showEdges,__backgroundColor
   __showAxis=showAxis
   __showEdges=showEdges
+  __showWireframe=showWireframe
   __backgroundColor=backgroundColor
   return display(mesh.faces)
 
@@ -106,8 +108,11 @@ def __end3D():
           var mat = new BABYLON.StandardMaterial("mat", scene);
           mat.backFaceCulling = false;
           customMesh.material = mat;'''
+  if __showWireframe:
+    __code+= '''mat.wireframe=true;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
+    __code+= '''customMesh.edgesWidth = 3.0'''
   __code+='''
         /*******************************************************************************/
 
