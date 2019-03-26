@@ -25,7 +25,7 @@ class Vertex:
 
     def getEdgeAdjacentToVertex(self,v):
         for edge in self.edges:
-            if edge.v2==v or edge.v1==v:
+            if edge.v2 is v or edge.v1 is v:
                 return edge
         return None
 
