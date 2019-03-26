@@ -14,7 +14,7 @@ __showWireframe=False
 __backgroundColor = (0,0,0)
 
 def displayMesh(mesh,showAxis=True,showEdges=False,showWireframe=False,backgroundColor=(0,0,0)):
-  global __showAxis,__showEdges,__backgroundColor
+  global __showAxis,__showEdges,__showWireframe,__backgroundColor
   __showAxis=showAxis
   __showEdges=showEdges
   __showWireframe=showWireframe
