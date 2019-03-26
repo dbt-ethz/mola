@@ -15,6 +15,22 @@ __showWireframe=False
 __backgroundColor = (0,0,0)
 
 def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
+  """
+  Displays Mesh.
+  Arguments:
+  ----------
+  mesh : mola.core.Mesh
+         The mesh to be displayed
+  ----------
+  Optional Arguments:
+  ----------
+  showAxis : Boolean (default = False)
+  showEdges : Boolean (default = False)
+  showWireframe : Boolean (default = False)
+  edgesWidth : float (default = 1.0)
+  backgroundColor : tuple (r,g,b)
+                    r,g,b values, 0.0 to 1.0
+  """
   global __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
   __showAxis=showAxis
   __showEdges=showEdges
@@ -170,7 +186,3 @@ def __end3D():
           engine.resize();
       });
   </script>'''
-
-def background(r,g,b):
-    global __backgroundColor
-    __backgroundColor = (r,g,b)
