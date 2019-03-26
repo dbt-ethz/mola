@@ -109,7 +109,7 @@ def __end3D():
           mat.backFaceCulling = false;
           customMesh.material = mat;'''
   if __showWireframe:
-    __code+= '''mat.wireframe=true;'''
+    __code+= '''customMesh.material.wireframe=true;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = 3.0'''
