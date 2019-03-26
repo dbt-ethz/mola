@@ -24,10 +24,10 @@ def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=
   ----------
   Optional Arguments:
   ----------
-  showAxis : Boolean (default = False)
-  showEdges : Boolean (default = False)
-  showWireframe : Boolean (default = False)
-  edgesWidth : float (default = 1.0)
+  showAxis : Boolean
+  showEdges : Boolean
+  showWireframe : Boolean
+  edgesWidth : float
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
   """
