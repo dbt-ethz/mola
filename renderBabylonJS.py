@@ -107,6 +107,7 @@ def __end3D():
           /******Display custom mesh in wireframe view to show its creation****************/
           var mat = new BABYLON.StandardMaterial("mat", scene);
           mat.backFaceCulling = false;
+          mat.wireframe=true;
           customMesh.material = mat;'''
   if __showWireframe:
     __code+= '''customMesh.material.wireframe=true;'''
