@@ -8,13 +8,15 @@ __email__      = ['<dbt@arch.ethz.ch>']
 __code=""
 
 '''display variables'''
-__showAxis=False
+__showAxis=True
 __showEdges=False
 __edgesWidth=1.0
 __showWireframe=False
 __backgroundColor = (0,0,0)
+__canvasWidth = 1280
+__canvasHeight = 720
 
-def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
+def displayMesh(mesh,canvasWidth=1280,canvasHeight=720,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
   """
   Displays Mesh.
   Arguments:
@@ -24,6 +26,8 @@ def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=
   ----------
   Optional Arguments:
   ----------
+  canvasWidth : float
+  canvasHeight : float
   showAxis : Boolean
   showEdges : Boolean
   showWireframe : Boolean
@@ -31,7 +35,9 @@ def displayMesh(mesh,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
   """
-  global __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
+  __canvasWidth = canvasWidth
+  __canvasHeight = canvasHeight
   __showAxis=showAxis
   __showEdges=showEdges
   __edgesWidth=edgesWidth
@@ -59,7 +65,7 @@ def display(faces):
 
 def __begin3D():
     global __code
-    __code+='''<canvas id="renderCanvas" touch-action="none" width="1280px" height="720px"></canvas>
+    __code+='''<canvas id="renderCanvas" touch-action="none" width="''' + str(__canvasWidth) + '''px" height="''' + str(__canvasHeight) + '''px"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
 
         <style>
