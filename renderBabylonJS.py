@@ -65,7 +65,7 @@ def display(faces):
 
 def __begin3D():
     global __code
-    __code+='''<canvas id="renderCanvas" touch-action="none" width="''' + str(__canvasWidth) + '''px" height="''' + str(__canvasHeight) + '''px"></canvas>
+    __code+='''<canvas id="renderCanvas" touch-action="none" width="''' + str(__canvasWidth) + '''px" height="''' + str(500) + '''px"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
 
         <style>
