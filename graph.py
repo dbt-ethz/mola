@@ -75,10 +75,10 @@ class Graph:
     def fromMeshVertices(mesh):
         pass
 
+#http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
+#http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
+#http://en.wikipedia.org/wiki/Dijkstra_algorithm
 class GraphAnalyser:
-    #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
-    #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
-    #http://en.wikipedia.org/wiki/Dijkstra_algorithm
     """
     works with graphs which provide 3 methods: size(), getNeighbours(), and weight()
     this class stores all distances in order to allow a fast calculation of path to predefined starting points
