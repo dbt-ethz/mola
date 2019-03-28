@@ -16,7 +16,7 @@ Lightweight Computational Design Library
 - factory
   - Factory to create different mesh primitives like single face, cone, box, platonic solids
 - polyUtils
-  - Utilities for `2D Polygons`, e.g. construction of circle and 2D subdivision
+  - Utilities for 2D Polygons, e.g. construction of circle and 2D subdivision
 - slicer
   - Slicing tools for mesh geometry
 - marchingCubes
