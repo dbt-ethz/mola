@@ -5,9 +5,7 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-#http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
-#http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
-#http://en.wikipedia.org/wiki/Dijkstra_algorithm
+
 try:
     from Queue import PriorityQueue
 except ImportError:
@@ -15,12 +13,9 @@ except ImportError:
 from mola.grid import GridManager
 from mola.core import *
 
-# graph has getWeight
-# weightedGraph ?
-# how about cost
-class Graph:
-    ''' basic graph class. weighted graphs should implement different weightFunction'''
 
+class Graph:
+    ''' basic graph class. edge-weighted graphs should implement different weightFunction'''
     def __init__(self,neighbours):
         self.neighbours=neighbours
         self.weightFunction=lambda a,b:1
@@ -81,6 +76,9 @@ class Graph:
         pass
 
 class GraphAnalyser:
+    #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
+    #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/shortest-paths.htm
+    #http://en.wikipedia.org/wiki/Dijkstra_algorithm
     """
     works with graphs which provide 3 methods: size(), getNeighbours(), and weight()
     this class stores all distances in order to allow a fast calculation of path to predefined starting points
