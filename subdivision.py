@@ -134,7 +134,7 @@ def splitGrid(face,nU,nV):
 def _getVerticesBetween(v1,v2,n):
     row=[]
     deltaV=_vec.subtract(v2,v1)
-    deltaV=_vec.div(deltaV,n)
+    deltaV=_vec.divide(deltaV,n)
     for i in range(n):
         addV=_vec.scale(deltaV,i)
         row.append(_vec.add(addV,v1))

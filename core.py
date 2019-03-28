@@ -61,6 +61,29 @@ class Vertex:
         if l==0: return self
         return divide(l)
 
+    def __add__(self, other):
+        vector = Vertex(self.x, self.y, self.z)
+        return vector.add(other)
+
+    def __sub__(self, other):
+        vector = Vertex(self.x, self.y, self.z)
+        return vector.subtract(other)
+
+    def __mul__(self, factor):
+        vector = Vertex(self.x, self.y, self.z)
+        return vector.scale(factor)
+
+    # for python 3
+    def __truediv__(self, factor):
+        vector = Vertex(self.x, self.y, self.z)
+        return vector.divide(factor)
+
+    # for python 2
+    def __div__(self, factor):
+        vector = Vertex(self.x, self.y, self.z)
+        return vector.divide(factor)
+
+
 class Face:
     def __init__(self,vertices=None):
         if (vertices==None):
