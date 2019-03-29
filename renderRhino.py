@@ -7,6 +7,19 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 import rhinoscriptsyntax as rs
 
+def meshFromRhinoMesh(obj):
+    mesh=Mesh()
+    vertices = rs.MeshVertices(obj)
+    for v in vertices:
+        mesh.vertices.append(Vertex(v[0],v[1],v[2]))
+    faceVerts = rs.MeshFaceVertices(obj)
+    for face in faceVerts:
+        if face[2]==face[3]:
+            mesh.faces.append(Face(mesh.vertices[face[0]],mesh.vertices[face[1]],mesh.vertices[face[2]]))
+        else:
+            mesh.faces.append(Face(mesh.vertices[face[0]],mesh.vertices[face[1]],mesh.vertices[face[2]],mesh.vertices[face[3]]))
+    return mesh
+
 def displayMesh(mesh):
     display(mesh.faces)
 
