@@ -26,6 +26,9 @@ def displayFaces2D(faces):
     code+=_endDraw2D()
     return code
 
+def saveImage(fileName):
+    global p5code
+    p5code+="save("+fileName+");"
 
 def _beginDraw2D(width=1024,height=768):
     return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas('''+str(width)+","+str(height)+''');'''
@@ -44,7 +47,7 @@ def translate(x,y):
 def scale(x,y):
     global p5code
     p5code+="scale("+str(x)+","+str(y)+");"
-    
+
 def text(text,x,y):
     global p5code
     p5code+="text("+str(text)+","+str(x)+","+str(y)+");"
