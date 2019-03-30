@@ -1,3 +1,5 @@
+from __future__ import division
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
@@ -75,7 +77,7 @@ def subdivideCatmull(_mesh):
 
             for edge in vertex.edges:
                 face=edge.face1
-                if edge.v2==vertex:
+                if edge.v2 is vertex:
                     face=edge.face2
                 if face!=None:
                     averageFaces=_vec.add(averageFaces,face.vertex)
