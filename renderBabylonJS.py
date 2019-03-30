@@ -77,9 +77,9 @@ def __begin3D():
                 padding: 0;
             }
 
-            #renderCanvas {                
-                width: 100%;
-                height: 100%;
+            #renderCanvas {  
+                width: ''' + str(__canvasWidth) + '''px;
+                height: ''' + str(__canvasHeight) + '''px;
                 touch-action: none;
             }
         </style>
