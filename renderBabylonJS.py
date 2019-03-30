@@ -70,16 +70,16 @@ def __begin3D():
 
         <style>
             html, body {
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
+                overflow: hidden;   
+                width: ''' + str(__canvasWidth) + '''px;
+                height: ''' + str(__canvasHeight) + '''px;
                 margin: 0;
                 padding: 0;
             }
 
-            #renderCanvas {
-                width: ''' + str(__canvasWidth) + '''px;
-                height: ''' + str(__canvasHeight) + '''px;
+            #renderCanvas {                
+                width: 100%;
+                height: 100%;
                 touch-action: none;
             }
         </style>
