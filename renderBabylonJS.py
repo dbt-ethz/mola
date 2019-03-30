@@ -82,10 +82,6 @@ def __begin3D():
                 height: ''' + str(__canvasHeight) + '''px;
                 touch-action: none;
             }
-            .outputView, iframe{
-                width: ''' + str(__canvasWidth) + '''px;
-                height: ''' + str(__canvasHeight) + '''px;
-            }
         </style>
         <script>
       var canvas = document.getElementById("renderCanvas");'''
