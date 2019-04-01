@@ -81,8 +81,8 @@ def __begin3D():
             }
 
             #renderCanvas {
-                width: 100%;
-                height: 100%;
+                width:''' + __canvasWidth + ''';
+                height: ''' + __canvasHeight + ''';
                 touch-action: none;
             }
         </style>
