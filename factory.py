@@ -213,3 +213,69 @@ def constructTetrahedron(cx,cy,cz,side):
 
     mesh.faces = [f1,f2,f3,f4]
     return mesh
+
+def constructRhombicDodecahedron(cx,cy,cz,edgeLen):
+    mesh=_Mesh()
+    #make vertices
+    mesh.vertices = [_Vertex(0,0,2*edgeLen),
+                     _Vertex(-edgeLen,edgeLen,edgeLen),
+                     _Vertex(-edgeLen,-edgeLen,edgeLen),
+                     _Vertex(edgeLen,-edgeLen,edgeLen),
+                     _Vertex(edgeLen,edgeLen,edgeLen),
+                     _Vertex(-2*edgeLen,0,0),
+                     _Vertex(0,-2*edgeLen,0),
+                     _Vertex(2*edgeLen,0,0),
+                     _Vertex(0,2*edgeLen,0),
+                     _Vertex(-edgeLen,edgeLen,-edgeLen),
+                     _Vertex(-edgeLen,-edgeLen,-edgeLen),
+                     _Vertex(edgeLen,-edgeLen,-edgeLen),
+                     _Vertex(edgeLen,edgeLen,-edgeLen),
+                     _Vertex(0,0,-2*edgeLen)]
+
+    #move center to desired coordinates
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
+
+    #construct quad faces
+    f1 = _Face([mesh.vertices[1],mesh.vertices[3],mesh.vertices[6],mesh.vertices[2]])
+    f2 = _Face([mesh.vertices[1],mesh.vertices[4],mesh.vertices[7],mesh.vertices[3]])
+    f3 = _Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[8],mesh.vertices[4]])
+    f4 = _Face([mesh.vertices[1],mesh.vertices[2],mesh.vertices[9],mesh.vertices[5]])
+    f5 = _Face([mesh.vertices[3],mesh.vertices[7],mesh.vertices[11],mesh.vertices[6]])
+    f6 = _Face([mesh.vertices[4],mesh.vertices[8],mesh.vertices[12],mesh.vertices[7]])
+    f7 = _Face([mesh.vertices[5],mesh.vertices[9],mesh.vertices[13],mesh.vertices[8]])
+    f8 = _Face([mesh.vertices[2],mesh.vertices[6],mesh.vertices[10],mesh.vertices[9]])
+    f9 = _Face([mesh.vertices[11],mesh.vertices[14],mesh.vertices[10],mesh.vertices[6]])
+    f10 = _Face([mesh.vertices[12],mesh.vertices[14],mesh.vertices[11],mesh.vertices[7]])
+    f11 = _Face([mesh.vertices[13],mesh.vertices[14],mesh.vertices[12],mesh.vertices[8]])
+    f12 = _Face([mesh.vertices[10],mesh.vertices[14],mesh.vertices[13],mesh.vertices[9]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
+    return mesh
+
+def constructOctahedron(cx,cy,cz,edgeLen):
+    mesh=_Mesh()
+    #make vertices
+    mesh.vertices = [_Vertex(0,0,edgeLen/2),
+                     _Vertex(-edgeLen/2,0,0),
+                     _Vertex(0,-edgeLen/2,0),
+                     _Vertex(edgeLen/2,0,0),
+                     _Vertex(0,edgeLen/2,0),
+                     _Vertex(0,0,-edgeLen/2)]
+
+    #move center to desired coordinates
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
+
+    #construct triangular faces
+    f1 = _Face([mesh.vertices[1],mesh.vertices[2],mesh.vertices[3]])
+    f2 = _Face([mesh.vertices[1],mesh.vertices[3],mesh.vertices[4]])
+    f3 = _Face([mesh.vertices[1],mesh.vertices[4],mesh.vertices[5]])
+    f4 = _Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[2]])
+    f5 = _Face([mesh.vertices[6],mesh.vertices[3],mesh.vertices[2]])
+    f6 = _Face([mesh.vertices[6],mesh.vertices[4],mesh.vertices[3]])
+    f7 = _Face([mesh.vertices[6],mesh.vertices[5],mesh.vertices[4]])
+    f8 = _Face([mesh.vertices[6],mesh.vertices[2],mesh.vertices[5]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8]
+    return mesh
