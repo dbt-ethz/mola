@@ -234,4 +234,4 @@ def _getTorusVertex(ringRadius, tubeRadius, ph,th):
     x = ringRadius * _math.cos(ph) + tubeRadius * _math.cos(th) * _math.cos(ph)
     y = ringRadius * _math.sin(ph) + tubeRadius * _math.cos(th) * _math.sin(ph)
     z = tubeRadius * _math.sin(th)
-    return Vertex(x,y,z)
+    return _Vertex(x,y,z)
