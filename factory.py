@@ -215,7 +215,7 @@ def constructTetrahedron(cx,cy,cz,side):
     return mesh
 
 def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
-    mesh = Mesh()
+    mesh = _Mesh()
     phi = 2* _math.pi / ringN
     theta = 2* _math.pi / tubeN
   
