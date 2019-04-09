@@ -225,7 +225,7 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             v1 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * ((j+1)%tubeN))
             v2 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * ((j+1)%tubeN))
             v3 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * j)
-            f = Face([v0,v1,v2,v3])
+            f = _Face([v0,v1,v2,v3])
             mesh.faces.append(f)
       
     return mesh
