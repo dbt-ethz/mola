@@ -26,12 +26,16 @@ def displayFaces2D(faces):
     code+=_endDraw2D()
     return code
 
+def saveCanvas(fileName):
+    global p5code
+    p5code+="saveCanvas(canvas,"+fileName+");"
+    
 def saveImage(fileName):
     global p5code
     p5code+="save("+fileName+");"
 
 def _beginDraw2D(width=1024,height=768):
-    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();createCanvas('''+str(width)+","+str(height)+''');'''
+    return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();var canvas = createCanvas('''+str(width)+","+str(height)+''');'''
 
 def _endDraw2D():
     return '''</script>'''
