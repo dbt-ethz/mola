@@ -28,7 +28,7 @@ def displayFaces2D(faces):
 
 def saveCanvas(fileName):
     global p5code
-    p5code+="saveCanvas(canvas,"+fileName+");"
+    p5code+="saveCanvas(canvas,'"+fileName+"');"
     
 def saveImage(fileName):
     global p5code
