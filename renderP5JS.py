@@ -8,23 +8,19 @@ __email__      = ['<dbt@arch.ethz.ch>']
 p5code=""
 
 def displayLines2D(lines):
-    code=_beginDraw2D()
+    global p5code
     for line in lines:
-        code+="line("+str(line.v1.x)+","+str(line.v1.y)+","+str(line.v2.x)+","+str(line.v2.y)+");"
-    code+=_endDraw2D()
-    return code
+        p5code+="line("+str(line.v1.x)+","+str(line.v1.y)+","+str(line.v2.x)+","+str(line.v2.y)+");"
 
 def displayFaces2D(faces):
-    code=_beginDraw2D()
+    global p5code
     for face in faces:
         if face.color!=None:
-            code=="fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
-        code+="beginShape();"
+            p5code=="fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
+        p5code+="beginShape();"
         for v in face.vertices:
-            code+="vertex("+str(v.x)+","+str(v.y)+");"
-        code+="endShape();"
-    code+=_endDraw2D()
-    return code
+            p5code+="vertex("+str(v.x)+","+str(v.y)+");"
+        p5code+="endShape();"
 
 def saveCanvas(fileName):
     global p5code
