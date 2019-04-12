@@ -16,7 +16,7 @@ def displayFaces2D(faces):
     global p5code
     for face in faces:
         if face.color!=None:
-            p5code=="fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
+            p5code+="fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
         p5code+="beginShape();"
         for v in face.vertices:
             p5code+="vertex("+str(v.x)+","+str(v.y)+");"
