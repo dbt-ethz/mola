@@ -344,3 +344,38 @@ def extrudeToPointCenter(face, height=0.0):
     center = faceUtils.center(face)
     center = _vec.add(center,normal)
     return extrudeToPoint(face,center)
+
+def offsetPlanar(f,offsets):
+    newPts = []
+    for i in range(len(f.vertices)):
+        iP = i-1
+        if(iP<0):
+            iP = len(f.vertices)-1
+        iN = (i+1)%len(f.vertices)
+        v0 = f.vertices[iP]
+        v1 = f.vertices[i]
+        v2 = f.vertices[iN]
+        newPts.append(_vec.offsetPoint(v0,v1,v2,offsets[iP],offsets[i]))
+    f = _Face(newPts)
+    return f
+
+def splitOffset(face,offset):
+    offsets = [offset] * len(face.vertices)
+    return splitOffsets(face,offsets)
+
+def splitOffsets(face,offsets):
+    offsetFace = offsetPlanar(face,offsets)
+    nOffsetFaces = 0
+    for o in offsets:
+        if(abs(o)>0):
+            nOffsetFaces+=1
+    faces = []
+    for i in range(len(face.vertices)):
+        if(abs(offsets[i])>0):
+            i2 = (i+1)%len(face.vertices)
+            faces.append(_Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]]))
+    faces.append(offsetFace)
+    for f in faces:
+        if(faceUtils.area(f)<0):
+            f.vertices.reverse()
+    return faces
