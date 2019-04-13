@@ -379,3 +379,28 @@ def splitOffsets(face,offsets):
         if(faceUtils.area(f)<0):
             f.vertices.reverse()
     return faces
+
+def splitRelMultiple(f,dir,splits):
+    sA = []
+    sA.append(f.vertices[dir])
+    lA = f.vertices[dir+1]
+    sB = []
+    sB.append(f.vertices[dir+3])
+    lB = f.vertices[(dir+2)%len(f.vertices)]
+  
+    for i in range(len(splits)):
+        sA.append(_vec.betweenRel(sA[0],lA,splits[i]))
+        sB.append(_vec.betweenRel(sB[0],lB,splits[i]))
+    sA.append(lA)
+    sB.append(lB)
+  
+    result = []
+    for i in range(len(splits)+1):
+        if(dir==1):
+            result.append(_Face([sB[i],sA[i],sA[i+1],sB[i+1]]))
+        else:
+            result.append(_Face([sB[i],sB[i+1],sA[i+1],sA[i]]))
+    return result                          
+
+def splitRel(f,dir,split):
+    return splitRelMultiple(f,dir,[split])
