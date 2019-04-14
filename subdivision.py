@@ -404,3 +404,47 @@ def splitRelMultiple(f,dir,splits):
 
 def splitRel(f,dir,split):
     return splitRelMultiple(f,dir,[split])
+
+def splitFrame(face,w):
+    if len(face.vertices)>4:
+        print('too many vertices')
+        return face
+    if len(face.vertices)==4:
+        vsU1=_getVerticesFrame(face.vertices[0],face.vertices[1],w)
+        vsU2=_getVerticesFrame(face.vertices[3],face.vertices[2],w)
+        gridVertices=[]
+        for u in range(len(vsU1)):
+            gridVertices.append(_getVerticesFrame(vsU1[u],vsU2[u],w))
+        faces=[]
+        for u in range(len(vsU1)-1):
+            vs1=gridVertices[u]
+            vs2=gridVertices[u+1]
+            for v in range(len(vs1)-1):
+                faces.append(_Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]]))
+        return faces
+    if len(face.vertices)==3:
+        vs1 = _getVerticesFrame(face.vertices[0],face.vertices[1],w)
+        vs2 = _getVerticesFrame(face.vertices[1],face.vertices[2],w)
+        vs3 = _getVerticesFrame(face.vertices[0],face.vertices[2],w)
+        
+        vs4 = _getVerticesFrame(vs1[2],vs3[2],w)
+        vs5 = _getVerticesFrame(vs3[1],vs2[1],w)
+        
+        f1 = _Face([vs1[0],vs5[0],vs5[1],vs1[1]])
+        f2 = _Face([vs1[2],vs5[2],vs5[3],vs1[3]])
+        f3 = _Face([vs4[2],vs4[3],vs2[3],vs2[2]])
+        
+        f4 = _Face([vs1[1],vs5[1],vs5[2],vs1[2]])
+        f5 = _Face([vs4[1],vs4[2],vs2[2],vs2[1]])
+        f6 = _Face([vs5[0],vs4[3],vs4[2],vs5[1]])
+        
+        f7 = _Face([vs5[1],vs4[2],vs4[1]])
+        
+        faces = [f1,f2,f3,f4,f5,f6,f7]
+        return faces
+
+  
+def _getVerticesFrame(v1,v2,w):
+    p1 = vec.betweenAbs(v1,v2,w)
+    p2 = vec.betweenAbs(v2,v1,w)
+    return [v1,p1,p2,v2]
