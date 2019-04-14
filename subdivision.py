@@ -445,6 +445,6 @@ def splitFrame(face,w):
 
   
 def _getVerticesFrame(v1,v2,w):
-    p1 = vec.betweenAbs(v1,v2,w)
-    p2 = vec.betweenAbs(v2,v1,w)
+    p1 = _vec.betweenAbs(v1,v2,w)
+    p2 = _vec.betweenAbs(v2,v1,w)
     return [v1,p1,p2,v2]
