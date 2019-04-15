@@ -447,8 +447,39 @@ def splitFrame(face,w):
     faces.append(_Face(innerVertices))
     return faces
 
-  
-def _getVerticesFrame(v1,v2,w):
-    p1 = _vec.betweenAbs(v1,v2,w)
-    p2 = _vec.betweenAbs(v2,v1,w)
-    return [v1,p1,p2,v2]
+def splitFrame(face,w):
+    """
+    Creates an offset frame with quad corners. Works only with convex shapes.
+    
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be split
+    w : float
+        The width of the offset frame
+    """
+    faces = []
+    innerVertices = []
+    for i in range(len(face.vertices)):
+      if(i==0):
+        vp = face.vertices[len(face.vertices)-1]
+      else:
+        vp = face.vertices[i-1]
+      v = face.vertices[i]
+      vn = face.vertices[(i+1)%len(face.vertices)]
+      vnn = face.vertices[(i+2)%len(face.vertices)]
+      
+      th1 = _vec.angleTriangle(vp,v,vn)
+      th2 = _vec.angleTriangle(v,vn,vnn)
+      
+      w1 = w/math.sin(th1)
+      w2 = w/math.sin(th2)
+      
+      vs1 = _getVerticesFrame(v,vn,w1,w2)
+      vs2 = _getVerticesFrame(_getVerticesFrame(vp,v,w1,w1)[2],_getVerticesFrame(vn,vnn,w2,w2)[1],w1,w2)
+      innerVertices.append(vs2[1])
+      f1 = Face([vs1[0],vs2[0],vs2[1],vs1[1]])
+      f2 = Face([vs1[1],vs2[1],vs2[2],vs1[2]])
+      faces.extend([f1,f2])
+    faces.append(Face(innerVertices))
+    return faces
