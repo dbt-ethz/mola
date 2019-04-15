@@ -438,13 +438,13 @@ def splitFrame(face,w):
       vn = face.vertices[(i+1)%len(face.vertices)]
       vnn = face.vertices[(i+2)%len(face.vertices)]
      
-      vs1 = getVerticesFrame(v,vn,w)
-      vs2 = getVerticesFrame(getVerticesFrame(vp,v,w)[2],getVerticesFrame(vn,vnn,w)[1],w)
+      vs1 = _getVerticesFrame(v,vn,w)
+      vs2 = _getVerticesFrame(_getVerticesFrame(vp,v,w)[2],_getVerticesFrame(vn,vnn,w)[1],w)
       innerVertices.append(vs2[1])
-      f1 = Face([vs1[0],vs2[0],vs2[1],vs1[1]])
-      f2 = Face([vs1[1],vs2[1],vs2[2],vs1[2]])
+      f1 = _Face([vs1[0],vs2[0],vs2[1],vs1[1]])
+      f2 = _Face([vs1[1],vs2[1],vs2[2],vs1[2]])
       faces.extend([f1,f2])
-    faces.append(Face(innerVertices))
+    faces.append(_Face(innerVertices))
     return faces
 
   
