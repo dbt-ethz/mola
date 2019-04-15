@@ -472,8 +472,8 @@ def splitFrame(face,w):
       th1 = _vec.angleTriangle(vp,v,vn)
       th2 = _vec.angleTriangle(v,vn,vnn)
       
-      w1 = w/math.sin(th1)
-      w2 = w/math.sin(th2)
+      w1 = w/_math.sin(th1)
+      w2 = w/_math.sin(th2)
       
       vs1 = _getVerticesFrame(v,vn,w1,w2)
       vs2 = _getVerticesFrame(_getVerticesFrame(vp,v,w1,w1)[2],_getVerticesFrame(vn,vnn,w2,w2)[1],w1,w2)
