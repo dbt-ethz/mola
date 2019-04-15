@@ -14,6 +14,7 @@ from mola.core import Vertex as _Vertex
 from mola.core import Face as _Face
 import mola.faceUtils as faceUtils
 import copy
+import math as _math
 
 def _collectNewFaces(_mesh):
     newMesh=Mesh()
