@@ -113,7 +113,9 @@ def splitGrid(face,nU,nV):
             vs1=gridVertices[u]
             vs2=gridVertices[u+1]
             for v in range(len(vs1)-1):
-                faces.append(_Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]]))
+                f = _Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
+                faceUtils.copyProperties(face,f)
+                faces.append(f)
         return faces
     if len(face.vertices)==3:
         vsU1=_getVerticesBetween(face.vertices[0],face.vertices[1],nU)
@@ -126,12 +128,16 @@ def splitGrid(face,nU,nV):
         v0=face.vertices[0]
         vs1=gridVertices[0]
         for v in range(len(vs1)-1):
-            faces.append(_Face([v0,vs1[v],vs1[v+1]]))
+            f = _Face([v0,vs1[v],vs1[v+1]])
+            faceUtils.copyProperties(face,f)
+            faces.append(f)
         for u in range(len(gridVertices)-1):
             vs1=gridVertices[u]
             vs2=gridVertices[u+1]
             for v in range(len(vs1)-1):
-                faces.append(_Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]]))
+                f = _Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
+                faceUtils.copyProperties(face,f)
+                faces.append(f)
         return faces
 
 def _getVerticesBetween(v1,v2,n):
@@ -172,11 +178,17 @@ def splitRelFreeQuad(face, indexEdge,  split1,  split2):
     p2 = _vec.betweenRel(face.vertices[indexEdge2 ], face.vertices[indexEdge3], split2)
     faces=[]
     if indexEdge == 0:
-        faces.append(_Face([face.vertices[0], p1, p2, face.vertices[3]]))
-        faces.append(_Face([p1,face.vertices[1],face.vertices[2],p2]))
+        f1 = _Face([face.vertices[0], p1, p2, face.vertices[3]])
+        f2 = _Face([p1,face.vertices[1],face.vertices[2],p2])
+        faceUtils.copyProperties(face,f1)
+        faceUtils.copyProperties(face,f2)
+        faces.extend([f1,f2])
     elif indexEdge == 1:
-        faces.append(_Face([face.vertices[0], face.vertices[1], p1, p2]))
-        faces.append(_Face([p2, p1, face.vertices[2], face.vertices[3]]))
+        f1 = _Face([face.vertices[0], face.vertices[1], p1, p2])
+        f2 = _Face([p2, p1, face.vertices[2], face.vertices[3]])
+        faceUtils.copyProperties(face,f1)
+        faceUtils.copyProperties(face,f2)
+        faces.extend([f1,f2])
     return faces
 
 
@@ -218,7 +230,7 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
     if capTop:
         new_faces.append(_Face(new_vertices))
     for new_face in new_faces:
-        new_face.color=face.color
+        faceUtils.copyProperties(face,new_face)
     return new_faces
 
 def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
@@ -267,6 +279,8 @@ def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
         cap_face = _Face(new_vertices)
         new_faces.append(cap_face)
 
+    for new_face in new_faces:
+        faceUtils.copyProperties(face,new_face)
     return new_faces
 
 def splitRoof(face, height):
@@ -293,6 +307,9 @@ def splitRoof(face, height):
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
         faces.append(_Face([face.vertices[2],face.vertices[3],ev2]))
         faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
+        
+        for f in faces:
+            faceUtils.copyProperties(face,f)
         return faces
     elif len(face.vertices)==3:
         ev1=_vec.center(face.vertices[0],face.vertices[1])
@@ -304,6 +321,9 @@ def splitRoof(face, height):
         faces.append(_Face([face.vertices[1],ev2,ev1]))
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2]))
         faces.append(_Face([face.vertices[2],face.vertices[0],ev1,ev2]))
+      
+        for f in faces:
+            faceUtils.copyProperties(face,f)
         return faces
     return [face]
 
@@ -324,7 +344,9 @@ def extrudeToPoint(face, point):
     for i in range(numV):
         v1 = face.vertices[i]
         v2 = face.vertices[(i+1)%numV]
-        faces.append(_Face([v1,v2,point]))
+        f = _Face([v1,v2,point])
+        faceUtils.copyProperties(face,f)
+        faces.append(f)
     return faces
 
 def extrudeToPointCenter(face, height=0.0):
@@ -346,18 +368,19 @@ def extrudeToPointCenter(face, height=0.0):
     center = _vec.add(center,normal)
     return extrudeToPoint(face,center)
 
-def offsetPlanar(f,offsets):
+def offsetPlanar(face,offsets):
     newPts = []
-    for i in range(len(f.vertices)):
+    for i in range(len(face.vertices)):
         iP = i-1
         if(iP<0):
-            iP = len(f.vertices)-1
-        iN = (i+1)%len(f.vertices)
-        v0 = f.vertices[iP]
-        v1 = f.vertices[i]
-        v2 = f.vertices[iN]
+            iP = len(face.vertices)-1
+        iN = (i+1)%len(face.vertices)
+        v0 = face.vertices[iP]
+        v1 = face.vertices[i]
+        v2 = face.vertices[iN]
         newPts.append(_vec.offsetPoint(v0,v1,v2,offsets[iP],offsets[i]))
     f = _Face(newPts)
+    faceUtils.copyProperties(face,f)
     return f
 
 def splitOffset(face,offset):
@@ -374,7 +397,9 @@ def splitOffsets(face,offsets):
     for i in range(len(face.vertices)):
         if(abs(offsets[i])>0):
             i2 = (i+1)%len(face.vertices)
-            faces.append(_Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]]))
+            f = _Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]])
+            faceUtils.copyProperties(face,f)
+            faces.append()
     faces.append(offsetFace)
     for f in faces:
         if(faceUtils.area(f)<0):
