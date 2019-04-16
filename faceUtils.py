@@ -183,3 +183,17 @@ def normalFromVertices(vertices):
     #         sum = VectorScale(sum, 0.5)
     #         sum = VectorUnitize(sum)
     #         return sum
+
+def copyProperties(faceParent,faceChild):
+    """
+    Copies the properties (color,group,...) of faceParent to faceChild.
+
+    Arguments:
+    ----------
+    faceParent : mola.core.Face
+                 The face to copy the properties From.            
+    faceChild : mola.core.Face
+                 The face to copy the properties To.
+    """
+    faceChild.group = faceParent.group
+    faceChild.color = faceParent.color
