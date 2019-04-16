@@ -399,7 +399,7 @@ def splitOffsets(face,offsets):
             i2 = (i+1)%len(face.vertices)
             f = _Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]])
             faceUtils.copyProperties(face,f)
-            faces.append()
+            faces.append(f)
     faces.append(offsetFace)
     for f in faces:
         if(faceUtils.area(f)<0):
