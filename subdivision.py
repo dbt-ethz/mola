@@ -387,7 +387,7 @@ def splitRelMultiple(face,dir,splits):
     lA = face.vertices[dir+1]
     sB = []
     sB.append(face.vertices[dir+3])
-    lB = face.vertices[(dir+2)%len(f.vertices)]
+    lB = face.vertices[(dir+2)%len(face.vertices)]
   
     for i in range(len(splits)):
         sA.append(_vec.betweenRel(sA[0],lA,splits[i]))
@@ -407,7 +407,7 @@ def splitRelMultiple(face,dir,splits):
             result.append(f)
     return result                          
 
-def splitRel(f,dir,split):
+def splitRel(face,dir,split):
     """
     Splits face in given direction.
     
@@ -419,7 +419,7 @@ def splitRel(f,dir,split):
     split : float
         Position of the split relative to initial face points (0 to 1)
     """
-    return splitRelMultiple(f,dir,[split])
+    return splitRelMultiple(face,dir,[split])
 
 def splitFrame(face,w):
     """
