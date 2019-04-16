@@ -17,7 +17,7 @@ import copy
 import math as _math
 
 def _collectNewFaces(_mesh):
-    newMesh=Mesh()
+    newMesh=_Mesh()
     for face in _mesh.faces:
         v1=face.vertices[-2]
         v2=face.vertices[-1]
@@ -25,7 +25,7 @@ def _collectNewFaces(_mesh):
             edge1=_mesh.getEdgeAdjacentToVertices(v1,v2)
             edge2=_mesh.getEdgeAdjacentToVertices(v2,v3)
             if (edge1 != None) and (edge2!= None):
-                newFace=Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
+                newFace=_Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
                 newFace.color=face.color
                 newFace.group=face.group
                 newMesh.faces.append(newFace)
