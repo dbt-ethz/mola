@@ -14,7 +14,7 @@ __edgesWidth=1.0
 __showWireframe=False
 __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
-__canvasHeight = "100%"
+__canvasHeight = "56.25vw"
 
 def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
   """
@@ -36,11 +36,10 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
                     r,g,b values, 0.0 to 1.0
   """
   global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
-  if canvasWidth != None:
-    __canvasWidth = str(canvasWidth)+"px"
-  if canvasWidth != None:
-    __canvasHeight = str(canvasHeight)+"px"
-
+  if(canvasWidth):
+    __canvasWidth = str(canvasWidth) + "px"
+  if(canvasHeight):
+    __canvasHeight = str(canvasHeight) + "px"
   __showAxis=showAxis
   __showEdges=showEdges
   __edgesWidth=edgesWidth
@@ -75,16 +74,15 @@ def __begin3D():
         <style>
             html, body {
                 overflow: hidden;
-
-                width: ''' + str(__canvasWidth) + ''';
-                height: ''' + str(__canvasHeight) + ''';
+                width:''' + __canvasWidth + ''';
+                height: ''' + __canvasHeight + ''';
                 margin: 0;
                 padding: 0;
             }
 
             #renderCanvas {
-                width: ''' + str(__canvasWidth) + '''px;
-                height: ''' + str(__canvasHeight) + '''px;
+                width:''' + __canvasWidth + ''';
+                height: ''' + __canvasHeight + ''';
                 touch-action: none;
             }
         </style>

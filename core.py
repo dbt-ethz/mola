@@ -219,3 +219,7 @@ class Mesh:
                 else:
                     edge.face2=f
                 v1=v2
+                
+    def constructTopology(self):
+        self.weldVertices()
+        self.updateAdjacencies()

@@ -213,3 +213,25 @@ def constructTetrahedron(cx,cy,cz,side):
 
     mesh.faces = [f1,f2,f3,f4]
     return mesh
+
+def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
+    mesh = _Mesh()
+    phi = 2* _math.pi / ringN
+    theta = 2* _math.pi / tubeN
+  
+    for i in range (ringN):
+        for j in range (tubeN):     
+            v0 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * j)
+            v1 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * ((j+1)%tubeN))
+            v2 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * ((j+1)%tubeN))
+            v3 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * j)
+            f = _Face([v0,v1,v2,v3])
+            mesh.faces.append(f)
+      
+    return mesh
+
+def _getTorusVertex(ringRadius, tubeRadius, ph,th):
+    x = ringRadius * _math.cos(ph) + tubeRadius * _math.cos(th) * _math.cos(ph)
+    y = ringRadius * _math.sin(ph) + tubeRadius * _math.cos(th) * _math.sin(ph)
+    z = tubeRadius * _math.sin(th)
+    return _Vertex(x,y,z)

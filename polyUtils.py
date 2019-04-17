@@ -1,5 +1,5 @@
 from mola.core import *
-import mola.vec as vec
+from mola import vec
 import math
 
 def subdivideCatmull2D(pts):
