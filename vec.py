@@ -21,6 +21,13 @@ def angle(v1,v2):
     if f>1:f=1
     return _math.acos(f)
 
+def angleTriangle(vPrevious,v,vNext):
+  #law of cosines
+  vvn = distance(v,vNext)
+  vvp = distance(vPrevious,v)
+  vnvp = distance(vNext,vPrevious)
+  return _math.acos((vvn*vvn + vvp*vvp - vnvp*vnvp) / (2 * vvn * vvp))
+
 def subtract(v1,v2):
     return _Vertex(v1.x-v2.x,v1.y-v2.y,v1.z-v2.z)
 
