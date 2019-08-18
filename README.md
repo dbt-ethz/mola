@@ -35,3 +35,7 @@ Lightweight Computational Design Library
   - Display in [Babylon.js](https://www.babylonjs.com) for 3D graphics in Google Colab
 - renderRhino
   - Construct and load mesh geometry in [Rhino](https://www.rhino3d.com)
+
+## Use Cases
+- The Mola library has been used in the elective course _Advanced Computational Design Course_, spring semester 2019 at ETH Zurich.
+- The Mola library has been used in the MAS dfab T2 project _Concrete Choreography_
