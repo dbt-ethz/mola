@@ -19,7 +19,7 @@ def get_meshlab_arrays(faces):
     for face in faces:
         for v in face.vertices:
             vlist.append([v.x,v.y,v.z])
-            colors.extend(face.color)
+            colors.append(face.color[:3])
         flist.append([cIndex,cIndex+1,cIndex+2])
         if len(face.vertices)==4:
             flist.append([cIndex+2,cIndex+3,cIndex])
