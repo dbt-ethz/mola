@@ -16,6 +16,7 @@ from mola.core import Vertex
 #     s = (d1+d2+d3)/2.0
 #     a = _math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
 #     return a
+
 def area(face):
     """
     Returns the area of a face, for quads that of two triangles.
@@ -31,20 +32,44 @@ def area(face):
         return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2]) + areaTriangle3D(face.vertices[2],face.vertices[3],face.vertices[0])
 
 def areaFromVertices(vertices):
+    """
+    Returns the area of a face from a list of 3 or 4 vertices
+    """
     if len(vertices) == 3:
         return areaTriangle(vertices[0],vertices[1],vertices[2])
+    # could be made generic for n-gons, triangle fan?
     elif len(vertices) == 4:
         a1 = areaTriangle3D(vertices[0],vertices[1],vertices[2])
         a2 = areaTriangle3D(vertices[2],vertices[3],vertices[0])
         return a1+a2
 
 def areaTriangle3D(a,b,c):
+    """
+    Returns the area of the triangle from 3 vertices
+
+    Arguments:
+    ----------
+    a,b,c : mola.core.Vertex
+        vertices of the triangle
+    """
     return areaTriangle3DCoords(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z)
 
-def areaTriangle3DCoords(xa,ya,za,xb,yb,zb,xc,yc,zc):
+def areaTriangle3DCoords(xa, ya, za, xb, yb, zb, xc, yc, zc):
+    """
+    Returns the area of the triangle from 9 coordinates
+
+    Arguments:
+    ----------
+    xa, ya, za : float
+        coordinates of vertex a
+    xb, yb, zb : float
+        coordinates of vertex b
+    xc, yc, zc : float
+        coordinates of vertex c
+    """
     return 0.5 * _math.sqrt(_math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + _math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + _math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
-def __determinant(a,b,c,d,e,f,g,h,i):
+def __determinant(a, b, c, d, e, f, g, h, i):
     return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
 
 def compactness(face):
@@ -191,7 +216,7 @@ def copyProperties(faceParent,faceChild):
     Arguments:
     ----------
     faceParent : mola.core.Face
-                 The face to copy the properties From.            
+                 The face to copy the properties From.
     faceChild : mola.core.Face
                  The face to copy the properties To.
     """

@@ -11,6 +11,9 @@ import mola.faceUtils as faceUtils
 __grayscale = False;
 
 def getColorRGB(hue):
+    """
+    Converts a color defined as Hue (HSV, saturation and value assumed to be 100%) into red, green and blue
+    """
     if __grayscale:
         return (hue,hue,hue,1)
     else:
@@ -22,6 +25,11 @@ def colorFacesByFunction(faces,faceFunction):
     """
     Assigns a color to all the faces by face-function which has to return a float value for a face as argument,
     from smallest (red) to biggest (purple).
+
+    Arguments:
+    ----------
+    faces: list of faces to color
+    faceFunction : one of the functions `ByCurvature`, `ByArea`, etc.
     """
     values = []
     for face in faces:
@@ -29,7 +37,7 @@ def colorFacesByFunction(faces,faceFunction):
     valueMin = min(values)
     valueMax = max(values)
     for i, face in enumerate(faces):
-        h = __map(values[i],valueMin,valueMax,0.0,0.8)
+        h = __map(values[i],valueMin, valueMax,0.0,0.8)
         face.color = getColorRGB(h)
 
 def colorFacesByCurvature(faces):
@@ -37,42 +45,42 @@ def colorFacesByCurvature(faces):
     Assigns a color to all the faces by curvature (require topological meshinformation),
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.curvature)
+    colorFacesByFunction(faces, faceUtils.curvature)
 
 def colorFacesByArea(faces):
     """
     Assigns a color to all the faces by area,
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.area)
+    colorFacesByFunction(faces, faceUtils.area)
 
 def colorFacesByPerimeter(faces):
     """
     Assigns a color to all the faces by perimeter,
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.perimeter)
+    colorFacesByFunction(faces, faceUtils.perimeter)
 
 def colorFacesByCompactness(faces):
     """
     Assigns a color to all the faces by compactness (area/perimeter),
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.compactness)
+    colorFacesByFunction(faces, faceUtils.compactness)
 
 def colorFacesByHorizontalAngle(faces):
-    colorFacesByFunction(faces,faceUtils.horizontal_angle)
+    colorFacesByFunction(faces, faceUtils.horizontal_angle)
 
 def colorFacesByVerticalAngle(faces):
     """
     Assigns a color to all the faces by verticality,
     from smallest (red) to biggest (purple).
     """
-    colorFacesByFunction(faces,faceUtils.vertical_angle)
+    colorFacesByFunction(faces, faceUtils.vertical_angle)
 
 def __map(value, fromMin, fromMax, toMin, toMax):
-    delta=fromMax - fromMin
-    if delta==0:return 0
+    delta = fromMax - fromMin
+    if delta == 0 : return 0
     return toMin + ((toMax - toMin) / delta) * (value - fromMin)
 
 def grayscale(boolean):
