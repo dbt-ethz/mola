@@ -5,61 +5,90 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
+import math
+
 class Vertex:
-    def __init__(self,x=0,y=0,z=0):
-        self.x=x
-        self.y=y
-        self.z=z
-        self.fix=False
-        self.generation=0
-        self.edges=[]
+    """A vertex defines a point in space.
+
+    Attributes
+    ----------
+    x, y, z : float
+        The coordinates of the `Vertex`.
+    fix : boolean
+        Flag to set a Vertex to be fixed or not.
+    generation : integer
+        Number in what generation of subdivision the face was created.
+    edges : list
+        List of edges connected to the `Vertex`.
+    """
+    def __init__(self, x=0, y=0, z=0):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.fix = False
+        self.generation = 0
+        self.edges = []
 
     def __str__(self):
+        """
+        Returns a string representation of the Vertex ("x.xx y.yy z.zz")
+        """
         return ' '.join([str(v) for v in [self.x,self.y,self.z]])
 
     def __eq__(self, other):
+        """
+        Compares this `Vertex` to another `Vertex`. Returns true if all their 3 coordinates are equal.
+        """
         if isinstance(other, self.__class__):
-            return (self.x== other.x) and (self.y== other.y) and (self.z== other.z)
+            return (self.x == other.x) and (self.y == other.y) and (self.z == other.z)
         else:
             return False
 
-    def getEdgeAdjacentToVertex(self,v):
+    def getEdgeAdjacentToVertex(self, v):
+        """
+        Returns the edge connecting this `Vertex` to another `Vertex` or `None` if there's none.
+
+        Arguments:
+        ----------
+        v : mola.core.Vertex
+            The other Vertex
+        """
         for edge in self.edges:
             if edge.v2 is v or edge.v1 is v:
                 return edge
         return None
 
-    def add(self,vertex):
-        self.x+=vertex.x
-        self.y+=vertex.y
-        self.z+=vertex.z
+    def add(self, vertex):
+        self.x += vertex.x
+        self.y += vertex.y
+        self.z += vertex.z
         return self
 
-    def subtract(self,vertex):
-        self.x-=vertex.x
-        self.y-=vertex.y
-        self.z-=vertex.z
+    def subtract(self, vertex):
+        self.x -= vertex.x
+        self.y -= vertex.y
+        self.z -= vertex.z
         return self
 
-    def scale(self,factor):
-        self.x*=factor
-        self.y*=factor
-        self.z*=factor
+    def scale(self, factor):
+        self.x *= factor
+        self.y *= factor
+        self.z *= factor
         return self
 
-    def divide(self,factor):
-        self.x/=factor
-        self.y/=factor
-        self.z/=factor
+    def divide(self, factor):
+        self.x /= factor
+        self.y /= factor
+        self.z /= factor
         return self
 
     def length(self):
-        return _math.sqrt(self.x*self.x+self.y*self.y+self.z*self.z)
+        return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 
     def unitize(self):
-        l=length()
+        l = self.length()
         if l==0: return self
-        return divide(l)
+        return self.divide(l)
 
     def __add__(self, other):
         vector = Vertex(self.x, self.y, self.z)
@@ -85,20 +114,32 @@ class Vertex:
 
 
 class Face:
-    def __init__(self,vertices=None):
-        if (vertices==None):
-            self.vertices=[]
+    """A `Face` is the surface between a set of vertices.
+
+    Attributes
+    ----------
+    vertices : list
+        A list of `Vertex` objects defining the `Face`.
+    color : tuple (r, g, b, a)
+        The color of the face (0..1).
+    group : integer
+        The group index the `Face` belongs to.
+    """
+
+    def __init__(self, vertices=None):
+        if (vertices == None):
+            self.vertices = []
         else:
             self.vertices = vertices
-        self.color=(1,1,1,1)
-        self.group=0
+        self.color = (1,1,1,1)
+        self.group = 0
 
 class Edge:
-    def __init__(self,_v1,_v2):
-        self.v1=_v1
-        self.v2=_v2
-        self.face1=None
-        self.face2=None
+    def __init__(self, _v1, _v2):
+        self.v1 = _v1
+        self.v2 = _v2
+        self.face1 = None
+        self.face2 = None
 
     def __str__(self):
         return "from " + str(self.v1)+" to "+ str(self.v2)
@@ -114,56 +155,94 @@ class Edge:
         return Vertex((self.v2.x+self.v1.x)/2.0,(self.v2.y+self.v1.y)/2.0,(self.v2.z+self.v1.z)/2.0)
 
 class Box:
+    """A `Box` is defined by by two opposite corners with x,y,z coordinates.
+    Mostly used for getting the bounding box of a set of points.
 
-    def __init__(self,x1=float('inf'),y1=float('inf'),z1=float('inf'),x2=-float('inf'),y2=-float('inf'),z2=-float('inf')):
-        self.x1=x1
-        self.y1=y1
-        self.z1=z1
-        self.x2=x2
-        self.y2=y2
-        self.z2=z2
+    Attributes
+    ----------
+    x1, y1, z1 : float
+        The coordinates of the bottom left front corner.
+    x2, y2, z2 : float
+        The coordinates of the top right back corner.
+    """
+    def __init__(self, x1=float('inf'), y1=float('inf'), z1=float('inf'), x2=-float('inf'), y2=-float('inf'), z2=-float('inf')):
+        self.x1 = x1
+        self.y1 = y1
+        self.z1 = z1
+        self.x2 = x2
+        self.y2 = y2
+        self.z2 = z2
 
     def getDimX(self):
-        return self.x2-self.x1
+        """
+        Returns the Box's extent in X direction.
+        """
+        return self.x2 - self.x1
 
     def getDimY(self):
-        return self.y2-self.y1
+        """
+        Returns the Box's extent in Y direction.
+        """
+        return self.y2 - self.y1
 
     def getDimZ(self):
-        return self.z2-self.z1
+        """
+        Returns the Box's extent in Z direction.
+        """
+        return self.z2 - self.z1
 
     def getCenterX(self):
-        return (self.x2+self.x1)/2
+        """
+        Returns the Box's center in X direction.
+        """
+        return (self.x2 + self.x1) / 2
 
     def getCenterY(self):
-        return (self.y2+self.y1)/2
+        """
+        Returns the Box's center in Y direction.
+        """
+        return (self.y2 + self.y1) / 2
 
     def getCenterZ(self):
-        return (self.z2+self.z1)/2
+        """
+        Returns the Box's center in Z direction.
+        """
+        return (self.z2 + self.z1) / 2
 
     def addPoint(self,x,y,z):
-        self.x1=min(x,self.x1)
-        self.y1=min(y,self.y1)
-        self.z1=min(z,self.z1)
-        self.x2=max(x,self.x2)
-        self.y2=max(y,self.y2)
-        self.z2=max(z,self.z2)
+        self.x1 = min(x,self.x1)
+        self.y1 = min(y,self.y1)
+        self.z1 = min(z,self.z1)
+        self.x2 = max(x,self.x2)
+        self.y2 = max(y,self.y2)
+        self.z2 = max(z,self.z2)
 
 class Mesh:
+    """A mesh describes a 3D surface made of Vertices connected by Faces.
+
+    Attributes
+    ----------
+    vertices : list
+        The list of `Vertex` objects in the mesh.
+    faces : list
+        The list of `Face` objects in the mesh.
+    edges : list
+        The list of edges in the mesh.
+    """
     def __init__(self):
-        self.vertices=[]
-        self.faces=[]
-        self.edges=[]
+        self.vertices = []
+        self.faces = []
+        self.edges = []
 
-    def scale(self,sx,sy,sz):
-        vs=Vertex(sx,sy,sz)
+    def scale(self, sx, sy, sz):
+        #vs = Vertex(sx, sy, sz)
         for v in self.vertices:
-            v.x*=sx
-            v.y*=sy
-            v.z*=sz
+            v.x *= sx
+            v.y *= sy
+            v.z *= sz
 
-    def translate(self,tx,ty,tz):
-        vt=Vertex(tx,ty,tz)
+    def translate(self, tx, ty, tz):
+        vt = Vertex(tx, ty, tz)
         for v in self.vertices:
             v.add(vt)
 

@@ -8,7 +8,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 import colorsys as colorsys
 import mola.faceUtils as faceUtils
 
-__grayscale = False;
+__grayscale = False
 
 def getColorRGB(hue):
     """

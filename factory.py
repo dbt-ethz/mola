@@ -22,11 +22,11 @@ def constructSingleFace(vertices):
         The vertices describing the face
     """
     mesh = _Mesh()
-    mesh.vertices=vertices
-    mesh.faces=[_Face(vertices)]
+    mesh.vertices = vertices
+    mesh.faces = [_Face(vertices)]
     return mesh
 
-def constructCone(z1,z2,radius1,radius2,nSegments,capBottom=True,capTop=True):
+def constructCone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
     """
     Creates and returns a conic cylinder.
     """

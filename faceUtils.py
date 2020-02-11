@@ -36,7 +36,7 @@ def areaFromVertices(vertices):
     Returns the area of a face from a list of 3 or 4 vertices
     """
     if len(vertices) == 3:
-        return areaTriangle(vertices[0],vertices[1],vertices[2])
+        return areaTriangle3D(vertices[0],vertices[1],vertices[2])
     # could be made generic for n-gons, triangle fan?
     elif len(vertices) == 4:
         a1 = areaTriangle3D(vertices[0],vertices[1],vertices[2])
@@ -49,7 +49,7 @@ def areaTriangle3D(a,b,c):
 
     Arguments:
     ----------
-    a,b,c : mola.core.Vertex
+    a, b, c : mola.core.Vertex
         vertices of the triangle
     """
     return areaTriangle3DCoords(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z)
@@ -70,6 +70,9 @@ def areaTriangle3DCoords(xa, ya, za, xb, yb, zb, xc, yc, zc):
     return 0.5 * _math.sqrt(_math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + _math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + _math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
 def __determinant(a, b, c, d, e, f, g, h, i):
+    """
+    returns the determinant of the 9 values of a 3 x 3 matrix
+    """
     return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
 
 def compactness(face):
@@ -182,19 +185,59 @@ def centerFromVertices(vertices):
     return Vertex(cx,cy,cz)
 
 def centerFromLine(v1,v2):
+    """
+    Returns the center of a line defined by two vertices.
+
+    Arguments:
+    ----------
+    v1, v2 : mola.core.Vertex
+        start and end points of the line
+    
+    Returns:
+    --------
+    mola.core.Vertex
+        the center point of the line
+    """
     return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
 
 def normal(face):
+    """
+    Returns the normal of a face, a vector of length 1 perpendicular to the plane of the triangle.
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        the face to get the normal from
+    """
     return normalFromTriangle(face.vertices[0],face.vertices[1],face.vertices[2])
 
 def normalFromTriangle(v1,v2,v3):
+    """
+    Returns the normal of a triangle defined by 3 vertices.
+    The normal is a vector of length 1 perpendicular to the plane of the triangle.
+
+    Arguments:
+    ----------
+    v1, v2, v3 : mola.core.Vertex
+        the vertices get the normal from
+    """
     v = _vec.subtract(v2, v1)
     u = _vec.subtract(v3, v1)
     crossProduct=_vec.cross(v,u)
     return _vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
+    """
+    Returns the normal of a triangle defined by 3 vertices.
+    The normal is a vector of length 1 perpendicular to the plane of the triangle.
+
+    Arguments:
+    ----------
+    vertices : list
+        the list of vertices get the normal from (first 3 will be used)
+    """
     return normalFromTriangle(vertices[0],vertices[1],vertices[2])
+
     # if len(vertices)==3:
     #     return VectorNormal(vertices[0],vertices[1],vertices[2])
     # elif len(vertices)==4:
