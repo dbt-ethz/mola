@@ -58,22 +58,31 @@ def displayMesh(mesh):
     vertices=np.zeros(num_vertices*3,dtype=np.float32)
 
     vertex_index = np.zeros(num_vertices,dtype=np.int32)
+
+    # Vertex color per vertex *per polygon loop* v from 0 to 1
+    vertex_colors = np.zeros(num_vertices*3,dtype=np.float32)
+
     vI=0
     for f in mesh.faces:
+
         for v in f.vertices:
             vertex_index[vI]=vI
             coordinateIndex=vI*3
             vertices[coordinateIndex]=v.x
             vertices[coordinateIndex+1]=v.y
             vertices[coordinateIndex+2]=v.z
+
+            vertex_colors[coordinateIndex]=f.color[0]
+            vertex_colors[coordinateIndex+1]=f.color[1]
+            vertex_colors[coordinateIndex+2]=f.color[2]
+
             vI+=1
 
 
     num_vertex_indices = vertex_index.shape[0]
     num_loops = loop_start.shape[0]
 
-    # Vertex color per vertex *per polygon loop* v from 0 to 1
-    vertex_colors = np.zeros(num_vertices*3,dtype=np.float32)
+
 
     # Create mesh object based on the arrays above
     mesh = bpy.data.meshes.new(name='created mesh')
