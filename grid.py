@@ -12,11 +12,11 @@ from mola.core import Face as Face
 
 class GridManager:
     def __init__(self,nX,nY,nZ=1):
-        self.nX=nX
-        self.nY=nY
-        self.nZ=nZ
-        self.length=nX*nY*nZ
-        self.nYZ=nY*nZ
+        self.nX = nX
+        self.nY = nY
+        self.nZ = nZ
+        self.length = nX * nY * nZ
+        self.nYZ = nY * nZ
 
     def getIndex(self,x,y,z=0):
         return x * self.nYZ + y * self.nZ + z
@@ -75,7 +75,8 @@ class GridManager:
         x=self.getX(index)
         y=self.getY(index)
         if not continuous:
-            if x<self.nX-1: nbs.append(self.getIndex(x+1,y))
+            if x<self.nX-1:
+                nbs.append(self.getIndex(x+1,y))
             if nbs8:
                 if x<self.nX-1 and y<self.nY-1:
                     nbs.append(self.getIndex(x+1,y+1))
@@ -131,7 +132,7 @@ class GridManager:
             mode==3
 
         # precalculate distances
-        dists = [1, math.sqrt(2), math.sqrt(3)]
+        # dists = [1, math.sqrt(2), math.sqrt(3)]
 
         # create a list of directions with x,y and z offsets
         directions = []
@@ -169,17 +170,21 @@ class Grid(GridManager):
         else:
             self.values = values
 
-    def set(self,value,x,y,z=0):
+    def set_xyz(self,value,x,y,z=0):
         self.values[self.getIndex(x,y,z)]=value
 
-    def get(self,x,y,z=0):
+    def get_xyz(self,x,y,z=0):
         return self.values[self.getIndex(x,y,z)]
 
-    def set_i(self,value,index):
+    def set_index(self,value,index):
         self.values[index] = value
 
-    def get_i(self,index):
+    def get_index(self,index):
         return self.values[index]
+
+    def get_shortest_path(self, startindex, endindex, obstaclevalue):
+        # TODO
+        return []
 
     def getQuadMesh(self,functionIn,functionOut):
         faces=[]
@@ -189,37 +194,37 @@ class Grid(GridManager):
                     index=self.getIndex(x,y,z)
                     if functionIn(self.values[index]):
                         # (x,y) (x1,y) (x1,y1) (x,y1)
-                        if x==self.nX-1 or functionOut(self.get(x+1,y,z)):
+                        if x==self.nX-1 or functionOut(self.get_xyz(x+1,y,z)):
                             v1=Vertex(x+1,y,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x+1,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if x==0 or functionOut(self.get(x-1,y,z)):
+                        if x==0 or functionOut(self.get_xyz(x-1,y,z)):
                             v1=Vertex(x,y+1,z)
                             v2=Vertex(x,y,z)
                             v3=Vertex(x,y,z+1)
                             v4=Vertex(x,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if y==self.nY-1 or functionOut(self.get(x,y+1,z)):
+                        if y==self.nY-1 or functionOut(self.get_xyz(x,y+1,z)):
                             v1=Vertex(x+1,y+1,z)
                             v2=Vertex(x,y+1,z)
                             v3=Vertex(x,y+1,z+1)
                             v4=Vertex(x+1,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if y==0 or functionOut(self.get(x,y-1,z)):
+                        if y==0 or functionOut(self.get_xyz(x,y-1,z)):
                             v1=Vertex(x,y,z)
                             v2=Vertex(x+1,y,z)
                             v3=Vertex(x+1,y,z+1)
                             v4=Vertex(x,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if z==self.nZ-1 or functionOut(self.get(x,y,z+1)):
+                        if z==self.nZ-1 or functionOut(self.get_xyz(x,y,z+1)):
                             v1=Vertex(x,y,z+1)
                             v2=Vertex(x+1,y,z+1)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if z==0 or functionOut(self.get(x,y,z-1)):
+                        if z==0 or functionOut(self.get_xyz(x,y,z-1)):
                             v1=Vertex(x,y+1,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y,z)
