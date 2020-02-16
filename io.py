@@ -13,7 +13,7 @@ import ntpath
 def __strColor(color,decimals=1):
     colorRound=(round(color[0],decimals),round(color[1],decimals),round(color[2],decimals),round(color[3],decimals))
     return str(colorRound)
-    
+
 def importOBJ(filename):
     """Loads a Wavefront OBJ file. """
     mesh=_Mesh()
