@@ -53,7 +53,7 @@ def constructCone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=Tr
         mesh.vertices.append(centerBottom)
         for i in range(nSegments):
             i2=(i+1)%nSegments
-            mesh.faces.append(_Face([verticesBottom[i],verticesBottom[i2],centerBottom]))
+            mesh.faces.append(_Face([verticesBottom[i2],verticesBottom[i],centerBottom]))
     if capTop:
         centerTop=_Vertex(0,0,z2)
         mesh.vertices.append(centerTop)
