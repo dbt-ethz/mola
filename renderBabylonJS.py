@@ -49,7 +49,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showPointsCloud = showPointsCloud
   __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
-  if(__showPointsNumbers):
+  if(showPointsNumbers):
     return displayMeshAsNumbers(mesh)
   else:
     return display(mesh.faces)
