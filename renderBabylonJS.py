@@ -189,7 +189,7 @@ def __end3D():
         var posX = (positions[i]);
         var posY = (positions[i+1]);
         var posZ = (positions[i+2]);
-        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+2,posZ));
+        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
         ind++;
     }'''
   if __showAxis:
