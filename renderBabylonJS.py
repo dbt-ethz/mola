@@ -184,11 +184,12 @@ def __end3D():
     outputplaneTexture.hasAlpha = true;
     };'''
     __code+=   '''
+    var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     var ind = 0;
-    for(var i=0;i<positions.length;i+=3){
-        var posX = (positions[i]);
-        var posY = (positions[i+1]);
-        var posZ = (positions[i+2]);
+    for(var i=0;i<vPositions.length;i+=3){
+        var posX = (vPositions[i]);
+        var posY = (vPositions[i+1]);
+        var posZ = (vPositions[i+2]);
         drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
         ind++;
     }'''
