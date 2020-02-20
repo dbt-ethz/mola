@@ -185,6 +185,7 @@ def __end3D():
     };'''
     __code+=   '''
     var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+    console.log('vl is ' + vPositions.length);
     var ind = 0;
     for(var i=0;i<vPositions.length;i+=3){
         var posX = (vPositions[i]);
