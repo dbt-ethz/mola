@@ -16,7 +16,7 @@ __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,backgroundColor=(0,0,0)):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0)):
   """
   Displays Mesh.
   Arguments:
@@ -31,11 +31,13 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   showAxis : Boolean
   showEdges : Boolean
   showWireframe : Boolean
+  showPointsCloud : Boolean
+  showPointsNumbers : Boolean
   edgesWidth : float
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__backgroundColor
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -45,6 +47,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __edgesWidth=edgesWidth
   __showWireframe=showWireframe
   __showPointsCloud = showPointsCloud
+  __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
   return display(mesh.faces)
 
@@ -159,6 +162,36 @@ def __end3D():
             plane.material.diffuseTexture = dynamicTexture;
             return plane;
         };'''
+  if __showPointsNumbers:
+    __code+='''
+    var drawNumber = function(scene, text, positionVector){
+    //data reporter
+    var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
+    outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+    outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
+    outputplane.position = positionVector;
+    outputplane.scaling.x = 1;
+    outputplane.scaling.y = 1;
+
+    var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
+    outputplane.material.diffuseTexture = outputplaneTexture;
+    outputplane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+    outputplane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    outputplane.material.backFaceCulling = false;
+
+    //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
+    outputplaneTexture.drawText(text, null, 300, "200px arial", "white");
+    outputplaneTexture.hasAlpha = true;
+    };'''
+    __code+=   '''
+    var ind = 0;
+    for(var i=0;i<positions.length;i+=3){
+        var posX = (positions[i]);
+        var posY = (positions[i+1]);
+        var posZ = (positions[i+2]);
+        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+2,posZ));
+        ind++;
+    }'''
   if __showAxis:
     __code+='''// show axis
             var showAxis = function(size) {
