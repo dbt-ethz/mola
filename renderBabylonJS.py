@@ -16,7 +16,7 @@ __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,backgroundColor=(0,0,0)):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,backgroundColor=(0,0,0)):
   """
   Displays Mesh.
   Arguments:
@@ -35,7 +35,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__backgroundColor
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__backgroundColor
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -44,6 +44,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showEdges=showEdges
   __edgesWidth=edgesWidth
   __showWireframe=showWireframe
+  __showPointsCloud = showPointsCloud
   __backgroundColor=backgroundColor
   return display(mesh.faces)
 
@@ -136,7 +137,10 @@ def __end3D():
           mat.backFaceCulling = false;'''
   if __showWireframe:
     __code+='''mat.wireframe=true;'''
-  __code+='''customMesh.material = mat;'''
+    __code+='''customMesh.material = mat;'''
+  if __showPointsCloud:
+    __code+='''mat.pointsCloud=true;'''
+    __code+='''customMesh.material = mat;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
