@@ -140,6 +140,7 @@ def __end3D():
     __code+='''customMesh.material = mat;'''
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
+    __code+='''mat.pointSize=10;'''
     __code+='''customMesh.material = mat;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
