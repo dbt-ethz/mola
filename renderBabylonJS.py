@@ -86,22 +86,17 @@ def __displayMeshAsNumbers(mesh):
     __end3D()
     return __code
   
-def __getVertexIndex(v,weldedVertices):
-    print (weldedVertices)
-    for vertex in weldedVertices:
-        return 0
-    '''
-    for i, vertex in enumerate(weldedVertices):
-        print(type(vertex))
-        return 0
-    '''
-    '''
-        if(v.x==vertex.x and v.y==vertex.y and v.z==vertex.z):
-            print(i)
+def __getVertexIndex(v,positions):
+    for i in range(0,len(positions),3):
+        xPos = positions[i]
+        yPos = positions[i+1]
+        zPos = positions[i+2]
+        
+        if(v.x==xPos and v.y==yPos && v.z==zPos):
+            print("here")
             return i
-        else:
-            return -1
-    '''
+    print("there")
+    return 0
                 
 def display(faces):
     __begin3D()
