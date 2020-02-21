@@ -50,7 +50,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
   if(showPointsNumbers):
-    return displayMeshAsNumbers(mesh)
+    return __displayMeshAsNumbers(mesh)
   else:
     return display(mesh.faces)
 
