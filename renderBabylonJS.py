@@ -16,7 +16,7 @@ __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
     
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointsColor=(1,1,1):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointsColor=(1,1,1)):
   """
   Displays Mesh.
   Arguments:
