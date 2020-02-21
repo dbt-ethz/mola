@@ -83,7 +83,7 @@ def __displayMeshAsNumbers(mesh):
   
 def __getVertexIndex(v,weldedVertices):
   for i, vertex in enumerate(weldedVertices):
-    if(v.x==vertex.x && v.y==vertex.y && v.z==vertex.z):
+    if(v.x==vertex.x and v.y==vertex.y and v.z==vertex.z):
       print(i)
       return i
     else:
