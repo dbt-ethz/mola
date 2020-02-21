@@ -83,12 +83,12 @@ def constructBox(x1,y1,z1,x2,y2,z2):
     v7 = _Vertex(x2,y2,z2)
     v8 = _Vertex(x2,y1,z2)
     mesh.vertices=[v1,v2,v3,v4,v5,v6,v7,v8]
-    f1 = _Face([v1, v2, v3, v4])
-    f2 = _Face([v8, v7, v6, v5])
-    f3 = _Face([v4, v3, v7, v8])
-    f4 = _Face([v3, v2, v6, v7])
-    f5 = _Face([v2, v1, v5, v6])
-    f6 = _Face([v1, v4, v8, v5])
+    f1 = _Face([v1, v4, v3, v2])
+    f2 = _Face([v8, v5, v6, v7])
+    f3 = _Face([v4, v8, v7, v3])
+    f4 = _Face([v3, v7, v6, v2])
+    f5 = _Face([v2, v6, v5, v1])
+    f6 = _Face([v1, v5, v8, v4])
     mesh.faces=[f1,f2,f3,f4,f5,f6]
     return mesh
 
