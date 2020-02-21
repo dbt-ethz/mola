@@ -128,7 +128,7 @@ def constructIcosahedron(cx,cy,cz,radius):
     faces = []
 
     for i in range(0,len(indices),3):
-        f = _Face([mesh.vertices[indices[i]],mesh.vertices[indices[i + 1]],mesh.vertices[indices[i + 2]]])
+        f = _Face([mesh.vertices[indices[i]],mesh.vertices[indices[i + 2]],mesh.vertices[indices[i + 1]]])
         faces.append(f)
     mesh.faces=faces
     return mesh
@@ -189,7 +189,7 @@ def constructDodecahedron(cx,cy,cz,radius):
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
             nv = f.vertices[(i+1)%len(f.vertices)]
-            newfaces.append(_Face([cv,v,nv]))
+            newfaces.append(_Face([cv,nv,v]))
 
     mesh.faces = newfaces
     return mesh
@@ -211,7 +211,7 @@ def constructTetrahedron(cx,cy,cz,side):
     f3 = _Face([mesh.vertices[2],mesh.vertices[3],mesh.vertices[0]])
     f4 = _Face([mesh.vertices[3],mesh.vertices[2],mesh.vertices[1]])
 
-    mesh.faces = [f1,f2,f3,f4]
+    mesh.faces = [f1,f4,f3,f2]
     return mesh
 
 def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
