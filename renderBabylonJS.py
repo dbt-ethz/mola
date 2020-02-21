@@ -15,8 +15,8 @@ __showWireframe=False
 __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
-    
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointsColor=(1,1,1)):
+
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,backgroundColor=(0,0,0)):
   """
   Displays Mesh.
   Arguments:
@@ -31,15 +31,11 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   showAxis : Boolean
   showEdges : Boolean
   showWireframe : Boolean
-  showPointsCloud : Boolean
-  showPointsNumbers : Boolean
   edgesWidth : float
   backgroundColor : tuple (r,g,b)
-                    r,g,b values, 0.0 to 1.0             
-  pointsColor : tuple (r,g,b)
-                r,g,b values, 0.0 to 1.0
+                    r,g,b values, 0.0 to 1.0
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__pointsColor
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__backgroundColor
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -49,52 +45,9 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __edgesWidth=edgesWidth
   __showWireframe=showWireframe
   __showPointsCloud = showPointsCloud
-  __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
-  __pointsColor = pointsColor
+  return display(mesh.faces)
 
-  if(showPointsNumbers):
-    return __displayMeshAsNumbers(mesh)
-  else:
-    return display(mesh.faces)
-
-def __displayMeshAsNumbers(mesh):
-    __begin3D()
-    positions=[]
-    indices=[]
-    colors=[]
-   
-    for v in mesh.vertices:
-        positions.extend((v.x,v.y,v.z))
-    
-    for face in mesh.faces:
-        if len(face.vertices)==3:
-            v0 = face.vertices[0]
-            v1 = face.vertices[1]
-            v2 = face.vertices[2]
-            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
-        if len(face.vertices)==4:
-            v0 = face.vertices[0]
-            v1 = face.vertices[1]
-            v2 = face.vertices[2]
-            v3 = face.vertices[3]
-            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
-            indices.extend([__getVertexIndex(v2,positions),__getVertexIndex(v3,positions),__getVertexIndex(v0,positions)])
-        
-    __drawMeshWithColors(positions,indices,colors)
-    __end3D()
-    return __code
-  
-def __getVertexIndex(v,positions):
-    for i in range(0,len(positions),3):
-        xPos = positions[i]
-        yPos = positions[i+1]
-        zPos = positions[i+2]
-        
-        if(v.x==xPos and v.y==yPos and v.z==zPos):
-            return i
-    return 0
-                
 def display(faces):
     __begin3D()
     positions=[]
@@ -118,7 +71,6 @@ def __begin3D():
     __code=""
     __code+='''<canvas id="renderCanvas" touch-action="none"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
-
         <style>
             html, body {
                 overflow: hidden;
@@ -127,7 +79,6 @@ def __begin3D():
                 margin: 0;
                 padding: 0;
             }
-
             #renderCanvas {
                 width:''' + __canvasWidth + ''';
                 height: ''' + __canvasHeight + ''';
@@ -165,34 +116,29 @@ def __end3D():
           var customMesh = new BABYLON.Mesh("custom", scene);
         //Empty array to contain calculated values
           var normals = [];
-
           var vertexData = new BABYLON.VertexData();
           BABYLON.VertexData.ComputeNormals(positions, indices, normals);
-
           //Assign positions, indices and normals to vertexData
           vertexData.positions = positions;
           vertexData.indices = indices;
           vertexData.normals = normals;
           vertexData.colors = colors;
-
           //Apply vertexData to custom mesh
           vertexData.applyToMesh(customMesh);
-
-
           /******Display custom mesh in wireframe view to show its creation****************/
           var mat = new BABYLON.StandardMaterial("mat", scene);
           mat.backFaceCulling = false;'''
   if __showWireframe:
     __code+='''mat.wireframe=true;'''
+    __code+='''customMesh.material = mat;'''
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
-    __code+='''mat.pointSize=10;'''
+    __code+='''customMesh.material = mat;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
   __code+='''
         /*******************************************************************************/
-
         var makeTextPlane = function(text, color, size) {
             var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
             dynamicTexture.hasAlpha = true;
@@ -204,37 +150,6 @@ def __end3D():
             plane.material.diffuseTexture = dynamicTexture;
             return plane;
         };'''
-  if __showPointsNumbers:
-    __code+='''
-    var drawNumber = function(scene, text, positionVector){
-    //data reporter
-    var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
-    outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-    outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
-    outputplane.position = positionVector;
-    outputplane.scaling.x = 1;
-    outputplane.scaling.y = 1;
-
-    var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
-    outputplane.material.diffuseTexture = outputplaneTexture;
-    outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointsColor)+ ''';
-    outputplane.material.backFaceCulling = false;
-
-    //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
-    var textColor = new BABYLON.Color3''' + str(__pointsColor) + '''.toHexString();
-    outputplaneTexture.drawText(text, null, 300, "200px arial", textColor);
-    outputplaneTexture.hasAlpha = true;
-    };'''
-    __code+=   '''
-    var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-    var ind = 0;
-    for(var i=0;i<vPositions.length;i+=3){
-        var posX = (vPositions[i]);
-        var posY = (vPositions[i+1]);
-        var posZ = (vPositions[i+2]);
-        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
-        ind++;
-    }'''
   if __showAxis:
     __code+='''// show axis
             var showAxis = function(size) {
@@ -261,18 +176,13 @@ def __end3D():
               zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
           };
           showAxis(10);'''
-    
-  __code+='''customMesh.material = mat;'''
   __code+='''return scene;
     };
-
       var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
       var scene = createScene();
-
       engine.runRenderLoop(function () {
           if (scene) {scene.render();}
           });
-
       // Resize
       window.addEventListener("resize", function () {
           engine.resize();
