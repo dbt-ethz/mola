@@ -92,7 +92,7 @@ def __getVertexIndex(v,positions):
         yPos = positions[i+1]
         zPos = positions[i+2]
         
-        if(v.x==xPos and v.y==yPos && v.z==zPos):
+        if(v.x==xPos and v.y==yPos and v.z==zPos):
             print("here")
             return i
     print("there")
