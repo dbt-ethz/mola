@@ -52,12 +52,14 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
   __pointsColor = pointsColor
-
-    
+  return __displayMeshAsNumbers(mesh)
+  
+  '''
   if(showPointsNumbers):
     return __displayMeshAsNumbers(mesh)
   else:
     return display(mesh.faces)
+  '''
 
 def __displayMeshAsNumbers(mesh):
     __begin3D()
@@ -93,9 +95,7 @@ def __getVertexIndex(v,positions):
         zPos = positions[i+2]
         
         if(v.x==xPos and v.y==yPos and v.z==zPos):
-            print("here")
             return i
-    print("there")
     return 0
                 
 def display(faces):
