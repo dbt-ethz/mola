@@ -89,7 +89,6 @@ def __displayMeshAsNumbers(mesh):
 def __getVertexIndex(v,weldedVertices):
     print (weldedVertices)
     for vertex in weldedVertices:
-        print(vertex)
         return 0
     '''
     for i, vertex in enumerate(weldedVertices):
