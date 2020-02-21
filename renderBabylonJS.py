@@ -88,11 +88,15 @@ def __displayMeshAsNumbers(mesh):
   
 def __getVertexIndex(v,weldedVertices):
     for i, vertex in enumerate(weldedVertices):
+        print(type(vertex))
+        return 0
+    '''
         if(v.x==vertex.x and v.y==vertex.y and v.z==vertex.z):
             print(i)
             return i
         else:
             return -1
+    '''
                 
 def display(faces):
     __begin3D()
