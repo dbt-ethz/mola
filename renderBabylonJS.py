@@ -16,7 +16,7 @@ __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0)):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointsColor=(1,1,1):
   """
   Displays Mesh.
   Arguments:
@@ -35,9 +35,11 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   showPointsNumbers : Boolean
   edgesWidth : float
   backgroundColor : tuple (r,g,b)
-                    r,g,b values, 0.0 to 1.0
+                    r,g,b values, 0.0 to 1.0             
+  pointsColor : tuple (r,g,b)
+                r,g,b values, 0.0 to 1.0
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__pointsColor
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -49,6 +51,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showPointsCloud = showPointsCloud
   __showPointsNumbers = showPointsNumbers
   __backgroundColor=backgroundColor
+  __pointsColor = pointsColor
   if(showPointsNumbers):
     return __displayMeshAsNumbers(mesh)
   else:
@@ -213,12 +216,12 @@ def __end3D():
 
     var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
     outputplane.material.diffuseTexture = outputplaneTexture;
-    outputplane.material.specularColor = new BABYLON.Color3(0, 0, 0);
-    outputplane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+    outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointsColor)+ ''';
     outputplane.material.backFaceCulling = false;
 
     //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
-    outputplaneTexture.drawText(text, null, 300, "200px arial", "white");
+    var textColor = new BABYLON.Color3''' + str(__pointsColor) + '''.toHexString();
+    outputplaneTexture.drawText(text, null, 300, "200px arial", textColor);
     outputplaneTexture.hasAlpha = true;
     };'''
     __code+=   '''
