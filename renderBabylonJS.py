@@ -15,41 +15,6 @@ __showWireframe=False
 __backgroundColor = (0,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
-
-def __displayMeshAsNumbers(mesh):
-    __begin3D()
-    positions=[]
-    indices=[]
-    colors=[]
-   
-    for v in mesh.vertices:
-      positions.extend((v.x,v.y,v.z))
-    
-    for face in mesh.faces:
-      if len(face.vertices)==3:
-        v0 = face.vertices[0]
-        v1 = face.vertices[1]
-        v2 = face.vertices[2]
-        indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
-      if len(face.vertices)==4:
-        v0 = face.vertices[0]
-        v1 = face.vertices[1]
-        v2 = face.vertices[2]
-        v3 = face.vertices[3]
-        indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
-        indices.extend([__getVertexIndex(v2,positions),__getVertexIndex(v3,positions),__getVertexIndex(v0,positions)])
-        
-    __drawMeshWithColors(positions,indices,colors)
-    __end3D()
-    return __code
-  
-def __getVertexIndex(v,weldedVertices):
-  for i, vertex in enumerate(weldedVertices):
-    if(v.x==vertex.x and v.y==vertex.y and v.z==vertex.z):
-      print(i)
-      return i
-    else:
-      return -1
     
 def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointsColor=(1,1,1):
   """
@@ -91,7 +56,42 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
     return __displayMeshAsNumbers(mesh)
   else:
     return display(mesh.faces)
+
+def __displayMeshAsNumbers(mesh):
+    __begin3D()
+    positions=[]
+    indices=[]
+    colors=[]
+   
+    for v in mesh.vertices:
+        positions.extend((v.x,v.y,v.z))
     
+    for face in mesh.faces:
+        if len(face.vertices)==3:
+            v0 = face.vertices[0]
+            v1 = face.vertices[1]
+            v2 = face.vertices[2]
+            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
+        if len(face.vertices)==4:
+            v0 = face.vertices[0]
+            v1 = face.vertices[1]
+            v2 = face.vertices[2]
+            v3 = face.vertices[3]
+            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
+            indices.extend([__getVertexIndex(v2,positions),__getVertexIndex(v3,positions),__getVertexIndex(v0,positions)])
+        
+    __drawMeshWithColors(positions,indices,colors)
+    __end3D()
+    return __code
+  
+def __getVertexIndex(v,weldedVertices):
+    for i, vertex in enumerate(weldedVertices):
+        if(v.x==vertex.x and v.y==vertex.y and v.z==vertex.z):
+            print(i)
+            return i
+        else:
+            return -1
+                
 def display(faces):
     __begin3D()
     positions=[]
