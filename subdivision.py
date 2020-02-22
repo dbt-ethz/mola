@@ -34,6 +34,42 @@ def _collectNewFaces(_mesh):
     newMesh.updateAdjacencies()
     return newMesh
 
+def offset(_mesh,offset=1,doclose=True):
+    newMesh=_Mesh()
+    # calculate vertex normals
+    for vertex in _mesh.vertices:
+        vertex.vertex = Vertex(0,0,0)
+        vertex.nfaces=0
+    for face in _mesh.faces:
+        normal=faceUtils.normal(face)
+        for vertex in face.vertices:
+            vertex.vertex.add(normal)
+            vertex.nfaces+=1
+    for vertex in _mesh.vertices:
+        vertex.vertex.scale(offset/vertex.nfaces)
+        vertex.vertex.add(vertex)
+    # create faces
+    for face in _mesh.faces:
+        offsetVertices=[]
+        for vertex in face.vertices:
+            offsetVertices.append(vertex.vertex)
+        offsetVertices.reverse()
+        newFace=Face(offsetVertices)
+        newMesh.faces.append(newFace)
+        newMesh.faces.append(face)
+    # create sides
+    if doclose:
+        for edge in _mesh.edges:
+            if edge.face1==None or edge.face2==None:
+                offsetVertices=[edge.v1,edge.v2,edge.v2.vertex,edge.v1.vertex]
+                if edge.face2==None:
+                    offsetVertices.reverse()
+                newFace=Face(offsetVertices)
+                newMesh.faces.append(newFace)
+    newMesh.updateAdjacencies()
+    return newMesh
+
+
 def subdivide(_mesh):
     for face in _mesh.faces:
         face.vertex=faceUtils.center(face)
@@ -307,7 +343,7 @@ def splitRoof(face, height):
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
         faces.append(_Face([face.vertices[2],face.vertices[3],ev2]))
         faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
-        
+
         for f in faces:
             faceUtils.copyProperties(face,f)
         return faces
@@ -321,7 +357,7 @@ def splitRoof(face, height):
         faces.append(_Face([face.vertices[1],ev2,ev1]))
         faces.append(_Face([face.vertices[1],face.vertices[2],ev2]))
         faces.append(_Face([face.vertices[2],face.vertices[0],ev1,ev2]))
-      
+
         for f in faces:
             faceUtils.copyProperties(face,f)
         return faces
@@ -413,13 +449,13 @@ def splitRelMultiple(face,dir,splits):
     sB = []
     sB.append(face.vertices[dir+3])
     lB = face.vertices[(dir+2)%len(face.vertices)]
-  
+
     for i in range(len(splits)):
         sA.append(_vec.betweenRel(sA[0],lA,splits[i]))
         sB.append(_vec.betweenRel(sB[0],lB,splits[i]))
     sA.append(lA)
     sB.append(lB)
-  
+
     result = []
     for i in range(len(splits)+1):
         if(dir==1):
@@ -430,12 +466,12 @@ def splitRelMultiple(face,dir,splits):
             f = _Face([sB[i],sB[i+1],sA[i+1],sA[i]])
             faceUtils.copyProperties(face,f)
             result.append(f)
-    return result                          
+    return result
 
 def splitRel(face,dir,split):
     """
     Splits face in given direction.
-    
+
     Arguments:
     ----------
     face : mola.core.Face
@@ -449,7 +485,7 @@ def splitRel(face,dir,split):
 def splitFrame(face,w):
     """
     Creates an offset frame with quad corners. Works only with convex shapes.
-    
+
     Arguments:
     ----------
     face : mola.core.Face
@@ -467,13 +503,13 @@ def splitFrame(face,w):
       v = face.vertices[i]
       vn = face.vertices[(i+1)%len(face.vertices)]
       vnn = face.vertices[(i+2)%len(face.vertices)]
-      
+
       th1 = _vec.angleTriangle(vp,v,vn)
       th2 = _vec.angleTriangle(v,vn,vnn)
-      
+
       w1 = w/_math.sin(th1)
       w2 = w/_math.sin(th2)
-      
+
       vs1 = _getVerticesFrame(v,vn,w1,w2)
       vs2 = _getVerticesFrame(_getVerticesFrame(vp,v,w1,w1)[2],_getVerticesFrame(vn,vnn,w2,w2)[1],w1,w2)
       innerVertices.append(vs2[1])
@@ -488,6 +524,6 @@ def splitFrame(face,w):
     return faces
 
 def _getVerticesFrame(v1,v2,w1,w2):
-    p1 = _vec.betweenAbs(v1,v2,w1)	    
-    p2 = _vec.betweenAbs(v2,v1,w2)	    
+    p1 = _vec.betweenAbs(v1,v2,w1)
+    p2 = _vec.betweenAbs(v2,v1,w2)
     return [v1,p1,p2,v2]
