@@ -83,12 +83,12 @@ def constructBox(x1,y1,z1,x2,y2,z2):
     v7 = _Vertex(x2,y2,z2)
     v8 = _Vertex(x2,y1,z2)
     mesh.vertices=[v1,v2,v3,v4,v5,v6,v7,v8]
-    f1 = _Face([v1, v4, v3, v2])
-    f2 = _Face([v8, v5, v6, v7])
-    f3 = _Face([v4, v8, v7, v3])
-    f4 = _Face([v3, v7, v6, v2])
-    f5 = _Face([v2, v6, v5, v1])
-    f6 = _Face([v1, v5, v8, v4])
+    f1 = _Face([v1, v2, v3, v4])
+    f2 = _Face([v8, v7, v6, v5])
+    f3 = _Face([v4, v3, v7, v8])
+    f4 = _Face([v3, v2, v6, v7])
+    f5 = _Face([v2, v1, v5, v6])
+    f6 = _Face([v1, v4, v8, v5])
     mesh.faces=[f1,f2,f3,f4,f5,f6]
     return mesh
 
@@ -128,7 +128,7 @@ def constructIcosahedron(cx,cy,cz,radius):
     faces = []
 
     for i in range(0,len(indices),3):
-        f = _Face([mesh.vertices[indices[i]],mesh.vertices[indices[i + 2]],mesh.vertices[indices[i + 1]]])
+        f = _Face([mesh.vertices[indices[i]],mesh.vertices[indices[i + 1]],mesh.vertices[indices[i + 2]]])
         faces.append(f)
     mesh.faces=faces
     return mesh
@@ -189,7 +189,7 @@ def constructDodecahedron(cx,cy,cz,radius):
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
             nv = f.vertices[(i+1)%len(f.vertices)]
-            newfaces.append(_Face([cv,nv,v]))
+            newfaces.append(_Face([cv,v,nv]))
 
     mesh.faces = newfaces
     return mesh
@@ -211,7 +211,7 @@ def constructTetrahedron(cx,cy,cz,side):
     f3 = _Face([mesh.vertices[2],mesh.vertices[3],mesh.vertices[0]])
     f4 = _Face([mesh.vertices[3],mesh.vertices[2],mesh.vertices[1]])
 
-    mesh.faces = [f1,f4,f3,f2]
+    mesh.faces = [f1,f2,f3,f4]
     return mesh
 
 def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
@@ -225,7 +225,7 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             v1 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * ((j+1)%tubeN))
             v2 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * ((j+1)%tubeN))
             v3 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * j)
-            f = _Face([v0,v3,v2,v1])
+            f = _Face([v0,v1,v2,v3])
             mesh.faces.append(f)
       
     return mesh
