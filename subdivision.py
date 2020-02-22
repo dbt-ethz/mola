@@ -399,7 +399,7 @@ def extrudeToPointCenter(face, height=0.0):
         The distance of the new point to the face center, default 0
     """
     normal = faceUtils.normal(face)
-    normal = _vec.scale(normal,-height)
+    normal = _vec.scale(normal,height)
     center = faceUtils.center(face)
     center = _vec.add(center,normal)
     return extrudeToPoint(face,center)
