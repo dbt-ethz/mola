@@ -183,7 +183,7 @@ def __end3D():
     __code+='''mat.wireframe=true;'''
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
-    __code+='''mat.pointSize=''' + str(__pointSize) + ';''
+    __code+='''mat.pointSize=''' + str(__pointSize) + ';'
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
@@ -228,7 +228,7 @@ def __end3D():
         var posZ = (vPositions[i+2]);
         drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
         ind++;
-    }'''        
+    }'''
   if __showAxis:
     __code+='''// show axis
             var showAxis = function(size) {
