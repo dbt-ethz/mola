@@ -130,10 +130,8 @@ def __end3D():
           mat.backFaceCulling = false;'''
   if __showWireframe:
     __code+='''mat.wireframe=true;'''
-    __code+='''customMesh.material = mat;'''
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
-    __code+='''customMesh.material = mat;'''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
@@ -176,6 +174,7 @@ def __end3D():
               zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
           };
           showAxis(10);'''
+  __code+='''customMesh.material = mat;'''
   __code+='''return scene;
     };
       var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
