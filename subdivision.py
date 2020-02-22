@@ -7,7 +7,7 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-from mola.core import *
+#from mola.core import *
 import mola.vec as _vec
 from mola.core import Mesh as _Mesh
 from mola.core import Vertex as _Vertex
