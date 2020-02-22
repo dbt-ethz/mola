@@ -202,12 +202,21 @@ def __end3D():
         };'''
   if __showPointsNumbers:
     __code+='''
-    var drawNumber = function(scene, text, positionVector){
+    var drawNumber = function(scene, text, posVector){
     //data reporter
+    var pointplane = BABYLON.Mesh.CreatePlane("pointplane",0.5,scene,false);
+    pointplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+    pointplane.material = new BABYLON.StandardMaterial("pointplane", scene);
+    pointplane.position = posVector;
+    pointplane.scaling.x = 1;
+    pointplane.scaling.y = 1;
+    pointplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
+    pointplane.material.backFaceCulling = false;
+
     var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
     outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
     outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
-    outputplane.position = positionVector;
+    outputplane.position = new BABYLON.Vector3(posVector[0],posVector[1]+1,posVector[2]);
     outputplane.scaling.x = 1;
     outputplane.scaling.y = 1;
     var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
@@ -226,7 +235,7 @@ def __end3D():
         var posX = (vPositions[i]);
         var posY = (vPositions[i+1]);
         var posZ = (vPositions[i+2]);
-        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
+        drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY,posZ));
         ind++;
     }'''
   if __showAxis:
