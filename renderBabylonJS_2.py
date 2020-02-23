@@ -184,6 +184,7 @@ def __end3D():
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
     __code+='''mat.pointSize=''' + str(__pointSize) + ';'
+    __code+='''mat.diffuseColor = new BABYLON.Color3'''+str(__pointColor)+ ';'
     __code+='''mat.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ';'
     __code+='''mat.disableLighting = true; '''
   if __showEdges:
