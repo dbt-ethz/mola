@@ -11,6 +11,15 @@ from mola.core import Vertex as Vertex
 from mola.core import Face as Face
 
 class GridManager:
+    """
+    A `GridManager` is taking care of getting and setting values and
+    retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.
+
+    Attributes
+    ----------
+    nX, nY, nZ : int
+        The number of elements in x,y and z direction.
+    """
     def __init__(self,nX,nY,nZ=1):
         self.nX = nX
         self.nY = nY
@@ -19,18 +28,34 @@ class GridManager:
         self.nYZ = nY * nZ
 
     def getIndex(self,x,y,z=0):
+        """
+        returns the value at position x,y,z
+        """
         return x * self.nYZ + y * self.nZ + z
 
     def getX(self,index):
+        """
+        returns the X coordinate of a specific index
+        """
         return index // self.nYZ
 
     def getY(self,index):
+        """
+        returns the Y coordinate of a specific index
+        """
         return (index // self.nZ) % self.nY
 
     def getZ(self,index):
+        """
+        returns the Z coordinate of a specific index
+        """
         return index % self.nZ
 
     def getNbs2DHex(self,index,continuous=False):
+        """
+        returns the 6 neighbor indices of a cell in a hexagonal grid
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        """
         nbs=[]
         x=self.getX(index)
         y=self.getY(index)
@@ -71,6 +96,11 @@ class GridManager:
         return nbs
 
     def getNbs2D(self,index,nbs8=False,continuous=False):
+        """
+        returns the neighbor indices of a cell in an orthogonal grid
+        set `nbs8` to `True` to get 8 neighbors, default is 4
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        """
         nbs=[]
         x=self.getX(index)
         y=self.getY(index)

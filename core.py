@@ -59,33 +59,57 @@ class Vertex:
         return None
 
     def add(self, vertex):
+        """
+        adds the position vector of another vertex to
+        the position vector of this vertex.
+        """
         self.x += vertex.x
         self.y += vertex.y
         self.z += vertex.z
         return self
 
     def subtract(self, vertex):
+        """
+        subtracts the position vector of another vertex from
+        the position vector of this vertex.
+        """
         self.x -= vertex.x
         self.y -= vertex.y
         self.z -= vertex.z
         return self
 
     def scale(self, factor):
+        """
+        scales the position vector this vertex
+        by a factor (multiplication).
+        """
         self.x *= factor
         self.y *= factor
         self.z *= factor
         return self
 
     def divide(self, factor):
+        """
+        scales the position vector this vertex
+        by a factor (division).
+        """
         self.x /= factor
         self.y /= factor
         self.z /= factor
         return self
 
     def length(self):
+        """
+        returns the length of the position vector,
+        the distance from the origin (0,0,0).
+        """
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 
     def unitize(self):
+        """
+        returns a vector of the same direction
+        but of unit length 1
+        """
         l = self.length()
         if l==0: return self
         return self.divide(l)
@@ -145,6 +169,10 @@ class Edge:
         return "from " + str(self.v1)+" to "+ str(self.v2)
 
     def getOtherVertex(self,vertex):
+        """
+        if `vertex` is one of the end points of this edge,
+        it returns the vertex at the other end point.
+        """
         if self.v1 is vertex:
             return self.v2
         if self.v2 is vertex:
@@ -152,6 +180,9 @@ class Edge:
         return None
 
     def getCenter(self):
+        """
+        returns the midpoint on an edge
+        """
         return Vertex((self.v2.x+self.v1.x)/2.0,(self.v2.y+self.v1.y)/2.0,(self.v2.z+self.v1.z)/2.0)
 
 class Box:
@@ -210,6 +241,10 @@ class Box:
         return (self.z2 + self.z1) / 2
 
     def addPoint(self,x,y,z):
+        """
+        adds a point to the bounding box,
+        increases the box's size if the point is outside.
+        """
         self.x1 = min(x,self.x1)
         self.y1 = min(y,self.y1)
         self.z1 = min(z,self.z1)
@@ -242,11 +277,18 @@ class Mesh:
             v.z *= sz
 
     def translate(self, tx, ty, tz):
+        """
+        translates a mesh by adding tx,ty and tz
+        to the position of the vertices.
+        """
         vt = Vertex(tx, ty, tz)
         for v in self.vertices:
             v.add(vt)
 
     def getBounds(self):
+        """
+        returns the bounding box of this mesh
+        """
         box=Box()
         for f in self.faces:
             for v in f.vertices:
@@ -298,7 +340,7 @@ class Mesh:
                 else:
                     edge.face2=f
                 v1=v2
-                
+
     def constructTopology(self):
         self.weldVertices()
         self.updateAdjacencies()
