@@ -185,22 +185,10 @@ def __end3D():
     __code+='''mat.pointsCloud=true;'''
     __code+='''mat.pointSize=''' + str(__pointSize) + ';'
     __code+='''mat.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ';'
+    __code+='''mat.disableLighting = true; '''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
-  __code+='''
-        /*******************************************************************************/
-        var makeTextPlane = function(text, color, size) {
-            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
-            dynamicTexture.hasAlpha = true;
-            dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color , "transparent", true);
-            var plane = new BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
-            plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
-            plane.material.backFaceCulling = false;
-            plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
-            plane.material.diffuseTexture = dynamicTexture;
-            return plane;
-        };'''
   if __showPointsNumbers:
     __code+='''
     var drawNumber = function(scene, text, posVector){
@@ -231,6 +219,18 @@ def __end3D():
         ind++;
     }'''
   if __showAxis:
+    __code+='''
+             var makeTextPlane = function(text, color, size) {
+                 var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
+                 dynamicTexture.hasAlpha = true;
+                 dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color , "transparent", true);
+                 var plane = new BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
+                 plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
+                 plane.material.backFaceCulling = false;
+                 plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+                 plane.material.diffuseTexture = dynamicTexture;
+                 return plane;
+             };'''
     __code+='''// show axis
             var showAxis = function(size) {
               var axisX = BABYLON.Mesh.CreateLines("axisX", [
