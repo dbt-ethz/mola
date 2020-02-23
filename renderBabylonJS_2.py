@@ -219,7 +219,7 @@ def __end3D():
     //var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     //console.log("vplength " + vPositions.length);
     var ind = 0;
-    for(var i=0;i<''' + __positionsWelded.length + ''';i+=3){
+    for(var i=0;i<''' + len(__positionsWelded) + ''';i+=3){
       var posX = (''' + __positionsWelded[i] + ''');
       var posY = (''' + __positionsWelded[i+1] + ''');
       var posZ = (''' + __positionsWelded[i+2] + ''');
