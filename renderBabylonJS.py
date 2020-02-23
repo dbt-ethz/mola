@@ -80,34 +80,6 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
 
   return display(mesh.faces)
 
-def __displayMeshAsNumbers(mesh):
-    __begin3D()
-    positions=[]
-    indices=[]
-    colors=[]
-
-    for v in mesh.vertices:
-        positionsWelded.extend((v.x,v.y,v.z))
-
-    for face in mesh.faces:
-        indices.extend([__getVertexIndex(face.vertices[0],positions),__getVertexIndex(face.vertices[1],positions),__getVertexIndex(face.vertices[2],positions)])
-        if len(face.vertices)==4:
-            indices.extend([__getVertexIndex(face.vertices[2],positions),__getVertexIndex(face.vertices[3],positions),__getVertexIndex(face.vertices[0],positions)])
-        for v in face.vertices:
-            colors.extend(face.color)
-    __drawMeshWithColors(positions,indices,colors)
-    __end3D()
-    return __code
-
-def __getVertexIndex(v,positions):
-    for i in range(0,len(positions),3):
-        xPos = positions[i]
-        yPos = positions[i+1]
-        zPos = positions[i+2]
-        if(v.x==xPos and v.y==yPos and v.z==zPos):
-            return i
-    return 0
-
 def display(faces):
     __begin3D()
     positions=[]
