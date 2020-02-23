@@ -208,8 +208,15 @@ def __end3D():
       var textColor = new BABYLON.Color3''' + str(__pointColor) + '''.toHexString();
       outputplaneTexture.drawText(text, null, 300, "200px arial", textColor);
       outputplaneTexture.hasAlpha = true;
-    };
-    console.log("OK UNTIL HERE"); '''
+    };'''
+    __code+='''
+    var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+    console.log("vplength " + vPositions.length);
+    var ind = 0;
+    for(var i=0;i<vPositions.length;i++){
+      console.log(vPositions[i]);
+    }
+    '''
   if __showAxis:
     __code+='''
              var makeTextPlane = function(text, color, size) {
