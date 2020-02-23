@@ -15,7 +15,7 @@ __showWireframe=False
 __showPointsCloud=False
 __showPointsNumbers=False
 __backgroundColor = (0,0,0)
-__edgesColor = (1,0,0,1)
+__edgesColor = (1,1,1,1)
 __pointColor = (1,1,1)
 __pointSize = 10
 __numberColor = (1,1,1)
@@ -25,7 +25,7 @@ __canvasHeight = "56.25vw"
 
 __positionsWelded = []
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,1,1,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
   """
   Displays Mesh.
   Arguments:
