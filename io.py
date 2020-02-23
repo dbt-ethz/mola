@@ -104,5 +104,5 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
     if exportColors:
         for mat in materials.values():
             fileMTL.write("newmtl material"+__strColor(mat)+"\n");
-            fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
+            fileMTL.write("Kd "+str(mat[0])+" "+str(mat[1])+" "+str(mat[2])+"\n");
         fileMTL.close()
