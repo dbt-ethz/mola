@@ -17,10 +17,11 @@ __showPointsNumbers=False
 __backgroundColor = (0,0,0)
 __pointColor = (1,1,1)
 __pointSize = 10
+__edgeColor = (1,0,0)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),pointColor=(1,1,1),pointSize=10):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgeColor=(1,0,0),pointColor=(1,1,1),pointSize=10):
   """
   Displays Mesh.
   Arguments:
@@ -40,11 +41,13 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   edgesWidth : float
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
+  edgeColor : tuple (r,g,b)
+              r,g,b values, 0.0 to 1.0
   pointColor : tuple (r,g,b)
                 r,g,b values, 0.0 to 1.0
   pointSize : float
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__pointColor,__pointSize
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__edgeColor,__pointColor,__pointSize
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -56,6 +59,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __showPointsCloud = showPointsCloud
   __showPointsNumbers = showPointsNumbers
   __backgroundColor = backgroundColor
+  __edgeColor = edgeColor
   __pointColor = pointColor
   __pointSize = pointSize
 
@@ -72,7 +76,6 @@ def __displayMeshAsNumbers(mesh):
 
     for v in mesh.vertices:
         positions.extend((v.x,v.y,v.z))
-
     for face in mesh.faces:
         indices.extend([__getVertexIndex(face.vertices[0],positions),__getVertexIndex(face.vertices[1],positions),__getVertexIndex(face.vertices[2],positions)])
         if len(face.vertices)==4:
@@ -183,6 +186,7 @@ def __end3D():
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
+    __code+= '''customMesh.edgesColor = new BABYLON.Color3'''+str(__edgeColor)+ ';'
   if __showPointsNumbers:
     __code+='''
     var drawNumber = function(scene, text, posVector){
