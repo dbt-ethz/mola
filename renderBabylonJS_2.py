@@ -191,7 +191,25 @@ def __end3D():
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
   if __showPointsNumbers:
-    __code+=''' '''
+    __code+='''
+    var drawNumber = function(scene, text, posVector){
+      //data reporter
+      var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
+      outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+      outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
+      outputplane.position = new BABYLON.Vector3(posVector[0],posVector[1]+1,posVector[2]);
+      outputplane.scaling.x = 1;
+      outputplane.scaling.y = 1;
+      var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
+      outputplane.material.diffuseTexture = outputplaneTexture;
+      outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
+      outputplane.material.backFaceCulling = false;
+      //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
+      var textColor = new BABYLON.Color3''' + str(__pointColor) + '''.toHexString();
+      outputplaneTexture.drawText(text, null, 300, "200px arial", textColor);
+      outputplaneTexture.hasAlpha = true;
+    };
+    console.log("OK UNTIL HERE"); '''
   if __showAxis:
     __code+='''
              var makeTextPlane = function(text, color, size) {
