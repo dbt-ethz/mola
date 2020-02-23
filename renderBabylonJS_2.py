@@ -17,11 +17,11 @@ __showPointsNumbers=False
 __backgroundColor = (0,0,0)
 __pointColor = (1,1,1)
 __pointSize = 10
-__edgesColor = (1,0,0)
+__edgesColor = (1,0,0,1)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0),pointColor=(1,1,1),pointSize=10):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0,1),pointColor=(1,1,1),pointSize=10):
   """
   Displays Mesh.
   Arguments:
@@ -41,8 +41,8 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   edgesWidth : float
   backgroundColor : tuple (r,g,b)
                     r,g,b values, 0.0 to 1.0
-  edgesColor : tuple (r,g,b)
-              r,g,b values, 0.0 to 1.0
+  edgesColor : tuple (r,g,b,a)
+              r,g,b,a values, 0.0 to 1.0
   pointColor : tuple (r,g,b)
                 r,g,b values, 0.0 to 1.0
   pointSize : float
@@ -186,7 +186,7 @@ def __end3D():
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
-    __code+= '''customMesh.edgesColor = new BABYLON.Color4('''+str(__edgesColor[0])+str(__edgesColor[1])+str(__edgesColor[2])+ ',1);'
+    __code+= '''customMesh.edgesColor = new BABYLON.Color4'''+str(__edgesColor)+ ';'
   if __showPointsNumbers:
     __code+='''
     var drawNumber = function(scene, text, posVector){
