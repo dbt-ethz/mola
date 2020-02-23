@@ -210,6 +210,7 @@ def __end3D():
       outputplaneTexture.hasAlpha = true;
     };'''
     __code+='''
+    drawNumber(scene,"NT",new BABYLON.Vector3(0,0,0);
     var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     console.log("vplength " + vPositions.length);
     var ind = 0;
