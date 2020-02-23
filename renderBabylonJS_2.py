@@ -74,18 +74,11 @@ def __displayMeshAsNumbers(mesh):
         positions.extend((v.x,v.y,v.z))
 
     for face in mesh.faces:
-        if len(face.vertices)==3:
-            v0 = face.vertices[0]
-            v1 = face.vertices[1]
-            v2 = face.vertices[2]
-            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
+        indices.extend([__getVertexIndex(face.vertices[0],positions),__getVertexIndex(face.vertices[1],positions),__getVertexIndex(face.vertices[2],positions)])
         if len(face.vertices)==4:
-            v0 = face.vertices[0]
-            v1 = face.vertices[1]
-            v2 = face.vertices[2]
-            v3 = face.vertices[3]
-            indices.extend([__getVertexIndex(v0,positions),__getVertexIndex(v1,positions),__getVertexIndex(v2,positions)])
-            indices.extend([__getVertexIndex(v2,positions),__getVertexIndex(v3,positions),__getVertexIndex(v0,positions)])
+            indices.extend([__getVertexIndex(face.vertices[2],positions),__getVertexIndex(face.vertices[3],positions),__getVertexIndex(face.vertices[0],positions)])
+        for v in face.vertices:
+            colors.extend(face.color)
     __drawMeshWithColors(positions,indices,colors)
     __end3D()
     return __code
