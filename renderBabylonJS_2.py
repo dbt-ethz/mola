@@ -184,6 +184,7 @@ def __end3D():
   if __showPointsCloud:
     __code+='''mat.pointsCloud=true;'''
     __code+='''mat.pointSize=''' + str(__pointSize) + ';'
+    __code+='''mat.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ';'
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
     __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
@@ -204,15 +205,6 @@ def __end3D():
     __code+='''
     var drawNumber = function(scene, text, posVector){
     //data reporter
-    var pointplane = BABYLON.Mesh.CreatePlane("pointplane",0.5,scene,false);
-    pointplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
-    pointplane.material = new BABYLON.StandardMaterial("pointplane", scene);
-    pointplane.position = posVector;
-    pointplane.scaling.x = 1;
-    pointplane.scaling.y = 1;
-    pointplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
-    pointplane.material.backFaceCulling = false;
-
     var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
     outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
     outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
