@@ -15,15 +15,17 @@ __showWireframe=False
 __showPointsCloud=False
 __showPointsNumbers=False
 __backgroundColor = (0,0,0)
+__edgesColor = (1,0,0,1)
 __pointColor = (1,1,1)
 __pointSize = 10
-__edgesColor = (1,0,0,1)
+__numberColor = (1,1,1)
+__numberSize = 1
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
 __positionsWelded = []
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0,1),pointColor=(1,1,1),pointSize=10):
+def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
   """
   Displays Mesh.
   Arguments:
@@ -48,8 +50,11 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   pointColor : tuple (r,g,b)
                 r,g,b values, 0.0 to 1.0
   pointSize : float
+  numberColor : tuple (r,g,b)
+                r,g,b values, 0.0 to 1.0
+  numberSize : float
   """
-  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__edgesColor,__pointColor,__pointSize
+  global __canvasWidth, __canvasHeight, __showAxis,__showEdges,__edgesWidth,__showWireframe,__showPointsCloud,__showPointsNumbers,__backgroundColor,__edgesColor,__pointColor,__pointSize,__numberColor,__numberSize
   if(canvasWidth):
     __canvasWidth = str(canvasWidth) + "px"
   if(canvasHeight):
@@ -64,6 +69,8 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __edgesColor = edgesColor
   __pointColor = pointColor
   __pointSize = pointSize
+  __numberColor = numberColor
+  __numberSize = numberSize
 
   if(showPointsNumbers):
     global __positionsWelded
@@ -202,15 +209,15 @@ def __end3D():
       outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
       outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
       outputplane.position = posVector;
-      outputplane.scaling.x = 1;
-      outputplane.scaling.y = 1;
+      outputplane.scaling.x = '''+str(__numberSize)+ ''';
+      outputplane.scaling.y = '''+str(__numberSize)+ ''';
       var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
       outputplane.material.diffuseTexture = outputplaneTexture;
-      outputplane.material.diffuseColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
-      outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
+      outputplane.material.diffuseColor = new BABYLON.Color3'''+str(__numberColor)+ ''';
+      outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__numberColor)+ ''';
       outputplane.material.backFaceCulling = false;
       //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
-      var textColor = new BABYLON.Color3''' + str(__pointColor) + '''.toHexString();
+      var textColor = new BABYLON.Color3''' + str(__numberColor) + '''.toHexString();
       outputplaneTexture.drawText(text, null, 300, "200px arial", textColor);
       outputplaneTexture.hasAlpha = true;
     };'''
