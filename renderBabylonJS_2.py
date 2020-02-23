@@ -197,11 +197,12 @@ def __end3D():
       var outputplane = BABYLON.Mesh.CreatePlane("outputplane", 1.5, scene, false);
       outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
       outputplane.material = new BABYLON.StandardMaterial("outputplane", scene);
-      outputplane.position = new BABYLON.Vector3(posVector[0],posVector[1]+1,posVector[2]);
+      outputplane.position = posVector;
       outputplane.scaling.x = 1;
       outputplane.scaling.y = 1;
       var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
       outputplane.material.diffuseTexture = outputplaneTexture;
+      outputplane.material.diffuseColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
       outputplane.material.emissiveColor = new BABYLON.Color3'''+str(__pointColor)+ ''';
       outputplane.material.backFaceCulling = false;
       //outputplaneTexture.getContext().clearRect(0, 140, 512, 512);
@@ -214,8 +215,12 @@ def __end3D():
     var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     console.log("vplength " + vPositions.length);
     var ind = 0;
-    for(var i=0;i<vPositions.length;i++){
-      console.log(vPositions[i]);
+    for(var i=0;i<vPositions.length;i+=3){
+      var posX = (vPositions[i]);
+      var posY = (vPositions[i+1]);
+      var posZ = (vPositions[i+2]);
+      drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
+      ind++;
     }
     '''
   if __showAxis:
