@@ -64,11 +64,13 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __edgesColor = edgesColor
   __pointColor = pointColor
   __pointSize = pointSize
-  '''
+
   if(showPointsNumbers):
-    return __displayMeshAsNumbers(mesh)
-  else:
-  '''
+    global __positionsWelded
+    __positionsWelded = []
+    for v in mesh.vertices:
+      __positionsWelded.extend((v.x,v.y,v.z))
+
   return display(mesh.faces)
 
 def __displayMeshAsNumbers(mesh):
@@ -104,11 +106,6 @@ def display(faces):
     positions=[]
     indices=[]
     colors=[]
-
-    global __positionsWelded
-    __positionsWelded = []
-    for v in mesh.vertices:
-        __positionsWelded.extend((v.x,v.y,v.z))
 
     cIndex=0
     for face in faces:
