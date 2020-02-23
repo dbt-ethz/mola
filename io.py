@@ -63,7 +63,7 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
         fileNameMTL=ntpath.basename(fileNameOBJ)+".mtl"
         file.write("mtllib ./"+fileNameMTL+"\n");
         fileMTL = open(fileNameOBJ+".mtl", "w")
-        materials=set()
+        materials={}
 
     if exportGroups:
         faces.sort(key=lambda x: x.group)
@@ -77,7 +77,7 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
             file.write("g "+str(face.group)+"\n")
             currentGroup=face.group
         if exportColors:
-            materials.add(face.color)
+            materials[__strColor(face.color)]=face.color
             file.write("usemtl material"+__strColor(face.color)+"\n")
         faceString="f"
 
@@ -102,7 +102,7 @@ def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVer
     file.close()
 
     if exportColors:
-        for mat in materials:
+        for mat in materials.values():
             fileMTL.write("newmtl material"+__strColor(mat)+"\n");
             fileMTL.write("Kd "+str(mat[0])+" "+" "+str(mat[1])+" "+str(mat[2])+"\n");
         fileMTL.close()
