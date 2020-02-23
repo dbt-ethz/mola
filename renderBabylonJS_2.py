@@ -21,6 +21,8 @@ __edgesColor = (1,0,0,1)
 __canvasWidth = "100%"
 __canvasHeight = "56.25vw"
 
+__positionsWelded = []
+
 def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,0,0,1),pointColor=(1,1,1),pointSize=10):
   """
   Displays Mesh.
@@ -62,11 +64,12 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
   __edgesColor = edgesColor
   __pointColor = pointColor
   __pointSize = pointSize
-
+  '''
   if(showPointsNumbers):
     return __displayMeshAsNumbers(mesh)
   else:
-    return display(mesh.faces)
+  '''
+  return display(mesh.faces)
 
 def __displayMeshAsNumbers(mesh):
     __begin3D()
@@ -75,7 +78,8 @@ def __displayMeshAsNumbers(mesh):
     colors=[]
 
     for v in mesh.vertices:
-        positions.extend((v.x,v.y,v.z))
+        positionsWelded.extend((v.x,v.y,v.z))
+
     for face in mesh.faces:
         indices.extend([__getVertexIndex(face.vertices[0],positions),__getVertexIndex(face.vertices[1],positions),__getVertexIndex(face.vertices[2],positions)])
         if len(face.vertices)==4:
@@ -100,6 +104,12 @@ def display(faces):
     positions=[]
     indices=[]
     colors=[]
+
+    global __positionsWelded
+    __positionsWelded = []
+    for v in mesh.vertices:
+        __positionsWelded.extend((v.x,v.y,v.z))
+
     cIndex=0
     for face in faces:
         for v in face.vertices:
@@ -208,14 +218,14 @@ def __end3D():
       outputplaneTexture.hasAlpha = true;
     };'''
     __code+='''
-    drawNumber(scene,"NT",new BABYLON.Vector3(0,0,0));
-    var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-    console.log("vplength " + vPositions.length);
+    //drawNumber(scene,"NT",new BABYLON.Vector3(0,0,0));
+    //var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+    //console.log("vplength " + vPositions.length);
     var ind = 0;
-    for(var i=0;i<vPositions.length;i+=3){
-      var posX = (vPositions[i]);
-      var posY = (vPositions[i+1]);
-      var posZ = (vPositions[i+2]);
+    for(var i=0;i<__positionsWelded.length;i+=3){
+      var posX = (__positionsWelded[i]);
+      var posY = (__positionsWelded[i+1]);
+      var posZ = (__positionsWelded[i+2]);
       drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
       ind++;
     }
