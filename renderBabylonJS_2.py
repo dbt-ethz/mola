@@ -70,7 +70,7 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
     __positionsWelded = []
     for v in mesh.vertices:
       __positionsWelded.extend((v.x,v.y,v.z))
-    print(__positionsWelded)
+
   return display(mesh.faces)
 
 def __displayMeshAsNumbers(mesh):
@@ -219,10 +219,11 @@ def __end3D():
     //var vPositions = customMesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
     //console.log("vplength " + vPositions.length);
     var ind = 0;
-    for(var i=0;i<''' + len(__positionsWelded) + ''';i+=3){
-      var posX = (''' + __positionsWelded[i] + ''');
-      var posY = (''' + __positionsWelded[i+1] + ''');
-      var posZ = (''' + __positionsWelded[i+2] + ''');
+    var pWelded = ''' +str(__positionsWelded)+ ''';"
+    for(var i=0;i<pWelded.length;i+=3){
+      var posX = (pWelded[i]);
+      var posY = (pWelded[i+1]);
+      var posZ = (pWelded[i+2]);
       drawNumber(scene,ind.toString(),new BABYLON.Vector3(posX,posY+1,posZ));
       ind++;
     }
