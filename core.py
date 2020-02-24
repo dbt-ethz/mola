@@ -35,6 +35,9 @@ class Vertex:
         """
         return ' '.join([str(v) for v in [self.x,self.y,self.z]])
 
+    def __repr__(self):
+        return 'Vertex('+','.join([str(v) for v in [self.x,self.y,self.z]])+')'
+
     def __eq__(self, other):
         """
         Compares this `Vertex` to another `Vertex`. Returns true if all their 3 coordinates are equal.
