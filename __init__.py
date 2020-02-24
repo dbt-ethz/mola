@@ -11,5 +11,6 @@ from .polyUtils import *
 from .slicer import *
 from .subdivision import *
 from .vec import *
+import renderBabylonJS
 
 __all__ = [name for name in dir() if not name.startswith('_')]
