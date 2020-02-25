@@ -94,7 +94,7 @@ def display(faces):
         indices.extend([cIndex, cIndex+1, cIndex+2])
         if len(face.vertices)>3:
             # indices.extend([cIndex+2, cIndex+3, cIndex])
-            for i in range(2,len(face.vertices)):
+            for i in range(2,len(face.vertices)-1):
                 indices.extend([cIndex+i, cIndex+i+1, cIndex])
         cIndex+=len(face.vertices)
     __drawMeshWithColors(positions, indices, colors)
