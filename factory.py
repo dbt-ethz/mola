@@ -74,22 +74,22 @@ def constructBox(x1,y1,z1,x2,y2,z2):
         The coordinates of the top right back corner
     """
     mesh = _Mesh()
-    v1 = _Vertex(x1,y1,z1)
-    v2 = _Vertex(x1,y2,z1)
-    v3 = _Vertex(x2,y2,z1)
-    v4 = _Vertex(x2,y1,z1)
-    v5 = _Vertex(x1,y1,z2)
-    v6 = _Vertex(x1,y2,z2)
-    v7 = _Vertex(x2,y2,z2)
-    v8 = _Vertex(x2,y1,z2)
-    mesh.vertices=[v1,v2,v3,v4,v5,v6,v7,v8]
+    v1 = _Vertex(x1, y1, z1)
+    v2 = _Vertex(x1, y2, z1)
+    v3 = _Vertex(x2, y2, z1)
+    v4 = _Vertex(x2, y1, z1)
+    v5 = _Vertex(x1, y1, z2)
+    v6 = _Vertex(x1, y2, z2)
+    v7 = _Vertex(x2, y2, z2)
+    v8 = _Vertex(x2, y1, z2)
+    mesh.vertices=[v1, v2, v3, v4, v5, v6, v7, v8]
     f1 = _Face([v1, v2, v3, v4])
     f2 = _Face([v8, v7, v6, v5])
     f3 = _Face([v4, v3, v7, v8])
     f4 = _Face([v3, v2, v6, v7])
     f5 = _Face([v2, v1, v5, v6])
     f6 = _Face([v1, v4, v8, v5])
-    mesh.faces=[f1,f2,f3,f4,f5,f6]
+    mesh.faces=[f1, f2, f3, f4, f5, f6]
     return mesh
 
 def constructIcosahedron(cx,cy,cz,radius):
@@ -134,6 +134,16 @@ def constructIcosahedron(cx,cy,cz,radius):
     return mesh
 
 def constructDodecahedron(cx,cy,cz,radius):
+    """
+    Constructs a dodecaheron mesh.
+
+    Arguments:
+    ----------
+    cx, cy, cz : float
+        The center point of the dodecaheron
+    radius : float
+        The radius of the containing sphere
+    """
     mesh=_Mesh()
     phi = (1 + 5**0.5)/2
     mesh.vertices = [_Vertex( 1, 1, 1),
@@ -188,46 +198,84 @@ def constructDodecahedron(cx,cy,cz,radius):
         v = _faceUtils.center(f)
         mesh.vertices.append(v)
         for i,cv in enumerate(f.vertices):
-            nv = f.vertices[(i+1)%len(f.vertices)]
+            nv = f.vertices[(i+1) % len(f.vertices)]
             newfaces.append(_Face([cv,v,nv]))
 
     mesh.faces = newfaces
     return mesh
 
 def constructTetrahedron(cx,cy,cz,side):
+    """
+    Constructs a tetrahedron mesh.
+
+    Arguments:
+    ----------
+    cx, cy, cz : float
+        The center point of the tetrahedron
+    side : float
+        The edge length of the tetrahedron
+    """
     mesh=_Mesh()
     coord = 1/_math.sqrt(2)
-    mesh.vertices = [_Vertex(+1,0,-coord),
-                     _Vertex(-1,0,-coord),
-                     _Vertex(0,+1,+coord),
-                     _Vertex(0,-1,+coord)]
+    mesh.vertices = [_Vertex(+1, 0, -coord),
+                     _Vertex(-1, 0, -coord),
+                     _Vertex(0, +1, +coord),
+                     _Vertex(0, -1, +coord)]
 
     for i in range(len(mesh.vertices)):
         mesh.vertices[i] = _vec.scale(mesh.vertices[i],side/2)
         mesh.vertices[i] = _vec.add(mesh.vertices[i],_Vertex(cx,cy,cz))
 
-    f1 = _Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[2]])
-    f2 = _Face([mesh.vertices[1],mesh.vertices[0],mesh.vertices[3]])
-    f3 = _Face([mesh.vertices[2],mesh.vertices[3],mesh.vertices[0]])
-    f4 = _Face([mesh.vertices[3],mesh.vertices[2],mesh.vertices[1]])
+    f1 = _Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = _Face([mesh.vertices[1], mesh.vertices[0], mesh.vertices[3]])
+    f3 = _Face([mesh.vertices[2], mesh.vertices[3], mesh.vertices[0]])
+    f4 = _Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
 
-    mesh.faces = [f1,f2,f3,f4]
+    mesh.faces = [f1, f2, f3, f4]
     return mesh
 
 def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
+    """
+    Constructs a torus mesh.
+
+    Arguments:
+    ----------
+    ringRadius : float
+        the big radius of the axis
+    tubeRadius : float
+        radius of the the tube along the axis
+    ringN : int
+        resolution along the ring
+    tubeN : int
+        resolution along the tube
+    """
     mesh = _Mesh()
     phi = 2* _math.pi / ringN
     theta = 2* _math.pi / tubeN
-  
+
     for i in range (ringN):
-        for j in range (tubeN):     
-            v0 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * j)
-            v1 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * ((j+1)%tubeN))
-            v2 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * ((j+1)%tubeN))
-            v3 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * j)
-            f = _Face([v0,v1,v2,v3])
+        for j in range (tubeN):
+            mesh.vertices.append(_getTorusVertex(ringRadius, tubeRadius, phi * i, theta * j))
+
+    for i in range(ringN):
+        ii = (i + 1) % ringN
+        for j in range(tubeN):
+            jj = (j + 1) % tubeN
+            a = i  * ringN + j
+            b = ii * ringN + j
+            c = ii * ringN + jj
+            d = i  * ringN + jj
+            f = _Face([mesh.vertices[i] for i in [a,b,c,d]])
             mesh.faces.append(f)
-      
+    # for i in range (ringN):
+    #     for j in range (tubeN):
+    #         v0 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * j)
+    #         v1 = _getTorusVertex(ringRadius,tubeRadius,phi * ((i+1)%ringN),theta * ((j+1)%tubeN))
+    #         v2 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * ((j+1)%tubeN))
+    #         v3 = _getTorusVertex(ringRadius,tubeRadius,phi * i,theta * j)
+    #         f = _Face([v0,v1,v2,v3])
+    #         mesh.faces.append(f)
+
     return mesh
 
 def _getTorusVertex(ringRadius, tubeRadius, ph,th):
