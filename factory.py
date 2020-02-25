@@ -193,13 +193,13 @@ def constructDodecahedron(cx,cy,cz,radius):
         mesh.faces.append(f)
 
     # make triangles
-    newfaces = []
-    for f in faces:
-        v = _faceUtils.center(f)
-        mesh.vertices.append(v)
-        for i,cv in enumerate(f.vertices):
-            nv = f.vertices[(i+1) % len(f.vertices)]
-            newfaces.append(_Face([cv,v,nv]))
+    # newfaces = []
+    # for f in faces:
+    #     v = _faceUtils.center(f)
+    #     mesh.vertices.append(v)
+    #     for i,cv in enumerate(f.vertices):
+    #         nv = f.vertices[(i+1) % len(f.vertices)]
+    #         newfaces.append(_Face([cv,v,nv]))
 
     #mesh.faces = newfaces
     return mesh
