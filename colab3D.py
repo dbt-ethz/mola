@@ -91,11 +91,13 @@ def display(faces):
         for v in face.vertices:
             positions.extend((v.x,v.y,v.z))
             colors.extend(face.color)
-        indices.extend([cIndex,cIndex+1,cIndex+2])
-        if len(face.vertices)==4:
-            indices.extend([cIndex+2,cIndex+3,cIndex])
+        indices.extend([cIndex, cIndex+1, cIndex+2])
+        if len(face.vertices)>3:
+            # indices.extend([cIndex+2, cIndex+3, cIndex])
+            for i in range(2,len(face.vertices)):
+                indices.extend([cIndex+i, cIndex+i+1, cIndex])
         cIndex+=len(face.vertices)
-    __drawMeshWithColors(positions,indices,colors)
+    __drawMeshWithColors(positions, indices, colors)
     __end3D()
     return __code
 

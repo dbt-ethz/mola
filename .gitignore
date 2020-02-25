@@ -110,3 +110,6 @@ Icon
 # p5 java stuff
 .class
 .pyc
+
+# vs code stuff
+.vscode
