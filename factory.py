@@ -183,14 +183,14 @@ def constructDodecahedron(cx,cy,cz,radius):
                1,10,5,16,17,
                12,7,16,5,13]
 
-    faces = []
+    #faces = []
     for i in range(0,len(indices),5):
         f = _Face([mesh.vertices[indices[i]],
                   mesh.vertices[indices[i + 1]],
                   mesh.vertices[indices[i + 2]],
                   mesh.vertices[indices[i + 3]],
                   mesh.vertices[indices[i + 4]]])
-        faces.append(f)
+        mesh.faces.append(f)
 
     # make triangles
     newfaces = []
@@ -201,7 +201,7 @@ def constructDodecahedron(cx,cy,cz,radius):
             nv = f.vertices[(i+1) % len(f.vertices)]
             newfaces.append(_Face([cv,v,nv]))
 
-    mesh.faces = newfaces
+    #mesh.faces = newfaces
     return mesh
 
 def constructTetrahedron(cx,cy,cz,side):
