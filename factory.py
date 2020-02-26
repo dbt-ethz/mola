@@ -61,7 +61,7 @@ def constructCone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=Tr
         # for i in range(nSegments):
         #     i2=(i+1)%nSegments
         #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
-        mesh.faces.append(Face(verticesTop))
+        mesh.faces.append(Face(list(reversed(verticesTop))))
     return mesh
 
 def constructBox(x1,y1,z1,x2,y2,z2):
