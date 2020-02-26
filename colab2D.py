@@ -10,17 +10,17 @@ p5code=""
 def displayLines2D(lines):
     global p5code
     for line in lines:
-        p5code+="line("+str(line.v1.x)+","+str(line.v1.y)+","+str(line.v2.x)+","+str(line.v2.y)+");"
+        p5code += "line(" + str(line.v1.x) + "," + str(line.v1.y) + "," + str(line.v2.x) + "," + str(line.v2.y) + ");"
 
 def displayFaces2D(faces):
     global p5code
     for face in faces:
-        if face.color!=None:
-            p5code+="fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
-        p5code+="beginShape();"
+        if face.color != None:
+            p5code += "fill("+str(face.color[0])+","+str(face.color[1])+","+str(face.color[2])+");"
+        p5code += "beginShape();"
         for v in face.vertices:
-            p5code+="vertex("+str(v.x)+","+str(v.y)+");"
-        p5code+="endShape();"
+            p5code += "vertex("+str(v.x)+","+str(v.y)+");"
+        p5code += "endShape();"
 
 def saveCanvas(fileName):
     global p5code

@@ -11,14 +11,13 @@ try:
 except ImportError:
     from queue import PriorityQueue
 from mola.grid import GridManager
-from mola.core import *
 
 
 class Graph:
     ''' basic graph class. edge-weighted graphs should implement different weightFunction'''
     def __init__(self,neighbours):
-        self.neighbours=neighbours
-        self.weightFunction=lambda a,b:1
+        self.neighbours = neighbours
+        self.weightFunction = lambda a,b:1
 
     def getNeighbours(self,u):
         return self.neighbours[u]
@@ -31,48 +30,48 @@ class Graph:
 
     @classmethod
     def fromGrid2D(cls,nX,nY,nbs8=False,continuous=False):
-        gm=GridManager(nX,nY)
-        neighbours=[0]*gm.length
+        gm = GridManager(nX,nY)
+        neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i]=gm.getNbs2D(i,nbs8,continuous)
+            neighbours[i] = gm.getNbs2D(i,nbs8,continuous)
         return cls(neighbours)
 
     @classmethod
     def fromHexGrid2D(cls,nX,nY,continuous=False):
-        gm=GridManager(nX,nY)
-        neighbours=[0]*gm.length
+        gm = GridManager(nX, nY)
+        neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i]=gm.getNbs2DHex(i,continuous)
+            neighbours[i] = gm.getNbs2DHex(i,continuous)
         return cls(neighbours)
 
     @classmethod
     def fromGrid3D(cls,nX,nY,nZ,mode=3,continuous=False):
         gm = GridManager(nX,nY,nZ)
-        neighbours = [0]*gm.length
+        neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs3D(i,mode,continuous)
+            neighbours[i] = gm.getNbs3D(i, mode, continuous)
         return cls(neighbours)
 
     @classmethod
     def fromMeshFaces(cls,mesh):
-        faceIds={}
-        neighbours=[0]*len(mesh.faces)
+        faceIds = {}
+        neighbours = [0] * len(mesh.faces)
         for index, face in enumerate(mesh.faces):
-            faceIds[face]=index
+            faceIds[face] = index
         for index, face in enumerate(mesh.faces):
-            nbs=[]
-            v0=face.vertices[-1]
+            nbs = []
+            v0 = face.vertices[-1]
             for v1 in face.vertices:
-                nbFace=mesh.getFaceAdjacentToVertices(v1,v0)
+                nbFace = mesh.getFaceAdjacentToVertices(v1, v0)
                 nbs.append(faceIds[nbFace])
-                v0=v1
-            neighbours[index]=nbs
+                v0 = v1
+            neighbours[index] = nbs
         return cls(neighbours)
 
-    def fromMeshEdges(mesh):
+    def fromMeshEdges(self,mesh):
         pass
 
-    def fromMeshVertices(mesh):
+    def fromMeshVertices(self,mesh):
         pass
 
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
@@ -87,15 +86,15 @@ class GraphAnalyser:
     2. getShortest Path from end point to those starting point
     """
     def __init__(self,graph):
-        n=graph.size()
-        self.graph=graph
-        self.dist = [1000000]*n
-        self.pred = [-1]*n
+        self.n = graph.size()
+        self.graph = graph
+        self.dist = [1000000] * self.n
+        self.pred = [-1] * self.n
 
     def computeDistancesToNodes(self,startIndexes):
-        pq=PriorityQueue()
+        pq = PriorityQueue()
         for i in startIndexes:
-            self.dist[i]=0
+            self.dist[i] = 0
             pq.put((0,i))
         while not pq.empty():
             u= pq.get()[1]
@@ -108,26 +107,27 @@ class GraphAnalyser:
                     pq.put((d, v))
 
     def getShortestPath(self,v):
-        p=[]
-        while v!=-1:
+        p = []
+        while v != -1:
             p.append(v)
-            v=self.pred[v]
+            v = self.pred[v]
         return p
 
     def computeTrafficAndCentrality(self,nodes):
-        self.traffic=[0]*n
-        self.centrality=[0]*n
-        for i in range(len(nodes)-1):
-            startI=nodes[i]
-            self.dist = [100000]*n
-            self.pred = [-1]*n
-            computeDistancesToNodes([startI])
+        n = self.n
+        self.traffic = [0] * n
+        self.centrality = [0] * n
+        for i in range(len(nodes) - 1):
+            startI = nodes[i]
+            self.dist = [100000] * n
+            self.pred = [-1] * n
+            self.computeDistancesToNodes([startI])
             for j in range(i,len(nodes)):
                 endI = nodes[j]
-                if endI!=startI:
+                if endI != startI:
                     self.centrality[startI] += self.dist[endI]
                     self.centrality[endI] += self.dist[endI]
-                    path = getShortestPath(endI)
+                    path = self.getShortestPath(endI)
                     for ii in path:
                         cI = path[ii]
-                        self.traffic[cI]+=1
+                        self.traffic[cI] += 1

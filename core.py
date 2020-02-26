@@ -162,9 +162,9 @@ class Face:
         self.group = 0
 
 class Edge:
-    def __init__(self, _v1, _v2):
-        self.v1 = _v1
-        self.v2 = _v2
+    def __init__(self, v1, v2):
+        self.v1 = v1
+        self.v2 = v2
         self.face1 = None
         self.face2 = None
 
@@ -300,49 +300,51 @@ class Mesh:
 
     def getEdgeAdjacentToVertices(self,v1,v2):
         for edge in v1.edges:
-            if edge.v2==v2 or edge.v1==v2:
+            if edge.v2 == v2 or edge.v1 == v2:
                 return edge
         return None
 
     def getFaceAdjacentToVertices(self,vertex1,vertex2):
-        edge=vertex1.getEdgeAdjacentToVertex(vertex2)
+        edge = vertex1.getEdgeAdjacentToVertex(vertex2)
         if edge != None:
-            if edge.v1==vertex1: return edge.face1
-            else: return edge.face2
+            if edge.v1 == vertex1:
+                return edge.face1
+            else:
+                return edge.face2
         return None
 
     def weldVertices(self):
-        weldedVertices={}
-        self.vertices=[]
+        weldedVertices = {}
+        self.vertices = []
         for f in self.faces:
             for i in range(len(f.vertices)):
-                v=f.vertices[i]
-                vtuple=(v.x,v.y,v.z)
+                v = f.vertices[i]
+                vtuple = (v.x, v.y, v.z)
                 if vtuple in weldedVertices:
-                    f.vertices[i]=weldedVertices[vtuple]
+                    f.vertices[i] = weldedVertices[vtuple]
                 else:
-                    weldedVertices[vtuple]=v
-        self.vertices=weldedVertices.values()
+                    weldedVertices[vtuple] = v
+        self.vertices = weldedVertices.values()
 
     def updateAdjacencies(self):
         self.weldVertices()
-        self.edges=[]
+        self.edges = []
         for v in self.vertices:
-            v.edges=[]
+            v.edges = []
         for f in self.faces:
-            v1=f.vertices[-1]
+            v1 = f.vertices[-1]
             for v2 in f.vertices:
-                edge=v1.getEdgeAdjacentToVertex(v2)
+                edge = v1.getEdgeAdjacentToVertex(v2)
                 if edge == None:
-                    edge=Edge(v1,v2)
+                    edge = Edge(v1,v2)
                     v1.edges.append(edge)
                     v2.edges.append(edge)
                     self.edges.append(edge)
-                if edge.v1==v1:
-                    edge.face1=f
+                if edge.v1 == v1:
+                    edge.face1 = f
                 else:
-                    edge.face2=f
-                v1=v2
+                    edge.face2 = f
+                v1 = v2
 
     def constructTopology(self):
         self.weldVertices()

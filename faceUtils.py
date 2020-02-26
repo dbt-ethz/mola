@@ -6,7 +6,7 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
-import mola.vec as vec
+from mola import vec
 from mola.core import Vertex
 
 
@@ -20,9 +20,9 @@ def area(face):
             The face to be measured
     """
     if(len(face.vertices) == 3):
-        return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2])
+        return areaTriangle3D(face.vertices[0], face.vertices[1], face.vertices[2])
     else:
-        return areaTriangle3D(face.vertices[0],face.vertices[1],face.vertices[2]) + areaTriangle3D(face.vertices[2],face.vertices[3],face.vertices[0])
+        return areaTriangle3D(face.vertices[0], face.vertices[1], face.vertices[2]) + areaTriangle3D(face.vertices[2], face.vertices[3], face.vertices[0])
 
 def areaFromVertices(vertices):
     """
@@ -32,9 +32,9 @@ def areaFromVertices(vertices):
         return areaTriangle3D(vertices[0],vertices[1],vertices[2])
     # could be made generic for n-gons, triangle fan?
     elif len(vertices) == 4:
-        a1 = areaTriangle3D(vertices[0],vertices[1],vertices[2])
-        a2 = areaTriangle3D(vertices[2],vertices[3],vertices[0])
-        return a1+a2
+        a1 = areaTriangle3D(vertices[0], vertices[1], vertices[2])
+        a2 = areaTriangle3D(vertices[2], vertices[3], vertices[0])
+        return a1 + a2
 
 def areaTriangle3D(a,b,c):
     """
@@ -45,7 +45,7 @@ def areaTriangle3D(a,b,c):
     a, b, c : mola.core.Vertex
         vertices of the triangle
     """
-    return areaTriangle3DCoords(a.x,a.y,a.z,b.x,b.y,b.z,c.x,c.y,c.z)
+    return areaTriangle3DCoords(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z)
 
 def areaTriangle3DCoords(xa, ya, za, xb, yb, zb, xc, yc, zc):
     """
@@ -77,7 +77,7 @@ def compactness(face):
     face : mola.core.Face
             The face to be measured
     """
-    return area(face)/perimeter(face)
+    return area(face) / perimeter(face)
 
 
 def perimeter(face):
@@ -92,7 +92,7 @@ def perimeter(face):
     sum = 0
     for i in range(len(face.vertices)):
         v1 = face.vertices[i]
-        v2 = face.vertices[(i+1)%len(face.vertices)]
+        v2 = face.vertices[(i + 1) % len(face.vertices)]
         sum += vec.distance(v1,v2)
     return sum
 
@@ -106,7 +106,7 @@ def horizontal_angle(face):
             The face to be measured
     """
     n = normal(face)
-    return math.atan2(n.y,n.x)
+    return math.atan2(n.y, n.x)
 
 def vertical_angle(f):
     """
@@ -130,23 +130,23 @@ def curvature(face):
     Arguments:
     ----------
     face : mola.core.Face
-            The face to be measured
+        The face to be measured
     """
-    facenormal=normal(face)
-    sumD=0
-    vPrev=face.vertices[-1]
+    facenormal = normal(face)
+    sumD = 0
+    vPrev = face.vertices[-1]
     num_faces = 1
     for v in face.vertices:
-        edge=v.getEdgeAdjacentToVertex(vPrev)
+        edge = v.getEdgeAdjacentToVertex(vPrev)
         if edge != None:
-            nbFace=edge.face1
-            if edge.face1==face:
-                nbFace=edge.face2
+            nbFace = edge.face1
+            if edge.face1 == face:
+                nbFace = edge.face2
             if nbFace != None:
                 num_faces += 1
                 nbNormal = normal(nbFace)
-                sumD+=vec.distance(nbNormal,facenormal)
-        vPrev=v
+                sumD += vec.distance(nbNormal,facenormal)
+        vPrev = v
     return sumD / num_faces
 
 def center(face):
@@ -172,9 +172,9 @@ def centerFromVertices(vertices):
             The list of vertices to be measured
     """
     n = len(vertices)
-    cx = sum([v.x for v in vertices])/n
-    cy = sum([v.y for v in vertices])/n
-    cz = sum([v.z for v in vertices])/n
+    cx = sum([v.x for v in vertices]) / n
+    cy = sum([v.y for v in vertices]) / n
+    cz = sum([v.z for v in vertices]) / n
     return Vertex(cx,cy,cz)
 
 def centerFromLine(v1,v2):
@@ -191,7 +191,7 @@ def centerFromLine(v1,v2):
     mola.core.Vertex
         the center point of the line
     """
-    return Vertex((v1.x+v2.x)/2,(v1.y+v2.y)/2,(v1.z+v2.z)/2)
+    return Vertex((v1.x + v2.x) / 2, (v1.y + v2.y) / 2, (v1.z + v2.z) / 2)
 
 def normal(face):
     """
@@ -202,7 +202,7 @@ def normal(face):
     face : mola.core.Face
         the face to get the normal from
     """
-    return normalFromTriangle(face.vertices[0],face.vertices[1],face.vertices[2])
+    return normalFromTriangle(face.vertices[0], face.vertices[1], face.vertices[2])
 
 def normalFromTriangle(v1,v2,v3):
     """
@@ -216,7 +216,7 @@ def normalFromTriangle(v1,v2,v3):
     """
     v = vec.subtract(v2, v1)
     u = vec.subtract(v3, v1)
-    crossProduct=vec.cross(v,u)
+    crossProduct=vec.cross(v, u)
     return vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
@@ -229,7 +229,7 @@ def normalFromVertices(vertices):
     vertices : list
         the list of vertices get the normal from (first 3 will be used)
     """
-    return normalFromTriangle(vertices[0],vertices[1],vertices[2])
+    return normalFromTriangle(vertices[0], vertices[1], vertices[2])
 
 def copyProperties(faceParent,faceChild):
     """

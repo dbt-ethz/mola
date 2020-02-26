@@ -5,8 +5,8 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-import colorsys as colorsys
-import mola.faceUtils as faceUtils
+import colorsys
+from mola import faceUtils
 
 __grayscale = False
 
@@ -17,9 +17,9 @@ def getColorRGB(hue):
     if __grayscale:
         return (hue,hue,hue,1)
     else:
-        hue = __map(hue,0.0,1.0,0.0,0.8) #limit hue red-red to red-magenta
-        col = colorsys.hsv_to_rgb(hue,1,1)
-        return (col[0],col[1],col[2],1)
+        hue = __map(hue, 0.0, 1.0, 0.0, 0.8) #limit hue red-red to red-magenta
+        col = colorsys.hsv_to_rgb(hue, 1, 1)
+        return (col[0], col[1], col[2], 1) # alpha = 100 %
 
 def colorFacesByFunction(faces,faceFunction):
     """
@@ -37,7 +37,7 @@ def colorFacesByFunction(faces,faceFunction):
     valueMin = min(values)
     valueMax = max(values)
     for i, face in enumerate(faces):
-        h = __map(values[i],valueMin, valueMax,0.0,0.8)
+        h = __map(values[i],valueMin, valueMax, 0.0, 0.8)
         face.color = getColorRGB(h)
 
 def colorFacesByCurvature(faces):
