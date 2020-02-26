@@ -9,15 +9,15 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 #from mola.core import *
 import mola.vec as _vec
-from mola.core import Mesh as _Mesh
-from mola.core import Vertex #as _Vertex
-from mola.core import Face as _Face
+from mola.core import Mesh
+from mola.core import Vertex
+from mola.core import Face
 import mola.faceUtils as faceUtils
 import copy
-import math as _math
+import math
 
 def _collectNewFaces(_mesh):
-    newMesh=_Mesh()
+    newMesh=Mesh()
     for face in _mesh.faces:
         v1=face.vertices[-2]
         v2=face.vertices[-1]
@@ -25,7 +25,7 @@ def _collectNewFaces(_mesh):
             edge1=_mesh.getEdgeAdjacentToVertices(v1,v2)
             edge2=_mesh.getEdgeAdjacentToVertices(v2,v3)
             if (edge1 != None) and (edge2!= None):
-                newFace = _Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
+                newFace = Face([edge1.vertex,v2.vertex,edge2.vertex,face.vertex])
                 newFace.color = face.color
                 newFace.group = face.group
                 newMesh.faces.append(newFace)
@@ -35,7 +35,7 @@ def _collectNewFaces(_mesh):
     return newMesh
 
 def offset(_mesh,offset=1,doclose=True):
-    newMesh=_Mesh()
+    newMesh=Mesh()
     # calculate vertex normals
     for vertex in _mesh.vertices:
         vertex.vertex = Vertex(0,0,0)
@@ -149,7 +149,7 @@ def splitGrid(face,nU,nV):
             vs1=gridVertices[u]
             vs2=gridVertices[u+1]
             for v in range(len(vs1)-1):
-                f = _Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
+                f = Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
                 faceUtils.copyProperties(face,f)
                 faces.append(f)
         return faces
@@ -164,14 +164,14 @@ def splitGrid(face,nU,nV):
         v0=face.vertices[0]
         vs1=gridVertices[0]
         for v in range(len(vs1)-1):
-            f = _Face([v0,vs1[v],vs1[v+1]])
+            f = Face([v0,vs1[v],vs1[v+1]])
             faceUtils.copyProperties(face,f)
             faces.append(f)
         for u in range(len(gridVertices)-1):
             vs1=gridVertices[u]
             vs2=gridVertices[u+1]
             for v in range(len(vs1)-1):
-                f = _Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
+                f = Face([vs1[v],vs1[v+1],vs2[v+1],vs2[v]])
                 faceUtils.copyProperties(face,f)
                 faces.append(f)
         return faces
@@ -214,14 +214,14 @@ def splitRelFreeQuad(face, indexEdge,  split1,  split2):
     p2 = _vec.betweenRel(face.vertices[indexEdge2 ], face.vertices[indexEdge3], split2)
     faces=[]
     if indexEdge == 0:
-        f1 = _Face([face.vertices[0], p1, p2, face.vertices[3]])
-        f2 = _Face([p1,face.vertices[1],face.vertices[2],p2])
+        f1 = Face([face.vertices[0], p1, p2, face.vertices[3]])
+        f2 = Face([p1,face.vertices[1],face.vertices[2],p2])
         faceUtils.copyProperties(face,f1)
         faceUtils.copyProperties(face,f2)
         faces.extend([f1,f2])
     elif indexEdge == 1:
-        f1 = _Face([face.vertices[0], face.vertices[1], p1, p2])
-        f2 = _Face([p2, p1, face.vertices[2], face.vertices[3]])
+        f1 = Face([face.vertices[0], face.vertices[1], p1, p2])
+        f2 = Face([p2, p1, face.vertices[2], face.vertices[3]])
         faceUtils.copyProperties(face,f1)
         faceUtils.copyProperties(face,f2)
         faces.extend([f1,f2])
@@ -262,9 +262,9 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
         v1=face.vertices[i2]
         v2=new_vertices[i2]
         v3=new_vertices[i]
-        new_faces.append(_Face([v0,v1,v2,v3]))
+        new_faces.append(Face([v0,v1,v2,v3]))
     if capTop:
-        new_faces.append(_Face(new_vertices))
+        new_faces.append(Face(new_vertices))
     for new_face in new_faces:
         faceUtils.copyProperties(face,new_face)
     return new_faces
@@ -307,12 +307,12 @@ def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
         n2 = face.vertices[(i+1) % num]
         n3 = new_vertices[(i+1) % num]
         n4 = new_vertices[i]
-        new_face = _Face([n1,n2,n3,n4])
+        new_face = Face([n1,n2,n3,n4])
         new_faces.append(new_face)
 
     # create the closing cap face
     if doCap:
-        cap_face = _Face(new_vertices)
+        cap_face = Face(new_vertices)
         new_faces.append(cap_face)
 
     for new_face in new_faces:
@@ -339,10 +339,10 @@ def splitRoof(face, height):
         ev2=_vec.center(face.vertices[2],face.vertices[3])
         ev2=_vec.add(ev2,normal)
 
-        faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
-        faces.append(_Face([face.vertices[1],face.vertices[2],ev2,ev1]))
-        faces.append(_Face([face.vertices[2],face.vertices[3],ev2]))
-        faces.append(_Face([face.vertices[3],face.vertices[0],ev1,ev2]))
+        faces.append(Face([face.vertices[0],face.vertices[1],ev1]))
+        faces.append(Face([face.vertices[1],face.vertices[2],ev2,ev1]))
+        faces.append(Face([face.vertices[2],face.vertices[3],ev2]))
+        faces.append(Face([face.vertices[3],face.vertices[0],ev1,ev2]))
 
         for f in faces:
             faceUtils.copyProperties(face,f)
@@ -353,10 +353,10 @@ def splitRoof(face, height):
         ev2=_vec.center(face.vertices[1],face.vertices[2])
         ev2=_vec.add(ev2,normal)
 
-        faces.append(_Face([face.vertices[0],face.vertices[1],ev1]))
-        faces.append(_Face([face.vertices[1],ev2,ev1]))
-        faces.append(_Face([face.vertices[1],face.vertices[2],ev2]))
-        faces.append(_Face([face.vertices[2],face.vertices[0],ev1,ev2]))
+        faces.append(Face([face.vertices[0],face.vertices[1],ev1]))
+        faces.append(Face([face.vertices[1],ev2,ev1]))
+        faces.append(Face([face.vertices[1],face.vertices[2],ev2]))
+        faces.append(Face([face.vertices[2],face.vertices[0],ev1,ev2]))
 
         for f in faces:
             faceUtils.copyProperties(face,f)
@@ -380,7 +380,7 @@ def extrudeToPoint(face, point):
     for i in range(numV):
         v1 = face.vertices[i]
         v2 = face.vertices[(i+1)%numV]
-        f = _Face([v1,v2,point])
+        f = Face([v1,v2,point])
         faceUtils.copyProperties(face,f)
         faces.append(f)
     return faces
@@ -415,7 +415,7 @@ def offsetPlanar(face,offsets):
         v1 = face.vertices[i]
         v2 = face.vertices[iN]
         newPts.append(_vec.offsetPoint(v0,v1,v2,offsets[iP],offsets[i]))
-    f = _Face(newPts)
+    f = Face(newPts)
     faceUtils.copyProperties(face,f)
     return f
 
@@ -433,7 +433,7 @@ def splitOffsets(face,offsets):
     for i in range(len(face.vertices)):
         if(abs(offsets[i])>0):
             i2 = (i+1)%len(face.vertices)
-            f = _Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]])
+            f = Face([face.vertices[i],face.vertices[i2],offsetFace.vertices[i2],offsetFace.vertices[i]])
             faceUtils.copyProperties(face,f)
             faces.append(f)
     faces.append(offsetFace)
@@ -459,11 +459,11 @@ def splitRelMultiple(face,dir,splits):
     result = []
     for i in range(len(splits)+1):
         if(dir==1):
-            f = _Face([sB[i],sA[i],sA[i+1],sB[i+1]])
+            f = Face([sB[i],sA[i],sA[i+1],sB[i+1]])
             faceUtils.copyProperties(face,f)
             result.append(f)
         else:
-            f = _Face([sB[i],sB[i+1],sA[i+1],sA[i]])
+            f = Face([sB[i],sB[i+1],sA[i+1],sA[i]])
             faceUtils.copyProperties(face,f)
             result.append(f)
     return result
@@ -507,8 +507,8 @@ def splitFrame(face,w):
       th1 = _vec.angleTriangle(vp,v,vn)
       th2 = _vec.angleTriangle(v,vn,vnn)
 
-      w1 = w/_math.sin(th1)
-      w2 = w/_math.sin(th2)
+      w1 = w/math.sin(th1)
+      w2 = w/math.sin(th2)
 
       vs1 = _getVerticesFrame(v,vn,w1,w2)
       vs2 = _getVerticesFrame(_getVerticesFrame(vp,v,w1,w1)[2],_getVerticesFrame(vn,vnn,w2,w2)[1],w1,w2)
