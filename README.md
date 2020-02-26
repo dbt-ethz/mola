@@ -27,13 +27,13 @@ Lightweight Computational Design Library
   - Classes `Graph` and `GraphAnalyser` (for shortest path or centrality calculation)
 - io
   - Import / export of [OBJ Wavefront Files](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
-- renderP5
-  - Display in [Processing Python Mode](https://py.processing.org)
-- renderP5JS
+- colab2D
   - Display in [P5.js](http://p5js.org) for 2D graphics in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb#recent=true)
-- renderBabylonJS
+- colab3D
   - Display in [Babylon.js](https://www.babylonjs.com) for 3D graphics in Google Colab
-- renderRhino
+- processing
+  - Display in [Processing Python Mode](https://py.processing.org)
+- rhino
   - Construct and load mesh geometry in [Rhino](https://www.rhino3d.com)
 
 ## Use Cases
