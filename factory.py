@@ -250,8 +250,8 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
         resolution along the tube
     """
     mesh = _Mesh()
-    phi = 2* _math.pi / ringN
-    theta = 2* _math.pi / tubeN
+    phi = 2* _math.pi / ringN #u
+    theta = 2 * _math.pi / tubeN #v
 
     for i in range (ringN):
         for j in range (tubeN):
@@ -279,7 +279,10 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
     return mesh
 
 def _getTorusVertex(ringRadius, tubeRadius, ph,th):
-    x = ringRadius * _math.cos(ph) + tubeRadius * _math.cos(th) * _math.cos(ph)
-    y = ringRadius * _math.sin(ph) + tubeRadius * _math.cos(th) * _math.sin(ph)
-    z = tubeRadius * _math.sin(th)
+    x = _math.cos(th) * (ringRadius + tubeRadius * _math.cos(ph))
+    y = _math.sin(th) * (ringRadius + tubeRadius * _math.cos(ph))
+    z = tubeRadius * _math.sin(ph)
+    # x = ringRadius * _math.cos(ph) + tubeRadius * _math.cos(th) * _math.cos(ph)
+    # y = ringRadius * _math.sin(ph) + tubeRadius * _math.cos(th) * _math.sin(ph)
+    # z = tubeRadius * _math.sin(th)
     return _Vertex(x,y,z)
