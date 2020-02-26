@@ -265,7 +265,7 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             b = ii * ringN + j
             c = ii * ringN + jj
             d = i  * ringN + jj
-            f = _Face([mesh.vertices[i] for i in [a,b,c,d]])
+            f = _Face([mesh.vertices[k] for k in [a,b,c,d]])
             mesh.faces.append(f)
     # for i in range (ringN):
     #     for j in range (tubeN):
