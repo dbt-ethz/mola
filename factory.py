@@ -250,8 +250,8 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
         resolution along the tube
     """
     mesh = _Mesh()
-    phi = 2* _math.pi / ringN #u
-    theta = 2 * _math.pi / tubeN #v
+    theta = 2 * _math.pi / ringN #u
+    phi = 2 * _math.pi / tubeN #v
 
     for i in range (ringN):
         for j in range (tubeN):
