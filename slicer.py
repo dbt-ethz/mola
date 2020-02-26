@@ -7,8 +7,8 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-from mola.core import Vertex as Vertex
-from mola.core import Edge as Edge
+from mola.core import Vertex
+from mola.core import Edge
 
 def slice(mesh,z):
     edges=[]
