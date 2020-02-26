@@ -1,4 +1,4 @@
-Face#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
 __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
