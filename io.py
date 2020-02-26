@@ -5,9 +5,9 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-from mola.core import Mesh as _Mesh
-from mola.core import Vertex as _Vertex
-from mola.core import Face as _Face
+from mola.core import Mesh
+from mola.core import Vertex
+from mola.core import Face
 import ntpath
 
 def __strColor(color,decimals=1):
@@ -16,7 +16,7 @@ def __strColor(color,decimals=1):
 
 def importOBJ(filename):
     """Loads a Wavefront OBJ file. """
-    mesh=_Mesh()
+    mesh=Mesh()
     group=""
     for line in open(filename, "r"):
         if line.startswith('#'): continue
@@ -26,9 +26,9 @@ def importOBJ(filename):
             group=values[1]
         elif values[0] == 'v':
             v = map(float, values[1:4])
-            mesh.vertices.append(_Vertex(v[0],v[1],v[2]))
+            mesh.vertices.append(Vertex(v[0],v[1],v[2]))
         elif values[0] == 'f':
-            face = _Face([])
+            face = Face([])
             face.group=group
             for v in values[1:]:
                 w = v.split('/')
