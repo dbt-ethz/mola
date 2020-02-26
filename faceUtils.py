@@ -5,8 +5,8 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-import math as _math
-import mola.vec as _vec
+import math
+import mola.vec as vec
 from mola.core import Vertex
 
 # def areaTriangle(v0,v1,v2):
@@ -14,7 +14,7 @@ from mola.core import Vertex
 #     d2 = distance(v1, v2)
 #     d3 = distance(v2, v0)
 #     s = (d1+d2+d3)/2.0
-#     a = _math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
+#     a = math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
 #     return a
 
 def area(face):
@@ -67,7 +67,7 @@ def areaTriangle3DCoords(xa, ya, za, xb, yb, zb, xc, yc, zc):
     xc, yc, zc : float
         coordinates of vertex c
     """
-    return 0.5 * _math.sqrt(_math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + _math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + _math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
+    return 0.5 * math.sqrt(math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
 
 def __determinant(a, b, c, d, e, f, g, h, i):
     """
@@ -100,7 +100,7 @@ def perimeter(face):
     for i in range(len(face.vertices)):
         v1 = face.vertices[i]
         v2 = face.vertices[(i+1)%len(face.vertices)]
-        sum += _vec.distance(v1,v2)
+        sum += vec.distance(v1,v2)
     return sum
 
 def horizontal_angle(face):
@@ -113,7 +113,7 @@ def horizontal_angle(face):
             The face to be measured
     """
     n = normal(face)
-    return _math.atan2(n.y,n.x)
+    return math.atan2(n.y,n.x)
 
 def vertical_angle(f):
     """
@@ -126,9 +126,9 @@ def vertical_angle(f):
     """
     n = normal(f)
     #nXY = Vertex(n.x, n.y, 0.0)
-    #return _vec.angle(n, nXY)
+    #return vec.angle(n, nXY)
     # alternative, probably less computationally intense:
-    return _math.asin(n.z)
+    return math.asin(n.z)
 
 def curvature(face):
     """
@@ -152,7 +152,7 @@ def curvature(face):
             if nbFace != None:
                 num_faces += 1
                 nbNormal = normal(nbFace)
-                sumD+=_vec.distance(nbNormal,facenormal)
+                sumD+=vec.distance(nbNormal,facenormal)
         vPrev=v
     return sumD / num_faces
 
@@ -192,7 +192,7 @@ def centerFromLine(v1,v2):
     ----------
     v1, v2 : mola.core.Vertex
         start and end points of the line
-    
+
     Returns:
     --------
     mola.core.Vertex
@@ -221,10 +221,10 @@ def normalFromTriangle(v1,v2,v3):
     v1, v2, v3 : mola.core.Vertex
         the vertices get the normal from
     """
-    v = _vec.subtract(v2, v1)
-    u = _vec.subtract(v3, v1)
-    crossProduct=_vec.cross(v,u)
-    return _vec.unitize(crossProduct)
+    v = vec.subtract(v2, v1)
+    u = vec.subtract(v3, v1)
+    crossProduct=vec.cross(v,u)
+    return vec.unitize(crossProduct)
 
 def normalFromVertices(vertices):
     """
@@ -245,7 +245,7 @@ def normalFromVertices(vertices):
     #     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
     # there there is an error. planar surfaces will have identical normals. angle calculation fails?
     #     angle = VectorAngle(n1,n2)
-    #     if(angle>_math.pi-0.01):
+    #     if(angle>math.pi-0.01):
     #         n2 = VectorScale(n2,-1)
     #         sum = VectorAdd(n1,n2)
     #         sum = VectorScale(sum, 0.5)
