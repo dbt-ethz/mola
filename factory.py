@@ -255,7 +255,7 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
 
     for i in range (ringN):
         for j in range (tubeN):
-            mesh.vertices.append(_getTorusVertex(ringRadius, tubeRadius, phi * i, theta * j))
+            mesh.vertices.append(_getTorusVertex(ringRadius, tubeRadius, phi * j, theta * i))
 
     for i in range(ringN):
         ii = (i + 1) % ringN
