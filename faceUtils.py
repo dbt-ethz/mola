@@ -9,13 +9,6 @@ import math
 import mola.vec as vec
 from mola.core import Vertex
 
-# def areaTriangle(v0,v1,v2):
-#     d1 = distance(v0, v1)
-#     d2 = distance(v1, v2)
-#     d3 = distance(v2, v0)
-#     s = (d1+d2+d3)/2.0
-#     a = math.sqrt(s*(s-d1)*(s-d2)*(s-d3))
-#     return a
 
 def area(face):
     """
@@ -237,20 +230,6 @@ def normalFromVertices(vertices):
         the list of vertices get the normal from (first 3 will be used)
     """
     return normalFromTriangle(vertices[0],vertices[1],vertices[2])
-
-    # if len(vertices)==3:
-    #     return VectorNormal(vertices[0],vertices[1],vertices[2])
-    # elif len(vertices)==4:
-    #     n1 = VectorNormal(vertices[0],vertices[1],vertices[2])
-    #     n2 = VectorNormal(vertices[2],vertices[3],vertices[0])
-    # there there is an error. planar surfaces will have identical normals. angle calculation fails?
-    #     angle = VectorAngle(n1,n2)
-    #     if(angle>math.pi-0.01):
-    #         n2 = VectorScale(n2,-1)
-    #         sum = VectorAdd(n1,n2)
-    #         sum = VectorScale(sum, 0.5)
-    #         sum = VectorUnitize(sum)
-    #         return sum
 
 def copyProperties(faceParent,faceChild):
     """
