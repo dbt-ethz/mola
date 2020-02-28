@@ -77,7 +77,17 @@ def subdivide(mesh):
         vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
     return _collectNewFaces(mesh)
 
-def subdivideCatmull(mesh):
+def subdivide_translate_facevertices(mesh,values):
+    for face in mesh.faces:
+        face.vertex=faceUtils.center(face)
+    for edge in mesh.edges:
+        edge.vertex = edge.getCenter()
+    for vertex in mesh.vertices:
+        vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
+    _translateFaceVertices(mesh,values)
+    return _collectNewFaces(mesh)
+
+def _catmullVertices(mesh):
     for face in mesh.faces:
         face.vertex = faceUtils.center(face)
 
@@ -127,6 +137,19 @@ def subdivideCatmull(mesh):
             v = vec.scale(v,1.0/nEdges)
             vertex.vertex = v
 
+def _translateFaceVertices(mesh,values):
+    for face,value in zip(mesh.faces, values):
+        normal=faceUtils.normal(face)
+        normal.scale(value)
+        face.vertex.add(normal)
+
+def subdivide_catmull_translate_facevertices(mesh,values):
+    _catmullVertices(mesh)
+    _translateFaceVertices(mesh,values)
+    return _collectNewFaces(mesh)
+
+def subdivideCatmull(mesh):
+    _catmullVertices(mesh)
     return _collectNewFaces(mesh)
 
 def splitGrid(face,nU,nV):
@@ -152,7 +175,7 @@ def splitGrid(face,nU,nV):
                 faceUtils.copyProperties(face, f)
                 faces.append(f)
         return faces
-    
+
     if len(face.vertices) == 3:
         vsU1 = _getVerticesBetween(face.vertices[0], face.vertices[1], nU)
         vsU2 = _getVerticesBetween(face.vertices[0], face.vertices[2], nU)
