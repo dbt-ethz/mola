@@ -35,6 +35,8 @@ Lightweight Computational Design Library
   - Display in [Processing Python Mode](https://py.processing.org)
 - rhino
   - Construct and load mesh geometry in [Rhino](https://www.rhino3d.com)
+- blender 
+  - Construct mesh geometry in [Blender](https://www.blender.org)
 
 ## Use Cases
 - The Mola library has been used in the elective course _Advanced Computational Design Course_, spring semester 2019 at ETH Zurich.
