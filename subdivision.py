@@ -290,6 +290,13 @@ def extrude(face, height=0.0, capBottom=False, capTop=True):
         faceUtils.copyProperties(face,new_face)
     return new_faces
 
+def mesh_extrude_tapered(mesh,heights,fractions,doCaps):
+    new_mesh=Mesh()
+    for face,height,fraction,doCap in zip(mesh.faces,heights,fractions,doCaps):
+        new_mesh.faces.extend(extrudeTapered(face,height,fraction,doCap))
+    newMesh.updateAdjacencies()
+    return new_mesh
+
 def extrudeTapered(face, height=0.0, fraction=0.5,doCap=True):
     """
     Extrudes the face tapered like a window by creating an
@@ -425,6 +432,16 @@ def extrudeToPointCenter(face, height=0.0):
     center = faceUtils.center(face)
     center = vec.add(center,normal)
     return extrudeToPoint(face,center)
+
+def mesh_extrude_to_point_center(mesh,heights,doExtrudes):
+    new_mesh=Mesh()
+    for face,height,doExtrude in zip(mesh.faces,heights,doExtrudes):
+        if doExtrude:
+            new_mesh.faces.extend(extrudeToPointCenter(face,height))
+        else:
+            new_mesh.faces.append(face)
+    newMesh.updateAdjacencies()
+    return new_mesh
 
 def offsetPlanar(face,offsets):
     newPts = []
