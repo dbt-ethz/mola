@@ -313,6 +313,16 @@ class Mesh:
                 return edge.face2
         return None
 
+    def addVertex(x,y,z=0):
+        v=Vertex(x,y,z)
+        self.vertices.append(v)
+        return v
+        
+    def addFace(vertices):
+        f=Face(vertices)
+        self.faces.append(f)
+        return f
+
     def weldVertices(self):
         weldedVertices = {}
         self.vertices = []
