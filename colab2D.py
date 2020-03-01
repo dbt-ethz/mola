@@ -25,7 +25,7 @@ def displayFaces2D(faces):
 def saveCanvas(fileName):
     global p5code
     p5code+="saveCanvas(canvas,'"+fileName+"');"
-    
+
 def saveImage(fileName):
     global p5code
     p5code+="save("+fileName+");"
@@ -120,3 +120,8 @@ def endDraw():
     global p5code
     p5code+=_endDraw2D()
     return p5code
+
+# helper function to get a drawing canvas inside the notebook
+def whiteboard():
+    from IPython.display import IFrame
+    return IFrame('http://dbt.arch.ethz.ch/temp/canvas', width=800, height=500)
