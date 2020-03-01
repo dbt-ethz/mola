@@ -124,4 +124,4 @@ def endDraw():
 # helper function to get a drawing canvas inside the notebook
 def whiteboard():
     from IPython.display import IFrame
-    return IFrame('http://dbt.arch.ethz.ch/temp/canvas', width=800, height=500)
+    return IFrame('https://dbt.arch.ethz.ch/temp/canvas', width=800, height=500)
