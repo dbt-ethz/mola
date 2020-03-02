@@ -123,6 +123,7 @@ def __begin3D():
         <script>
       var canvas = document.getElementById("renderCanvas");'''
     __code+='''var createScene = function () {var scene = new BABYLON.Scene(engine);'''
+    __code+='''scene.useRightHandedSystem = true;'''
     __code+='''scene.clearColor = new BABYLON.Color3'''+str(__backgroundColor)+ ";"
     __code+='''var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);'''
     __code+='''var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
