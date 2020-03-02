@@ -127,7 +127,7 @@ def __begin3D():
     __code+='''scene.clearColor = new BABYLON.Color3'''+str(__backgroundColor)+ ";"
     __code+='''var light = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(1, 1, 1), scene);var light2 = new BABYLON.DirectionalLight("direct", new BABYLON.Vector3(-1, -1, -1), scene);'''
     __code+='''var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
-            camera.setPosition(new BABYLON.Vector3(0, 5, -30));
+            camera.setPosition(new BABYLON.Vector3(0, 5, 30));
              camera.attachControl(canvas, true);'''
     __code+=''' var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene); // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.5;'''
