@@ -1,3 +1,7 @@
+"""
+This is where the module documentation goes
+"""
+
 from .color import *
 from .core import *
 from .faceUtils import *
