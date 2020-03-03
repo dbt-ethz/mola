@@ -171,7 +171,8 @@ def splitGrid(face,nU,nV):
             vs1 = gridVertices[u]
             vs2 = gridVertices[u + 1]
             for v in range(len(vs1) - 1):
-                f = Face([vs1[v], vs1[v + 1], vs2[v + 1], vs2[v]])
+                #f = Face([vs1[v], vs1[v + 1], vs2[v + 1], vs2[v]])
+                f = Face([vs1[v], vs2[v], vs2[v + 1], vs1[v + 1]])
                 faceUtils.copyProperties(face, f)
                 faces.append(f)
         return faces
