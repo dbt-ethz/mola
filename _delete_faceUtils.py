@@ -6,10 +6,11 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
-from mola import vec
+import mathUtils
+from mola import vecUtils
 from mola.core import Vertex
-
-def area(face):
+'''
+def face_area(face):
     """
     Returns the area of a face, for quads that of two triangles.
 
@@ -22,7 +23,8 @@ def area(face):
         return areaTriangle3D(face.vertices[0], face.vertices[1], face.vertices[2])
     else:
         return areaTriangle3D(face.vertices[0], face.vertices[1], face.vertices[2]) + areaTriangle3D(face.vertices[2], face.vertices[3], face.vertices[0])
-
+'''
+'''
 def areaFromVertices(vertices):
     """
     Returns the area of a face from a list of 3 or 4 vertices
@@ -59,14 +61,9 @@ def areaTriangle3DCoords(xa, ya, za, xb, yb, zb, xc, yc, zc):
     xc, yc, zc : float
         coordinates of vertex c
     """
-    return 0.5 * math.sqrt(math.pow(__determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(__determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(__determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
-
-def __determinant(a, b, c, d, e, f, g, h, i):
-    """
-    returns the determinant of the 9 values of a 3 x 3 matrix
-    """
-    return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
-
+    return 0.5 * math.sqrt(math.pow(math_determinant(xa, xb, xc, ya, yb, yc, 1, 1, 1), 2) + math.pow(math_determinant(ya, yb, yc, za, zb, zc, 1, 1, 1), 2) + math.pow(math_determinant(za, zb, zc, xa, xb, xc, 1, 1, 1), 2))
+'''
+'''
 def compactness(face):
     """
     Returns the compactness of a face as the ratio between area and perimeter.
@@ -79,7 +76,7 @@ def compactness(face):
     return area(face) / perimeter(face)
 
 
-def perimeter(face):
+def face_perimeter(face):
     """
     Returns the perimeter of a face as the sum of all the edges' lengths.
 
@@ -92,10 +89,10 @@ def perimeter(face):
     for i in range(len(face.vertices)):
         v1 = face.vertices[i]
         v2 = face.vertices[(i + 1) % len(face.vertices)]
-        sum += vec.distance(v1,v2)
+        sum += vecUtils.distance(v1,v2)
     return sum
 
-def horizontal_angle(face):
+def face_horizontal_angle(face):
     """
     Returns the azimuth, the orientation of the face around the z-axis in the XY-plane
 
@@ -106,8 +103,9 @@ def horizontal_angle(face):
     """
     n = normal(face)
     return math.atan2(n.y, n.x)
-
-def vertical_angle(f):
+'''
+'''
+def face_vertical_angle(f):
     """
     Returns the altitude, 0 if the face is vertical, -Pi/2 if it faces downwards, +Pi/2 if it faces upwards.
 
@@ -118,11 +116,11 @@ def vertical_angle(f):
     """
     n = normal(f)
     #nXY = Vertex(n.x, n.y, 0.0)
-    #return vec.angle(n, nXY)
+    #return vecUtils.angle(n, nXY)
     # alternative, probably less computationally intense:
     return math.asin(n.z)
 
-def curvature(face):
+def face_curvature(face):
     """
     Returns the local curvature of a mesh face, by measuring the angle to the neighbour faces.
 
@@ -144,11 +142,12 @@ def curvature(face):
             if nbFace != None:
                 num_faces += 1
                 nbNormal = normal(nbFace)
-                sumD += vec.distance(nbNormal,facenormal)
+                sumD += vecUtils.distance(nbNormal,facenormal)
         vPrev = v
     return sumD / num_faces
-
-def center(face):
+'''
+'''
+def face_center(face):
     """
     Returns the center point (type Vertex) of a face.
     Note: not the center of gravity, just the average of its vertices.
@@ -175,7 +174,8 @@ def centerFromVertices(vertices):
     cy = sum([v.y for v in vertices]) / n
     cz = sum([v.z for v in vertices]) / n
     return Vertex(cx,cy,cz)
-
+    '''
+'''
 def centerFromLine(v1,v2):
     """
     Returns the center of a line defined by two vertices.
@@ -192,7 +192,7 @@ def centerFromLine(v1,v2):
     """
     return Vertex((v1.x + v2.x) / 2, (v1.y + v2.y) / 2, (v1.z + v2.z) / 2)
 
-def normal(face):
+def face_normal(face):
     """
     Returns the normal of a face, a vector of length 1 perpendicular to the plane of the triangle.
 
@@ -202,7 +202,8 @@ def normal(face):
         the face to get the normal from
     """
     return normalFromTriangle(face.vertices[0], face.vertices[1], face.vertices[2])
-
+    '''
+'''
 def normalFromTriangle(v1,v2,v3):
     """
     Returns the normal of a triangle defined by 3 vertices.
@@ -213,10 +214,10 @@ def normalFromTriangle(v1,v2,v3):
     v1, v2, v3 : mola.core.Vertex
         the vertices get the normal from
     """
-    v = vec.subtract(v2, v1)
-    u = vec.subtract(v3, v1)
-    crossProduct=vec.cross(v, u)
-    return vec.unitize(crossProduct)
+    v = vecUtils.subtract(v2, v1)
+    u = vecUtils.subtract(v3, v1)
+    crossProduct=vecUtils.cross(v, u)
+    return vecUtils.unitize(crossProduct)
 
 def normalFromVertices(vertices):
     """
@@ -229,8 +230,9 @@ def normalFromVertices(vertices):
         the list of vertices get the normal from (first 3 will be used)
     """
     return normalFromTriangle(vertices[0], vertices[1], vertices[2])
-
-def copyProperties(faceParent,faceChild):
+'''
+'''
+def face_copy_properties(faceParent,faceChild):
     """
     Copies the properties (color,group,...) of faceParent to faceChild.
 
@@ -243,3 +245,4 @@ def copyProperties(faceParent,faceChild):
     """
     faceChild.group = faceParent.group
     faceChild.color = faceParent.color
+    '''

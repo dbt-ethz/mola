@@ -6,7 +6,7 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
-
+'''
 class Vertex:
     """A vertex defines a point in space.
 
@@ -47,7 +47,7 @@ class Vertex:
         else:
             return False
 
-    def getEdgeAdjacentToVertex(self, v):
+    def get_edge_adjacent_to_vertex(self, v):
         """
         Returns the edge connecting this `Vertex` to another `Vertex` or `None` if there's none.
 
@@ -171,7 +171,7 @@ class Edge:
     def __str__(self):
         return "from " + str(self.v1)+" to "+ str(self.v2)
 
-    def getOtherVertex(self,vertex):
+    def get_other_vertex(self,vertex):
         """
         if `vertex` is one of the end points of this edge,
         it returns the vertex at the other end point.
@@ -182,9 +182,9 @@ class Edge:
             return self.v1
         return None
 
-    def getCenter(self):
+    def center(self):
         """
-        returns the midpoint on an edge
+        returns the midpoint on an edge as a Vertex() object
         """
         return Vertex((self.v2.x+self.v1.x)/2.0,(self.v2.y+self.v1.y)/2.0,(self.v2.z+self.v1.z)/2.0)
 
@@ -207,43 +207,31 @@ class Box:
         self.y2 = y2
         self.z2 = z2
 
-    def getDimX(self):
+    def dim_x(self):
         """
         Returns the Box's extent in X direction.
         """
         return self.x2 - self.x1
 
-    def getDimY(self):
+    def dim_y(self):
         """
         Returns the Box's extent in Y direction.
         """
         return self.y2 - self.y1
 
-    def getDimZ(self):
+    def dim_z(self):
         """
         Returns the Box's extent in Z direction.
         """
         return self.z2 - self.z1
 
-    def getCenterX(self):
+    def center(self):
         """
-        Returns the Box's center in X direction.
+        returns the Box's center as a Vertex() object
         """
-        return (self.x2 + self.x1) / 2
+        return Vertex((self.x2+self.x1)/2.0,(self.y2+self.y1)/2.0,(self.z2+self.z1)/2.0)
 
-    def getCenterY(self):
-        """
-        Returns the Box's center in Y direction.
-        """
-        return (self.y2 + self.y1) / 2
-
-    def getCenterZ(self):
-        """
-        Returns the Box's center in Z direction.
-        """
-        return (self.z2 + self.z1) / 2
-
-    def addPoint(self,x,y,z):
+    def add_point(self,x,y,z):
         """
         adds a point to the bounding box,
         increases the box's size if the point is outside.
@@ -288,24 +276,24 @@ class Mesh:
         for v in self.vertices:
             v.add(vt)
 
-    def getBounds(self):
+    def get_bounding_box(self):
         """
-        returns the bounding box of this mesh
+        returns the bounding box of this mesh as a Box() object
         """
         box=Box()
         for f in self.faces:
             for v in f.vertices:
-                box.addPoint(v.x,v.y,v.z)
+                box.add_point(v.x,v.y,v.z)
         return box
 
-    def getEdgeAdjacentToVertices(self,v1,v2):
+    def get_edge_adjacent_to_vertices(self,v1,v2):
         for edge in v1.edges:
             if edge.v2 == v2 or edge.v1 == v2:
                 return edge
         return None
 
-    def getFaceAdjacentToVertices(self,vertex1,vertex2):
-        edge = vertex1.getEdgeAdjacentToVertex(vertex2)
+    def get_face_adjacent_to_vertices(self,vertex1,vertex2):
+        edge = vertex1.get_edge_adjacent_to_vertex(vertex2)
         if edge != None:
             if edge.v1 == vertex1:
                 return edge.face1
@@ -313,17 +301,17 @@ class Mesh:
                 return edge.face2
         return None
 
-    def addVertex(self,x,y,z=0):
+    def add_vertex(self,x,y,z=0):
         v=Vertex(x,y,z)
         self.vertices.append(v)
         return v
 
-    def addFace(self,vertices):
+    def add_face(self,vertices):
         f=Face(vertices)
         self.faces.append(f)
         return f
 
-    def weldVertices(self):
+    def weld_vertices(self):
         weldedVertices = {}
         self.vertices = []
         for f in self.faces:
@@ -336,15 +324,14 @@ class Mesh:
                     weldedVertices[vtuple] = v
         self.vertices = weldedVertices.values()
 
-    def updateAdjacencies(self):
-        self.weldVertices()
+    def update_edges(self):
         self.edges = []
         for v in self.vertices:
             v.edges = []
         for f in self.faces:
             v1 = f.vertices[-1]
             for v2 in f.vertices:
-                edge = v1.getEdgeAdjacentToVertex(v2)
+                edge = v1.get_edge_adjacent_to_vertex(v2)
                 if edge == None:
                     edge = Edge(v1,v2)
                     v1.edges.append(edge)
@@ -356,6 +343,7 @@ class Mesh:
                     edge.face2 = f
                 v1 = v2
 
-    def constructTopology(self):
-        self.weldVertices()
-        self.updateAdjacencies()
+    def update_topology(self):
+        self.weld_vertices()
+        self.update_edges()
+'''
