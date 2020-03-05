@@ -23,7 +23,7 @@ def construct_single_face(vertices):
     mesh = Mesh()
     mesh.vertices = vertices
     mesh.faces = [Face(vertices)]
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
@@ -63,7 +63,7 @@ def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=T
         #     i2=(i+1)%nSegments
         #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
         mesh.faces.append(Face(verticesTop))
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_box(x1,y1,z1,x2,y2,z2):
@@ -94,7 +94,7 @@ def construct_box(x1,y1,z1,x2,y2,z2):
     f5 = Face([v2, v1, v5, v6])
     f6 = Face([v1, v4, v8, v5])
     mesh.faces = [f1, f2, f3, f4, f5, f6]
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_icosahedron(cx,cy,cz,radius):
@@ -126,8 +126,8 @@ def construct_icosahedron(cx,cy,cz,radius):
                 Vertex(0, coordA, coordB)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], radius)
-        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx,cy,cz))
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
 
     indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
     faces = []
@@ -136,7 +136,7 @@ def construct_icosahedron(cx,cy,cz,radius):
         f = Face([mesh.vertices[indices[i]], mesh.vertices[indices[i + 1]], mesh.vertices[indices[i + 2]]])
         faces.append(f)
     mesh.faces = faces
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_dodecahedron(cx,cy,cz,radius):
@@ -174,8 +174,8 @@ def construct_dodecahedron(cx,cy,cz,radius):
                 Vertex( 1/phi,0, phi)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], radius)
-        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx,cy,cz))
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
     indices = [2,9,6,18,19,
                4,11,0,19,18,
                18,6,12,13,4,
@@ -196,7 +196,7 @@ def construct_dodecahedron(cx,cy,cz,radius):
                   mesh.vertices[indices[i + 3]],
                   mesh.vertices[indices[i + 4]]])
         mesh.faces.append(f)
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_tetrahedron(cx,cy,cz,side):
@@ -218,8 +218,8 @@ def construct_tetrahedron(cx,cy,cz,side):
                      Vertex(0, -1, +coord)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], side / 2)
-        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx, cy, cz))
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], side / 2)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx, cy, cz))
 
     f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
     f2 = Face([mesh.vertices[1], mesh.vertices[0], mesh.vertices[3]])
@@ -227,7 +227,7 @@ def construct_tetrahedron(cx,cy,cz,side):
     f4 = Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
 
     mesh.faces = [f1, f2, f3, f4]
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
@@ -263,7 +263,7 @@ def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             d = i  * tubeN + jj
             f = Face([mesh.vertices[k] for k in [a, b, c, d]])
             mesh.faces.append(f)
-    mesh.updateTopology()
+    mesh.update_topology()
     return mesh
 
 def _torus_vertex(ringRadius, tubeRadius, ph,th):
