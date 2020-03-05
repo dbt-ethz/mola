@@ -7,7 +7,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 import rhinoscriptsyntax as rs
 
-def meshFromRhinoMesh(obj):
+def mesh_from_rhino_mesh(obj):
     mesh=Mesh()
     vertices = rs.MeshVertices(obj)
     for v in vertices:
@@ -20,12 +20,12 @@ def meshFromRhinoMesh(obj):
             mesh.faces.append(Face(mesh.vertices[face[0]],mesh.vertices[face[1]],mesh.vertices[face[2]],mesh.vertices[face[3]]))
     return mesh
 
-def displayMesh(mesh):
-    display(mesh.faces)
+def display_mesh(mesh):
+    display_faces(mesh.faces)
 
 #todo: method to turn rhino mesh into molamesh
 
-def display(faces):
+def display_faces(faces):
     vertices=[]
     facesIndices=[]
     vertexColors=[]
