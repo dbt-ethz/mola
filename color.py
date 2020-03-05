@@ -59,8 +59,7 @@ def color_map(values=[], colors=[(1,0,0.5),(0,0.5,1)]):
     values_mapped = [__map(v, value_min, value_max, 0.0, 0.999) for v in values]
     interval = 1.0 / (len(colors) - 1)
     output_colors = []
-    for i,f in enumerate(faces):
-        v = values_mapped[i]
+    for i,v in enumerate(values_mapped):
         lower_ix = int(floor(v * (len(colors)-1)))
         upper_ix = lower_ix + 1
         rv = (v - (lower_ix * interval)) / interval
