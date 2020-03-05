@@ -37,7 +37,7 @@ def face_perimeter(face):
     for i in range(len(face.vertices)):
         v1 = face.vertices[i]
         v2 = face.vertices[(i + 1) % len(face.vertices)]
-        sum += utils_vertex.distance(v1,v2)
+        sum += utils_vertex.vertex_distance(v1,v2)
     return sum
 
 def face_compactness(face):
@@ -99,8 +99,8 @@ def face_curvature(face):
                 nbFace = edge.face2
             if nbFace != None:
                 num_faces += 1
-                nbNormal = normal(nbFace)
-                sumD += utils_vertex.distance(nbNormal,facenormal)
+                nbNormal = face_normal(nbFace)
+                sumD += utils_vertex.vertex_distance(nbNormal,facenormal)
         vPrev = v
     return sumD / num_faces
 

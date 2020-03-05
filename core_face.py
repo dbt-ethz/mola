@@ -29,16 +29,6 @@ class Face:
         self.color = (1,1,1,1)
         self.group = 0
 
-    def add(self, vertex):
-        """
-        adds the position vector of another Vertex to
-        the position vector of this Vertex.
-        """
-        self.x += vertex.x
-        self.y += vertex.y
-        self.z += vertex.z
-        return self
-
     def area(self):
         """
         Returns the area of the face.
@@ -102,3 +92,16 @@ class Face:
                     sumD += utils_vertex.vertex_distance(nbNormal,facenormal)
             vPrev = v
         return sumD / num_faces
+
+    def center(self):
+        """
+        Returns the center point (type Vertex) of the face.
+        Note: not the center of gravity, just the average of its vertices.
+        """
+        return utils_vertex.vertices_list_center(self.vertices)
+
+    def normal(self):
+        """
+        Returns the normal of the face, a vector of length 1 perpendicular to the plane of the triangle.
+        """
+        return utils_vertex.triangle_normal(self.vertices[0], self.vertices[1], self.vertices[2])
