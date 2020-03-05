@@ -9,6 +9,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
 from mola.core_vertex import Vertex
+from mola import utils_math
 
 def vertex_add(v1,v2):
     """
