@@ -1,20 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-"""
-This is where the module documentation goes
-"""
-
 __author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
 __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-
 import bpy
 import numpy as np
-
-
 
 def displayMesh(mesh):
     # Example of creating a polygonal mesh in Python from numpy arrays
