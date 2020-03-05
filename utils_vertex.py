@@ -232,10 +232,10 @@ def triangle_normal(v1,v2,v3):
     v1, v2, v3 : mola.Vertex
         the vertices get the normal from
     """
-    v = utils_vertex.subtract(v2, v1)
-    u = utils_vertex.subtract(v3, v1)
-    crossProduct=utils_vertex.cross(v, u)
-    return utils_vertex.unitize(crossProduct)
+    v = v2-v1
+    u = v3-v1
+    crossProduct=utils_vertex.vertex_cross(v, u)
+    return utils_vertex.vertex_unitize(crossProduct)
 
 def triangle_coords_area(xa, ya, za, xb, yb, zb, xc, yc, zc):
     """
