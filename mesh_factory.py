@@ -5,13 +5,13 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-from mola.core import Mesh
-from mola.core import Vertex
-from mola.core import Face
-from mola import vec
+from mola.core_mesh import Mesh
+from mola.core_vertex import Vertex
+from mola.core_face import Face
+from mola import utils_vertex
 import math
 
-def constructSingleFace(vertices):
+def construct_single_face(vertices):
     """
     Creates and returns a single face mesh from the vertices.
 
@@ -23,9 +23,10 @@ def constructSingleFace(vertices):
     mesh = Mesh()
     mesh.vertices = vertices
     mesh.faces = [Face(vertices)]
+    mesh.updateTopology()
     return mesh
 
-def constructCone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
+def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
     """
     Creates and returns a conic cylinder.
     """
@@ -62,9 +63,10 @@ def constructCone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=Tr
         #     i2=(i+1)%nSegments
         #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
         mesh.faces.append(Face(verticesTop))
+    mesh.updateTopology()
     return mesh
 
-def constructBox(x1,y1,z1,x2,y2,z2):
+def construct_box(x1,y1,z1,x2,y2,z2):
     """
     Creates and returns a mesh box with six quad faces.
 
@@ -92,9 +94,10 @@ def constructBox(x1,y1,z1,x2,y2,z2):
     f5 = Face([v2, v1, v5, v6])
     f6 = Face([v1, v4, v8, v5])
     mesh.faces = [f1, f2, f3, f4, f5, f6]
+    mesh.updateTopology()
     return mesh
 
-def constructIcosahedron(cx,cy,cz,radius):
+def construct_icosahedron(cx,cy,cz,radius):
     """
     Creates and returns a mesh in the form of an icosahedron.
 
@@ -123,8 +126,8 @@ def constructIcosahedron(cx,cy,cz,radius):
                 Vertex(0, coordA, coordB)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = vec.scale(mesh.vertices[i], radius)
-        mesh.vertices[i] = vec.add(mesh.vertices[i], Vertex(cx,cy,cz))
+        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx,cy,cz))
 
     indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
     faces = []
@@ -133,9 +136,10 @@ def constructIcosahedron(cx,cy,cz,radius):
         f = Face([mesh.vertices[indices[i]], mesh.vertices[indices[i + 1]], mesh.vertices[indices[i + 2]]])
         faces.append(f)
     mesh.faces = faces
+    mesh.updateTopology()
     return mesh
 
-def constructDodecahedron(cx,cy,cz,radius):
+def construct_dodecahedron(cx,cy,cz,radius):
     """
     Constructs a dodecaheron mesh.
 
@@ -170,8 +174,8 @@ def constructDodecahedron(cx,cy,cz,radius):
                 Vertex( 1/phi,0, phi)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = vec.scale(mesh.vertices[i], radius)
-        mesh.vertices[i] = vec.add(mesh.vertices[i], Vertex(cx,cy,cz))
+        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx,cy,cz))
     indices = [2,9,6,18,19,
                4,11,0,19,18,
                18,6,12,13,4,
@@ -192,10 +196,10 @@ def constructDodecahedron(cx,cy,cz,radius):
                   mesh.vertices[indices[i + 3]],
                   mesh.vertices[indices[i + 4]]])
         mesh.faces.append(f)
-
+    mesh.updateTopology()
     return mesh
 
-def constructTetrahedron(cx,cy,cz,side):
+def construct_tetrahedron(cx,cy,cz,side):
     """
     Constructs a tetrahedron mesh.
 
@@ -214,8 +218,8 @@ def constructTetrahedron(cx,cy,cz,side):
                      Vertex(0, -1, +coord)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = vec.scale(mesh.vertices[i], side / 2)
-        mesh.vertices[i] = vec.add(mesh.vertices[i], Vertex(cx, cy, cz))
+        mesh.vertices[i] = utils_vertex.scale(mesh.vertices[i], side / 2)
+        mesh.vertices[i] = utils_vertex.add(mesh.vertices[i], Vertex(cx, cy, cz))
 
     f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
     f2 = Face([mesh.vertices[1], mesh.vertices[0], mesh.vertices[3]])
@@ -223,9 +227,10 @@ def constructTetrahedron(cx,cy,cz,side):
     f4 = Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
 
     mesh.faces = [f1, f2, f3, f4]
+    mesh.updateTopology()
     return mesh
 
-def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
+def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
     """
     Constructs a torus mesh.
 
@@ -246,7 +251,7 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
 
     for i in range (ringN):
         for j in range (tubeN):
-            mesh.vertices.append(_getTorusVertex(ringRadius, tubeRadius, phi * j, theta * i))
+            mesh.vertices.append(_torus_vertex(ringRadius, tubeRadius, phi * j, theta * i))
 
     for i in range(ringN):
         ii = (i + 1) % ringN
@@ -258,9 +263,10 @@ def constructTorus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             d = i  * tubeN + jj
             f = Face([mesh.vertices[k] for k in [a, b, c, d]])
             mesh.faces.append(f)
+    mesh.updateTopology()
     return mesh
 
-def _getTorusVertex(ringRadius, tubeRadius, ph,th):
+def _torus_vertex(ringRadius, tubeRadius, ph,th):
     x = math.cos(th) * (ringRadius + tubeRadius * math.cos(ph))
     y = math.sin(th) * (ringRadius + tubeRadius * math.cos(ph))
     z = tubeRadius * math.sin(ph)
