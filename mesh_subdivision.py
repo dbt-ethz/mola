@@ -40,7 +40,7 @@ def offset(mesh,offset=1,doclose=True):
         vertex.vertex = Vertex(0,0,0)
         vertex.nfaces = 0
     for face in mesh.faces:
-        normal = utils_face.normal(face)
+        normal = utils_face.face_normal(face)
         for vertex in face.vertices:
             vertex.vertex.add(normal)
             vertex.nfaces += 1
