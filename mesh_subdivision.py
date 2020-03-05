@@ -1,4 +1,4 @@
-centerfrom __future__ import division
+from __future__ import division
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -292,10 +292,10 @@ def subdivide_face_extrude(face, height=0.0, capBottom=False, capTop=True):
     return new_faces
 
 def subdivide_mesh_extrude_tapered(mesh,heights,fractions,doCaps):
-    new_mesh=Mesh()
+    new_mesh = Mesh()
     for face,height,fraction,doCap in zip(mesh.faces,heights,fractions,doCaps):
         new_mesh.faces.extend(subdivide_face_extrude_tapered(face,height,fraction,doCap))
-    newMesh.update_topology()
+    new_mesh.update_topology()
     return new_mesh
 
 def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
@@ -435,13 +435,13 @@ def subdivide_face_extrude_to_point_center(face, height=0.0):
     return subdivide_face_extrude_to_point(face,center)
 
 def subdivide_mesh_extrude_to_point_center(mesh,heights,doExtrudes):
-    new_mesh=Mesh()
+    new_mesh = Mesh()
     for face,height,doExtrude in zip(mesh.faces,heights,doExtrudes):
         if doExtrude:
             new_mesh.faces.extend(subdivide_face_extrude_to_point_center(face,height))
         else:
             new_mesh.faces.append(face)
-    newMesh.update_topology()
+    new_mesh.update_topology()
     return new_mesh
 
 def subdivide_face_offset_planar(face,offsets):

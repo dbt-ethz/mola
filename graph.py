@@ -15,45 +15,45 @@ from mola.grid import GridManager
 
 class Graph:
     ''' basic graph class. edge-weighted graphs should implement different weightFunction'''
-    def __init__(self,neighbours):
+    def __init__(self, neighbours):
         self.neighbours = neighbours
-        self.weightFunction = lambda a,b:1
+        self.weight_function = lambda a,b:1
 
-    def getNeighbours(self,u):
+    def get_neighbours(self, u):
         return self.neighbours[u]
 
     def size(self):
         return len(self.neighbours)
 
-    def weight(self,index1,index2):
-        return self.weightFunction(index1,index2)
+    def weight(self, index1, index2):
+        return self.weight_function(index1,index2)
 
     @classmethod
-    def fromGrid2D(cls,nX,nY,nbs8=False,continuous=False):
-        gm = GridManager(nX,nY)
+    def from_grid_2d(cls, nx, ny, nbs8=False, continuous=False):
+        gm = GridManager(nx,ny)
         neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs2D(i,nbs8,continuous)
+            neighbours[i] = gm.get_neighbors_2d(i, nbs8, continuous)
         return cls(neighbours)
 
     @classmethod
-    def fromHexGrid2D(cls,nX,nY,continuous=False):
-        gm = GridManager(nX, nY)
+    def from_hex_grid_2d(cls, nx, ny,continuous=False):
+        gm = GridManager(nx, ny)
         neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs2DHex(i,continuous)
+            neighbours[i] = gm.getNbs2DHex(i, continuous)
         return cls(neighbours)
 
     @classmethod
-    def fromGrid3D(cls,nX,nY,nZ,mode=3,continuous=False):
-        gm = GridManager(nX,nY,nZ)
+    def from_grid_3d(cls, nx, ny, nz, mode=3, continuous=False):
+        gm = GridManager(nx, ny, nz)
         neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs3D(i, mode, continuous)
+            neighbours[i] = gm.get_neighbors_3d(i, mode, continuous)
         return cls(neighbours)
 
     @classmethod
-    def fromMeshFaces(cls,mesh):
+    def from_mesh_faces(cls, mesh):
         faceIds = {}
         neighbours = [0] * len(mesh.faces)
         for index, face in enumerate(mesh.faces):
@@ -68,10 +68,10 @@ class Graph:
             neighbours[index] = nbs
         return cls(neighbours)
 
-    def fromMeshEdges(self,mesh):
+    def from_mesh_edges(self,mesh):
         pass
 
-    def fromMeshVertices(self,mesh):
+    def from_mesh_vertices(self,mesh):
         pass
 
 #http://www.iti.fh-flensburg.de/lang/algorithmen/graph/dijkstra.htm
@@ -91,7 +91,7 @@ class GraphAnalyser:
         self.dist = [1000000] * self.n
         self.pred = [-1] * self.n
 
-    def computeDistancesToNodes(self,startIndexes):
+    def compute_distance_to_nodes(self,startIndexes):
         pq = PriorityQueue()
         for i in startIndexes:
             self.dist[i] = 0
@@ -106,14 +106,14 @@ class GraphAnalyser:
                     self.pred[v] = u
                     pq.put((d, v))
 
-    def getShortestPath(self,v):
+    def shortest_path(self,v):
         p = []
         while v != -1:
             p.append(v)
             v = self.pred[v]
         return p
 
-    def computeTrafficAndCentrality(self,nodes):
+    def compute_traffic_and_centrality(self,nodes):
         n = self.n
         self.traffic = [0] * n
         self.centrality = [0] * n
@@ -121,13 +121,13 @@ class GraphAnalyser:
             startI = nodes[i]
             self.dist = [100000] * n
             self.pred = [-1] * n
-            self.computeDistancesToNodes([startI])
+            self.compute_distance_to_nodes([startI])
             for j in range(i,len(nodes)):
                 endI = nodes[j]
                 if endI != startI:
                     self.centrality[startI] += self.dist[endI]
                     self.centrality[endI] += self.dist[endI]
-                    path = self.getShortestPath(endI)
+                    path = self.shortest_path(endI)
                     for ii in path:
                         cI = path[ii]
                         self.traffic[cI] += 1

@@ -20,135 +20,135 @@ class GridManager:
     nX, nY, nZ : int
         The number of elements in x,y and z direction.
     """
-    def __init__(self,nX,nY,nZ=1):
-        self.nX = nX
-        self.nY = nY
-        self.nZ = nZ
-        self.length = nX * nY * nZ
-        self.nYZ = nY * nZ
+    def __init__(self, nx, ny, nz=1):
+        self.nx = nx
+        self.ny = ny
+        self.nz = nz
+        self.length = nx * ny * nz
+        self.nyz = ny * nz
 
-    def getIndex(self,x,y,z=0):
+    def get_index(self, x, y, z=0):
         """
         returns the value at position x,y,z
         """
-        return x * self.nYZ + y * self.nZ + z
+        return x * self.nyz + y * self.nz + z
 
-    def getX(self,index):
+    def get_x(self,index):
         """
         returns the X coordinate of a specific index
         """
-        return index // self.nYZ
+        return index // self.nyz
 
-    def getY(self,index):
+    def get_y(self,index):
         """
         returns the Y coordinate of a specific index
         """
-        return (index // self.nZ) % self.nY
+        return (index // self.nz) % self.ny
 
-    def getZ(self,index):
+    def get_z(self,index):
         """
         returns the Z coordinate of a specific index
         """
-        return index % self.nZ
+        return index % self.nz
 
-    def getNbs2DHex(self,index,continuous=False):
+    def get_neighbors_hex_2d(self,index,continuous=False):
         """
         returns the 6 neighbor indices of a cell in a hexagonal grid
         set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
         """
         nbs = []
-        x = self.getX(index)
-        y = self.getY(index)
+        x = self.get_x(index)
+        y = self.get_y(index)
         if not continuous:
-            if x < self.nX - 1:
-                nbs.append(self.getIndex(x + 1, y))
+            if x < self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
             if x > 0:
-                nbs.append(self.getIndex(x - 1, y))
+                nbs.append(self.get_index(x - 1, y))
             if y > 0:
-                nbs.append(self.getIndex(x, y - 1))
-            if y < self.nY - 1:
-                nbs.append(self.getIndex(x, y + 1))
+                nbs.append(self.get_index(x, y - 1))
+            if y < self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
             if y % 2 == 0:
-                if x < self.nX - 1 and y < self.nY - 1:
-                    nbs.append(self.getIndex(x + 1, y + 1))
-                if x < self.nX - 1 and y > 0:
-                    nbs.append(self.getIndex(x + 1, y - 1))
+                if x < self.nx - 1 and y < self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+                if x < self.nx - 1 and y > 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
             else:
-                if x > 0 and y < self.nY - 1:
-                    nbs.append(self.getIndex(x - 1, y + 1))
+                if x > 0 and y < self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
                 if x > 0 and y > 0:
-                    nbs.append(self.getIndex(x - 1, y - 1))
+                    nbs.append(self.get_index(x - 1, y - 1))
         else:
-            xNext = x + 1 if x < self.nX - 1 else 0
-            xPrev = x - 1 if x > 0 else self.nX - 1
-            yNext = y + 1 if y < self.nY - 1 else 0
-            yPrev = y - 1 if y > 0 else self.nY - 1
-            nbs.append(self.getIndex(xNext, y))
-            nbs.append(self.getIndex(xPrev, y))
-            nbs.append(self.getIndex(x, yPrev))
-            nbs.append(self.getIndex(x, yNext))
+            xNext = x + 1 if x < self.nx - 1 else 0
+            xPrev = x - 1 if x > 0 else self.nx - 1
+            yNext = y + 1 if y < self.ny - 1 else 0
+            yPrev = y - 1 if y > 0 else self.ny - 1
+            nbs.append(self.get_index(xNext, y))
+            nbs.append(self.get_index(xPrev, y))
+            nbs.append(self.get_index(x, yPrev))
+            nbs.append(self.get_index(x, yNext))
             if y % 2 == 0:
-                nbs.append(self.getIndex(xNext, yNext))
-                nbs.append(self.getIndex(xNext, yPrev))
+                nbs.append(self.get_index(xNext, yNext))
+                nbs.append(self.get_index(xNext, yPrev))
             else:
-                nbs.append(self.getIndex(xPrev, yNext))
-                nbs.append(self.getIndex(xPrev, yPrev))
+                nbs.append(self.get_index(xPrev, yNext))
+                nbs.append(self.get_index(xPrev, yPrev))
         return nbs
 
-    def getNbs2D(self,index,nbs8=False,continuous=False):
+    def get_neighbors_2d(self,index,nbs8=False,continuous=False):
         """
         returns the neighbor indices of a cell in an orthogonal grid
         set `nbs8` to `True` to get 8 neighbors, default is 4
         set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
         """
         nbs = []
-        x = self.getX(index)
-        y = self.getY(index)
+        x = self.get_x(index)
+        y = self.get_y(index)
         if not continuous:
-            if x < self.nX - 1:
-                nbs.append(self.getIndex(x + 1, y))
+            if x < self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
             if nbs8:
-                if x < self.nX - 1 and y < self.nY - 1:
-                    nbs.append(self.getIndex(x + 1, y + 1))
-            if y < self.nY - 1:
-                nbs.append(self.getIndex(x, y + 1))
+                if x < self.nx - 1 and y < self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+            if y < self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
             if nbs8:
-                if x > 0 and y < self.nY - 1:
-                    nbs.append(self.getIndex(x - 1, y + 1))
+                if x > 0 and y < self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
             if x > 0:
-                nbs.append(self.getIndex(x - 1, y))
+                nbs.append(self.get_index(x - 1, y))
             if nbs8:
                 if x > 0 and y > 0:
-                    nbs.append(self.getIndex(x - 1, y - 1))
+                    nbs.append(self.get_index(x - 1, y - 1))
             if y > 0:
-                nbs.append(self.getIndex(x, y - 1))
+                nbs.append(self.get_index(x, y - 1))
             if nbs8:
-                if x < self.nX - 1 and y > 0:
-                    nbs.append(self.getIndex(x + 1, y - 1))
+                if x < self.nx - 1 and y > 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
         else:
-            xPrev = x - 1 if x > 0 else self.nX - 1
-            xNext = x + 1 if x < self.nX - 1 else 0
-            yPrev = y - 1 if y > 0 else self.nY - 1
-            yNext = y + 1 if y < self.nY - 1 else 0
-            nbs.append(self.getIndex(xNext, y))
+            xPrev = x - 1 if x > 0 else self.nx - 1
+            xNext = x + 1 if x < self.nx - 1 else 0
+            yPrev = y - 1 if y > 0 else self.ny - 1
+            yNext = y + 1 if y < self.ny - 1 else 0
+            nbs.append(self.get_index(xNext, y))
             if nbs8:
-                nbs.append(self.getIndex(xNext, yNext))
-            nbs.append(self.getIndex(x, yNext))
+                nbs.append(self.get_index(xNext, yNext))
+            nbs.append(self.get_index(x, yNext))
             if nbs8:
-                nbs.append(self.getIndex(xPrev, yNext))
-            nbs.append(self.getIndex(xPrev, y))
+                nbs.append(self.get_index(xPrev, yNext))
+            nbs.append(self.get_index(xPrev, y))
             if nbs8:
-                nbs.append(self.getIndex(xPrev, yPrev))
-            nbs.append(self.getIndex(x, yPrev))
+                nbs.append(self.get_index(xPrev, yPrev))
+            nbs.append(self.get_index(x, yPrev))
             if nbs8:
-                nbs.append(self.getIndex(xNext, yPrev))
+                nbs.append(self.get_index(xNext, yPrev))
         return nbs
 
-    def getNbs3D(self,index,mode=3,continuous=False):
+    def get_neighbors_3d(self, index, mode=3, continuous=False):
         nbs = []
-        x = self.getX(index)
-        y = self.getY(index)
-        z = self.getZ(index)
+        x = self.get_x(index)
+        y = self.get_y(index)
+        z = self.get_z(index)
 
         # mode: neighbourhood type
         # 1 :  6 nbs, shared face
@@ -180,11 +180,11 @@ class GridManager:
             ey = y + d[1]
             ez = z + d[2]
             if continuous:
-                ex = ex % self.nX
-                ey = ey % self.nY
-                ez = ez % self.nZ
-            if 0 <= ex < self.nX and 0 <= ey < self.nY and 0 <= ez < self.nZ:
-                nbs.append(self.getIndex(ex,ey,ez))
+                ex = ex % self.nx
+                ey = ey % self.ny
+                ez = ez % self.nz
+            if 0 <= ex < self.nx and 0 <= ey < self.ny and 0 <= ez < self.nz:
+                nbs.append(self.get_index(ex,ey,ez))
 
         return nbs
 
@@ -199,61 +199,61 @@ class Grid(GridManager):
         else:
             self.values = values
 
-    def set_xyz(self,value,x,y,z=0):
-        self.values[self.getIndex(x, y, z)] = value
+    def set_value_at_xyz(self, value, x, y, z=0):
+        self.values[self.get_index(x, y, z)] = value
 
-    def get_xyz(self,x,y,z=0):
-        return self.values[self.getIndex(x, y, z)]
+    def get_value_at_xyz(self, x, y, z=0):
+        return self.values[self.get_index(x, y, z)]
 
-    def set_index(self,value,index):
+    def set_value_at_index(self, value, index):
         self.values[index] = value
 
-    def get_index(self,index):
+    def get_value_at_index(self, index):
         return self.values[index]
 
-    def get_shortest_path(self, startindex, endindex, obstaclevalue):
+    def shortest_path(self, startindex, endindex, obstaclevalue):
         # TODO
         return []
 
-    def getQuadMesh(self,functionIn,functionOut):
+    def quad_mesh(self, functionIn, functionOut):
         faces=[]
         for x in range(self.nX):
             for y in range(self.nY):
                 for z in range(self.nZ):
-                    index=self.getIndex(x,y,z)
+                    index=self.get_index(x,y,z)
                     if functionIn(self.values[index]):
                         # (x,y) (x1,y) (x1,y1) (x,y1)
-                        if x==self.nX-1 or functionOut(self.get_xyz(x+1,y,z)):
+                        if x==self.nX-1 or functionOut(self.get_value_at_xyz(x+1,y,z)):
                             v1=Vertex(x+1,y,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x+1,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if x==0 or functionOut(self.get_xyz(x-1,y,z)):
+                        if x==0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
                             v1=Vertex(x,y+1,z)
                             v2=Vertex(x,y,z)
                             v3=Vertex(x,y,z+1)
                             v4=Vertex(x,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if y==self.nY-1 or functionOut(self.get_xyz(x,y+1,z)):
+                        if y==self.nY-1 or functionOut(self.get_value_at_xyz(x,y+1,z)):
                             v1=Vertex(x+1,y+1,z)
                             v2=Vertex(x,y+1,z)
                             v3=Vertex(x,y+1,z+1)
                             v4=Vertex(x+1,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if y==0 or functionOut(self.get_xyz(x,y-1,z)):
+                        if y==0 or functionOut(self.get_value_at_xyz(x,y-1,z)):
                             v1=Vertex(x,y,z)
                             v2=Vertex(x+1,y,z)
                             v3=Vertex(x+1,y,z+1)
                             v4=Vertex(x,y,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if z==self.nZ-1 or functionOut(self.get_xyz(x,y,z+1)):
+                        if z==self.nZ-1 or functionOut(self.get_value_at_xyz(x,y,z+1)):
                             v1=Vertex(x,y,z+1)
                             v2=Vertex(x+1,y,z+1)
                             v3=Vertex(x+1,y+1,z+1)
                             v4=Vertex(x,y+1,z+1)
                             faces.append(Face([v1,v2,v3,v4]))
-                        if z==0 or functionOut(self.get_xyz(x,y,z-1)):
+                        if z==0 or functionOut(self.get_value_at_xyz(x,y,z-1)):
                             v1=Vertex(x,y+1,z)
                             v2=Vertex(x+1,y+1,z)
                             v3=Vertex(x+1,y,z)
@@ -273,5 +273,5 @@ class HexGrid(Grid):
             self.values = [0] * nX * nY * nZ
         self.dimY = math.sqrt(3) * 0.5
 
-    def getPosition(self,x,y,z=0):
+    def get_position(self, x, y, z=0):
         return [x + (y % 2) * 0.5, y * self.dimY, z]
