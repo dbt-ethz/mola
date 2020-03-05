@@ -219,7 +219,7 @@ def triangle_area(a,b,c):
     a, b, c : mola.Vertex
         vertices of the triangle
     """
-    return triangle3D_coords_area(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z)
+    return triangle_coords_area(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z)
 
 def triangle_normal(v1,v2,v3):
     """
