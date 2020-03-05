@@ -189,13 +189,14 @@ class GridManager:
         return nbs
 
 class Grid(GridManager):
-    def __init__(self,nX,nY,nZ=1,values=None):
-        self.nX = nX
-        self.nY = nY
-        self.nZ = nZ
-        self.nYZ = nY * nZ
+    def __init__(self, nx, ny, nz=1, values=None):
+        super().__init__(nx, ny, nz)
+        # self.nx = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
         if values is None:
-            self.values = [0] * nX * nY * nZ
+            self.values = [0] * nx * ny * nz
         else:
             self.values = values
 
@@ -216,62 +217,63 @@ class Grid(GridManager):
         return []
 
     def quad_mesh(self, functionIn, functionOut):
-        faces=[]
-        for x in range(self.nX):
-            for y in range(self.nY):
-                for z in range(self.nZ):
+        faces = []
+        for x in range(self.nx):
+            for y in range(self.ny):
+                for z in range(self.nz):
                     index=self.get_index(x,y,z)
                     if functionIn(self.values[index]):
                         # (x,y) (x1,y) (x1,y1) (x,y1)
-                        if x==self.nX-1 or functionOut(self.get_value_at_xyz(x+1,y,z)):
-                            v1=Vertex(x+1,y,z)
-                            v2=Vertex(x+1,y+1,z)
-                            v3=Vertex(x+1,y+1,z+1)
-                            v4=Vertex(x+1,y,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if x==0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
-                            v1=Vertex(x,y+1,z)
-                            v2=Vertex(x,y,z)
-                            v3=Vertex(x,y,z+1)
-                            v4=Vertex(x,y+1,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if y==self.nY-1 or functionOut(self.get_value_at_xyz(x,y+1,z)):
-                            v1=Vertex(x+1,y+1,z)
-                            v2=Vertex(x,y+1,z)
-                            v3=Vertex(x,y+1,z+1)
-                            v4=Vertex(x+1,y+1,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if y==0 or functionOut(self.get_value_at_xyz(x,y-1,z)):
-                            v1=Vertex(x,y,z)
-                            v2=Vertex(x+1,y,z)
-                            v3=Vertex(x+1,y,z+1)
-                            v4=Vertex(x,y,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if z==self.nZ-1 or functionOut(self.get_value_at_xyz(x,y,z+1)):
-                            v1=Vertex(x,y,z+1)
-                            v2=Vertex(x+1,y,z+1)
-                            v3=Vertex(x+1,y+1,z+1)
-                            v4=Vertex(x,y+1,z+1)
-                            faces.append(Face([v1,v2,v3,v4]))
-                        if z==0 or functionOut(self.get_value_at_xyz(x,y,z-1)):
-                            v1=Vertex(x,y+1,z)
-                            v2=Vertex(x+1,y+1,z)
-                            v3=Vertex(x+1,y,z)
-                            v4=Vertex(x,y,z)
-                            faces.append(Face([v1,v2,v3,v4]))
+                        if x == self.nx - 1 or functionOut(self.get_value_at_xyz(x + 1, y, z)):
+                            v1 = Vertex(x + 1, y, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if x == 0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x, y, z)
+                            v3 = Vertex(x, y, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == self.ny - 1 or functionOut(self.get_value_at_xyz(x, y + 1, z)):
+                            v1 = Vertex(x + 1, y + 1, z)
+                            v2 = Vertex(x, y + 1, z)
+                            v3 = Vertex(x, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == 0 or functionOut(self.get_value_at_xyz(x, y - 1, z)):
+                            v1 = Vertex(x, y, z)
+                            v2 = Vertex(x + 1, y, z)
+                            v3 = Vertex(x + 1, y, z + 1)
+                            v4 = Vertex(x, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z==self.nz-1 or functionOut(self.get_value_at_xyz(x, y, z + 1)):
+                            v1 = Vertex(x, y, z + 1)
+                            v2 = Vertex(x + 1, y, z + 1)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z == 0 or functionOut(self.get_value_at_xyz(x, y, z - 1)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y, z)
+                            v4 = Vertex(x, y, z)
+                            faces.append(Face([v1, v2, v3, v4]))
         mesh = Mesh()
         mesh.faces = faces
         return mesh
 
 class HexGrid(Grid):
-    def __init__(self,nX,nY,nZ=1,values=None):
-        self.nX = nX
-        self.nY = nY
-        self.nZ = nZ
-        self.nYZ = nY * nZ
-        if values == None:
-            self.values = [0] * nX * nY * nZ
-        self.dimY = math.sqrt(3) * 0.5
+    def __init__(self, nx, ny, nz=1, values=None):
+        super().__init__(nx, ny, nz, values)
+        # self.ny = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
+        # if values == None:
+        #     self.values = [0] * nx * ny * nz
+        self.dimy = math.sqrt(3) * 0.5
 
     def get_position(self, x, y, z=0):
-        return [x + (y % 2) * 0.5, y * self.dimY, z]
+        return [x + (y % 2) * 0.5, y * self.dimy, z]
