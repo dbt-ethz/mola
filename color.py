@@ -41,6 +41,42 @@ def colorFacesByFunction(faces,faceFunction):
         h = __map(values[i],valueMin, valueMax, 0.0, 0.8)
         face.color = getColorRGB(h)
 
+def color_map(values=[], colors=[(1,0,0.5),(0,0.5,1)]):
+    """
+    Maps a value to a color on a custom spectrum.
+    The values will be remapped from 0 to 1, the first color will be at 0, the
+    last at 1 and all other colors evenly spread between.
+
+    Arguments:
+    ----------
+    values : list of floats
+        the list of values to be mapped
+    colors : list of (r,g,b) tuples
+        the colors along the spectrum
+    """
+    value_min = min(values)
+    value_max = max(values)
+    values_mapped = [__map(v, value_min, value_max, 0.0, 0.999) for v in values]
+    interval = 1.0 / (len(colors) - 1)
+    output_colors = []
+    for i,f in enumerate(faces):
+        v = values_mapped[i]
+        lower_ix = int(floor(v * (len(colors)-1)))
+        upper_ix = lower_ix + 1
+        rv = (v - (lower_ix * interval)) / interval
+        r = (1 - rv) * colors[lower_ix][0] + rv * colors[upper_ix][0]
+        g = (1 - rv) * colors[lower_ix][1] + rv * colors[upper_ix][1]
+        b = (1 - rv) * colors[lower_ix][2] + rv * colors[upper_ix][2]
+        output_colors.append((r,g,b,1))
+    return output_colors
+
+def color_faces_by_map(faces, colors):
+    if len(faces) > len(colors):
+        print('not enough colors for all the faces')
+        return
+    for f,c in zip(faces, colors):
+        f.color = c
+
 def color_faces_by_list_and_scheme(faces, values=[], scheme=[(1,0,0.5),(0,0.5,1)]):
     """
     Assigns a color to all the faces by a list of values and a list of colors.
