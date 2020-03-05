@@ -68,23 +68,15 @@ def offset(mesh,offset=1,doclose=True):
     newMesh.update_topology()
     return newMesh
 
-def subdivide_mesh(mesh):
+def subdivide_mesh(mesh,values=[]):
     for face in mesh.faces:
         face.vertex=utils_face.center(face)
     for edge in mesh.edges:
         edge.vertex = edge.center()
     for vertex in mesh.vertices:
         vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
-    return _collect_new_faces(mesh)
-
-def subdivide_mesh_translate_face_vertices(mesh,values):
-    for face in mesh.faces:
-        face.vertex=utils_face.center(face)
-    for edge in mesh.edges:
-        edge.vertex = edge.center()
-    for vertex in mesh.vertices:
-        vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
-    _translate_face_vertices(mesh,values)
+    if len(values)>0:
+        _translate_face_vertices(mesh,values)
     return _collect_new_faces(mesh)
 
 def _catmullVertices(mesh):
@@ -143,13 +135,10 @@ def _translate_face_vertices(mesh,values):
         normal.scale(value)
         face.vertex.add(normal)
 
-def subdivide_mesh_catmull_translate_face_vertices(mesh,values):
+def subdivide_mesh_catmull(mesh, values=[]):
     _catmullVertices(mesh)
-    _translate_face_vertices(mesh,values)
-    return _collect_new_faces(mesh)
-
-def subdivide_mesh_catmull(mesh):
-    _catmullVertices(mesh)
+    if len(values)>0:
+        _translate_face_vertices(mesh,values)
     return _collect_new_faces(mesh)
 
 def subdivide_face_split_grid(face,nU,nV):
