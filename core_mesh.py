@@ -9,6 +9,7 @@ import math
 from mola.core_vertex import Vertex
 from mola.core_face import Face
 from mola.core_edge import Edge
+from mola.core_box import Box
 
 class Mesh:
     """A mesh describes a 3D surface made of Vertices connected by Faces.
@@ -47,34 +48,34 @@ class Mesh:
         """
         returns the bounding box of this mesh as a Box() object
         """
-        box=Box()
+        box = Box()
         for f in self.faces:
             for v in f.vertices:
                 box.add_point(v.x,v.y,v.z)
         return box
 
-    def edge_adjacent_to_vertices(self,v1,v2):
+    def edge_adjacent_to_vertices(self, v1, v2):
         for edge in v1.edges:
             if edge.v2 == v2 or edge.v1 == v2:
                 return edge
         return None
 
-    def face_adjacent_to_vertices(self,vertex1,vertex2):
-        edge = vertex1.edge_adjacent_to_vertex(vertex2)
+    def face_adjacent_to_vertices(self, v1, v2):
+        edge = v1.edge_adjacent_to_vertex(v2)
         if edge != None:
-            if edge.v1 == vertex1:
+            if edge.v1 == v1:
                 return edge.face1
             else:
                 return edge.face2
         return None
 
-    def add_vertex(self,x,y,z=0):
-        v=Vertex(x,y,z)
+    def add_vertex(self, x, y, z=0):
+        v = Vertex(x,y,z)
         self.vertices.append(v)
         return v
 
-    def add_face(self,vertices):
-        f=Face(vertices)
+    def add_face(self, vertices):
+        f = Face(vertices)
         self.faces.append(f)
         return f
 

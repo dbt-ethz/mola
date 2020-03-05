@@ -7,6 +7,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
 from mola import utils_vertex
+from mola import utils_face
 
 class Face:
     """A `Face` is the surface between a set of vertices.
@@ -34,9 +35,9 @@ class Face:
         Returns the area of the face.
         """
         if(len(self.vertices) == 3):
-            return utils_geom.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2])
+            return utils_vertex.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2])
         else:
-            return utils_geom.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2]) + utils_geom.triangle_area(self.vertices[2], self.vertices[3], self.vertices[0])
+            return utils_vertex.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2]) + utils_vertex.triangle_area(self.vertices[2], self.vertices[3], self.vertices[0])
 
     def perimeter(self):
         """
@@ -84,7 +85,7 @@ class Face:
             edge = v.edge_adjacent_to_vertex(vPrev)
             if edge != None:
                 nbFace = edge.face1
-                if edge.face1 == face:
+                if edge.face1 == self:
                     nbFace = edge.face2
                 if nbFace != None:
                     num_faces += 1
