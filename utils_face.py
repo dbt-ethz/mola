@@ -92,7 +92,7 @@ def face_curvature(face):
     vPrev = face.vertices[-1]
     num_faces = 1
     for v in face.vertices:
-        edge = v.getEdgeAdjacentToVertex(vPrev)
+        edge = v.edge_adjacent_to_vertex(vPrev)
         if edge != None:
             nbFace = edge.face1
             if edge.face1 == face:
