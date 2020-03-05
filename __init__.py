@@ -2,7 +2,7 @@
 This is where the module documentation goes
 """
 
-from .color import *
+from .utils_color import *
 from .core_box import *
 from .core_edge import *
 from .core_face import *
