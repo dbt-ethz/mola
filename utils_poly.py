@@ -21,12 +21,19 @@ def subdivide_catmull_2d(vertices):
         a = newNodes[iPrev]
         b = newNodes[i]
         c = newNodes[iNext]
-        average = Vertex(0,0,0)
-        average = utils_vertex.vertex_add(average,a)
-        average = utils_vertex.vertex_add(average,b)
-        average = utils_vertex.vertex_add(average,b)
-        average = utils_vertex.vertex_add(average,c)
-        average = utils_vertex.vertex_divide(average,4.0)
+        average = Vertex()
+        # [average.add(v) for v in [a,b,b,c]]
+        average.add(a)
+        average.add(b)
+        average.add(b)
+        average.add(c)
+        average.divide(4.0)
+        # average = utils_vertex.vertex_add(average,a)
+        # average = utils_vertex.vertex_add(average,b)
+        # average = utils_vertex.vertex_add(average,b)
+        # average = utils_vertex.vertex_add(average,c)
+        # average /= 4
+        # average = utils_vertex.vertex_divide(average,4.0)
         newNodes2.append(average)
     return newNodes2
 
