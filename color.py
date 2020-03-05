@@ -7,6 +7,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 import colorsys
 from mola import faceUtils
+from math import floor
 
 __grayscale = False
 
@@ -39,6 +40,42 @@ def colorFacesByFunction(faces,faceFunction):
     for i, face in enumerate(faces):
         h = __map(values[i],valueMin, valueMax, 0.0, 0.8)
         face.color = getColorRGB(h)
+
+def color_faces_by_list_and_scheme(faces, values=[], scheme=[(1,0,0.5),(0,0.5,1)]):
+    """
+    Assigns a color to all the faces by a list of values and a list of colors.
+    The values will be remapped from 0 to 1, the first color will be at 0, the
+    last at 1 and all other colors evenly spread between.
+
+    Arguments:
+    ----------
+    faces : mola.core.Face
+        list of faces to color
+    values : list of floats
+        one property value for each face
+    scheme : list of (r,g,b) tuples
+        the colors along the spectrum
+    """
+    if len(faces) > len(values):
+        print('not enough values provided')
+        return
+    if len(scheme)<2:
+        print('at least two colors need to be provided')
+
+    #values = [face_function(f) for f in faces]
+    value_min = min(values)
+    value_max = max(values)
+    values_mapped = [__map(v, value_min, value_max, 0.0, 0.999) for v in values]
+    interval = 1.0 / (len(scheme) - 1)
+    for i,v in enumerate(values_mapped):
+        lower_ix = int(floor(v * (len(scheme)-1)))
+        upper_ix = lower_ix + 1
+        rv = (v - (lower_ix * interval)) / interval
+        r = (1 - rv) * scheme[lower_ix][0] + rv * scheme[upper_ix][0]
+        g = (1 - rv) * scheme[lower_ix][1] + rv * scheme[upper_ix][1]
+        b = (1 - rv) * scheme[lower_ix][2] + rv * scheme[upper_ix][2]
+        faces[i].color = (r,g,b,1)
+
 
 def colorFacesByCurvature(faces):
     """
