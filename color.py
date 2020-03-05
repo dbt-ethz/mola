@@ -76,7 +76,7 @@ def color_faces_by_map(faces, colors):
     for f,c in zip(faces, colors):
         f.color = c
 
-def color_faces_by_list_and_scheme(faces, values=[], scheme=[(1,0,0.5),(0,0.5,1)]):
+def _color_faces_by_list_and_scheme(faces, values=[], scheme=[(1,0,0.5),(0,0.5,1)]):
     """
     Assigns a color to all the faces by a list of values and a list of colors.
     The values will be remapped from 0 to 1, the first color will be at 0, the
