@@ -6,9 +6,9 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
-from mola.core import Mesh
-from mola.core import Vertex
-from mola.core import Face
+from mola.core_mesh import Mesh
+from mola.core_vertex import Vertex
+from mola.core_face import Face
 
 class GridManager:
     """

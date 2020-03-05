@@ -5,16 +5,16 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-from mola.core import Mesh
-from mola.core import Vertex
-from mola.core import Face
+from mola.core_mesh import Mesh
+from mola.core_vertex import Vertex
+from mola.core_face import Face
 import ntpath
 
 def __strColor(color,decimals=1):
     colorRound = (round(color[0],decimals),round(color[1],decimals),round(color[2],decimals),round(color[3],decimals))
     return str(colorRound)
 
-def importOBJ(filename):
+def import_obj(filename):
     """Loads a Wavefront OBJ file. """
     mesh = Mesh()
     group = ""
@@ -38,14 +38,14 @@ def importOBJ(filename):
             mesh.faces.append(face)
     return mesh
 
-def importOBJFaces(filename):
+def import_obj_faces(filename):
     """Loads a Wavefront OBJ file. """
-    return importOBJ(filename).faces
+    return import_obj(filename).faces
 
-def exportOBJ(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
-    exportOBJFaces(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
+def export_obj(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
+    export_obj_faces(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
 
-def exportOBJFaces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
+def export_obj_faces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
     """
     Exports the faces as an Alias wavefront obj file.
 
