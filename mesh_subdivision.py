@@ -81,7 +81,7 @@ def subdivide_mesh(mesh,values=[]):
 
 def _catmullVertices(mesh):
     for face in mesh.faces:
-        face.vertex = utils_face.center(face)
+        face.vertex = face.center()
 
     for edge in mesh.edges:
         if edge.face1 == None or edge.face2 == None:
@@ -91,15 +91,15 @@ def _catmullVertices(mesh):
         else:
             vsum = Vertex()
             nElements = 2
-            vsum = utils_vertex.add(vsum, edge.v1)
-            vsum = utils_vertex.add(vsum, edge.v2)
+            vsum = utils_vertex.vertex_add(vsum, edge.v1)
+            vsum = utils_vertex.vertex_add(vsum, edge.v2)
             if edge.face1 != None:
-                vsum = utils_vertex.add(vsum, edge.face1.vertex)
+                vsum = utils_vertex.vertex_add(vsum, edge.face1.vertex)
                 nElements += 1
             if edge.face2 != None:
-                vsum = utils_vertex.add(vsum, edge.face2.vertex)
+                vsum = utils_vertex.vertex_add(vsum, edge.face2.vertex)
                 nElements += 1
-            vsum = utils_vertex.divide(vsum, nElements)
+            vsum = utils_vertex.vertex_divide(vsum, nElements)
             edge.vertex = vsum
         if edge.v1.fix and edge.v2.fix:
             edge.vertex.fix = True
