@@ -8,7 +8,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 import bpy
 import numpy as np
 
-def displayMesh(mesh):
+def display_mesh(mesh):
     # Example of creating a polygonal mesh in Python from numpy arrays
     # Note: this is Python 3.x code
     #
