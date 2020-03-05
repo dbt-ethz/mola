@@ -12,11 +12,11 @@ from .io import *
 from .mesh_factory import *
 from .mesh_marching_cubes import *
 from .mesh_subdivision import *
-from .polyUtils import *
 from .slicer import *
 from .utils_color import *
 from .utils_face import *
 from .utils_math import *
+from .utils_poly import *
 from .utils_vertex import *
 
 __all__ = [name for name in dir() if not name.startswith('_')]
