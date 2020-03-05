@@ -234,8 +234,8 @@ def triangle_normal(v1,v2,v3):
     """
     v = v2-v1
     u = v3-v1
-    crossProduct=utils_vertex.vertex_cross(v, u)
-    return utils_vertex.vertex_unitize(crossProduct)
+    crossProduct=vertex_cross(v, u)
+    return vertex_unitize(crossProduct)
 
 def triangle_coords_area(xa, ya, za, xb, yb, zb, xc, yc, zc):
     """
