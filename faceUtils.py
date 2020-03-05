@@ -9,7 +9,6 @@ import math
 from mola import vec
 from mola.core import Vertex
 
-"""test dev"""
 def area(face):
     """
     Returns the area of a face, for quads that of two triangles.
