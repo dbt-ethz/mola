@@ -68,7 +68,7 @@ def offset(mesh,offset=1,doclose=True):
     newMesh.update_topology()
     return newMesh
 
-def subdivide(mesh):
+def subdivide_mesh(mesh):
     for face in mesh.faces:
         face.vertex=utils_face.center(face)
     for edge in mesh.edges:
@@ -77,7 +77,7 @@ def subdivide(mesh):
         vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
     return _collect_new_faces(mesh)
 
-def subdivide_translate_facevertices(mesh,values):
+def subdivide_mesh_translate_face_vertices(mesh,values):
     for face in mesh.faces:
         face.vertex=utils_face.center(face)
     for edge in mesh.edges:
@@ -143,7 +143,7 @@ def _translate_face_vertices(mesh,values):
         normal.scale(value)
         face.vertex.add(normal)
 
-def subdivide_mesh_catmull_translate_facevertices(mesh,values):
+def subdivide_mesh_catmull_translate_face_vertices(mesh,values):
     _catmullVertices(mesh)
     _translate_face_vertices(mesh,values)
     return _collect_new_faces(mesh)
@@ -294,7 +294,7 @@ def subdivide_face_extrude(face, height=0.0, capBottom=False, capTop=True):
 def subdivide_mesh_extrude_tapered(mesh,heights,fractions,doCaps):
     new_mesh=Mesh()
     for face,height,fraction,doCap in zip(mesh.faces,heights,fractions,doCaps):
-        new_mesh.faces.extend(extrudeTapered(face,height,fraction,doCap))
+        new_mesh.faces.extend(subdivide_face_extrude_tapered(face,height,fraction,doCap))
     newMesh.update_topology()
     return new_mesh
 
@@ -432,19 +432,19 @@ def subdivide_face_extrude_to_point_center(face, height=0.0):
     normal = utils_vertex.vertex_scale(normal,height)
     center = utils_face.face_center(face)
     center = utils_vertex.vertex_add(center,normal)
-    return extrudeToPoint(face,center)
+    return subdivide_face_extrude_to_point(face,center)
 
 def subdivide_mesh_extrude_to_point_center(mesh,heights,doExtrudes):
     new_mesh=Mesh()
     for face,height,doExtrude in zip(mesh.faces,heights,doExtrudes):
         if doExtrude:
-            new_mesh.faces.extend(extrudeToPointCenter(face,height))
+            new_mesh.faces.extend(subdivide_face_extrude_to_point_center(face,height))
         else:
             new_mesh.faces.append(face)
     newMesh.update_topology()
     return new_mesh
 
-def offsetPlanar(face,offsets):
+def subdivide_face_offset_planar(face,offsets):
     newPts = []
     for i in range(len(face.vertices)):
         iP = i - 1
@@ -459,12 +459,12 @@ def offsetPlanar(face,offsets):
     utils_face.face_copy_properties(face, f)
     return f
 
-def splitOffset(face,offset):
+def subdivide_face_split_offset(face,offset):
     offsets = [offset] * len(face.vertices)
-    return splitOffsets(face, offsets)
+    return subdivide_face_split_offsets(face, offsets)
 
-def splitOffsets(face,offsets):
-    offsetFace = offsetPlanar(face,offsets)
+def subdivide_face_split_offsets(face,offsets):
+    offsetFace = subdivide_face_offset_planar(face,offsets)
     nOffsetFaces = 0
     for o in offsets:
         if(abs(o) > 0):
@@ -482,7 +482,7 @@ def splitOffsets(face,offsets):
             f.vertices.reverse()
     return faces
 
-def splitRelMultiple(face, direction, splits):
+def subdivide_face_split_rel_multiple(face, direction, splits):
     sA = []
     sA.append(face.vertices[direction])
     lA = face.vertices[direction + 1]
@@ -508,7 +508,7 @@ def splitRelMultiple(face, direction, splits):
             result.append(f)
     return result
 
-def splitRel(face, direction, split):
+def subdivide_face_split_rel(face, direction, split):
     """
     Splits face in given direction.
 
@@ -520,9 +520,9 @@ def splitRel(face, direction, split):
     split : float
         Position of the split relative to initial face points (0 to 1)
     """
-    return splitRelMultiple(face, direction, [split])
+    return subdivide_face_split_rel_multiple(face, direction, [split])
 
-def splitFrame(face, w):
+def subdivide_face_split_frame(face, w):
     """
     Creates an offset frame with quad corners. Works only with convex shapes.
 
