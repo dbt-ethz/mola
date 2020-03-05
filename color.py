@@ -67,14 +67,15 @@ def color_faces_by_list_and_scheme(faces, values=[], scheme=[(1,0,0.5),(0,0.5,1)
     value_max = max(values)
     values_mapped = [__map(v, value_min, value_max, 0.0, 0.999) for v in values]
     interval = 1.0 / (len(scheme) - 1)
-    for i,v in enumerate(values_mapped):
+    for i,f in enumerate(faces):
+        v = values_mapped[i]
         lower_ix = int(floor(v * (len(scheme)-1)))
         upper_ix = lower_ix + 1
         rv = (v - (lower_ix * interval)) / interval
         r = (1 - rv) * scheme[lower_ix][0] + rv * scheme[upper_ix][0]
         g = (1 - rv) * scheme[lower_ix][1] + rv * scheme[upper_ix][1]
         b = (1 - rv) * scheme[lower_ix][2] + rv * scheme[upper_ix][2]
-        faces[i].color = (r,g,b,1)
+        f.color = (r,g,b,1)
 
 
 def colorFacesByCurvature(faces):
