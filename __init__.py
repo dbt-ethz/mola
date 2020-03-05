@@ -1,8 +1,6 @@
 """
 This is where the module documentation goes
 """
-
-from .utils_color import *
 from .core_box import *
 from .core_edge import *
 from .core_face import *
@@ -16,6 +14,7 @@ from .mesh_marching_cubes import *
 from .mesh_subdivision import *
 from .polyUtils import *
 from .slicer import *
+from .utils_color import *
 from .utils_face import *
 from .utils_math import *
 from .utils_vertex import *
