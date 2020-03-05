@@ -145,11 +145,11 @@ def color_faces_by_compactness(faces):
     color_faces_by_function(faces, utils_face.face_compactness)
 
 def color_faces_by_horizontal_angle(faces):
-    color_faces_by_function(faces, utils_face.face_horizontal_angle)
+    color_faces_by_function(faces, utils_face.face_angle_horizontal)
 
 def color_faces_by_vertical_angle(faces):
     """
     Assigns a color to all the faces by verticality,
     from smallest (red) to biggest (purple).
     """
-    color_faces_by_function(faces, utils_face.face_vertical_angle)
+    color_faces_by_function(faces, utils_face.face_angle_vertical)
