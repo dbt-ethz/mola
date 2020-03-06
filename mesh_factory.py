@@ -219,7 +219,7 @@ def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
                      Vertex(0, -1, +coord)]
 
     for i in range(len(mesh.vertices)):
-        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], side / 2)
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], size / 2)
         mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx, cy, cz))
 
     f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
