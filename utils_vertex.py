@@ -211,16 +211,16 @@ def vertices_list_center(vertices):
 
 """// TRIANGLE //"""
 
-def triangle_area(a,b,c):
+def triangle_area(v1,v2,v3):
     """
     Returns the area of the triangle from 3 vertices
 
     Arguments:
     ----------
-    a, b, c : mola.Vertex
+    v1, v2, v3 : mola.Vertex
         vertices of the triangle
     """
-    return triangle_coords_area(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z)
+    return triangle_coords_area(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z, v3.x, v3.y, v3.z)
 
 def triangle_normal(v1,v2,v3):
     """

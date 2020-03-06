@@ -97,7 +97,7 @@ def display_faces(faces):
             for i in range(2,len(face.vertices)-1):
                 indices.extend([cIndex+i, cIndex+i+1, cIndex])
         cIndex+=len(face.vertices)
-    __drawMeshWithColors(positions, indices, colors)
+    __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
 
@@ -133,18 +133,19 @@ def __begin3D():
     light.intensity = 0.5;'''
 
 
-def __drawMeshWithColors(vertices,faces,vertexColors):
+def __draw_mesh_with_colors(vertices,faces,vertexColors):
     global __code
     __code+="var positions = "+str(vertices)+";"
     __code+="var indices = "+str(faces)+";"
     __code+="var colors = "+str(vertexColors)+";"
     return __code
 
-def __drawTestMesh():
+'''
+def __draw_test_mesh():
     global __code
     __code+='''    var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
             var indices = [0, 1, 2, 3, 4, 5];    '''
-
+'''
 def __end3D():
   global __code
   __code+= '''
