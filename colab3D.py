@@ -174,7 +174,7 @@ def __end3D():
     __code+='''mat.disableLighting = true; '''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
-    __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
+    __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth * 10) +';'
     __code+= '''customMesh.edgesColor = new BABYLON.Color4'''+str(__edgesColor)+ ';'
   if __showPointsNumbers:
     __code+='''
