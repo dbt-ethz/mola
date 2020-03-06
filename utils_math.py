@@ -14,6 +14,17 @@ def math_determinant(a, b, c, d, e, f, g, h, i):
     return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
 
 def math_map_list(values,toMin=0,toMax=1):
+    """
+    Maps the values of a list from a minimum value to a maximum value.
+    Arguments:
+    ----------
+    values : list to be mapped
+    ----------
+    Optional Arguments:
+    ----------
+    toMin : minimum value of the list's target range (default = 0)
+    toMax : maximum value of the list's target range (default = 1)
+    """
     minValue=min(values)
     maxValue=max(values)
     delta=maxValue-minValue
@@ -23,6 +34,13 @@ def math_map_list(values,toMin=0,toMax=1):
 def math_map(value, fromMin, fromMax, toMin, toMax):
     """
     Maps a value from one range to another.
+    Arguments:
+    ----------
+    value : value to be mapped
+    fromMin : lower bound of the value's current range
+    fromMax : upper bound of the value's current range
+    toMin : lower bound of the value's target range
+    toMax : upper bound of the value's target range
     """
     delta = fromMax - fromMin
     if delta == 0 : return 0
