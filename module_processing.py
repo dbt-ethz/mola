@@ -10,7 +10,7 @@ def display_lines(lines):
         line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
 
 def display_mesh(mesh):
-    return display(mesh.faces)
+    return display_faces(mesh.faces)
 
 def create_lines_shape(lines):
     shape = createShape()
