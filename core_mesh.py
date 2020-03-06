@@ -88,7 +88,7 @@ class Mesh:
 
     def face_properties(self,face_analyse):
         values=[]
-        for f in self.faces:
+        for face in self.faces:
             values.append(face_analyse(face))
         return values
 
