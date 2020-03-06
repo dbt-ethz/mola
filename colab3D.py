@@ -32,7 +32,7 @@ def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges
   ----------
   mesh : mola.core.Mesh
          The mesh to be displayed
-  ----------
+
   Optional Arguments:
   ----------
   canvasWidth : float

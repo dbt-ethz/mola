@@ -97,17 +97,14 @@ def construct_box(x1,y1,z1,x2,y2,z2):
     mesh.update_topology()
     return mesh
 
-def construct_icosahedron(radius,cx=0,cy=0,cz=0):
+def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
     """
     Creates and returns a mesh in the form of an icosahedron.
 
-    Arguments:
-    ----------
-    radius : float
-        The radius of the containing sphere
-    ----------
     Optional Arguments:
     ----------
+    radius : float
+        The radius of the containing sphere.
     cx,cy,cz : float
         The coordinates of the center point.
     """
@@ -142,17 +139,14 @@ def construct_icosahedron(radius,cx=0,cy=0,cz=0):
     mesh.update_topology()
     return mesh
 
-def construct_dodecahedron(radius, cx=0,cy=0,cz=0):
+def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
     """
     Constructs a dodecaheron mesh.
 
-    Arguments:
+    Optional Arguments:
     ----------
     radius : float
         The radius of the containing sphere
-    ----------
-    Optional Arguments:
-    ----------
     cx,cy,cz : float
         The coordinates of the center point.
     """
@@ -205,17 +199,14 @@ def construct_dodecahedron(radius, cx=0,cy=0,cz=0):
     mesh.update_topology()
     return mesh
 
-def construct_tetrahedron(size,cx=0,cy=0,cz=0):
+def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
     """
     Constructs a tetrahedron mesh.
 
-    Arguments:
+    Optional Arguments:
     ----------
     side : float
         The edge length of the tetrahedron
-    ----------
-    Optional Arguments:
-    ----------
     cx,cy,cz : float
         The coordinates of the center point.
     """
@@ -250,13 +241,13 @@ def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
         the big radius of the axis
     tubeRadius : float
         radius of the the tube along the axis
-    ----------
+
     Optional Arguments:
     ----------
     ringN : int
-        resolution along the ring (default value = 16)
+        resolution along the ring
     tubeN : int
-        resolution along the tube (default value = 16)
+        resolution along the tube
     """
     mesh = Mesh()
     theta = 2 * math.pi / ringN

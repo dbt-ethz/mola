@@ -19,7 +19,7 @@ def math_map_list(values,toMin=0,toMax=1):
     Arguments:
     ----------
     values : list to be mapped
-    ----------
+
     Optional Arguments:
     ----------
     toMin : minimum value of the list's target range (default = 0)
