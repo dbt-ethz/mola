@@ -79,6 +79,12 @@ class Mesh:
         self.faces.append(f)
         return f
 
+    def face_properties(face_analyse):
+        values=[]
+        for f in faces:
+            values.append(face_analyse(face))
+        return values
+
     def weld_vertices(self):
         weldedVertices = {}
         self.vertices = []
