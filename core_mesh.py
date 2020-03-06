@@ -54,6 +54,13 @@ class Mesh:
                 box.add_point(v.x,v.y,v.z)
         return box
 
+    def center(self):
+        """
+        Returns the center of the Mesh as a Vertex() object
+        Note: not the center of gravity, just the average of its vertices.
+        """
+        return self.bounding_box().center()
+
     def edge_adjacent_to_vertices(self, v1, v2):
         for edge in v1.edges:
             if edge.v2 == v2 or edge.v1 == v2:
