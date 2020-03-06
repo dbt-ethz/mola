@@ -140,12 +140,12 @@ def __draw_mesh_with_colors(vertices,faces,vertexColors):
     __code+="var colors = "+str(vertexColors)+";"
     return __code
 
-'''
+"""
 def __draw_test_mesh():
     global __code
     __code+='''    var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
             var indices = [0, 1, 2, 3, 4, 5];    '''
-'''
+"""
 def __end3D():
   global __code
   __code+= '''
