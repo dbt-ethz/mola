@@ -12,12 +12,13 @@ def math_determinant(a, b, c, d, e, f, g, h, i):
     returns the determinant of the 9 values of a 3 x 3 matrix
     """
     return (a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g)
-    
+
 def math_map_list(values,toMin=0,toMax=1):
     minValue=min(values)
     maxValue=max(values)
     delta=maxValue-minValue
-    return list(map(lambda x: toMin+toMax*(x-minValue)/delta, values))
+    deltaTarget=toMax-toMin
+    return list(map(lambda x: toMin+deltaTarget*(x-minValue)/delta, values))
 
 def math_map(value, fromMin, fromMax, toMin, toMax):
     """
