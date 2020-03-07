@@ -99,7 +99,7 @@ def display_faces_welded(faces):
                 indices.append(vertices[ptuple])
             else:
                 verticesDict[ptuple]=cIndex
-                positions.extend((v.x,v.y,v.z))
+                positions.extend(ptuple)
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex+=1
@@ -115,7 +115,7 @@ def display_faces_welded(faces):
                 indices.append(vertices[ptuple])
             else:
                 verticesDict[ptuple]=cIndex
-                positions.extend((v.x,v.y,v.z))
+                positions.extend(ptuple)
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex+=1
