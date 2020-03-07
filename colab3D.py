@@ -80,6 +80,52 @@ def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges
 
   return display_faces(mesh.faces)
 
+
+
+def display_faces_welded(faces):
+    __begin3D()
+    verticesDict={}
+    positions=[]
+    indices=[]
+    colors=[]
+    cIndex=0
+    for face in faces:
+        col=face.color
+        # triangle
+        for i in range(3):
+            p=face.vertices[i]
+            ptuple = (p.x,p.y,p.z)
+            if ptuple in verticesDict:
+                indices.append(vertices[ptuple])
+            else:
+                verticesDict[ptuple]=cIndex
+                positions.extend((v.x,v.y,v.z))
+                colors.extend(face.color)
+                indices.append(cIndex)
+                cIndex+=1
+        # quad
+        if len(face.vertices)>3:
+            p=face.vertices[3]
+            ptuple = (p.x,p.y,p.z)
+            i0=indices[-3]
+            i1=indices[-1]
+            indices.append(i0)
+            indices.append(i1)
+            if ptuple in verticesDict:
+                indices.append(vertices[ptuple])
+            else:
+                verticesDict[ptuple]=cIndex
+                positions.extend((v.x,v.y,v.z))
+                colors.extend(face.color)
+                indices.append(cIndex)
+                cIndex+=1
+    __draw_mesh_with_colors(positions, indices, colors)
+    __end3D()
+    return __code
+
+
+
+
 def display_faces(faces):
     __begin3D()
     positions=[]
