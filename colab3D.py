@@ -96,7 +96,7 @@ def display_faces_welded(faces):
             p=face.vertices[i]
             ptuple = (p.x,p.y,p.z)
             if ptuple in verticesDict:
-                indices.append(vertices[ptuple])
+                indices.append(verticesDict[ptuple])
             else:
                 verticesDict[ptuple]=cIndex
                 positions.extend(ptuple)
@@ -112,7 +112,7 @@ def display_faces_welded(faces):
             indices.append(i0)
             indices.append(i1)
             if ptuple in verticesDict:
-                indices.append(vertices[ptuple])
+                indices.append(verticesDict[ptuple])
             else:
                 verticesDict[ptuple]=cIndex
                 positions.extend(ptuple)
