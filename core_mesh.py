@@ -127,3 +127,14 @@ class Mesh:
     def update_topology(self):
         self.weld_vertices()
         self.update_edges()
+
+    def copy(self):
+        meshcopy = Mesh()
+        for f in self.faces:
+            vs = [Vertex(v.x,v.y,v.z) for v in f.vertices]
+            for nv,ov in zip(vs,f.vertices):
+                nv.fix = ov.fix
+            nf = meshcopy.add_face(vs)
+            nf.color = f.color
+            nf.group = f.group
+        return meshcopy
