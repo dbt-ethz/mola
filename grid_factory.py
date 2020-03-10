@@ -11,11 +11,11 @@ def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):
         for j in range(grid.ny):
             for k in range(grid.nz):
-                if (x==0 or x==grid.nx-1):
+                if (i==0 or i==grid.nx-1):
                     grid.set_value_at_xyz(value,i,j,k)
-                elif (y==0 or y==grid.ny-1):
+                elif (j==0 or j==grid.ny-1):
                     grid.set_value_at_xyz(value,i,j,k)
-                elif (z==0 or z==grid.nz-1):
+                elif (k==0 or k==grid.nz-1):
                     grid.set_value_at_xyz(value,i,j,k)
 
 def grid_set_values_sinusoids(grid, freq_x, freq_y, freq_z):
