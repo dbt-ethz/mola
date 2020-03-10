@@ -10,7 +10,7 @@ try:
     from Queue import PriorityQueue
 except ImportError:
     from queue import PriorityQueue
-from mola.grid import GridManager
+from mola.core_grid import GridManager
 
 
 class Graph:
