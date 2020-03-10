@@ -6,6 +6,7 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
+from mola import utils_math
 
 def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):
