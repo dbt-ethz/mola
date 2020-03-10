@@ -8,6 +8,7 @@ from .core_grid import *
 from .core_mesh import *
 from .core_vertex import *
 from .graph import *
+from .grid_factory import *
 from .io import *
 from .mesh_factory import *
 from .mesh_marching_cubes import *
