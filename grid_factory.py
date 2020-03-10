@@ -19,7 +19,7 @@ def grid_set_values_at_borders(grid, value):
                 elif (k==0 or k==grid.nz-1):
                     grid.set_value_at_xyz(value,i,j,k)
 
-def grid_set_values_sinusoids(grid, freq_x, freq_y, freq_z):
+def grid_set_values_sinusoids(grid, freq_x=6*math.pi, freq_y=6*math.pi, freq_z=6*math.pi):
     for i in range(grid.nx):
         for j in range(grid.ny):
             for k in range(grid.nz):
