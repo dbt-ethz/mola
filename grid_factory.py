@@ -26,5 +26,5 @@ def grid_set_values_sinusoids(grid, freq_x, freq_y, freq_z):
                 vx = math.sin(i/grid.nx * freq_x)
                 vy = math.sin(j/grid.ny * freq_y)
                 vz = math.sin(k/grid.nz * freq_z)
-                v = utils_math.map((vx+vy+vz),-3.0,3.0,-1.0,1.0)
+                v = utils_math.math_map((vx+vy+vz),-3.0,3.0,-1.0,1.0)
                 grid.set_value_at_xyz(v,i,j,k)
