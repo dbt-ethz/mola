@@ -17,7 +17,7 @@ class GridManager:
 
     Attributes
     ----------
-    nX, nY, nZ : int
+    nx, ny, nz : int
         The number of elements in x,y and z direction.
     """
     def __init__(self, nx, ny, nz=1):

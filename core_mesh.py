@@ -10,6 +10,7 @@ from mola.core_vertex import Vertex
 from mola.core_face import Face
 from mola.core_edge import Edge
 from mola.core_box import Box
+from mola import utils_face
 
 class Mesh:
     """A mesh describes a 3D surface made of Vertices connected by Faces.
@@ -135,6 +136,5 @@ class Mesh:
             for nv,ov in zip(vs,f.vertices):
                 nv.fix = ov.fix
             nf = meshcopy.add_face(vs)
-            nf.color = f.color
-            nf.group = f.group
+            utils_face.face_copy_properties(f,nf)
         return meshcopy

@@ -175,7 +175,7 @@ def __begin3D():
     __code+='''var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
             camera.setPosition(new BABYLON.Vector3(0, 5, 30));
              camera.attachControl(canvas, true);'''
-    __code+=''' var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene); // Default intensity is 1. Let's dim the light a small amount
+    __code+=''' var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 0.5;'''
 
 
@@ -208,7 +208,6 @@ def __end3D():
           vertexData.colors = colors;
           //Apply vertexData to custom mesh
           vertexData.applyToMesh(customMesh);
-          /******Display custom mesh in wireframe view to show its creation****************/
           var mat = new BABYLON.StandardMaterial("mat", scene);
           mat.backFaceCulling = false;'''
   if __showWireframe:
