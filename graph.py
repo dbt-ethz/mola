@@ -15,9 +15,10 @@ from mola.grid import GridManager
 
 class Graph:
     ''' basic graph class. edge-weighted graphs should implement different weightFunction'''
-    def __init__(self, neighbours):
+    def __init__(self, neighbours, gm=None):
         self.neighbours = neighbours
-        self.weight_function = lambda a,b:1
+        self.weight_function = lambda a, b : 1
+        self.gm = gm
 
     def get_neighbours(self, u):
         return self.neighbours[u]
@@ -26,7 +27,7 @@ class Graph:
         return len(self.neighbours)
 
     def weight(self, index1, index2):
-        return self.weight_function(index1,index2)
+        return self.weight_function(index1, index2)
 
     @classmethod
     def from_grid_2d(cls, nx, ny, nbs8=False, continuous=False):
@@ -34,15 +35,15 @@ class Graph:
         neighbours = [0] * gm.length
         for i in range(gm.length):
             neighbours[i] = gm.get_neighbors_2d(i, nbs8, continuous)
-        return cls(neighbours)
+        return cls(neighbours, gm)
 
     @classmethod
     def from_hex_grid_2d(cls, nx, ny,continuous=False):
         gm = GridManager(nx, ny)
         neighbours = [0] * gm.length
         for i in range(gm.length):
-            neighbours[i] = gm.getNbs2DHex(i, continuous)
-        return cls(neighbours)
+            neighbours[i] = gm.get_neighbors_hex_2d(i, continuous)
+        return cls(neighbours, gm)
 
     @classmethod
     def from_grid_3d(cls, nx, ny, nz, mode=3, continuous=False):
@@ -50,7 +51,7 @@ class Graph:
         neighbours = [0] * gm.length
         for i in range(gm.length):
             neighbours[i] = gm.get_neighbors_3d(i, mode, continuous)
-        return cls(neighbours)
+        return cls(neighbours, gm)
 
     @classmethod
     def from_mesh_faces(cls, mesh):
@@ -97,10 +98,10 @@ class GraphAnalyser:
             self.dist[i] = 0
             pq.put((0,i))
         while not pq.empty():
-            u= pq.get()[1]
-            nbs = self.graph.getNeighbours(u)
+            u = pq.get()[1]
+            nbs = self.graph.get_neighbours(u)
             for v in nbs:
-                d=self.dist[u]+self.graph.weight(u,v)
+                d = self.dist[u] + self.graph.weight(u,v)
                 if d < self.dist[v]:
                     self.dist[v] = d
                     self.pred[v] = u
