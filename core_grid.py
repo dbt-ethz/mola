@@ -263,6 +263,7 @@ class Grid(GridManager):
                             faces.append(Face([v1, v2, v3, v4]))
         mesh = Mesh()
         mesh.faces = faces
+        mesh.update_topology()
         if (self.scale_to_canvas):
             mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
             sc = 20.0/max(self.nx,self.ny)

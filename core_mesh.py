@@ -30,6 +30,10 @@ class Mesh:
         self.edges = []
 
     def scale(self, sx, sy, sz):
+        """
+        scales a mesh by adding multiplying
+        the position of its vertices by sx, sy and sz.
+        """
         #vs = Vertex(sx, sy, sz)
         for v in self.vertices:
             v.x *= sx
