@@ -264,8 +264,9 @@ class Grid(GridManager):
         mesh = Mesh()
         mesh.faces = faces
         if (self.scale_to_canvas):
-            mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0);
-            mesh.scale(20.0/max(self.nx,self.ny));
+            mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
+            sc = 20.0/max(self.nx,self.ny)
+            mesh.scale(sc,sc,sc)
         return mesh
 
 class HexGrid(Grid):
