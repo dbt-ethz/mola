@@ -17,7 +17,7 @@ def mesh_smooth_laplacian(mesh, factor=0.3):
         [v_sum.add(av) for av in adjacent_vertices]
         v_sum.divide(len(adjacent_vertices))
         delta = v_sum - v
-        sv = list(smoothed.vertices)[i]
+        sv = smoothed.vertices[i]
         delta.scale(factor)
         sv.add(delta)
     return smoothed

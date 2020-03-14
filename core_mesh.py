@@ -108,7 +108,7 @@ class Mesh:
                     f.vertices[i] = weldedVertices[vtuple]
                 else:
                     weldedVertices[vtuple] = v
-        self.vertices = weldedVertices.values()
+        self.vertices = [v for v in weldedVertices.values()]
 
     def update_edges(self):
         self.edges = []
