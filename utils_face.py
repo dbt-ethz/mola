@@ -140,3 +140,16 @@ def face_copy_properties(faceParent,faceChild):
     """
     faceChild.group = faceParent.group
     faceChild.color = faceParent.color
+
+def face_scale(face, factor=1.0, origin=None):
+    if origin is None:
+        for v in face.vertices:
+            v.scale(factor)
+    else:
+        for v in face.vertices:
+            delta = v - origin
+            delta.scale(factor)
+            v.x = origin.x + delta.x
+            v.y = origin.y + delta.y
+            v.z = origin.z + delta.z
+    return face

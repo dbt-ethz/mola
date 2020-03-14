@@ -18,7 +18,6 @@ class Graph:
     def __init__(self, neighbours, gm=None):
         self.neighbours = neighbours
         self.weight_function = lambda a, b : 1
-        self.gm = gm
 
     def get_neighbours(self, u):
         return self.neighbours[u]
@@ -35,7 +34,7 @@ class Graph:
         neighbours = [0] * gm.length
         for i in range(gm.length):
             neighbours[i] = gm.get_neighbors_2d(i, nbs8, continuous)
-        return cls(neighbours, gm)
+        return cls(neighbours)
 
     @classmethod
     def from_hex_grid_2d(cls, nx, ny,continuous=False):
@@ -43,7 +42,7 @@ class Graph:
         neighbours = [0] * gm.length
         for i in range(gm.length):
             neighbours[i] = gm.get_neighbors_hex_2d(i, continuous)
-        return cls(neighbours, gm)
+        return cls(neighbours)
 
     @classmethod
     def from_grid_3d(cls, nx, ny, nz, mode=3, continuous=False):
@@ -51,7 +50,7 @@ class Graph:
         neighbours = [0] * gm.length
         for i in range(gm.length):
             neighbours[i] = gm.get_neighbors_3d(i, mode, continuous)
-        return cls(neighbours, gm)
+        return cls(neighbours)
 
     @classmethod
     def from_mesh_faces(cls, mesh):
