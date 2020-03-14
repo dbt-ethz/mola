@@ -10,6 +10,7 @@ from mola.core_vertex import Vertex
 
 def mesh_smooth_laplacian(mesh, factor=1.0):
     smoothed = mesh.copy()
+    smoothed.update_topology()
     for i,v in enumerate(mesh.vertices):
         adjacent_vertices = [e.other_vertex(v) for e in v.edges]
         v_sum = Vertex()
