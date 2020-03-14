@@ -135,8 +135,10 @@ class Mesh:
 
     def copy(self):
         meshcopy = Mesh()
+        meshcopy.vertices = [Vertex(v.x,v.y,v.z) for v in self.vertices]
         for f in self.faces:
-            vs = [Vertex(v.x,v.y,v.z) for v in f.vertices]
+            vs = [meshcopy.vertices[self.vertices.index(v)] for v in f.vertices]
+            #vs = [Vertex(v.x,v.y,v.z) for v in f.vertices]
             for nv,ov in zip(vs,f.vertices):
                 nv.fix = ov.fix
             nf = meshcopy.add_face(vs)
