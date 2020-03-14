@@ -17,6 +17,7 @@ from .slicer import *
 from .utils_color import *
 from .utils_face import *
 from .utils_math import *
+from .utils_mesh import *
 from .utils_poly import *
 from .utils_vertex import *
 
