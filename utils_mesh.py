@@ -32,9 +32,8 @@ def mesh_smooth_laplacian2(mesh, factor=0.3):
         v.nNbs=0
     for face in mesh.faces:
         for i,cv in enumerate(face.vertices):
-            if cv==v:
-                v.vertex.add(face.vertices[i-1])
-                v.nNbs+=1
+            cv.vertex.add(face.vertices[i-1])
+            cv.nNbs+=1
     for v in mesh.vertices:
         v.vertex.divide(v.nNbs)
         v.vertex.subtract(v).scale(factor)
