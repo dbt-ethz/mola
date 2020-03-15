@@ -300,18 +300,18 @@ def construct_rhombic_dodecahedron(edge_length=1, cx=0, cy=0, cz=0):
         v.add(center)
 
     #construct quad faces
-    f1 = Face([mesh.vertices[1],mesh.vertices[3],mesh.vertices[6],mesh.vertices[2]])
-    f2 = Face([mesh.vertices[1],mesh.vertices[4],mesh.vertices[7],mesh.vertices[3]])
-    f3 = Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[8],mesh.vertices[4]])
-    f4 = Face([mesh.vertices[1],mesh.vertices[2],mesh.vertices[9],mesh.vertices[5]])
-    f5 = Face([mesh.vertices[3],mesh.vertices[7],mesh.vertices[11],mesh.vertices[6]])
-    f6 = Face([mesh.vertices[4],mesh.vertices[8],mesh.vertices[12],mesh.vertices[7]])
-    f7 = Face([mesh.vertices[5],mesh.vertices[9],mesh.vertices[13],mesh.vertices[8]])
-    f8 = Face([mesh.vertices[2],mesh.vertices[6],mesh.vertices[10],mesh.vertices[9]])
-    f9 = Face([mesh.vertices[11],mesh.vertices[14],mesh.vertices[10],mesh.vertices[6]])
-    f10 = Face([mesh.vertices[12],mesh.vertices[14],mesh.vertices[11],mesh.vertices[7]])
-    f11 = Face([mesh.vertices[13],mesh.vertices[14],mesh.vertices[12],mesh.vertices[8]])
-    f12 = Face([mesh.vertices[10],mesh.vertices[14],mesh.vertices[13],mesh.vertices[9]])
+    f1 = Face([mesh.vertices[0],mesh.vertices[2],mesh.vertices[5],mesh.vertices[1]])
+    f2 = Face([mesh.vertices[0],mesh.vertices[3],mesh.vertices[6],mesh.vertices[2]])
+    f3 = Face([mesh.vertices[0],mesh.vertices[4],mesh.vertices[7],mesh.vertices[3]])
+    f4 = Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[8],mesh.vertices[4]])
+    f5 = Face([mesh.vertices[2],mesh.vertices[6],mesh.vertices[10],mesh.vertices[5]])
+    f6 = Face([mesh.vertices[3],mesh.vertices[7],mesh.vertices[11],mesh.vertices[6]])
+    f7 = Face([mesh.vertices[4],mesh.vertices[8],mesh.vertices[12],mesh.vertices[7]])
+    f8 = Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[9],mesh.vertices[8]])
+    f9 = Face([mesh.vertices[10],mesh.vertices[13],mesh.vertices[9],mesh.vertices[5]])
+    f10 = Face([mesh.vertices[11],mesh.vertices[13],mesh.vertices[10],mesh.vertices[6]])
+    f11 = Face([mesh.vertices[12],mesh.vertices[13],mesh.vertices[11],mesh.vertices[7]])
+    f12 = Face([mesh.vertices[9],mesh.vertices[13],mesh.vertices[12],mesh.vertices[8]])
 
     mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
     mesh.update_topology()
@@ -333,14 +333,14 @@ def construct_octahedron(edgeLen=1, cx=0, cy=0, cz=0):
         v.add(center)
 
     #construct triangular faces
-    f1 = Face([mesh.vertices[1], mesh.vertices[2], mesh.vertices[3]])
-    f2 = Face([mesh.vertices[1], mesh.vertices[3], mesh.vertices[4]])
-    f3 = Face([mesh.vertices[1], mesh.vertices[4], mesh.vertices[5]])
-    f4 = Face([mesh.vertices[1], mesh.vertices[5], mesh.vertices[2]])
-    f5 = Face([mesh.vertices[6], mesh.vertices[3], mesh.vertices[2]])
-    f6 = Face([mesh.vertices[6], mesh.vertices[4], mesh.vertices[3]])
-    f7 = Face([mesh.vertices[6], mesh.vertices[5], mesh.vertices[4]])
-    f8 = Face([mesh.vertices[6], mesh.vertices[2], mesh.vertices[5]])
+    f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = Face([mesh.vertices[0], mesh.vertices[2], mesh.vertices[3]])
+    f3 = Face([mesh.vertices[0], mesh.vertices[3], mesh.vertices[4]])
+    f4 = Face([mesh.vertices[0], mesh.vertices[4], mesh.vertices[1]])
+    f5 = Face([mesh.vertices[5], mesh.vertices[2], mesh.vertices[1]])
+    f6 = Face([mesh.vertices[5], mesh.vertices[3], mesh.vertices[2]])
+    f7 = Face([mesh.vertices[5], mesh.vertices[4], mesh.vertices[3]])
+    f8 = Face([mesh.vertices[5], mesh.vertices[1], mesh.vertices[4]])
 
     mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8]
     mesh.update_topology()
