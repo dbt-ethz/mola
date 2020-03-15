@@ -21,3 +21,20 @@ def mesh_smooth_laplacian(mesh, factor=0.3):
         delta.scale(factor)
         sv.add(delta)
     return smoothed
+
+def mesh_smooth_laplacian2(mesh, factor=0.3):
+    # manipulates the input mesh
+    # requires an oriented mesh
+    # behaviour on holes different to above version
+    for v in mesh.vertices:
+        v.vertex=Vertex()
+        v.nNbs=0
+    for face in mesh.faces:
+        for i,cv in enumerate(face.vertices):
+            if cv==v:
+                v.vertex.add(face.vertices[i-1])
+                v.nNbs++
+    for v in mesh.vertices:
+        v.vertex.divide(v.nNbs)
+        v.vertex.subtract(v).scale(factor)
+        v.add(v.vertex)
