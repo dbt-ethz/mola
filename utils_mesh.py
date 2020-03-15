@@ -22,6 +22,7 @@ def mesh_smooth_laplacian(mesh, factor=0.3):
         sv.add(delta)
     return smoothed
 
+'''
 def mesh_smooth_laplacian2(mesh, factor=0.3):
     # manipulates the input mesh
     # requires an oriented mesh
@@ -38,3 +39,4 @@ def mesh_smooth_laplacian2(mesh, factor=0.3):
         v.vertex.divide(v.nNbs)
         v.vertex.subtract(v).scale(factor)
         v.add(v.vertex)
+'''
