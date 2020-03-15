@@ -135,12 +135,39 @@ class Mesh:
 
     def copy(self):
         meshcopy = Mesh()
-        meshcopy.vertices = [Vertex(v.x,v.y,v.z) for v in self.vertices]
-        for f in self.faces:
-            vs = [meshcopy.vertices[self.vertices.index(v)] for v in f.vertices]
-            #vs = [Vertex(v.x,v.y,v.z) for v in f.vertices]
-            for nv,ov in zip(vs,f.vertices):
+
+        # if mesh has no topolgy constructed
+        if len(self.edges) == 0:
+            for f in self.faces:
+                vs = [Vertex(v.x,v.y,v.z) for v in f.vertices]
+                for nv,ov in zip(vs, f.vertices):
+                    nv.fix = ov.fix
+                    nv.generation = ov.generation
+                nf = meshcopy.add_face(vs)
+                utils_face.face_copy_properties(f,nf)
+        else:
+            meshcopy.vertices = [Vertex(v.x,v.y,v.z) for v in self.vertices]
+            for nv,ov in zip(meshcopy.vertices, self.vertices):
                 nv.fix = ov.fix
-            nf = meshcopy.add_face(vs)
-            utils_face.face_copy_properties(f,nf)
+                nv.generation = ov.generation
+
+            for f in self.faces:
+                vs = [meshcopy.vertices[self.vertices.index(v)] for v in f.vertices]
+                nf = meshcopy.add_face(vs)
+                utils_face.face_copy_properties(f,nf)
+            
+            for e in self.edges:
+                iv1 = self.vertices.index(e.v1)
+                iv2 = self.vertices.index(e.v1)
+                ie1 = self.faces.index(e.face1)
+                ie2 = self.faces.index(e.face2)
+                v1c = meshcopy.vertices[iv1]
+                v2c = meshcopy.vertices[iv2]
+                edge = Edge(v1c,v2c)
+                v1c.edges.append(edge)
+                v2c.edges.append(edge)
+                meshcopy.edges.append(edge)
+                edge.face1 = meshcopy.faces[ie1]
+                edge.face2 = meshcopy.faces[ie2]
+
         return meshcopy
