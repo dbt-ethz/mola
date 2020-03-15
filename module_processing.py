@@ -5,14 +5,14 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
-def displayLines(lines):
+def display_lines(lines):
     for l in lines:
         line(l.v1.x,l.v1.y,l.v2.x,l.v2.y)
 
-def displayMesh(mesh):
-    return display(mesh.faces)
+def display_mesh(mesh):
+    return display_faces(mesh.faces)
 
-def createLinesShape(lines):
+def create_lines_shape(lines):
     shape = createShape()
     shape.beginShape(LINES)
     for l in lines:
@@ -21,7 +21,7 @@ def createLinesShape(lines):
     shape.endShape()
     return shape
 
-def createMeshShape(mesh):
+def create_mesh_shape(mesh):
     shape = createShape(GROUP)
     trishape = createShape()
     trishape.beginShape(TRIANGLES)
@@ -41,7 +41,7 @@ def createMeshShape(mesh):
     return shape
 
 # split between triangles, quads and more..
-def display(faces):
+def display_faces(faces):
     beginShape(QUADS)
     for f in faces:
         if len(f.vertices)==4:
@@ -72,7 +72,7 @@ def display(faces):
 #             vertex(v.x,v.y,v.z)
 #         endShape(CLOSE)
 
-def display2D(faces):
+def display_faces_2D(faces):
     for f in faces:
         beginShape()
         for v in f.vertices:

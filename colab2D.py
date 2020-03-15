@@ -7,12 +7,12 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 p5code=""
 
-def displayLines2D(lines):
+def display_lines2D(lines):
     global p5code
     for line in lines:
         p5code += "line(" + str(line.v1.x) + "," + str(line.v1.y) + "," + str(line.v2.x) + "," + str(line.v2.y) + ");"
 
-def displayFaces2D(faces):
+def display_faces2D(faces):
     global p5code
     for face in faces:
         if face.color != None:
@@ -22,21 +22,21 @@ def displayFaces2D(faces):
             p5code += "vertex("+str(v.x)+","+str(v.y)+");"
         p5code += "endShape();"
 
-def saveCanvas(fileName):
+def save_canvas(fileName):
     global p5code
     p5code+="saveCanvas(canvas,'"+fileName+"');"
 
-def saveImage(fileName):
+def save_image(fileName):
     global p5code
     p5code+="save("+fileName+");"
 
-def _beginDraw2D(width=1024,height=768):
+def _begin2D(width=1024,height=768):
     return '''<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script><script>new p5();var canvas = createCanvas('''+str(width)+","+str(height)+''');'''
 
-def _endDraw2D():
+def _end2D():
     return '''</script>'''
 
-def textSize(size):
+def text_size(size):
     global p5code
     p5code+="textSize("+str(size)+");"
 
@@ -52,19 +52,19 @@ def text(text,x,y):
     global p5code
     p5code+="text("+str(text)+","+str(x)+","+str(y)+");"
 
-def noStroke():
+def no_stroke():
     global p5code
     p5code+="noStroke();"
 
-def noFill():
+def no_fill():
     global p5code
     p5code+="noFill();"
 
-def strokeWeight(weight):
+def stroke_weight(weight):
     global p5code
     p5code+="strokeWeight("+str(weight)+");"
 
-def colorMode(mode,max):
+def color_mode(mode,max):
     global p5code
     p5code+="colorMode("+str(mode)+","+str(max)+");"
 
@@ -95,11 +95,11 @@ def rect(x1,y1,x2,y2):
     global p5code
     p5code+="rect("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+");"
 
-def beginShape():
+def begin_shape():
     global p5code
     p5code+="beginShape();"
 
-def endShape():
+def end_shape():
     global p5code
     p5code+="endShape();"
 
@@ -111,12 +111,12 @@ def background(r,g,b):
     global p5code
     p5code+="background("+str(r)+","+str(g)+","+str(b)+");"
 
-def beginDraw(width=1024,height=768):
+def begin_draw(width=1024,height=768):
     global p5code
-    p5code=_beginDraw2D(width,height)
+    p5code=_begin2D(width,height)
     p5code+="rectMode(CORNERS);"
 
-def endDraw():
+def end_draw():
     global p5code
     p5code+=_endDraw2D()
     return p5code
