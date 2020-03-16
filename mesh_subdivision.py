@@ -533,8 +533,8 @@ def subdivide_face_split_frame(face, w):
       vn = face.vertices[(i + 1) % len(face.vertices)]
       vnn = face.vertices[(i + 2) % len(face.vertices)]
 
-      th1 = utils_vertex.triangle_angle(vp,v,vn)
-      th2 = utils_vertex.triangle_angle(v,vn,vnn)
+      th1 = utils_vertex.vertex_angle_triangle(vp,v,vn)
+      th2 = utils_vertex.vertex_angle_triangle(v,vn,vnn)
 
       w1 = w / math.sin(th1)
       w2 = w / math.sin(th2)
