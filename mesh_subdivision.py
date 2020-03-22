@@ -337,11 +337,11 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         utils_face.face_copy_properties(face,new_face)
     return new_faces
 
-def subdivide_face_extrude_TaperedNonU(face, height=0.0, fraction=0.5,doCap=True):
+def subdivide_custom_face_extrude_tapered_nonU(face, height=0.0, fraction=0.5,doCap=True):
     """
     Extrudes the face tapered like a window by creating an
     offset face and quads between every original edge and the
-    corresponding new edge.
+    corresponding new edge. Bring point closer to shorter edge
 
     Arguments:
     ----------
