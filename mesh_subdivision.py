@@ -337,85 +337,85 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         utils_face.face_copy_properties(face,new_face)
     return new_faces
 
-    def extrudeTaperedNonU(face, height=0.0, fraction=0.5,doCap=True):
-    """
-    Extrudes the face tapered like a window by creating an
-    offset face and quads between every original edge and the
-    corresponding new edge.
+    def subdivide_face_extrude_TaperedNonU(face, height=0.0, fraction=0.5,doCap=True):
+        """
+        Extrudes the face tapered like a window by creating an
+        offset face and quads between every original edge and the
+        corresponding new edge.
 
-    Arguments:
-    ----------
-    face : mola.core.Face
-        The face to be extruded
-    height : float
-        The distance of the new face to the original face, default 0
-    fraction : float
-        The relative offset distance, 0: original vertex, 1: center point
-        default 0.5 (halfway)
-    """
-    
-    center_vertex = utils_face.face_center(face)
-    normal = utils_face.face_normal(face)
-    scaled_normal = utils_vertex.vertex_scale(normal, height)
+        Arguments:
+        ----------
+        face : mola.core.Face
+            The face to be extruded
+        height : float
+            The distance of the new face to the original face, default 0
+        fraction : float
+            The relative offset distance, 0: original vertex, 1: center point
+            default 0.5 (halfway)
+        """
 
-    minD = 9999999999999999
-    for i in range(len(face.vertices)-1):
-        n1 = face.vertices[i]
-        for j in range(i+1,len(face.vertices)):
+        center_vertex = utils_face.face_center(face)
+        normal = utils_face.face_normal(face)
+        scaled_normal = utils_vertex.vertex_scale(normal, height)
 
-            n2 = face.vertices[j]
-            d = (n2.x-n1.x)**2.0 + (n2.y - n1.y)**2.0 + (n2.z - n1.z)**2.0
-            if d<minD:
-                minD = d
-                shortF_st = i
-                shortF_end = j
+        minD = 9999999999999999
+        for i in range(len(face.vertices)-1):
+            n1 = face.vertices[i]
+            for j in range(i+1,len(face.vertices)):
 
-    # calculate new vertex positions
-    new_vertices = []
-    for i in range(len(face.vertices)):
-        n1 = face.vertices[i]
-        betw = utils_vertex.vertex_subtract(center_vertex, n1)
-        betw = utils_vertex.vertex_scale(betw, fraction)
-        if i==shortF_st:
-            n2 = face.vertices[shortF_end]
-            unitVec = utils_vertex.vertex_subtract(n2, n1)
-            unitVec = utils_vertex.vertex_unitize(unitVec)
-            unitVec = unitVec.scale( 0.8)
-            betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
-            betw = utils_vertex.vertex_add(unitVec, betw)
-        elif i==shortF_end:
-            n2 = face.vertices[shortF_st]
-            unitVec = utils_vertex.vertex_subtract(n2, n1)
-            unitVec = utils_vertex.vertex_unitize(unitVec)
-            unitVec = unitVec.scale( 0.8)
-            betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
-            betw = utils_vertex.vertex_add(unitVec, betw)
+                n2 = face.vertices[j]
+                d = (n2.x-n1.x)**2.0 + (n2.y - n1.y)**2.0 + (n2.z - n1.z)**2.0
+                if d<minD:
+                    minD = d
+                    shortF_st = i
+                    shortF_end = j
+
+        # calculate new vertex positions
+        new_vertices = []
+        for i in range(len(face.vertices)):
+            n1 = face.vertices[i]
+            betw = utils_vertex.vertex_subtract(center_vertex, n1)
+            betw = utils_vertex.vertex_scale(betw, fraction)
+            if i==shortF_st:
+                n2 = face.vertices[shortF_end]
+                unitVec = utils_vertex.vertex_subtract(n2, n1)
+                unitVec = utils_vertex.vertex_unitize(unitVec)
+                unitVec = unitVec.scale( 0.8)
+                betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
+                betw = utils_vertex.vertex_add(unitVec, betw)
+            elif i==shortF_end:
+                n2 = face.vertices[shortF_st]
+                unitVec = utils_vertex.vertex_subtract(n2, n1)
+                unitVec = utils_vertex.vertex_unitize(unitVec)
+                unitVec = unitVec.scale( 0.8)
+                betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
+                betw = utils_vertex.vertex_add(unitVec, betw)
 
 
-        nn = utils_vertex.vertex_add(n1, betw)
-        nn = utils_vertex.vertex_add(nn, scaled_normal)
-        new_vertices.append(nn)
+            nn = utils_vertex.vertex_add(n1, betw)
+            nn = utils_vertex.vertex_add(nn, scaled_normal)
+            new_vertices.append(nn)
 
-    new_faces = []
-    # create the quads along the edges
-    num = len(face.vertices)
-    for i in range(num):
-        n1 = face.vertices[i]
-        n2 = face.vertices[(i + 1) % num]
-        n3 = new_vertices[(i + 1) % num]
-        n4 = new_vertices[i]
-        new_face = Face([n1,n2,n3,n4])
-        new_faces.append(new_face)
+        new_faces = []
+        # create the quads along the edges
+        num = len(face.vertices)
+        for i in range(num):
+            n1 = face.vertices[i]
+            n2 = face.vertices[(i + 1) % num]
+            n3 = new_vertices[(i + 1) % num]
+            n4 = new_vertices[i]
+            new_face = Face([n1,n2,n3,n4])
+            new_faces.append(new_face)
 
-    # create the closing cap face
-    if doCap:
-        cap_face = Face(new_vertices)
-        new_faces.append(cap_face)
+        # create the closing cap face
+        if doCap:
+            cap_face = Face(new_vertices)
+            new_faces.append(cap_face)
 
-    for new_face in new_faces:
-        utils_face.face_copy_properties(face,new_face)
+        for new_face in new_faces:
+            utils_face.face_copy_properties(face,new_face)
 
-    return new_faces
+        return new_faces
 
 def subdivide_face_split_roof(face, height):
     """
