@@ -15,6 +15,26 @@ from mola import utils_vertex
 import copy
 import math
 
+
+def subdivide_mesh_method(mesh, iteration=1, update_typology=False, method=None, **kwargs):
+    """ 
+    Example:
+    --------
+        mesh = mola.construct_cone(0, 5, 3, 3, 6)
+        mesh = subdivide(mesh, 2, False, mola.subdivide_face_extrude, height=10)
+    """
+    for i in range(iteration):
+        new_mesh = Mesh()  
+        for f in mesh.faces:
+            sbd_faces = method(f, **kwargs)
+            new_mesh.faces.extend(sbd_faces)
+        mesh = new_mesh
+    
+    if update_typology:
+        mesh.update_topology()
+    
+    return mesh
+
 def _collect_new_faces(mesh):
     newMesh=Mesh()
     for face in mesh.faces:
