@@ -337,7 +337,7 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         utils_face.face_copy_properties(face,new_face)
     return new_faces
 
-def subdivide_custom_face_extrude_tapered_nonU(face, height=0.0, fraction=0.5,doCap=True):
+def subdivide_custom_triface_extrude_tapered_nonU(face, height=0.0, fraction=0.5,doCap=True):
     """
     Extrudes the face tapered like a window by creating an
     offset face and quads between every original edge and the
@@ -370,23 +370,27 @@ def subdivide_custom_face_extrude_tapered_nonU(face, height=0.0, fraction=0.5,do
                 shortF_st = i
                 shortF_end = j
 
+    other = 3 - shortF_st - shortF_end
+    n_other = face.vertices[other]
+    betw_other = utils_vertex.vertex_subtract(center_vertex, n1)
+    betw_other = utils_vertex.vertex_scale(betw_other, fraction)
+    nn_other = utils_vertex.vertex_add(n1, betw_other)
+    nn_other = utils_vertex.vertex_add(nn_other, scaled_normal)
+
     # calculate new vertex positions
     new_vertices = []
     for i in range(len(face.vertices)):
         n1 = face.vertices[i]
         betw = utils_vertex.vertex_subtract(center_vertex, n1)
         betw = utils_vertex.vertex_scale(betw, fraction)
-        
-        if i==shortF_st or i== shortF_end:
-            n2 = face.vertices[i]
-            unitVec = utils_vertex.vertex_subtract(n2, n1)
-            unitVec = utils_vertex.vertex_unitize(unitVec)
-            unitVec = unitVec.scale( 0.8)
-            betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
-            betw = utils_vertex.vertex_add(unitVec, betw)
-
         nn = utils_vertex.vertex_add(n1, betw)
-        nn = utils_vertex.vertex_add(nn, scaled_normal)
+        nn = utils_vertex.vertex_add(nn, scaled_normal) 
+
+        if i==shortF_st or i==shortF_end:
+            vec = utils_vertex.vertex_subtract(n1, nn_other)
+            vec = utils_vertex.vertex_scale(vec, 1.5)
+            nn_other = utils_vertex.vertex_add(nn, vec)
+
         new_vertices.append(nn)
 
     new_faces = []
