@@ -341,7 +341,7 @@ def subdivide_custom_face_extrude_tapered_nonU(face, height=0.0, fraction=0.5,do
     """
     Extrudes the face tapered like a window by creating an
     offset face and quads between every original edge and the
-    corresponding new edge. Bring point closer to shorter edge
+    corresponding new edge. Bring vertices originated by the shortest edge closer to it
 
     Arguments:
     ----------
@@ -376,21 +376,14 @@ def subdivide_custom_face_extrude_tapered_nonU(face, height=0.0, fraction=0.5,do
         n1 = face.vertices[i]
         betw = utils_vertex.vertex_subtract(center_vertex, n1)
         betw = utils_vertex.vertex_scale(betw, fraction)
-        if i==shortF_st:
-            n2 = face.vertices[shortF_end]
+        
+        if i==shortF_st or i== shortF_end:
+            n2 = face.vertices[i]
             unitVec = utils_vertex.vertex_subtract(n2, n1)
             unitVec = utils_vertex.vertex_unitize(unitVec)
             unitVec = unitVec.scale( 0.8)
             betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
             betw = utils_vertex.vertex_add(unitVec, betw)
-        elif i==shortF_end:
-            n2 = face.vertices[shortF_st]
-            unitVec = utils_vertex.vertex_subtract(n2, n1)
-            unitVec = utils_vertex.vertex_unitize(unitVec)
-            unitVec = unitVec.scale( 0.8)
-            betw = utils_vertex.vertex_scale(betw, 0.5*fraction)
-            betw = utils_vertex.vertex_add(unitVec, betw)
-
 
         nn = utils_vertex.vertex_add(n1, betw)
         nn = utils_vertex.vertex_add(nn, scaled_normal)
