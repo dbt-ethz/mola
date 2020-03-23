@@ -339,9 +339,11 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
 
 def subdivide_custom_triface_extrude_tapered_nonU(face, height=0.0, fraction=0.5,doCap=True):
     """
-    Extrudes the face tapered like a window by creating an
+    Extrudes a triangular face tapered like a window by creating an
     offset face and quads between every original edge and the
-    corresponding new edge. Bring vertices originated by the shortest edge closer to it
+    corresponding new edge. The vertices of the new edge which corresponds 
+    to the shortest edge of the triangle are moved closer to the later,
+    while preserving the offset from its other edges 
 
     Arguments:
     ----------
@@ -372,9 +374,9 @@ def subdivide_custom_triface_extrude_tapered_nonU(face, height=0.0, fraction=0.5
 
     other = 3 - shortF_st - shortF_end
     n_other = face.vertices[other]
-    betw_other = utils_vertex.vertex_subtract(center_vertex, n1)
+    betw_other = utils_vertex.vertex_subtract(center_vertex, n_other)
     betw_other = utils_vertex.vertex_scale(betw_other, fraction)
-    nn_other = utils_vertex.vertex_add(n1, betw_other)
+    nn_other = utils_vertex.vertex_add(n_other, betw_other)
     nn_other = utils_vertex.vertex_add(nn_other, scaled_normal)
 
     # calculate new vertex positions
@@ -388,8 +390,8 @@ def subdivide_custom_triface_extrude_tapered_nonU(face, height=0.0, fraction=0.5
 
         if i==shortF_st or i==shortF_end:
             vec = utils_vertex.vertex_subtract(n1, nn_other)
-            vec = utils_vertex.vertex_scale(vec, 1.5)
-            nn_other = utils_vertex.vertex_add(nn, vec)
+            vec = utils_vertex.vertex_scale(vec, 0.25)
+            nn = utils_vertex.vertex_add(nn, vec)
 
         new_vertices.append(nn)
 
