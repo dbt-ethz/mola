@@ -59,6 +59,25 @@ class Mesh:
                 box.add_point(v.x,v.y,v.z)
         return box
 
+    def normalise_to_dim(self,dim):
+        """
+        centers a mesh to the origin and scales it uniformly to a max dimension (dim).
+        """
+        box = self.bounding_box()
+        center = box.center()
+        self.translate(-center.x,-center.y,-center.z)
+        sc = dim / box.dim_max()
+        scale(sc,sc,sc)
+
+    def normalise_to_bounds(self,dim_x,dim_y,dim_z):
+        """
+        centers a mesh to the origin and scales it non-uniformly to fit given dimensions (dim_x,dim_y,dim_z).
+        """
+        box = self.bounding_box()
+        center = box.center()
+        self.translate(-center.x,-center.y,-center.z)
+        scale((dim_x / box.dim_x()),(dim_y / box.dim_y()),(dim_z / box.dim_z()))
+
     def center(self):
         """
         Returns the center of the Mesh as a Vertex() object
@@ -155,7 +174,7 @@ class Mesh:
                 vs = [meshcopy.vertices[self.vertices.index(v)] for v in f.vertices]
                 nf = meshcopy.add_face(vs)
                 utils_face.face_copy_properties(f,nf)
-            
+
             for e in self.edges:
                 iv1 = self.vertices.index(e.v1)
                 iv2 = self.vertices.index(e.v1)
