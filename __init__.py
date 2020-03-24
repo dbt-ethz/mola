@@ -8,7 +8,6 @@ from .core_grid import *
 from .core_mesh import *
 from .core_vertex import *
 from .graph import *
-from .grid_factory import *
 from .io import *
 from .mesh_factory import *
 from .mesh_marching_cubes import *
@@ -20,5 +19,6 @@ from .utils_math import *
 from .utils_mesh import *
 from .utils_poly import *
 from .utils_vertex import *
+from .utils_grid import *
 
 __all__ = [name for name in dir() if not name.startswith('_')]
