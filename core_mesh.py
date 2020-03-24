@@ -59,7 +59,7 @@ class Mesh:
                 box.add_point(v.x,v.y,v.z)
         return box
 
-    def normalise_to_dim(self,dim):
+    def normalise_to_dim(self,dim = 20):
         """
         centers a mesh to the origin and scales it uniformly to a max dimension (dim).
         """

@@ -31,6 +31,19 @@ def grid_set_values_sinusoids(grid, freq_x=6*math.pi, freq_y=6*math.pi, freq_z=6
                 v = utils_math.math_map((vx+vy+vz),-3.0,3.0,-1.0,1.0)
                 grid.set_value_at_xyz(v,i,j,k)
 
+def numpy_to_grid_values(voxel_states):
+    """Returns a list of values of a voxel geometry that is described by a Numpy Array. The output list can be used as input in mola.Grid.
+
+    Arguments
+    ----------
+    voxel_states : numpy.ndarray
+        Numpy Array of shape (nX,nY,nZ) and dtype=int where values represent different voxel states.
+    """
+    shape=voxel_states.shape
+    nx, ny, nz =shape[0], shape[1], shape[2]
+    val1d = voxel_states.reshape((nx*ny*nz, -1))
+    return [v[0] for v in list(val1d.astype('int'))]
+
 def numpy_to_voxel_mesh(voxel_bools,voxel_colors):
     """Returns the Mesh of a voxel geometry that is described by Numpy Arrays.
 
