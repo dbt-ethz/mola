@@ -67,7 +67,7 @@ class Mesh:
         center = box.center()
         self.translate(-center.x,-center.y,-center.z)
         sc = dim / box.dim_max()
-        scale(sc,sc,sc)
+        self.scale(sc,sc,sc)
 
     def normalise_to_bounds(self,dim_x,dim_y,dim_z):
         """
@@ -76,7 +76,7 @@ class Mesh:
         box = self.bounding_box()
         center = box.center()
         self.translate(-center.x,-center.y,-center.z)
-        scale((dim_x / box.dim_x()),(dim_y / box.dim_y()),(dim_z / box.dim_z()))
+        self.scale((dim_x / box.dim_x()),(dim_y / box.dim_y()),(dim_z / box.dim_z()))
 
     def center(self):
         """
