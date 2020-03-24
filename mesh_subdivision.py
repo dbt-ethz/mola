@@ -337,6 +337,85 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         utils_face.face_copy_properties(face,new_face)
     return new_faces
 
+def subdivide_custom_triface_extrude_tapered_nonU(face, height=0.0, fraction=0.5,doCap=True):
+    """
+    Extrudes a triangular face tapered like a window by creating an
+    offset face and quads between every original edge and the
+    corresponding new edge. The vertices of the new edge which corresponds 
+    to the shortest edge of the triangle are moved closer to the later,
+    while preserving the offset from its other edges 
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be extruded
+    height : float
+        The distance of the new face to the original face, default 0
+    fraction : float
+        The relative offset distance, 0: original vertex, 1: center point
+        default 0.5 (halfway)
+    """
+
+    center_vertex = utils_face.face_center(face)
+    normal = utils_face.face_normal(face)
+    scaled_normal = utils_vertex.vertex_scale(normal, height)
+
+    minD = 9999999999999999
+    for i in range(len(face.vertices)-1):
+        n1 = face.vertices[i]
+        for j in range(i+1,len(face.vertices)):
+
+            n2 = face.vertices[j]
+            d = (n2.x-n1.x)**2.0 + (n2.y - n1.y)**2.0 + (n2.z - n1.z)**2.0
+            if d<minD:
+                minD = d
+                shortF_st = i
+                shortF_end = j
+
+    other = 3 - shortF_st - shortF_end
+    n_other = face.vertices[other]
+    betw_other = utils_vertex.vertex_subtract(center_vertex, n_other)
+    betw_other = utils_vertex.vertex_scale(betw_other, fraction)
+    nn_other = utils_vertex.vertex_add(n_other, betw_other)
+    nn_other = utils_vertex.vertex_add(nn_other, scaled_normal)
+
+    # calculate new vertex positions
+    new_vertices = []
+    for i in range(len(face.vertices)):
+        n1 = face.vertices[i]
+        betw = utils_vertex.vertex_subtract(center_vertex, n1)
+        betw = utils_vertex.vertex_scale(betw, fraction)
+        nn = utils_vertex.vertex_add(n1, betw)
+        nn = utils_vertex.vertex_add(nn, scaled_normal) 
+
+        if i==shortF_st or i==shortF_end:
+            vec = utils_vertex.vertex_subtract(n1, nn_other)
+            vec = utils_vertex.vertex_scale(vec, 0.25)
+            nn = utils_vertex.vertex_add(nn, vec)
+
+        new_vertices.append(nn)
+
+    new_faces = []
+    # create the quads along the edges
+    num = len(face.vertices)
+    for i in range(num):
+        n1 = face.vertices[i]
+        n2 = face.vertices[(i + 1) % num]
+        n3 = new_vertices[(i + 1) % num]
+        n4 = new_vertices[i]
+        new_face = Face([n1,n2,n3,n4])
+        new_faces.append(new_face)
+
+    # create the closing cap face
+    if doCap:
+        cap_face = Face(new_vertices)
+        new_faces.append(cap_face)
+
+    for new_face in new_faces:
+        utils_face.face_copy_properties(face,new_face)
+
+    return new_faces
+
 def subdivide_face_split_roof(face, height):
     """
     Extrudes a pitched roof
