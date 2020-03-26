@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""Conversion tools between mola and COMPAS."""
 from compas.datastructures import Mesh as CMesh
 
 import mola
@@ -11,11 +12,21 @@ __email__ = ['<dbt@arch.ethz.ch>']
 
 
 def mesh_from_compas_mesh(cmesh):
-    """Convert a compas mesh to a mola mesh."""
+    """Convert a compas mesh to a mola mesh.
+
+    Parameters
+    ----------
+    cmesh : :class:`mola.Mesh`
+        Mesh to convert.
+
+    Returns
+    -------
+    :class:`compas.datastructures.Mesh`
+    """
     mesh = mola.Mesh()
 
     face_attrs = ["color", "groups"]
-    vertex_attrs = ["fix, generation"]
+    vertex_attrs = ["fix", "generation"]
 
     v_dict = {}
 
@@ -64,14 +75,23 @@ def mesh_from_compas_mesh(cmesh):
 
         mesh.faces.append(face)
 
-    for u, v in cmesh.edges():
-        mesh.edges.append(mola.Edge(v_dict[u], v_dict[v]))
+    mesh.update_topology()
 
     return mesh
 
 
 def mesh_to_compas_mesh(mesh):
-    """Convert a mola mesh to a compas mesh."""
+    """Convert a mola mesh to a compas mesh.
+
+    Parameters
+    ----------
+    mesh : :class:`mola.Mesh`
+        Mesh to convert.
+
+    Returns
+    -------
+    :class:`compas.datastructures.Mesh`
+    """
     cmesh = CMesh()
 
     for face in mesh.faces:
