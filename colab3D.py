@@ -25,14 +25,14 @@ __canvasHeight = "56.25vw"
 
 __positionsWelded = []
 
-def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,1,1,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
+def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,1,1,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
   """
   Displays Mesh.
   Arguments:
   ----------
   mesh : mola.core.Mesh
          The mesh to be displayed
-  ----------
+
   Optional Arguments:
   ----------
   canvasWidth : float
@@ -78,9 +78,55 @@ def displayMesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=
     for v in mesh.vertices:
       __positionsWelded.extend((v.x,v.y,v.z))
 
-  return display(mesh.faces)
+  return display_faces(mesh.faces)
 
-def display(faces):
+
+
+def display_faces_welded(faces):
+    __begin3D()
+    verticesDict={}
+    positions=[]
+    indices=[]
+    colors=[]
+    cIndex=0
+    for face in faces:
+        col=face.color
+        # triangle
+        for i in range(3):
+            p=face.vertices[i]
+            ptuple = (p.x,p.y,p.z)
+            if ptuple in verticesDict:
+                indices.append(verticesDict[ptuple])
+            else:
+                verticesDict[ptuple]=cIndex
+                positions.extend(ptuple)
+                colors.extend(face.color)
+                indices.append(cIndex)
+                cIndex+=1
+        # quad
+        if len(face.vertices)>3:
+            p=face.vertices[3]
+            ptuple = (p.x,p.y,p.z)
+            i0=indices[-3]
+            i1=indices[-1]
+            indices.append(i0)
+            indices.append(i1)
+            if ptuple in verticesDict:
+                indices.append(verticesDict[ptuple])
+            else:
+                verticesDict[ptuple]=cIndex
+                positions.extend(ptuple)
+                colors.extend(face.color)
+                indices.append(cIndex)
+                cIndex+=1
+    __draw_mesh_with_colors(positions, indices, colors)
+    __end3D()
+    return __code
+
+
+
+
+def display_faces(faces):
     __begin3D()
     positions=[]
     indices=[]
@@ -97,7 +143,7 @@ def display(faces):
             for i in range(2,len(face.vertices)-1):
                 indices.extend([cIndex+i, cIndex+i+1, cIndex])
         cIndex+=len(face.vertices)
-    __drawMeshWithColors(positions, indices, colors)
+    __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
 
@@ -129,22 +175,23 @@ def __begin3D():
     __code+='''var camera = new BABYLON.ArcRotateCamera("camera1",  0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
             camera.setPosition(new BABYLON.Vector3(0, 5, 30));
              camera.attachControl(canvas, true);'''
-    __code+=''' var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene); // Default intensity is 1. Let's dim the light a small amount
+    __code+=''' var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 0.5;'''
 
 
-def __drawMeshWithColors(vertices,faces,vertexColors):
+def __draw_mesh_with_colors(vertices,faces,vertexColors):
     global __code
     __code+="var positions = "+str(vertices)+";"
     __code+="var indices = "+str(faces)+";"
     __code+="var colors = "+str(vertexColors)+";"
     return __code
 
-def __drawTestMesh():
+"""
+def __draw_test_mesh():
     global __code
     __code+='''    var positions = [-5, 2, -3, -7, -2, -3, -3, -2, -3, 5, 2, 3, 7, -2, 3, 3, -2, 3];
             var indices = [0, 1, 2, 3, 4, 5];    '''
-
+"""
 def __end3D():
   global __code
   __code+= '''
@@ -161,7 +208,6 @@ def __end3D():
           vertexData.colors = colors;
           //Apply vertexData to custom mesh
           vertexData.applyToMesh(customMesh);
-          /******Display custom mesh in wireframe view to show its creation****************/
           var mat = new BABYLON.StandardMaterial("mat", scene);
           mat.backFaceCulling = false;'''
   if __showWireframe:
@@ -174,7 +220,7 @@ def __end3D():
     __code+='''mat.disableLighting = true; '''
   if __showEdges:
     __code+= '''customMesh.enableEdgesRendering();'''
-    __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth)+';'
+    __code+= '''customMesh.edgesWidth = ''' + str(__edgesWidth * 10) +';'
     __code+= '''customMesh.edgesColor = new BABYLON.Color4'''+str(__edgesColor)+ ';'
   if __showPointsNumbers:
     __code+='''

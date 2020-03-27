@@ -6,19 +6,19 @@ __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
 import math
-from mola.core import Vertex
-from mola.core import Mesh
-from mola.core import Face
+from mola.core_vertex import Vertex
+from mola.core_face import Face
+from mola.core_mesh import Mesh
 
 def _v( v1,  v2,  iso):
     if (abs(v2 - v1) < 0.0000001):
         return 0
     return (iso - v1) / (v2 - v1)
 
-def marchingCubesFromGrid(grid,iso):
-    return marchingCubes(grid.nX,grid.nY,grid.nZ,grid.values,iso)
+def marching_cubes_from_grid(grid,iso):
+    return marching_cubes(grid.nx,grid.ny,grid.nz,grid.values,iso,grid.scale_to_canvas)
 
-def marchingCubes(nX,nY,nZ,values,iso):
+def marching_cubes(nX,nY,nZ,values,iso, scale_to_canvas=False):
     mesh =  Mesh()
     nYZ = nY * nZ
     index = 0
@@ -67,6 +67,13 @@ def marchingCubes(nX,nY,nZ,values,iso):
                             vs.append(v)
                             if len(vs) == 3:
                                 mesh.faces.append(Face(vs))
+
+    mesh.update_topology()
+    if(scale_to_canvas):
+        mesh.translate(-nX/2.0,-nY/2.0,-nZ/2.0)
+        sc = 20.0/max(nX,nY)
+        mesh.scale(sc,sc,sc)
+
     return mesh
 
 _faces = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 8, 3, -1, -1, -1, -1,
