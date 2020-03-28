@@ -8,6 +8,7 @@ __email__      = ['<dbt@arch.ethz.ch>']
 import math
 
 class Vertex:
+
     """A Vertex defines a point in space.
 
     Attributes
@@ -21,6 +22,7 @@ class Vertex:
     edges : list
         List of edges connected to the `Vertex`.
     """
+    __slots__ = 'x', 'y','z', '__dict__'
     def __init__(self, x=0, y=0, z=0):
         self.x = x
         self.y = y
