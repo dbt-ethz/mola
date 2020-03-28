@@ -33,41 +33,6 @@ def _collect_new_faces(mesh):
     newMesh.update_topology()
     return newMesh
 
-def offset(mesh,offset=1,doclose=True):
-    newMesh=Mesh()
-    # calculate vertex normals
-    for vertex in mesh.vertices:
-        vertex.vertex = Vertex(0,0,0)
-        vertex.nfaces = 0
-    for face in mesh.faces:
-        normal = utils_face.face_normal(face)
-        for vertex in face.vertices:
-            vertex.vertex.add(normal)
-            vertex.nfaces += 1
-    for vertex in mesh.vertices:
-        vertex.vertex.scale(offset / vertex.nfaces)
-        vertex.vertex.add(vertex)
-    # create faces
-    for face in mesh.faces:
-        offsetVertices = []
-        for vertex in face.vertices:
-            offsetVertices.append(vertex.vertex)
-        offsetVertices.reverse()
-        newFace = Face(offsetVertices)
-        newMesh.faces.append(newFace)
-        newMesh.faces.append(face)
-    # create sides
-    if doclose:
-        for edge in mesh.edges:
-            if edge.face1 == None or edge.face2 == None:
-                offsetVertices = [edge.v1, edge.v2, edge.v2.vertex, edge.v1.vertex]
-                if edge.face2 == None:
-                    offsetVertices.reverse()
-                newFace = Face(offsetVertices)
-                newMesh.faces.append(newFace)
-    newMesh.update_topology()
-    return newMesh
-
 def subdivide_mesh(mesh,values=[]):
     for face in mesh.faces:
         face.vertex=utils_face.center(face)
