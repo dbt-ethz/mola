@@ -46,6 +46,8 @@ Lightweight Computational Design Library
   - Construct and load mesh geometry in [Rhino](https://www.rhino3d.com)
 - module_blender 
   - Construct mesh geometry in [Blender](https://www.blender.org)
+* module_compas
+  - Convert mesh objects between Mola and [COMPAS](https://compas-dev.github.io/).
 
 ## Use Cases
 - The Mola library has been used in the elective course _Advanced Computational Design Course_, spring semester 2019 at ETH Zurich.
