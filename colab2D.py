@@ -118,7 +118,7 @@ def begin_draw(width=1024,height=768):
 
 def end_draw():
     global p5code
-    p5code+=_endDraw2D()
+    p5code+=_end2D()
     return p5code
 
 # helper function to get a drawing canvas inside the notebook

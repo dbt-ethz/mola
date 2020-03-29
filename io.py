@@ -64,7 +64,7 @@ def export_obj_faces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldV
         materials = {}
 
     if exportGroups:
-        faces.sort(key = lambda x: x.group)
+        faces.sort(key = lambda x: str(x.group))
 
     vertexCount = 0
     vertices = {}
