@@ -45,6 +45,20 @@ class Box:
         """
         return self.z2 - self.z1
 
+    def dim_max(self):
+        """
+        Returns the Box's maximum extent.
+        """
+        x = self.dim_x()
+        y = self.dim_y()
+        z = self.dim_z()
+        if (x >= y) and (x >= z):
+            return x
+        elif (y >= x) and (y >= z):
+            return y
+        else:
+            return z
+
     def center(self):
         """
         returns the Box's center as a Vertex() object

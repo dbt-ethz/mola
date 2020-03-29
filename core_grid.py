@@ -189,13 +189,12 @@ class GridManager:
         return nbs
 
 class Grid(GridManager):
-    def __init__(self, nx, ny, nz=1, values=None, scale_to_canvas=False):
+    def __init__(self, nx, ny, nz=1, values=None):
         super().__init__(nx, ny, nz)
         # self.nx = nx
         # self.ny = ny
         # self.nz = nz
         # self.nyz = ny * nz
-        self.scale_to_canvas = scale_to_canvas;
         if values is None:
             self.values = [0] * nx * ny * nz
         else:
@@ -264,10 +263,6 @@ class Grid(GridManager):
         mesh = Mesh()
         mesh.faces = faces
         mesh.update_topology()
-        if (self.scale_to_canvas):
-            mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
-            sc = 20.0/max(self.nx,self.ny)
-            mesh.scale(sc,sc,sc)
         return mesh
 
 class HexGrid(Grid):

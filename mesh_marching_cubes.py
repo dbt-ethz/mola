@@ -15,10 +15,10 @@ def _v( v1,  v2,  iso):
         return 0
     return (iso - v1) / (v2 - v1)
 
-def marching_cubes_from_grid(grid,iso):
-    return marching_cubes(grid.nx,grid.ny,grid.nz,grid.values,iso,grid.scale_to_canvas)
+def mesh_marching_cubes_from_grid(grid,iso):
+    return marching_cubes(grid.nx,grid.ny,grid.nz,grid.values,iso)
 
-def marching_cubes(nX,nY,nZ,values,iso, scale_to_canvas=False):
+def mesh_marching_cubes(nX,nY,nZ,values,iso):
     mesh =  Mesh()
     nYZ = nY * nZ
     index = 0
@@ -69,11 +69,6 @@ def marching_cubes(nX,nY,nZ,values,iso, scale_to_canvas=False):
                                 mesh.faces.append(Face(vs))
 
     mesh.update_topology()
-    if(scale_to_canvas):
-        mesh.translate(-nX/2.0,-nY/2.0,-nZ/2.0)
-        sc = 20.0/max(nX,nY)
-        mesh.scale(sc,sc,sc)
-
     return mesh
 
 _faces = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 8, 3, -1, -1, -1, -1,
