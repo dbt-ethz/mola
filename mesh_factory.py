@@ -17,7 +17,7 @@ def construct_single_face(vertices):
 
     Arguments:
     ----------
-    vertices : list of mola.core.Vertex
+    vertices : list of mola.core.Vertex<br>
         The vertices describing the face
     """
     mesh = Mesh()
@@ -29,6 +29,17 @@ def construct_single_face(vertices):
 def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
     """
     Creates and returns a conic cylinder.
+
+    Arguments:
+    ----------
+    z1, z2 : float<br>
+        The bottom and top z-level.<br>
+    radius1, radius2 : float<br>
+        The radii at the bottom and at the top respectively<br>
+    nSegments : int<br>
+        The number of segments along the circumference<br>
+    capBottom, capTop : bool<br>
+        Toggle whether or not to close the cylinder at the bottom and the top
     """
     delaAngle = math.radians(360.0 / nSegments)
     angle = 0
@@ -72,9 +83,9 @@ def construct_box(x1,y1,z1,x2,y2,z2):
 
     Arguments:
     ----------
-    x1,y1,z1 : float
-        The coordinates of the bottom left front corner
-    x2,y2,z2 : float
+    x1,y1,z1 : float<br>
+        The coordinates of the bottom left front corner<br>
+    x2,y2,z2 : float<br>
         The coordinates of the top right back corner
     """
     mesh = Mesh()
@@ -103,9 +114,9 @@ def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
 
     Optional Arguments:
     ----------
-    radius : float
-        The radius of the containing sphere.
-    cx,cy,cz : float
+    radius : float<br>
+        The radius of the containing sphere.<br>
+    cx,cy,cz : float<br>
         The coordinates of the center point.
     """
     mesh = Mesh()
@@ -145,9 +156,9 @@ def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
 
     Optional Arguments:
     ----------
-    radius : float
-        The radius of the containing sphere
-    cx,cy,cz : float
+    radius : float<br>
+        The radius of the containing sphere<br>
+    cx,cy,cz : float<br>
         The coordinates of the center point.
     """
     mesh = Mesh()
@@ -205,9 +216,9 @@ def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
 
     Optional Arguments:
     ----------
-    side : float
-        The edge length of the tetrahedron
-    cx,cy,cz : float
+    side : float<br>
+        The edge length of the tetrahedron<br>
+    cx,cy,cz : float<br>
         The coordinates of the center point.
     """
 
@@ -237,16 +248,16 @@ def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
 
     Arguments:
     ----------
-    ringRadius : float
-        the big radius of the axis
-    tubeRadius : float
-        radius of the the tube along the axis
+    ringRadius : float<br>
+        the big radius of the axis<br>
+    tubeRadius : float<br>
+        radius of the the tube along the axis<br>
 
     Optional Arguments:
     ----------
-    ringN : int
-        resolution along the ring
-    tubeN : int
+    ringN : int<br>
+        resolution along the ring<br>
+    tubeN : int<br>
         resolution along the tube
     """
     mesh = Mesh()

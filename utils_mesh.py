@@ -13,6 +13,11 @@ from mola import utils_face
 
 
 def mesh_smooth_laplacian(mesh, factor=0.3):
+    """
+    Applies Laplacian smoothing to a mesh.
+    It works by moving each vertex in the direction of the average position of its neighbors.
+    Note: this does not increase the face count.
+    """
     smoothed = mesh.copy()
     #smoothed.update_topology()
     for i,v in enumerate(mesh.vertices):
@@ -28,6 +33,11 @@ def mesh_smooth_laplacian(mesh, factor=0.3):
 
 
 def mesh_offset(mesh,offset=1,doclose=True):
+    """
+    Creates an offset of a mesh.
+    If `doclose` is `True`, it will create quad faces
+    along the naked edges of an open input mesh.
+    """
     newMesh=Mesh()
     # calculate vertex normals
     for vertex in mesh.vertices:
