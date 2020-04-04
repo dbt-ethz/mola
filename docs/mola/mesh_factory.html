@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>mola.mesh_factory API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mola.mesh_factory</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = [&#39;Benjamin Dillenburger&#39;,&#39;Demetris Shammas&#39;,&#39;Mathias Bernhard&#39;]
+__copyright__  = &#39;Copyright 2019 / Digital Building Technologies DBT / ETH Zurich&#39;
+__license__    = &#39;MIT License&#39;
+__email__      = [&#39;&lt;dbt@arch.ethz.ch&gt;&#39;]
+
+from mola.core_mesh import Mesh
+from mola.core_vertex import Vertex
+from mola.core_face import Face
+from mola import utils_vertex
+import math
+
+def construct_single_face(vertices):
+    &#34;&#34;&#34;
+    Creates and returns a single face mesh from the vertices.
+
+    Arguments:
+    ----------
+    vertices : list of mola.core.Vertex
+        The vertices describing the face
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    mesh.vertices = vertices
+    mesh.faces = [Face(vertices)]
+    mesh.update_topology()
+    return mesh
+
+def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
+    &#34;&#34;&#34;
+    Creates and returns a conic cylinder.
+    &#34;&#34;&#34;
+    delaAngle = math.radians(360.0 / nSegments)
+    angle = 0
+    verticesBottom = []
+    verticesTop = []
+    for i in range(nSegments):
+        x1 = radius1 * math.cos(angle)
+        y1 = radius1 * math.sin(angle)
+        verticesBottom.append(Vertex(x1, y1, z1))
+        x2 = radius2 * math.cos(angle)
+        y2 = radius2 * math.sin(angle)
+        verticesTop.append(Vertex(x2, y2, z2))
+        angle += delaAngle
+
+    mesh = Mesh()
+    mesh.vertices.extend(verticesBottom)
+    mesh.vertices.extend(verticesTop)
+    for i in range(nSegments):
+        i2 = (i + 1) % nSegments
+        mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
+    if capBottom:
+        # centerBottom = Vertex(0, 0, z1)
+        # mesh.vertices.append(centerBottom)
+        # for i in range(nSegments):
+        #     i2=(i+1)%nSegments
+        #     mesh.faces.append(Face([verticesBottom[i2],verticesBottom[i],centerBottom]))
+        mesh.faces.append(Face(list(reversed(verticesBottom))))
+    if capTop:
+        # centerTop=Vertex(0,0,z2)
+        # mesh.vertices.append(centerTop)
+        # for i in range(nSegments):
+        #     i2=(i+1)%nSegments
+        #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
+        mesh.faces.append(Face(verticesTop))
+    mesh.update_topology()
+    return mesh
+
+def construct_box(x1,y1,z1,x2,y2,z2):
+    &#34;&#34;&#34;
+    Creates and returns a mesh box with six quad faces.
+
+    Arguments:
+    ----------
+    x1,y1,z1 : float&lt;br&gt;
+        The coordinates of the bottom left front corner&lt;br&gt;
+    x2,y2,z2 : float&lt;br&gt;
+        The coordinates of the top right back corner&lt;br&gt;
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    v1 = Vertex(x1, y1, z1)
+    v2 = Vertex(x1, y2, z1)
+    v3 = Vertex(x2, y2, z1)
+    v4 = Vertex(x2, y1, z1)
+    v5 = Vertex(x1, y1, z2)
+    v6 = Vertex(x1, y2, z2)
+    v7 = Vertex(x2, y2, z2)
+    v8 = Vertex(x2, y1, z2)
+    mesh.vertices = [v1, v2, v3, v4, v5, v6, v7, v8]
+    f1 = Face([v1, v2, v3, v4])
+    f2 = Face([v8, v7, v6, v5])
+    f3 = Face([v4, v3, v7, v8])
+    f4 = Face([v3, v2, v6, v7])
+    f5 = Face([v2, v1, v5, v6])
+    f6 = Face([v1, v4, v8, v5])
+    mesh.faces = [f1, f2, f3, f4, f5, f6]
+    mesh.update_topology()
+    return mesh
+
+def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Creates and returns a mesh in the form of an icosahedron.
+
+    Optional Arguments:
+    ----------
+    radius : float
+        The radius of the containing sphere.
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    phi = (1 + 5 ** 0.5) / 2
+    coordA = 1 / (2 * math.sin(2 * math.pi / 5))
+    coordB = phi / (2 * math.sin(2 * math.pi / 5))
+    mesh.vertices = [Vertex(0, -coordA, coordB),
+                Vertex(coordB, 0, coordA),
+                Vertex(coordB, 0, -coordA),
+                Vertex(-coordB, 0, -coordA),
+                Vertex(-coordB, 0, coordA),
+                Vertex(-coordA, coordB, 0),
+                Vertex(coordA, coordB, 0),
+                Vertex(coordA, -coordB, 0),
+                Vertex(-coordA, -coordB, 0),
+                Vertex(0, -coordA, -coordB),
+                Vertex(0, coordA, -coordB),
+                Vertex(0, coordA, coordB)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
+
+    indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
+    faces = []
+
+    for i in range(0,len(indices),3):
+        f = Face([mesh.vertices[indices[i]], mesh.vertices[indices[i + 1]], mesh.vertices[indices[i + 2]]])
+        faces.append(f)
+    mesh.faces = faces
+    mesh.update_topology()
+    return mesh
+
+def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Constructs a dodecaheron mesh.
+
+    Optional Arguments:
+    ----------
+    radius : float
+        The radius of the containing sphere
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    phi = (1 + 5 ** 0.5) / 2
+    mesh.vertices = [Vertex( 1, 1, 1),
+                Vertex( 1, 1,-1),
+                Vertex( 1,-1, 1),
+                Vertex( 1,-1,-1),
+                Vertex(-1, 1, 1),
+                Vertex(-1, 1,-1),
+                Vertex(-1,-1, 1),
+                Vertex(-1,-1,-1),
+                Vertex(0,-phi,-1/phi),
+                Vertex(0,-phi, 1/phi),
+                Vertex(0, phi,-1/phi),
+                Vertex(0, phi, 1/phi),
+                Vertex(-phi,-1/phi,0),
+                Vertex(-phi, 1/phi,0),
+                Vertex( phi,-1/phi,0),
+                Vertex( phi, 1/phi,0),
+                Vertex(-1/phi,0,-phi),
+                Vertex( 1/phi,0,-phi),
+                Vertex(-1/phi,0, phi),
+                Vertex( 1/phi,0, phi)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
+    indices = [2,9,6,18,19,
+               4,11,0,19,18,
+               18,6,12,13,4,
+               19,0,15,14,2,
+               4,13,5,10,11,
+               14,15,1,17,3,
+               1,15,0,11,10,
+               3,17,16,7,8,
+               2,14,3,8,9,
+               6,9,8,7,12,
+               1,10,5,16,17,
+               12,7,16,5,13]
+
+    for i in range(0, len(indices), 5):
+        f = Face([mesh.vertices[indices[i]],
+                  mesh.vertices[indices[i + 1]],
+                  mesh.vertices[indices[i + 2]],
+                  mesh.vertices[indices[i + 3]],
+                  mesh.vertices[indices[i + 4]]])
+        mesh.faces.append(f)
+    mesh.update_topology()
+    return mesh
+
+def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Constructs a tetrahedron mesh.
+
+    Optional Arguments:
+    ----------
+    side : float
+        The edge length of the tetrahedron
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+
+    mesh = Mesh()
+    coord = 1 / math.sqrt(2)
+    mesh.vertices = [Vertex(+1, 0, -coord),
+                     Vertex(-1, 0, -coord),
+                     Vertex(0, +1, +coord),
+                     Vertex(0, -1, +coord)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], size / 2)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx, cy, cz))
+
+    f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = Face([mesh.vertices[1], mesh.vertices[0], mesh.vertices[3]])
+    f3 = Face([mesh.vertices[2], mesh.vertices[3], mesh.vertices[0]])
+    f4 = Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
+
+    mesh.faces = [f1, f2, f3, f4]
+    mesh.update_topology()
+    return mesh
+
+def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
+    &#34;&#34;&#34;
+    Constructs a torus mesh.
+
+    Arguments:
+    ----------
+    ringRadius : float
+        the big radius of the axis
+    tubeRadius : float
+        radius of the the tube along the axis
+
+    Optional Arguments:
+    ----------
+    ringN : int
+        resolution along the ring
+    tubeN : int
+        resolution along the tube
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    theta = 2 * math.pi / ringN
+    phi = 2 * math.pi / tubeN
+
+    for i in range (ringN):
+        for j in range (tubeN):
+            mesh.vertices.append(_torus_vertex(ringRadius, tubeRadius, phi * j, theta * i))
+
+    for i in range(ringN):
+        ii = (i + 1) % ringN
+        for j in range(tubeN):
+            jj = (j + 1) % tubeN
+            a = i  * tubeN + j
+            b = ii * tubeN + j
+            c = ii * tubeN + jj
+            d = i  * tubeN + jj
+            f = Face([mesh.vertices[k] for k in [a, b, c, d]])
+            mesh.faces.append(f)
+    mesh.update_topology()
+    return mesh
+
+def _torus_vertex(ringRadius, tubeRadius, ph,th):
+    x = math.cos(th) * (ringRadius + tubeRadius * math.cos(ph))
+    y = math.sin(th) * (ringRadius + tubeRadius * math.cos(ph))
+    z = tubeRadius * math.sin(ph)
+    return Vertex(x, y, z)
+
+def construct_rhombic_dodecahedron(edge_length=1, cx=0, cy=0, cz=0):
+    mesh = Mesh()
+    #make vertices
+    mesh.vertices = [Vertex(0,  0, 2 * edge_length),
+                     Vertex(-edge_length, edge_length, edge_length),
+                     Vertex(-edge_length, -edge_length, edge_length),
+                     Vertex(edge_length, -edge_length, edge_length),
+                     Vertex(edge_length, edge_length, edge_length),
+                     Vertex(-2 * edge_length, 0, 0),
+                     Vertex(0, -2*edge_length, 0),
+                     Vertex(2 * edge_length, 0, 0),
+                     Vertex(0, 2 * edge_length, 0),
+                     Vertex(-edge_length, edge_length, -edge_length),
+                     Vertex(-edge_length, -edge_length, -edge_length),
+                     Vertex(edge_length, -edge_length, -edge_length),
+                     Vertex(edge_length, edge_length, -edge_length),
+                     Vertex(0, 0, -2 * edge_length)]
+
+    #move center to desired coordinates
+    center = Vertex(cx, cy, cz)
+    for v in mesh.vertices:
+        v.add(center)
+
+    #construct quad faces
+    f1 = Face([mesh.vertices[0],mesh.vertices[2],mesh.vertices[5],mesh.vertices[1]])
+    f2 = Face([mesh.vertices[0],mesh.vertices[3],mesh.vertices[6],mesh.vertices[2]])
+    f3 = Face([mesh.vertices[0],mesh.vertices[4],mesh.vertices[7],mesh.vertices[3]])
+    f4 = Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[8],mesh.vertices[4]])
+    f5 = Face([mesh.vertices[2],mesh.vertices[6],mesh.vertices[10],mesh.vertices[5]])
+    f6 = Face([mesh.vertices[3],mesh.vertices[7],mesh.vertices[11],mesh.vertices[6]])
+    f7 = Face([mesh.vertices[4],mesh.vertices[8],mesh.vertices[12],mesh.vertices[7]])
+    f8 = Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[9],mesh.vertices[8]])
+    f9 = Face([mesh.vertices[10],mesh.vertices[13],mesh.vertices[9],mesh.vertices[5]])
+    f10 = Face([mesh.vertices[11],mesh.vertices[13],mesh.vertices[10],mesh.vertices[6]])
+    f11 = Face([mesh.vertices[12],mesh.vertices[13],mesh.vertices[11],mesh.vertices[7]])
+    f12 = Face([mesh.vertices[9],mesh.vertices[13],mesh.vertices[12],mesh.vertices[8]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
+    mesh.update_topology()
+    return mesh
+
+def construct_octahedron(edgeLen=1, cx=0, cy=0, cz=0):
+    mesh = Mesh()
+    #make vertices
+    mesh.vertices = [Vertex(0, 0, edgeLen/2),
+                     Vertex(-edgeLen/2, 0, 0),
+                     Vertex(0, -edgeLen/2, 0),
+                     Vertex(edgeLen/2, 0, 0),
+                     Vertex(0, edgeLen/2, 0),
+                     Vertex(0, 0, -edgeLen/2)]
+
+    #move center to desired coordinates
+    center = Vertex(cx, cy, cz)
+    for v in mesh.vertices:
+        v.add(center)
+
+    #construct triangular faces
+    f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = Face([mesh.vertices[0], mesh.vertices[2], mesh.vertices[3]])
+    f3 = Face([mesh.vertices[0], mesh.vertices[3], mesh.vertices[4]])
+    f4 = Face([mesh.vertices[0], mesh.vertices[4], mesh.vertices[1]])
+    f5 = Face([mesh.vertices[5], mesh.vertices[2], mesh.vertices[1]])
+    f6 = Face([mesh.vertices[5], mesh.vertices[3], mesh.vertices[2]])
+    f7 = Face([mesh.vertices[5], mesh.vertices[4], mesh.vertices[3]])
+    f8 = Face([mesh.vertices[5], mesh.vertices[1], mesh.vertices[4]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="mola.mesh_factory.construct_box"><code class="name flex">
+<span>def <span class="ident">construct_box</span></span>(<span>x1, y1, z1, x2, y2, z2)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates and returns a mesh box with six quad faces.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>x1,y1,z1 : float<br>
+The coordinates of the bottom left front corner<br>
+x2,y2,z2 : float<br>
+The coordinates of the top right back corner<br></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_box(x1,y1,z1,x2,y2,z2):
+    &#34;&#34;&#34;
+    Creates and returns a mesh box with six quad faces.
+
+    Arguments:
+    ----------
+    x1,y1,z1 : float&lt;br&gt;
+        The coordinates of the bottom left front corner&lt;br&gt;
+    x2,y2,z2 : float&lt;br&gt;
+        The coordinates of the top right back corner&lt;br&gt;
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    v1 = Vertex(x1, y1, z1)
+    v2 = Vertex(x1, y2, z1)
+    v3 = Vertex(x2, y2, z1)
+    v4 = Vertex(x2, y1, z1)
+    v5 = Vertex(x1, y1, z2)
+    v6 = Vertex(x1, y2, z2)
+    v7 = Vertex(x2, y2, z2)
+    v8 = Vertex(x2, y1, z2)
+    mesh.vertices = [v1, v2, v3, v4, v5, v6, v7, v8]
+    f1 = Face([v1, v2, v3, v4])
+    f2 = Face([v8, v7, v6, v5])
+    f3 = Face([v4, v3, v7, v8])
+    f4 = Face([v3, v2, v6, v7])
+    f5 = Face([v2, v1, v5, v6])
+    f6 = Face([v1, v4, v8, v5])
+    mesh.faces = [f1, f2, f3, f4, f5, f6]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_cone"><code class="name flex">
+<span>def <span class="ident">construct_cone</span></span>(<span>z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates and returns a conic cylinder.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
+    &#34;&#34;&#34;
+    Creates and returns a conic cylinder.
+    &#34;&#34;&#34;
+    delaAngle = math.radians(360.0 / nSegments)
+    angle = 0
+    verticesBottom = []
+    verticesTop = []
+    for i in range(nSegments):
+        x1 = radius1 * math.cos(angle)
+        y1 = radius1 * math.sin(angle)
+        verticesBottom.append(Vertex(x1, y1, z1))
+        x2 = radius2 * math.cos(angle)
+        y2 = radius2 * math.sin(angle)
+        verticesTop.append(Vertex(x2, y2, z2))
+        angle += delaAngle
+
+    mesh = Mesh()
+    mesh.vertices.extend(verticesBottom)
+    mesh.vertices.extend(verticesTop)
+    for i in range(nSegments):
+        i2 = (i + 1) % nSegments
+        mesh.faces.append(Face([verticesBottom[i],verticesBottom[i2],verticesTop[i2],verticesTop[i]]))
+    if capBottom:
+        # centerBottom = Vertex(0, 0, z1)
+        # mesh.vertices.append(centerBottom)
+        # for i in range(nSegments):
+        #     i2=(i+1)%nSegments
+        #     mesh.faces.append(Face([verticesBottom[i2],verticesBottom[i],centerBottom]))
+        mesh.faces.append(Face(list(reversed(verticesBottom))))
+    if capTop:
+        # centerTop=Vertex(0,0,z2)
+        # mesh.vertices.append(centerTop)
+        # for i in range(nSegments):
+        #     i2=(i+1)%nSegments
+        #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
+        mesh.faces.append(Face(verticesTop))
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_dodecahedron"><code class="name flex">
+<span>def <span class="ident">construct_dodecahedron</span></span>(<span>radius=1, cx=0, cy=0, cz=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Constructs a dodecaheron mesh.</p>
+<h2 id="optional-arguments">Optional Arguments:</h2>
+<p>radius : float
+The radius of the containing sphere
+cx,cy,cz : float
+The coordinates of the center point.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Constructs a dodecaheron mesh.
+
+    Optional Arguments:
+    ----------
+    radius : float
+        The radius of the containing sphere
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    phi = (1 + 5 ** 0.5) / 2
+    mesh.vertices = [Vertex( 1, 1, 1),
+                Vertex( 1, 1,-1),
+                Vertex( 1,-1, 1),
+                Vertex( 1,-1,-1),
+                Vertex(-1, 1, 1),
+                Vertex(-1, 1,-1),
+                Vertex(-1,-1, 1),
+                Vertex(-1,-1,-1),
+                Vertex(0,-phi,-1/phi),
+                Vertex(0,-phi, 1/phi),
+                Vertex(0, phi,-1/phi),
+                Vertex(0, phi, 1/phi),
+                Vertex(-phi,-1/phi,0),
+                Vertex(-phi, 1/phi,0),
+                Vertex( phi,-1/phi,0),
+                Vertex( phi, 1/phi,0),
+                Vertex(-1/phi,0,-phi),
+                Vertex( 1/phi,0,-phi),
+                Vertex(-1/phi,0, phi),
+                Vertex( 1/phi,0, phi)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
+    indices = [2,9,6,18,19,
+               4,11,0,19,18,
+               18,6,12,13,4,
+               19,0,15,14,2,
+               4,13,5,10,11,
+               14,15,1,17,3,
+               1,15,0,11,10,
+               3,17,16,7,8,
+               2,14,3,8,9,
+               6,9,8,7,12,
+               1,10,5,16,17,
+               12,7,16,5,13]
+
+    for i in range(0, len(indices), 5):
+        f = Face([mesh.vertices[indices[i]],
+                  mesh.vertices[indices[i + 1]],
+                  mesh.vertices[indices[i + 2]],
+                  mesh.vertices[indices[i + 3]],
+                  mesh.vertices[indices[i + 4]]])
+        mesh.faces.append(f)
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_icosahedron"><code class="name flex">
+<span>def <span class="ident">construct_icosahedron</span></span>(<span>radius=1, cx=0, cy=0, cz=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates and returns a mesh in the form of an icosahedron.</p>
+<h2 id="optional-arguments">Optional Arguments:</h2>
+<p>radius : float
+The radius of the containing sphere.
+cx,cy,cz : float
+The coordinates of the center point.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Creates and returns a mesh in the form of an icosahedron.
+
+    Optional Arguments:
+    ----------
+    radius : float
+        The radius of the containing sphere.
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    phi = (1 + 5 ** 0.5) / 2
+    coordA = 1 / (2 * math.sin(2 * math.pi / 5))
+    coordB = phi / (2 * math.sin(2 * math.pi / 5))
+    mesh.vertices = [Vertex(0, -coordA, coordB),
+                Vertex(coordB, 0, coordA),
+                Vertex(coordB, 0, -coordA),
+                Vertex(-coordB, 0, -coordA),
+                Vertex(-coordB, 0, coordA),
+                Vertex(-coordA, coordB, 0),
+                Vertex(coordA, coordB, 0),
+                Vertex(coordA, -coordB, 0),
+                Vertex(-coordA, -coordB, 0),
+                Vertex(0, -coordA, -coordB),
+                Vertex(0, coordA, -coordB),
+                Vertex(0, coordA, coordB)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], radius)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx,cy,cz))
+
+    indices = [1, 2, 6, 1, 7, 2, 3, 4, 5, 4, 3, 8, 6, 5, 11, 5, 6, 10, 9, 10, 2, 10, 9, 3, 7, 8, 9, 8, 7, 0, 11, 0, 1, 0, 11, 4, 6, 2, 10, 1, 6, 11, 3, 5, 10, 5, 4, 11, 2, 7, 9, 7, 1, 0, 3, 9, 8, 4, 8, 0]
+    faces = []
+
+    for i in range(0,len(indices),3):
+        f = Face([mesh.vertices[indices[i]], mesh.vertices[indices[i + 1]], mesh.vertices[indices[i + 2]]])
+        faces.append(f)
+    mesh.faces = faces
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_octahedron"><code class="name flex">
+<span>def <span class="ident">construct_octahedron</span></span>(<span>edgeLen=1, cx=0, cy=0, cz=0)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_octahedron(edgeLen=1, cx=0, cy=0, cz=0):
+    mesh = Mesh()
+    #make vertices
+    mesh.vertices = [Vertex(0, 0, edgeLen/2),
+                     Vertex(-edgeLen/2, 0, 0),
+                     Vertex(0, -edgeLen/2, 0),
+                     Vertex(edgeLen/2, 0, 0),
+                     Vertex(0, edgeLen/2, 0),
+                     Vertex(0, 0, -edgeLen/2)]
+
+    #move center to desired coordinates
+    center = Vertex(cx, cy, cz)
+    for v in mesh.vertices:
+        v.add(center)
+
+    #construct triangular faces
+    f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = Face([mesh.vertices[0], mesh.vertices[2], mesh.vertices[3]])
+    f3 = Face([mesh.vertices[0], mesh.vertices[3], mesh.vertices[4]])
+    f4 = Face([mesh.vertices[0], mesh.vertices[4], mesh.vertices[1]])
+    f5 = Face([mesh.vertices[5], mesh.vertices[2], mesh.vertices[1]])
+    f6 = Face([mesh.vertices[5], mesh.vertices[3], mesh.vertices[2]])
+    f7 = Face([mesh.vertices[5], mesh.vertices[4], mesh.vertices[3]])
+    f8 = Face([mesh.vertices[5], mesh.vertices[1], mesh.vertices[4]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_rhombic_dodecahedron"><code class="name flex">
+<span>def <span class="ident">construct_rhombic_dodecahedron</span></span>(<span>edge_length=1, cx=0, cy=0, cz=0)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_rhombic_dodecahedron(edge_length=1, cx=0, cy=0, cz=0):
+    mesh = Mesh()
+    #make vertices
+    mesh.vertices = [Vertex(0,  0, 2 * edge_length),
+                     Vertex(-edge_length, edge_length, edge_length),
+                     Vertex(-edge_length, -edge_length, edge_length),
+                     Vertex(edge_length, -edge_length, edge_length),
+                     Vertex(edge_length, edge_length, edge_length),
+                     Vertex(-2 * edge_length, 0, 0),
+                     Vertex(0, -2*edge_length, 0),
+                     Vertex(2 * edge_length, 0, 0),
+                     Vertex(0, 2 * edge_length, 0),
+                     Vertex(-edge_length, edge_length, -edge_length),
+                     Vertex(-edge_length, -edge_length, -edge_length),
+                     Vertex(edge_length, -edge_length, -edge_length),
+                     Vertex(edge_length, edge_length, -edge_length),
+                     Vertex(0, 0, -2 * edge_length)]
+
+    #move center to desired coordinates
+    center = Vertex(cx, cy, cz)
+    for v in mesh.vertices:
+        v.add(center)
+
+    #construct quad faces
+    f1 = Face([mesh.vertices[0],mesh.vertices[2],mesh.vertices[5],mesh.vertices[1]])
+    f2 = Face([mesh.vertices[0],mesh.vertices[3],mesh.vertices[6],mesh.vertices[2]])
+    f3 = Face([mesh.vertices[0],mesh.vertices[4],mesh.vertices[7],mesh.vertices[3]])
+    f4 = Face([mesh.vertices[0],mesh.vertices[1],mesh.vertices[8],mesh.vertices[4]])
+    f5 = Face([mesh.vertices[2],mesh.vertices[6],mesh.vertices[10],mesh.vertices[5]])
+    f6 = Face([mesh.vertices[3],mesh.vertices[7],mesh.vertices[11],mesh.vertices[6]])
+    f7 = Face([mesh.vertices[4],mesh.vertices[8],mesh.vertices[12],mesh.vertices[7]])
+    f8 = Face([mesh.vertices[1],mesh.vertices[5],mesh.vertices[9],mesh.vertices[8]])
+    f9 = Face([mesh.vertices[10],mesh.vertices[13],mesh.vertices[9],mesh.vertices[5]])
+    f10 = Face([mesh.vertices[11],mesh.vertices[13],mesh.vertices[10],mesh.vertices[6]])
+    f11 = Face([mesh.vertices[12],mesh.vertices[13],mesh.vertices[11],mesh.vertices[7]])
+    f12 = Face([mesh.vertices[9],mesh.vertices[13],mesh.vertices[12],mesh.vertices[8]])
+
+    mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_single_face"><code class="name flex">
+<span>def <span class="ident">construct_single_face</span></span>(<span>vertices)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates and returns a single face mesh from the vertices.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>vertices : list of mola.core.Vertex
+The vertices describing the face</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_single_face(vertices):
+    &#34;&#34;&#34;
+    Creates and returns a single face mesh from the vertices.
+
+    Arguments:
+    ----------
+    vertices : list of mola.core.Vertex
+        The vertices describing the face
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    mesh.vertices = vertices
+    mesh.faces = [Face(vertices)]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_tetrahedron"><code class="name flex">
+<span>def <span class="ident">construct_tetrahedron</span></span>(<span>size=1, cx=0, cy=0, cz=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Constructs a tetrahedron mesh.</p>
+<h2 id="optional-arguments">Optional Arguments:</h2>
+<p>side : float
+The edge length of the tetrahedron
+cx,cy,cz : float
+The coordinates of the center point.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
+    &#34;&#34;&#34;
+    Constructs a tetrahedron mesh.
+
+    Optional Arguments:
+    ----------
+    side : float
+        The edge length of the tetrahedron
+    cx,cy,cz : float
+        The coordinates of the center point.
+    &#34;&#34;&#34;
+
+    mesh = Mesh()
+    coord = 1 / math.sqrt(2)
+    mesh.vertices = [Vertex(+1, 0, -coord),
+                     Vertex(-1, 0, -coord),
+                     Vertex(0, +1, +coord),
+                     Vertex(0, -1, +coord)]
+
+    for i in range(len(mesh.vertices)):
+        mesh.vertices[i] = utils_vertex.vertex_scale(mesh.vertices[i], size / 2)
+        mesh.vertices[i] = utils_vertex.vertex_add(mesh.vertices[i], Vertex(cx, cy, cz))
+
+    f1 = Face([mesh.vertices[0], mesh.vertices[1], mesh.vertices[2]])
+    f2 = Face([mesh.vertices[1], mesh.vertices[0], mesh.vertices[3]])
+    f3 = Face([mesh.vertices[2], mesh.vertices[3], mesh.vertices[0]])
+    f4 = Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
+
+    mesh.faces = [f1, f2, f3, f4]
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.mesh_factory.construct_torus"><code class="name flex">
+<span>def <span class="ident">construct_torus</span></span>(<span>ringRadius, tubeRadius, ringN=16, tubeN=16)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Constructs a torus mesh.</p>
+<h2 id="arguments">Arguments:</h2>
+<p>ringRadius : float
+the big radius of the axis
+tubeRadius : float
+radius of the the tube along the axis</p>
+<h2 id="optional-arguments">Optional Arguments:</h2>
+<p>ringN : int
+resolution along the ring
+tubeN : int
+resolution along the tube</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
+    &#34;&#34;&#34;
+    Constructs a torus mesh.
+
+    Arguments:
+    ----------
+    ringRadius : float
+        the big radius of the axis
+    tubeRadius : float
+        radius of the the tube along the axis
+
+    Optional Arguments:
+    ----------
+    ringN : int
+        resolution along the ring
+    tubeN : int
+        resolution along the tube
+    &#34;&#34;&#34;
+    mesh = Mesh()
+    theta = 2 * math.pi / ringN
+    phi = 2 * math.pi / tubeN
+
+    for i in range (ringN):
+        for j in range (tubeN):
+            mesh.vertices.append(_torus_vertex(ringRadius, tubeRadius, phi * j, theta * i))
+
+    for i in range(ringN):
+        ii = (i + 1) % ringN
+        for j in range(tubeN):
+            jj = (j + 1) % tubeN
+            a = i  * tubeN + j
+            b = ii * tubeN + j
+            c = ii * tubeN + jj
+            d = i  * tubeN + jj
+            f = Face([mesh.vertices[k] for k in [a, b, c, d]])
+            mesh.faces.append(f)
+    mesh.update_topology()
+    return mesh</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mola" href="index.html">mola</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="mola.mesh_factory.construct_box" href="#mola.mesh_factory.construct_box">construct_box</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_cone" href="#mola.mesh_factory.construct_cone">construct_cone</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_dodecahedron" href="#mola.mesh_factory.construct_dodecahedron">construct_dodecahedron</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_icosahedron" href="#mola.mesh_factory.construct_icosahedron">construct_icosahedron</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_octahedron" href="#mola.mesh_factory.construct_octahedron">construct_octahedron</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_rhombic_dodecahedron" href="#mola.mesh_factory.construct_rhombic_dodecahedron">construct_rhombic_dodecahedron</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_single_face" href="#mola.mesh_factory.construct_single_face">construct_single_face</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_tetrahedron" href="#mola.mesh_factory.construct_tetrahedron">construct_tetrahedron</a></code></li>
+<li><code><a title="mola.mesh_factory.construct_torus" href="#mola.mesh_factory.construct_torus">construct_torus</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

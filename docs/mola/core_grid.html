@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>mola.core_grid API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mola.core_grid</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+__author__     = [&#39;Benjamin Dillenburger&#39;,&#39;Demetris Shammas&#39;,&#39;Mathias Bernhard&#39;]
+__copyright__  = &#39;Copyright 2019 / Digital Building Technologies DBT / ETH Zurich&#39;
+__license__    = &#39;MIT License&#39;
+__email__      = [&#39;&lt;dbt@arch.ethz.ch&gt;&#39;]
+
+import math
+from mola.core_mesh import Mesh
+from mola.core_vertex import Vertex
+from mola.core_face import Face
+
+class GridManager:
+    &#34;&#34;&#34;
+    A `GridManager` is taking care of getting and setting values and
+    retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.
+
+    Attributes
+    ----------
+    nx, ny, nz : int
+        The number of elements in x,y and z direction.
+    &#34;&#34;&#34;
+    def __init__(self, nx, ny, nz=1):
+        self.nx = nx
+        self.ny = ny
+        self.nz = nz
+        self.length = nx * ny * nz
+        self.nyz = ny * nz
+
+    def get_index(self, x, y, z=0):
+        &#34;&#34;&#34;
+        returns the value at position x,y,z
+        &#34;&#34;&#34;
+        return x * self.nyz + y * self.nz + z
+
+    def get_x(self,index):
+        &#34;&#34;&#34;
+        returns the X coordinate of a specific index
+        &#34;&#34;&#34;
+        return index // self.nyz
+
+    def get_y(self,index):
+        &#34;&#34;&#34;
+        returns the Y coordinate of a specific index
+        &#34;&#34;&#34;
+        return (index // self.nz) % self.ny
+
+    def get_z(self,index):
+        &#34;&#34;&#34;
+        returns the Z coordinate of a specific index
+        &#34;&#34;&#34;
+        return index % self.nz
+
+    def get_neighbors_hex_2d(self,index,continuous=False):
+        &#34;&#34;&#34;
+        returns the 6 neighbor indices of a cell in a hexagonal grid
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        &#34;&#34;&#34;
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        if not continuous:
+            if x &lt; self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
+            if x &gt; 0:
+                nbs.append(self.get_index(x - 1, y))
+            if y &gt; 0:
+                nbs.append(self.get_index(x, y - 1))
+            if y &lt; self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
+            if y % 2 == 0:
+                if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+                if x &lt; self.nx - 1 and y &gt; 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
+            else:
+                if x &gt; 0 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
+                if x &gt; 0 and y &gt; 0:
+                    nbs.append(self.get_index(x - 1, y - 1))
+        else:
+            xNext = x + 1 if x &lt; self.nx - 1 else 0
+            xPrev = x - 1 if x &gt; 0 else self.nx - 1
+            yNext = y + 1 if y &lt; self.ny - 1 else 0
+            yPrev = y - 1 if y &gt; 0 else self.ny - 1
+            nbs.append(self.get_index(xNext, y))
+            nbs.append(self.get_index(xPrev, y))
+            nbs.append(self.get_index(x, yPrev))
+            nbs.append(self.get_index(x, yNext))
+            if y % 2 == 0:
+                nbs.append(self.get_index(xNext, yNext))
+                nbs.append(self.get_index(xNext, yPrev))
+            else:
+                nbs.append(self.get_index(xPrev, yNext))
+                nbs.append(self.get_index(xPrev, yPrev))
+        return nbs
+
+    def get_neighbors_2d(self,index,nbs8=False,continuous=False):
+        &#34;&#34;&#34;
+        returns the neighbor indices of a cell in an orthogonal grid
+        set `nbs8` to `True` to get 8 neighbors, default is 4
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        &#34;&#34;&#34;
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        if not continuous:
+            if x &lt; self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
+            if nbs8:
+                if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+            if y &lt; self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
+            if nbs8:
+                if x &gt; 0 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
+            if x &gt; 0:
+                nbs.append(self.get_index(x - 1, y))
+            if nbs8:
+                if x &gt; 0 and y &gt; 0:
+                    nbs.append(self.get_index(x - 1, y - 1))
+            if y &gt; 0:
+                nbs.append(self.get_index(x, y - 1))
+            if nbs8:
+                if x &lt; self.nx - 1 and y &gt; 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
+        else:
+            xPrev = x - 1 if x &gt; 0 else self.nx - 1
+            xNext = x + 1 if x &lt; self.nx - 1 else 0
+            yPrev = y - 1 if y &gt; 0 else self.ny - 1
+            yNext = y + 1 if y &lt; self.ny - 1 else 0
+            nbs.append(self.get_index(xNext, y))
+            if nbs8:
+                nbs.append(self.get_index(xNext, yNext))
+            nbs.append(self.get_index(x, yNext))
+            if nbs8:
+                nbs.append(self.get_index(xPrev, yNext))
+            nbs.append(self.get_index(xPrev, y))
+            if nbs8:
+                nbs.append(self.get_index(xPrev, yPrev))
+            nbs.append(self.get_index(x, yPrev))
+            if nbs8:
+                nbs.append(self.get_index(xNext, yPrev))
+        return nbs
+
+    def get_neighbors_3d(self, index, mode=3, continuous=False):
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        z = self.get_z(index)
+
+        # mode: neighbourhood type
+        # 1 :  6 nbs, shared face
+        # 2 : 18 nbs, shared face or edge
+        # 3 : 26 nbs, shared face, edge or vertex
+        if not mode:
+            mode==3
+        if mode&lt;1:
+            mode==1
+        if mode&gt;3:
+            mode==3
+
+        # precalculate distances
+        # dists = [1, math.sqrt(2), math.sqrt(3)]
+
+        # create a list of directions with x,y and z offsets
+        directions = []
+        for i in range(-1,2):
+            for j in range(-1,2):
+                for k in range(-1,2):
+                    l = [i,j,k]
+                    s = sum([abs(v) for v in l])
+                    # check for neighbourhood type
+                    if s &gt; 0 and s &lt;= mode:
+                        directions.append(l)
+
+        for d in directions:
+            ex = x + d[0]
+            ey = y + d[1]
+            ez = z + d[2]
+            if continuous:
+                ex = ex % self.nx
+                ey = ey % self.ny
+                ez = ez % self.nz
+            if 0 &lt;= ex &lt; self.nx and 0 &lt;= ey &lt; self.ny and 0 &lt;= ez &lt; self.nz:
+                nbs.append(self.get_index(ex,ey,ez))
+
+        return nbs
+
+class Grid(GridManager):
+    def __init__(self, nx, ny, nz=1, values=None, scale_to_canvas=False):
+        super().__init__(nx, ny, nz)
+        # self.nx = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
+        self.scale_to_canvas = scale_to_canvas;
+        if values is None:
+            self.values = [0] * nx * ny * nz
+        else:
+            self.values = values
+
+    def set_value_at_xyz(self, value, x, y, z=0):
+        self.values[self.get_index(x, y, z)] = value
+
+    def get_value_at_xyz(self, x, y, z=0):
+        return self.values[self.get_index(x, y, z)]
+
+    def set_value_at_index(self, value, index):
+        self.values[index] = value
+
+    def get_value_at_index(self, index):
+        return self.values[index]
+
+    def shortest_path(self, startindex, endindex, obstaclevalue):
+        # TODO
+        return []
+
+    def quad_mesh(self, functionIn, functionOut):
+        faces = []
+        for x in range(self.nx):
+            for y in range(self.ny):
+                for z in range(self.nz):
+                    index=self.get_index(x,y,z)
+                    if functionIn(self.values[index]):
+                        # (x,y) (x1,y) (x1,y1) (x,y1)
+                        if x == self.nx - 1 or functionOut(self.get_value_at_xyz(x + 1, y, z)):
+                            v1 = Vertex(x + 1, y, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if x == 0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x, y, z)
+                            v3 = Vertex(x, y, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == self.ny - 1 or functionOut(self.get_value_at_xyz(x, y + 1, z)):
+                            v1 = Vertex(x + 1, y + 1, z)
+                            v2 = Vertex(x, y + 1, z)
+                            v3 = Vertex(x, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == 0 or functionOut(self.get_value_at_xyz(x, y - 1, z)):
+                            v1 = Vertex(x, y, z)
+                            v2 = Vertex(x + 1, y, z)
+                            v3 = Vertex(x + 1, y, z + 1)
+                            v4 = Vertex(x, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z==self.nz-1 or functionOut(self.get_value_at_xyz(x, y, z + 1)):
+                            v1 = Vertex(x, y, z + 1)
+                            v2 = Vertex(x + 1, y, z + 1)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z == 0 or functionOut(self.get_value_at_xyz(x, y, z - 1)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y, z)
+                            v4 = Vertex(x, y, z)
+                            faces.append(Face([v1, v2, v3, v4]))
+        mesh = Mesh()
+        mesh.faces = faces
+        mesh.update_topology()
+        if (self.scale_to_canvas):
+            mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
+            sc = 20.0/max(self.nx,self.ny)
+            mesh.scale(sc,sc,sc)
+        return mesh
+
+class HexGrid(Grid):
+    def __init__(self, nx, ny, nz=1, values=None):
+        super().__init__(nx, ny, nz, values)
+        # self.ny = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
+        # if values == None:
+        #     self.values = [0] * nx * ny * nz
+        self.dimy = math.sqrt(3) * 0.5
+
+    def get_position(self, x, y, z=0):
+        return [x + (y % 2) * 0.5, y * self.dimy, z]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mola.core_grid.Grid"><code class="flex name class">
+<span>class <span class="ident">Grid</span></span>
+<span>(</span><span>nx, ny, nz=1, values=None, scale_to_canvas=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>A <a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager"><code>GridManager</code></a> is taking care of getting and setting values and
+retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>nx</code></strong>, <strong><code>ny</code></strong>, <strong><code>nz</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of elements in x,y and z direction.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Grid(GridManager):
+    def __init__(self, nx, ny, nz=1, values=None, scale_to_canvas=False):
+        super().__init__(nx, ny, nz)
+        # self.nx = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
+        self.scale_to_canvas = scale_to_canvas;
+        if values is None:
+            self.values = [0] * nx * ny * nz
+        else:
+            self.values = values
+
+    def set_value_at_xyz(self, value, x, y, z=0):
+        self.values[self.get_index(x, y, z)] = value
+
+    def get_value_at_xyz(self, x, y, z=0):
+        return self.values[self.get_index(x, y, z)]
+
+    def set_value_at_index(self, value, index):
+        self.values[index] = value
+
+    def get_value_at_index(self, index):
+        return self.values[index]
+
+    def shortest_path(self, startindex, endindex, obstaclevalue):
+        # TODO
+        return []
+
+    def quad_mesh(self, functionIn, functionOut):
+        faces = []
+        for x in range(self.nx):
+            for y in range(self.ny):
+                for z in range(self.nz):
+                    index=self.get_index(x,y,z)
+                    if functionIn(self.values[index]):
+                        # (x,y) (x1,y) (x1,y1) (x,y1)
+                        if x == self.nx - 1 or functionOut(self.get_value_at_xyz(x + 1, y, z)):
+                            v1 = Vertex(x + 1, y, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if x == 0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x, y, z)
+                            v3 = Vertex(x, y, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == self.ny - 1 or functionOut(self.get_value_at_xyz(x, y + 1, z)):
+                            v1 = Vertex(x + 1, y + 1, z)
+                            v2 = Vertex(x, y + 1, z)
+                            v3 = Vertex(x, y + 1, z + 1)
+                            v4 = Vertex(x + 1, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if y == 0 or functionOut(self.get_value_at_xyz(x, y - 1, z)):
+                            v1 = Vertex(x, y, z)
+                            v2 = Vertex(x + 1, y, z)
+                            v3 = Vertex(x + 1, y, z + 1)
+                            v4 = Vertex(x, y, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z==self.nz-1 or functionOut(self.get_value_at_xyz(x, y, z + 1)):
+                            v1 = Vertex(x, y, z + 1)
+                            v2 = Vertex(x + 1, y, z + 1)
+                            v3 = Vertex(x + 1, y + 1, z + 1)
+                            v4 = Vertex(x, y + 1, z + 1)
+                            faces.append(Face([v1, v2, v3, v4]))
+                        if z == 0 or functionOut(self.get_value_at_xyz(x, y, z - 1)):
+                            v1 = Vertex(x, y + 1, z)
+                            v2 = Vertex(x + 1, y + 1, z)
+                            v3 = Vertex(x + 1, y, z)
+                            v4 = Vertex(x, y, z)
+                            faces.append(Face([v1, v2, v3, v4]))
+        mesh = Mesh()
+        mesh.faces = faces
+        mesh.update_topology()
+        if (self.scale_to_canvas):
+            mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
+            sc = 20.0/max(self.nx,self.ny)
+            mesh.scale(sc,sc,sc)
+        return mesh</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager">GridManager</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mola.core_grid.HexGrid" href="#mola.core_grid.HexGrid">HexGrid</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="mola.core_grid.Grid.get_value_at_index"><code class="name flex">
+<span>def <span class="ident">get_value_at_index</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_value_at_index(self, index):
+    return self.values[index]</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.Grid.get_value_at_xyz"><code class="name flex">
+<span>def <span class="ident">get_value_at_xyz</span></span>(<span>self, x, y, z=0)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_value_at_xyz(self, x, y, z=0):
+    return self.values[self.get_index(x, y, z)]</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.Grid.quad_mesh"><code class="name flex">
+<span>def <span class="ident">quad_mesh</span></span>(<span>self, functionIn, functionOut)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quad_mesh(self, functionIn, functionOut):
+    faces = []
+    for x in range(self.nx):
+        for y in range(self.ny):
+            for z in range(self.nz):
+                index=self.get_index(x,y,z)
+                if functionIn(self.values[index]):
+                    # (x,y) (x1,y) (x1,y1) (x,y1)
+                    if x == self.nx - 1 or functionOut(self.get_value_at_xyz(x + 1, y, z)):
+                        v1 = Vertex(x + 1, y, z)
+                        v2 = Vertex(x + 1, y + 1, z)
+                        v3 = Vertex(x + 1, y + 1, z + 1)
+                        v4 = Vertex(x + 1, y, z + 1)
+                        faces.append(Face([v1, v2, v3, v4]))
+                    if x == 0 or functionOut(self.get_value_at_xyz(x-1,y,z)):
+                        v1 = Vertex(x, y + 1, z)
+                        v2 = Vertex(x, y, z)
+                        v3 = Vertex(x, y, z + 1)
+                        v4 = Vertex(x, y + 1, z + 1)
+                        faces.append(Face([v1, v2, v3, v4]))
+                    if y == self.ny - 1 or functionOut(self.get_value_at_xyz(x, y + 1, z)):
+                        v1 = Vertex(x + 1, y + 1, z)
+                        v2 = Vertex(x, y + 1, z)
+                        v3 = Vertex(x, y + 1, z + 1)
+                        v4 = Vertex(x + 1, y + 1, z + 1)
+                        faces.append(Face([v1, v2, v3, v4]))
+                    if y == 0 or functionOut(self.get_value_at_xyz(x, y - 1, z)):
+                        v1 = Vertex(x, y, z)
+                        v2 = Vertex(x + 1, y, z)
+                        v3 = Vertex(x + 1, y, z + 1)
+                        v4 = Vertex(x, y, z + 1)
+                        faces.append(Face([v1, v2, v3, v4]))
+                    if z==self.nz-1 or functionOut(self.get_value_at_xyz(x, y, z + 1)):
+                        v1 = Vertex(x, y, z + 1)
+                        v2 = Vertex(x + 1, y, z + 1)
+                        v3 = Vertex(x + 1, y + 1, z + 1)
+                        v4 = Vertex(x, y + 1, z + 1)
+                        faces.append(Face([v1, v2, v3, v4]))
+                    if z == 0 or functionOut(self.get_value_at_xyz(x, y, z - 1)):
+                        v1 = Vertex(x, y + 1, z)
+                        v2 = Vertex(x + 1, y + 1, z)
+                        v3 = Vertex(x + 1, y, z)
+                        v4 = Vertex(x, y, z)
+                        faces.append(Face([v1, v2, v3, v4]))
+    mesh = Mesh()
+    mesh.faces = faces
+    mesh.update_topology()
+    if (self.scale_to_canvas):
+        mesh.translate(-self.nx/2.0,-self.ny/2.0,-self.nz/2.0)
+        sc = 20.0/max(self.nx,self.ny)
+        mesh.scale(sc,sc,sc)
+    return mesh</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.Grid.set_value_at_index"><code class="name flex">
+<span>def <span class="ident">set_value_at_index</span></span>(<span>self, value, index)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_value_at_index(self, value, index):
+    self.values[index] = value</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.Grid.set_value_at_xyz"><code class="name flex">
+<span>def <span class="ident">set_value_at_xyz</span></span>(<span>self, value, x, y, z=0)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_value_at_xyz(self, value, x, y, z=0):
+    self.values[self.get_index(x, y, z)] = value</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.Grid.shortest_path"><code class="name flex">
+<span>def <span class="ident">shortest_path</span></span>(<span>self, startindex, endindex, obstaclevalue)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shortest_path(self, startindex, endindex, obstaclevalue):
+    # TODO
+    return []</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager">GridManager</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mola.core_grid.GridManager.get_index" href="#mola.core_grid.GridManager.get_index">get_index</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_neighbors_2d" href="#mola.core_grid.GridManager.get_neighbors_2d">get_neighbors_2d</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_neighbors_hex_2d" href="#mola.core_grid.GridManager.get_neighbors_hex_2d">get_neighbors_hex_2d</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_x" href="#mola.core_grid.GridManager.get_x">get_x</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_y" href="#mola.core_grid.GridManager.get_y">get_y</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_z" href="#mola.core_grid.GridManager.get_z">get_z</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mola.core_grid.GridManager"><code class="flex name class">
+<span>class <span class="ident">GridManager</span></span>
+<span>(</span><span>nx, ny, nz=1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>A <a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager"><code>GridManager</code></a> is taking care of getting and setting values and
+retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>nx</code></strong>, <strong><code>ny</code></strong>, <strong><code>nz</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of elements in x,y and z direction.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GridManager:
+    &#34;&#34;&#34;
+    A `GridManager` is taking care of getting and setting values and
+    retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.
+
+    Attributes
+    ----------
+    nx, ny, nz : int
+        The number of elements in x,y and z direction.
+    &#34;&#34;&#34;
+    def __init__(self, nx, ny, nz=1):
+        self.nx = nx
+        self.ny = ny
+        self.nz = nz
+        self.length = nx * ny * nz
+        self.nyz = ny * nz
+
+    def get_index(self, x, y, z=0):
+        &#34;&#34;&#34;
+        returns the value at position x,y,z
+        &#34;&#34;&#34;
+        return x * self.nyz + y * self.nz + z
+
+    def get_x(self,index):
+        &#34;&#34;&#34;
+        returns the X coordinate of a specific index
+        &#34;&#34;&#34;
+        return index // self.nyz
+
+    def get_y(self,index):
+        &#34;&#34;&#34;
+        returns the Y coordinate of a specific index
+        &#34;&#34;&#34;
+        return (index // self.nz) % self.ny
+
+    def get_z(self,index):
+        &#34;&#34;&#34;
+        returns the Z coordinate of a specific index
+        &#34;&#34;&#34;
+        return index % self.nz
+
+    def get_neighbors_hex_2d(self,index,continuous=False):
+        &#34;&#34;&#34;
+        returns the 6 neighbor indices of a cell in a hexagonal grid
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        &#34;&#34;&#34;
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        if not continuous:
+            if x &lt; self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
+            if x &gt; 0:
+                nbs.append(self.get_index(x - 1, y))
+            if y &gt; 0:
+                nbs.append(self.get_index(x, y - 1))
+            if y &lt; self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
+            if y % 2 == 0:
+                if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+                if x &lt; self.nx - 1 and y &gt; 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
+            else:
+                if x &gt; 0 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
+                if x &gt; 0 and y &gt; 0:
+                    nbs.append(self.get_index(x - 1, y - 1))
+        else:
+            xNext = x + 1 if x &lt; self.nx - 1 else 0
+            xPrev = x - 1 if x &gt; 0 else self.nx - 1
+            yNext = y + 1 if y &lt; self.ny - 1 else 0
+            yPrev = y - 1 if y &gt; 0 else self.ny - 1
+            nbs.append(self.get_index(xNext, y))
+            nbs.append(self.get_index(xPrev, y))
+            nbs.append(self.get_index(x, yPrev))
+            nbs.append(self.get_index(x, yNext))
+            if y % 2 == 0:
+                nbs.append(self.get_index(xNext, yNext))
+                nbs.append(self.get_index(xNext, yPrev))
+            else:
+                nbs.append(self.get_index(xPrev, yNext))
+                nbs.append(self.get_index(xPrev, yPrev))
+        return nbs
+
+    def get_neighbors_2d(self,index,nbs8=False,continuous=False):
+        &#34;&#34;&#34;
+        returns the neighbor indices of a cell in an orthogonal grid
+        set `nbs8` to `True` to get 8 neighbors, default is 4
+        set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+        &#34;&#34;&#34;
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        if not continuous:
+            if x &lt; self.nx - 1:
+                nbs.append(self.get_index(x + 1, y))
+            if nbs8:
+                if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x + 1, y + 1))
+            if y &lt; self.ny - 1:
+                nbs.append(self.get_index(x, y + 1))
+            if nbs8:
+                if x &gt; 0 and y &lt; self.ny - 1:
+                    nbs.append(self.get_index(x - 1, y + 1))
+            if x &gt; 0:
+                nbs.append(self.get_index(x - 1, y))
+            if nbs8:
+                if x &gt; 0 and y &gt; 0:
+                    nbs.append(self.get_index(x - 1, y - 1))
+            if y &gt; 0:
+                nbs.append(self.get_index(x, y - 1))
+            if nbs8:
+                if x &lt; self.nx - 1 and y &gt; 0:
+                    nbs.append(self.get_index(x + 1, y - 1))
+        else:
+            xPrev = x - 1 if x &gt; 0 else self.nx - 1
+            xNext = x + 1 if x &lt; self.nx - 1 else 0
+            yPrev = y - 1 if y &gt; 0 else self.ny - 1
+            yNext = y + 1 if y &lt; self.ny - 1 else 0
+            nbs.append(self.get_index(xNext, y))
+            if nbs8:
+                nbs.append(self.get_index(xNext, yNext))
+            nbs.append(self.get_index(x, yNext))
+            if nbs8:
+                nbs.append(self.get_index(xPrev, yNext))
+            nbs.append(self.get_index(xPrev, y))
+            if nbs8:
+                nbs.append(self.get_index(xPrev, yPrev))
+            nbs.append(self.get_index(x, yPrev))
+            if nbs8:
+                nbs.append(self.get_index(xNext, yPrev))
+        return nbs
+
+    def get_neighbors_3d(self, index, mode=3, continuous=False):
+        nbs = []
+        x = self.get_x(index)
+        y = self.get_y(index)
+        z = self.get_z(index)
+
+        # mode: neighbourhood type
+        # 1 :  6 nbs, shared face
+        # 2 : 18 nbs, shared face or edge
+        # 3 : 26 nbs, shared face, edge or vertex
+        if not mode:
+            mode==3
+        if mode&lt;1:
+            mode==1
+        if mode&gt;3:
+            mode==3
+
+        # precalculate distances
+        # dists = [1, math.sqrt(2), math.sqrt(3)]
+
+        # create a list of directions with x,y and z offsets
+        directions = []
+        for i in range(-1,2):
+            for j in range(-1,2):
+                for k in range(-1,2):
+                    l = [i,j,k]
+                    s = sum([abs(v) for v in l])
+                    # check for neighbourhood type
+                    if s &gt; 0 and s &lt;= mode:
+                        directions.append(l)
+
+        for d in directions:
+            ex = x + d[0]
+            ey = y + d[1]
+            ez = z + d[2]
+            if continuous:
+                ex = ex % self.nx
+                ey = ey % self.ny
+                ez = ez % self.nz
+            if 0 &lt;= ex &lt; self.nx and 0 &lt;= ey &lt; self.ny and 0 &lt;= ez &lt; self.nz:
+                nbs.append(self.get_index(ex,ey,ez))
+
+        return nbs</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mola.core_grid.Grid" href="#mola.core_grid.Grid">Grid</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="mola.core_grid.GridManager.get_index"><code class="name flex">
+<span>def <span class="ident">get_index</span></span>(<span>self, x, y, z=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the value at position x,y,z</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_index(self, x, y, z=0):
+    &#34;&#34;&#34;
+    returns the value at position x,y,z
+    &#34;&#34;&#34;
+    return x * self.nyz + y * self.nz + z</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_neighbors_2d"><code class="name flex">
+<span>def <span class="ident">get_neighbors_2d</span></span>(<span>self, index, nbs8=False, continuous=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the neighbor indices of a cell in an orthogonal grid
+set <code>nbs8</code> to <code>True</code> to get 8 neighbors, default is 4
+set <code>continuous</code> to <code>True</code> to get torus topology (left edge stitched to right and top to bottom)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neighbors_2d(self,index,nbs8=False,continuous=False):
+    &#34;&#34;&#34;
+    returns the neighbor indices of a cell in an orthogonal grid
+    set `nbs8` to `True` to get 8 neighbors, default is 4
+    set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+    &#34;&#34;&#34;
+    nbs = []
+    x = self.get_x(index)
+    y = self.get_y(index)
+    if not continuous:
+        if x &lt; self.nx - 1:
+            nbs.append(self.get_index(x + 1, y))
+        if nbs8:
+            if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                nbs.append(self.get_index(x + 1, y + 1))
+        if y &lt; self.ny - 1:
+            nbs.append(self.get_index(x, y + 1))
+        if nbs8:
+            if x &gt; 0 and y &lt; self.ny - 1:
+                nbs.append(self.get_index(x - 1, y + 1))
+        if x &gt; 0:
+            nbs.append(self.get_index(x - 1, y))
+        if nbs8:
+            if x &gt; 0 and y &gt; 0:
+                nbs.append(self.get_index(x - 1, y - 1))
+        if y &gt; 0:
+            nbs.append(self.get_index(x, y - 1))
+        if nbs8:
+            if x &lt; self.nx - 1 and y &gt; 0:
+                nbs.append(self.get_index(x + 1, y - 1))
+    else:
+        xPrev = x - 1 if x &gt; 0 else self.nx - 1
+        xNext = x + 1 if x &lt; self.nx - 1 else 0
+        yPrev = y - 1 if y &gt; 0 else self.ny - 1
+        yNext = y + 1 if y &lt; self.ny - 1 else 0
+        nbs.append(self.get_index(xNext, y))
+        if nbs8:
+            nbs.append(self.get_index(xNext, yNext))
+        nbs.append(self.get_index(x, yNext))
+        if nbs8:
+            nbs.append(self.get_index(xPrev, yNext))
+        nbs.append(self.get_index(xPrev, y))
+        if nbs8:
+            nbs.append(self.get_index(xPrev, yPrev))
+        nbs.append(self.get_index(x, yPrev))
+        if nbs8:
+            nbs.append(self.get_index(xNext, yPrev))
+    return nbs</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_neighbors_3d"><code class="name flex">
+<span>def <span class="ident">get_neighbors_3d</span></span>(<span>self, index, mode=3, continuous=False)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neighbors_3d(self, index, mode=3, continuous=False):
+    nbs = []
+    x = self.get_x(index)
+    y = self.get_y(index)
+    z = self.get_z(index)
+
+    # mode: neighbourhood type
+    # 1 :  6 nbs, shared face
+    # 2 : 18 nbs, shared face or edge
+    # 3 : 26 nbs, shared face, edge or vertex
+    if not mode:
+        mode==3
+    if mode&lt;1:
+        mode==1
+    if mode&gt;3:
+        mode==3
+
+    # precalculate distances
+    # dists = [1, math.sqrt(2), math.sqrt(3)]
+
+    # create a list of directions with x,y and z offsets
+    directions = []
+    for i in range(-1,2):
+        for j in range(-1,2):
+            for k in range(-1,2):
+                l = [i,j,k]
+                s = sum([abs(v) for v in l])
+                # check for neighbourhood type
+                if s &gt; 0 and s &lt;= mode:
+                    directions.append(l)
+
+    for d in directions:
+        ex = x + d[0]
+        ey = y + d[1]
+        ez = z + d[2]
+        if continuous:
+            ex = ex % self.nx
+            ey = ey % self.ny
+            ez = ez % self.nz
+        if 0 &lt;= ex &lt; self.nx and 0 &lt;= ey &lt; self.ny and 0 &lt;= ez &lt; self.nz:
+            nbs.append(self.get_index(ex,ey,ez))
+
+    return nbs</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_neighbors_hex_2d"><code class="name flex">
+<span>def <span class="ident">get_neighbors_hex_2d</span></span>(<span>self, index, continuous=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the 6 neighbor indices of a cell in a hexagonal grid
+set <code>continuous</code> to <code>True</code> to get torus topology (left edge stitched to right and top to bottom)</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neighbors_hex_2d(self,index,continuous=False):
+    &#34;&#34;&#34;
+    returns the 6 neighbor indices of a cell in a hexagonal grid
+    set `continuous` to `True` to get torus topology (left edge stitched to right and top to bottom)
+    &#34;&#34;&#34;
+    nbs = []
+    x = self.get_x(index)
+    y = self.get_y(index)
+    if not continuous:
+        if x &lt; self.nx - 1:
+            nbs.append(self.get_index(x + 1, y))
+        if x &gt; 0:
+            nbs.append(self.get_index(x - 1, y))
+        if y &gt; 0:
+            nbs.append(self.get_index(x, y - 1))
+        if y &lt; self.ny - 1:
+            nbs.append(self.get_index(x, y + 1))
+        if y % 2 == 0:
+            if x &lt; self.nx - 1 and y &lt; self.ny - 1:
+                nbs.append(self.get_index(x + 1, y + 1))
+            if x &lt; self.nx - 1 and y &gt; 0:
+                nbs.append(self.get_index(x + 1, y - 1))
+        else:
+            if x &gt; 0 and y &lt; self.ny - 1:
+                nbs.append(self.get_index(x - 1, y + 1))
+            if x &gt; 0 and y &gt; 0:
+                nbs.append(self.get_index(x - 1, y - 1))
+    else:
+        xNext = x + 1 if x &lt; self.nx - 1 else 0
+        xPrev = x - 1 if x &gt; 0 else self.nx - 1
+        yNext = y + 1 if y &lt; self.ny - 1 else 0
+        yPrev = y - 1 if y &gt; 0 else self.ny - 1
+        nbs.append(self.get_index(xNext, y))
+        nbs.append(self.get_index(xPrev, y))
+        nbs.append(self.get_index(x, yPrev))
+        nbs.append(self.get_index(x, yNext))
+        if y % 2 == 0:
+            nbs.append(self.get_index(xNext, yNext))
+            nbs.append(self.get_index(xNext, yPrev))
+        else:
+            nbs.append(self.get_index(xPrev, yNext))
+            nbs.append(self.get_index(xPrev, yPrev))
+    return nbs</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_x"><code class="name flex">
+<span>def <span class="ident">get_x</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the X coordinate of a specific index</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_x(self,index):
+    &#34;&#34;&#34;
+    returns the X coordinate of a specific index
+    &#34;&#34;&#34;
+    return index // self.nyz</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_y"><code class="name flex">
+<span>def <span class="ident">get_y</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the Y coordinate of a specific index</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_y(self,index):
+    &#34;&#34;&#34;
+    returns the Y coordinate of a specific index
+    &#34;&#34;&#34;
+    return (index // self.nz) % self.ny</code></pre>
+</details>
+</dd>
+<dt id="mola.core_grid.GridManager.get_z"><code class="name flex">
+<span>def <span class="ident">get_z</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns the Z coordinate of a specific index</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_z(self,index):
+    &#34;&#34;&#34;
+    returns the Z coordinate of a specific index
+    &#34;&#34;&#34;
+    return index % self.nz</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mola.core_grid.HexGrid"><code class="flex name class">
+<span>class <span class="ident">HexGrid</span></span>
+<span>(</span><span>nx, ny, nz=1, values=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>A <a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager"><code>GridManager</code></a> is taking care of getting and setting values and
+retrieving neighbors in an orthogonal grid of either 2 or 3 dimension.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>nx</code></strong>, <strong><code>ny</code></strong>, <strong><code>nz</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of elements in x,y and z direction.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HexGrid(Grid):
+    def __init__(self, nx, ny, nz=1, values=None):
+        super().__init__(nx, ny, nz, values)
+        # self.ny = nx
+        # self.ny = ny
+        # self.nz = nz
+        # self.nyz = ny * nz
+        # if values == None:
+        #     self.values = [0] * nx * ny * nz
+        self.dimy = math.sqrt(3) * 0.5
+
+    def get_position(self, x, y, z=0):
+        return [x + (y % 2) * 0.5, y * self.dimy, z]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mola.core_grid.Grid" href="#mola.core_grid.Grid">Grid</a></li>
+<li><a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager">GridManager</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="mola.core_grid.HexGrid.get_position"><code class="name flex">
+<span>def <span class="ident">get_position</span></span>(<span>self, x, y, z=0)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_position(self, x, y, z=0):
+    return [x + (y % 2) * 0.5, y * self.dimy, z]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mola.core_grid.Grid" href="#mola.core_grid.Grid">Grid</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mola.core_grid.Grid.get_index" href="#mola.core_grid.GridManager.get_index">get_index</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_neighbors_2d" href="#mola.core_grid.GridManager.get_neighbors_2d">get_neighbors_2d</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_neighbors_hex_2d" href="#mola.core_grid.GridManager.get_neighbors_hex_2d">get_neighbors_hex_2d</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_x" href="#mola.core_grid.GridManager.get_x">get_x</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_y" href="#mola.core_grid.GridManager.get_y">get_y</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_z" href="#mola.core_grid.GridManager.get_z">get_z</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mola" href="index.html">mola</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mola.core_grid.Grid" href="#mola.core_grid.Grid">Grid</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mola.core_grid.Grid.get_value_at_index" href="#mola.core_grid.Grid.get_value_at_index">get_value_at_index</a></code></li>
+<li><code><a title="mola.core_grid.Grid.get_value_at_xyz" href="#mola.core_grid.Grid.get_value_at_xyz">get_value_at_xyz</a></code></li>
+<li><code><a title="mola.core_grid.Grid.quad_mesh" href="#mola.core_grid.Grid.quad_mesh">quad_mesh</a></code></li>
+<li><code><a title="mola.core_grid.Grid.set_value_at_index" href="#mola.core_grid.Grid.set_value_at_index">set_value_at_index</a></code></li>
+<li><code><a title="mola.core_grid.Grid.set_value_at_xyz" href="#mola.core_grid.Grid.set_value_at_xyz">set_value_at_xyz</a></code></li>
+<li><code><a title="mola.core_grid.Grid.shortest_path" href="#mola.core_grid.Grid.shortest_path">shortest_path</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mola.core_grid.GridManager" href="#mola.core_grid.GridManager">GridManager</a></code></h4>
+<ul class="">
+<li><code><a title="mola.core_grid.GridManager.get_index" href="#mola.core_grid.GridManager.get_index">get_index</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_neighbors_2d" href="#mola.core_grid.GridManager.get_neighbors_2d">get_neighbors_2d</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_neighbors_3d" href="#mola.core_grid.GridManager.get_neighbors_3d">get_neighbors_3d</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_neighbors_hex_2d" href="#mola.core_grid.GridManager.get_neighbors_hex_2d">get_neighbors_hex_2d</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_x" href="#mola.core_grid.GridManager.get_x">get_x</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_y" href="#mola.core_grid.GridManager.get_y">get_y</a></code></li>
+<li><code><a title="mola.core_grid.GridManager.get_z" href="#mola.core_grid.GridManager.get_z">get_z</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mola.core_grid.HexGrid" href="#mola.core_grid.HexGrid">HexGrid</a></code></h4>
+<ul class="">
+<li><code><a title="mola.core_grid.HexGrid.get_position" href="#mola.core_grid.HexGrid.get_position">get_position</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
