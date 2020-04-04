@@ -60,7 +60,7 @@ def export_obj(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices
         If True, the vertices are welded before the export.
     """
     parts = fileNameOBJ.split('.')
-    if parts[-1]!='obj':
+    if len(parts)>1 and parts[-1]!='obj':
         print('This method only exports *.obj files.')
     if fileNameOBJ.endswith('.obj')==False:
         fileNameOBJ += '.obj'
