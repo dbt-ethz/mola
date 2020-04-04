@@ -43,6 +43,27 @@ def import_obj_faces(filename):
     return import_obj(filename).faces
 
 def export_obj(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
+    """
+    Exports a mesh as an Alias wavefront obj file.
+
+    Arguments:
+    ----------
+    mesh : mola.core_mesh.Mesh
+        The mesh to be exported
+    fileNameOBJ : String
+        The path and filename for the *.obj mesh file
+    exportColors : bool (optional)
+        If True, the face colors are exported in a separate *.mtl file.
+    exportGroups : bool (optional)
+        If True, the faces are exported according to their group attribute.
+    weldVertices : bool (optional)
+        If True, the vertices are welded before the export.
+    """
+    parts = fileNameOBJ.split('.')
+    if parts[-1]!='obj':
+        print('This method only exports *.obj files.')
+    if fileNameOBJ.endswith('.obj')==False:
+        fileNameOBJ += '.obj'
     export_obj_faces(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
 
 def export_obj_faces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices=True):
@@ -51,10 +72,16 @@ def export_obj_faces(faces,fileNameOBJ,exportColors=True,exportGroups=True,weldV
 
     Arguments:
     ----------
-    faces : list of mola.core.Face
-        The face to be measured
+    mesh : mola.core_mesh.Mesh
+        The mesh to be exported
     fileNameOBJ : String
         The path and filename for the *.obj mesh file
+    exportColors : bool (optional)
+        If True, the face colors are exported in a separate *.mtl file.
+    exportGroups : bool (optional)
+        If True, the faces are exported according to their group attribute.
+    weldVertices : bool (optional)
+        If True, the vertices are welded before the export.
     """
     file = open(fileNameOBJ, "w")
     if exportColors:
