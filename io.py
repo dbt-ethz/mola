@@ -62,7 +62,6 @@ def export_obj(mesh,fileNameOBJ,exportColors=True,exportGroups=True,weldVertices
     parts = fileNameOBJ.split('.')
     if len(parts)>1 and parts[-1]!='obj':
         raise NameError('This method only exports *.obj files.')
-        return
     if fileNameOBJ.endswith('.obj')==False:
         fileNameOBJ += '.obj'
     export_obj_faces(mesh.faces,fileNameOBJ,exportColors,exportGroups,weldVertices)
