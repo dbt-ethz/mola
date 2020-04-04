@@ -7,6 +7,8 @@ __email__      = ['<dbt@arch.ethz.ch>']
 
 from mola.core_mesh import Mesh
 from mola.core_vertex import Vertex
+from mola import utils_face
+
 
 def mesh_smooth_laplacian(mesh, factor=0.3):
     smoothed = mesh.copy()
