@@ -149,6 +149,42 @@ def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
     mesh.faces = faces
     mesh.update_topology()
     return mesh
+import math
+
+def construct_sphere(radius=1, cx=0,cy=0,cz=0,u_res=10,v_res=10):
+  mesh = Mesh()
+  for v in range(v_res+1):
+    theta = math.pi * (v / v_res)
+    for u in range(u_res):
+      phi = 2.0 * math.pi * (u / u_res)
+      cartesian = _polar_to_cartesian(radius,theta,phi)
+      mesh.add_vertex(cartesian[0],cartesian[1],cartesian[2])
+
+  #work around weld_vertices problem
+  v_top = mesh.vertices[0]
+  v_bottom = mesh.vertices[v_res * u_res + u_res-1]
+
+  for v in range(v_res):
+    for u in range(u_res):
+      v0 = mesh.vertices[v * u_res + u]
+      v1 = mesh.vertices[(v+1) * u_res + u]
+      v2 = mesh.vertices[(v+1) * u_res + (u+1)%u_res]
+      v3 = mesh.vertices[v * u_res + (u+1)%u_res]
+      if(v==0):
+        mesh.add_face([v_top,v1,v2])
+      elif(v==v_res-1):
+        mesh.add_face([v0,v_bottom,v3])
+      else:
+        mesh.add_face([v0,v1,v2,v3])
+  mesh.update_topology()
+  return mesh
+
+def _polar_to_cartesian(r, theta, phi):
+    return [
+         r * math.sin(theta) * math.cos(phi),
+         r * math.sin(theta) * math.sin(phi),
+         r * math.cos(theta)
+    ]
 
 def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
     """
