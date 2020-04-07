@@ -158,11 +158,11 @@ def construct_sphere(radius=1, cx=0,cy=0,cz=0,u_res=10,v_res=10):
   Optional Arguments:
   ----------
   radius : float<br>
-    The radius of the sphere<br>
+    The radius of the sphere.<br>
   cx,cy,cz : float<br>
-    The coordinates of the center point.
+    The coordinates of the center point.<br>
   u_res : float<br>
-    The u resolution of the sphere.
+    The u resolution of the sphere.<br>
   y_res : float<br>
     The v resolution of the sphere.
   """
