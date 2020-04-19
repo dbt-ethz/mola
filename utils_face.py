@@ -116,6 +116,43 @@ def face_center(face):
     """
     return utils_vertex.vertices_list_center(face.vertices)
 
+
+def face_center_x(face):
+    """
+    Returns the x coordinate of center point (type Vertex) of a face.
+    Note: not the center of gravity, just the average of its vertices.
+
+    Arguments:
+    ----------
+    face : mola.Face
+            The face to be measured
+    """
+    return utils_vertex.vertices_list_center(face.vertices).x
+
+def face_center_y(face):
+    """
+    Returns the y coordinate of center point (type Vertex) of a face.
+    Note: not the center of gravity, just the average of its vertices.
+
+    Arguments:
+    ----------
+    face : mola.Face
+            The face to be measured
+    """
+    return utils_vertex.vertices_list_center(face.vertices).y
+
+def face_center_z(face):
+    """
+    Returns the z coordinate of center point (type Vertex) of a face.
+    Note: not the center of gravity, just the average of its vertices.
+
+    Arguments:
+    ----------
+    face : mola.Face
+            The face to be measured
+    """
+    return utils_vertex.vertices_list_center(face.vertices).z
+
 def face_normal(face):
     """
     Returns the normal of a face, a vector of length 1 perpendicular to the plane of the triangle.
