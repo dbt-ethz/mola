@@ -22,7 +22,7 @@ def color_hue_to_rgb(hue, do_grayscale):
         col = colorsys.hsv_to_rgb(hue, 1, 1)
         return (col[0], col[1], col[2], 1) # alpha = 100 %
 
-def color_faces_by_list(faces, values, do_grayscale=False):
+def color_faces_by_values(faces, values, do_grayscale=False):
     """
     Assigns a color to all the faces by values,
     from smallest (red) to biggest (purple).
