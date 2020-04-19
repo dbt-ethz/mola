@@ -22,6 +22,26 @@ def color_hue_to_rgb(hue, do_grayscale):
         col = colorsys.hsv_to_rgb(hue, 1, 1)
         return (col[0], col[1], col[2], 1) # alpha = 100 %
 
+def color_faces_by_list(faces, values, do_grayscale=False):
+    """
+    Assigns a color to all the faces by values,
+    from smallest (red) to biggest (purple).
+
+    Arguments:
+    ----------
+    faces: list of faces to color
+    values : values to be mapped to colors
+    ----------
+    Optional Arguments:
+    ----------
+    do_grayscale: Boolean
+    """
+    valueMin = min(values)
+    valueMax = max(values)
+    for i, face in enumerate(faces):
+        h = utils_math.math_map(values[i],valueMin, valueMax, 0.0, 1.0)
+        face.color = color_hue_to_rgb(h, do_grayscale)
+
 def color_faces_by_function(faces, faceFunction, do_grayscale=False):
     """
     Assigns a color to all the faces by face-function which has to return a float value for a face as argument,
