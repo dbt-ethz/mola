@@ -2,6 +2,7 @@
 
 # Mola
 Lightweight Computational Design Library
+[Documentation](https://dbt-ethz.github.io/mola/)
 
 ## Modules
 - core_vertex
