@@ -25,7 +25,7 @@ def _get_subset_of_attrs(cls, attrs_to_ignore):
     -------
     :class:`list` of :class:`str`
     """
-    all_attrs = cls().Face().__dir__.keys()
+    all_attrs = cls().__dict__.keys()
 
     return [attr for attr in all_attrs if attr not in attrs_to_ignore]
 
