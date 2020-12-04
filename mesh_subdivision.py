@@ -17,7 +17,13 @@ import math
 
 def _collect_new_faces(mesh):
     newMesh=Mesh()
+    for vertex in mesh.vertices:
+        newMesh.vertices.append(vertex.vertex)
+    for edge in mesh.edges:
+        Edge edge1=newMesh.add_edge(edge.v1.vertex,edge.vertex)
+        Edge edge2=newMesh.add_edge(edge.vertex,edge.v2.vertex)
     for face in mesh.faces:
+        newMesh.vertices.append(face.vertex)
         v1 = face.vertices[-2]
         v2 = face.vertices[-1]
         for v3 in face.vertices:
@@ -28,9 +34,18 @@ def _collect_new_faces(mesh):
                 newFace.color = face.color
                 newFace.group = face.group
                 newMesh.faces.append(newFace)
+                newMesh.add_edge(edge2.vertex, face.vertex)
             v1 = v2
             v2 = v3
-    newMesh.update_topology()
+    for face in newMesh.faces:
+        v2 = face.vertices[-1]
+        for v1 in face.vertices:
+            edge=newMesh.edge_adjacent_to_vertices(v1,v2)
+            if edge.v1 == v1:
+                edge.face1 = f
+            else:
+                edge.face2 = f
+            v1 = v2
     return newMesh
 
 def subdivide_mesh(mesh,values=[]):
@@ -43,6 +58,84 @@ def subdivide_mesh(mesh,values=[]):
     if len(values)>0:
         _translate_face_vertices(mesh,values)
     return _collect_new_faces(mesh)
+
+def _getEdgePoint(edge):
+    if (edge.crease==0):
+        if edge.face1 == None or edge.face2 == None:
+            edge.v1.fix = True
+            edge.v2.fix = True
+            edge.vertex = edge.center()
+        else:
+            vsum = Vertex()
+            nElements = 2
+            vsum = utils_vertex.vertex_add(vsum, edge.v1)
+            vsum = utils_vertex.vertex_add(vsum, edge.v2)
+            if edge.face1 != None:
+                vsum = utils_vertex.vertex_add(vsum, edge.face1.vertex)
+                nElements += 1
+            if edge.face2 != None:
+                vsum = utils_vertex.vertex_add(vsum, edge.face2.vertex)
+                nElements += 1
+                vsum = utils_vertex.vertex_divide(vsum, nElements)
+                edge.vertex = vsum
+        if edge.v1.fix and edge.v2.fix:
+            edge.vertex.fix = True
+    elif (edge.crease==1):
+        edge.vertex = edge.center()
+    else:
+        #
+        #test
+
+def _catmullVerticesCreases(mesh):
+    # stays the same
+    for face in mesh.faces:
+        face.vertex = face.center()
+    # edge point = center if crease =1
+    for edge in mesh.edges:
+        if edge.face1 == None or edge.face2 == None:
+            edge.v1.fix = True
+            edge.v2.fix = True
+            edge.vertex = edge.center()
+        else:
+            vsum = Vertex()
+            nElements = 2
+            vsum = utils_vertex.vertex_add(vsum, edge.v1)
+            vsum = utils_vertex.vertex_add(vsum, edge.v2)
+            if edge.face1 != None:
+                vsum = utils_vertex.vertex_add(vsum, edge.face1.vertex)
+                nElements += 1
+            if edge.face2 != None:
+                vsum = utils_vertex.vertex_add(vsum, edge.face2.vertex)
+                nElements += 1
+            vsum = utils_vertex.vertex_divide(vsum, nElements)
+            edge.vertex = vsum
+        if edge.v1.fix and edge.v2.fix:
+            edge.vertex.fix = True
+    #vertex point depends on amount of sharp creases
+    for vertex in mesh.vertices:
+        if vertex.fix:
+            vertex.vertex = copy.copy(vertex)
+        else:
+            averageFaces = Vertex()
+            averageEdges = Vertex()
+            nEdges = len(vertex.edges)
+
+            for edge in vertex.edges:
+                face = edge.face1
+                if edge.v2 is vertex:
+                    face = edge.face2
+                if face != None:
+                    averageFaces = utils_vertex.vertex_add(averageFaces, face.vertex)
+                averageEdges=utils_vertex.vertex_add(averageEdges,edge.center())
+            averageEdges = utils_vertex.vertex_scale(averageEdges, 2.0/nEdges)
+            averageFaces = utils_vertex.vertex_scale(averageFaces, 1.0/nEdges)
+
+            v = Vertex(vertex.x, vertex.y, vertex.z)
+            v = utils_vertex.vertex_scale(v,nEdges-3)
+            v = utils_vertex.vertex_add(v,averageFaces)
+            v = utils_vertex.vertex_add(v,averageEdges)
+            v = utils_vertex.vertex_scale(v,1.0/nEdges)
+            vertex.vertex = v
 
 def _catmullVertices(mesh):
     for face in mesh.faces:

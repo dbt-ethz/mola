@@ -110,6 +110,11 @@ class Mesh:
         self.faces.append(f)
         return f
 
+    def add_edge(self, v1,v2):
+        e = Edge(v1,v2)
+        self.edges.append(e)
+        return e
+
     def face_properties(self,face_analyse):
         values=[]
         for face in self.faces:

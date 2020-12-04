@@ -14,6 +14,7 @@ class Edge:
         self.v2 = v2
         self.face1 = None
         self.face2 = None
+        self.sharpness=0
 
     def __str__(self):
         return "from " + str(self.v1)+" to "+ str(self.v2)
