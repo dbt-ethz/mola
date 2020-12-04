@@ -19,7 +19,9 @@ def _collect_new_faces(mesh):
     newMesh=Mesh()
     for vertex in mesh.vertices:
         newMesh.vertices.append(vertex.vertex)
+
     for edge in mesh.edges:
+        newMesh.vertices.append(edge.vertex)
         edge1=newMesh.add_edge(edge.v1.vertex,edge.vertex)
         edge2=newMesh.add_edge(edge.vertex,edge.v2.vertex)
     for face in mesh.faces:
