@@ -145,7 +145,7 @@ class Mesh:
             for v2 in f.vertices:
                 edge = v1.edge_adjacent_to_vertex(v2)
                 if edge == None:
-                    edge = add_edge(v1,v2)
+                    edge = self.add_edge(v1,v2)
                 if edge.v1 == v1:
                     edge.face1 = f
                 else:
