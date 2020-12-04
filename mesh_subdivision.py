@@ -20,8 +20,8 @@ def _collect_new_faces(mesh):
     for vertex in mesh.vertices:
         newMesh.vertices.append(vertex.vertex)
     for edge in mesh.edges:
-        Edge edge1=newMesh.add_edge(edge.v1.vertex,edge.vertex)
-        Edge edge2=newMesh.add_edge(edge.vertex,edge.v2.vertex)
+        edge1=newMesh.add_edge(edge.v1.vertex,edge.vertex)
+        edge2=newMesh.add_edge(edge.vertex,edge.v2.vertex)
     for face in mesh.faces:
         newMesh.vertices.append(face.vertex)
         v1 = face.vertices[-2]
