@@ -23,7 +23,7 @@ def construct_single_face(vertices):
     mesh = Mesh()
     mesh.vertices = vertices
     mesh.faces = [Face(vertices)]
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=True):
@@ -74,7 +74,7 @@ def construct_cone(z1, z2, radius1, radius2, nSegments, capBottom=True, capTop=T
         #     i2=(i+1)%nSegments
         #     mesh.faces.append(Face([verticesTop[i],verticesTop[i2],centerTop]))
         mesh.faces.append(Face(verticesTop))
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_box(x1,y1,z1,x2,y2,z2):
@@ -105,7 +105,7 @@ def construct_box(x1,y1,z1,x2,y2,z2):
     f5 = Face([v2, v1, v5, v6])
     f6 = Face([v1, v4, v8, v5])
     mesh.faces = [f1, f2, f3, f4, f5, f6]
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_icosahedron(radius=1,cx=0,cy=0,cz=0):
@@ -191,7 +191,7 @@ def construct_sphere(radius=1, cx=0,cy=0,cz=0,u_res=10,v_res=10):
         mesh.add_face([v0,v_bottom,v3])
       else:
         mesh.add_face([v0,v1,v2,v3])
-  mesh.update_topology()
+  mesh.update_edges()
   return mesh
 
 def _polar_to_cartesian(r, theta, phi):
@@ -258,7 +258,7 @@ def construct_dodecahedron(radius=1, cx=0,cy=0,cz=0):
                   mesh.vertices[indices[i + 3]],
                   mesh.vertices[indices[i + 4]]])
         mesh.faces.append(f)
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
@@ -290,7 +290,7 @@ def construct_tetrahedron(size=1,cx=0,cy=0,cz=0):
     f4 = Face([mesh.vertices[3], mesh.vertices[2], mesh.vertices[1]])
 
     mesh.faces = [f1, f2, f3, f4]
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
@@ -329,7 +329,7 @@ def construct_torus(ringRadius, tubeRadius, ringN = 16, tubeN = 16):
             d = i  * tubeN + jj
             f = Face([mesh.vertices[k] for k in [a, b, c, d]])
             mesh.faces.append(f)
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def _torus_vertex(ringRadius, tubeRadius, ph,th):
@@ -376,7 +376,7 @@ def construct_rhombic_dodecahedron(edge_length=1, cx=0, cy=0, cz=0):
     f12 = Face([mesh.vertices[9],mesh.vertices[13],mesh.vertices[12],mesh.vertices[8]])
 
     mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
 
 def construct_octahedron(edgeLen=1, cx=0, cy=0, cz=0):
@@ -405,5 +405,5 @@ def construct_octahedron(edgeLen=1, cx=0, cy=0, cz=0):
     f8 = Face([mesh.vertices[5], mesh.vertices[1], mesh.vertices[4]])
 
     mesh.faces = [f1,f2,f3,f4,f5,f6,f7,f8]
-    mesh.update_topology()
+    mesh.update_edges()
     return mesh
