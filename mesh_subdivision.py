@@ -40,8 +40,8 @@ def _collect_new_faces(mesh):
             v1 = v2
             v2 = v3
     for face in newMesh.faces:
-        v2 = face.vertices[-1]
-        for v1 in face.vertices:
+        v1 = face.vertices[-1]
+        for v2 in face.vertices:
             edge=newMesh.edge_adjacent_to_vertices(v1,v2)
             if edge.v1 == v1:
                 edge.face1 = face
