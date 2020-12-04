@@ -80,11 +80,8 @@ def _getEdgePoint(edge):
                 edge.vertex = vsum
         if edge.v1.fix and edge.v2.fix:
             edge.vertex.fix = True
-    elif (edge.crease==1):
+    else (edge.crease==1):
         edge.vertex = edge.center()
-    else:
-        #
-        #test
 
 def _catmullVerticesCreases(mesh):
     # stays the same
