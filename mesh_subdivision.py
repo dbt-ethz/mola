@@ -42,7 +42,7 @@ def _collect_new_faces(mesh):
     for face in newMesh.faces:
         v1 = face.vertices[-1]
         for v2 in face.vertices:
-            edge=newMesh.edge_adjacent_to_vertices(v1,v2)
+            edge=v1.edge_adjacent_to_vertex(v2)
             if edge.v1 == v1:
                 edge.face1 = face
             else:
