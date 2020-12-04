@@ -24,6 +24,9 @@ def _collect_new_faces(mesh):
         newMesh.vertices.append(edge.vertex)
         edge1 = newMesh.add_edge(edge.v1.vertex,edge.vertex)
         edge2 = newMesh.add_edge(edge.vertex,edge.v2.vertex)
+        edge1.sharpness=edge.sharpness
+        edge2.sharpness=edge.sharpness
+
     for face in mesh.faces:
         newMesh.vertices.append(face.vertex)
 
@@ -138,7 +141,7 @@ def _catmullVertices(mesh):
     #vertex point depends on amount of sharp creases
     for vertex in mesh.vertices:
         self._calculateVertexPoint(vertex)
-        
+
 # old, working version without creases
 def _catmullVerticesBackup(mesh):
     for face in mesh.faces:
