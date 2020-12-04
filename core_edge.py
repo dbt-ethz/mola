@@ -30,8 +30,8 @@ class Edge:
         if `vertex` is one of the end points of this edge,
         it returns the Vertex at the other end point.
         """
-        if self.v1 is vertex:
-            return self.v2
-        if self.v2 is vertex:
+        if self.v1 != vertex:
             return self.v1
+        if self.v2 != vertex:
+            return self.v2
         return None

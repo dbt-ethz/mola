@@ -107,8 +107,8 @@ def _calculateVertexPoint(vertex):
         if len(sharpEdges)==2:
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
-            v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(v))
-            v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(v))
+            v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
+            v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
 
             v = utils_vertex.vertex_divide(v,8)
         # sharp corner
