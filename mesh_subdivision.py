@@ -65,8 +65,8 @@ def subdivide_mesh(mesh,values=[]):
         _translate_face_vertices(mesh,values)
     return _collect_new_faces(mesh)
 
-def _getEdgePoint(edge):
-    if (edge.crease==0):
+def _calculateEdgePoint(edge):
+    if (edge.sharpness==0):
         if edge.face1 == None or edge.face2 == None:
             edge.v1.fix = True
             edge.v2.fix = True
@@ -88,41 +88,29 @@ def _getEdgePoint(edge):
             edge.vertex.fix = True
     else:
         edge.vertex = edge.center()
-
-def _catmullVerticesCreases(mesh):
-    # stays the same
-    for face in mesh.faces:
-        face.vertex = face.center()
-    # edge point = center if crease =1
-    for edge in mesh.edges:
-        if edge.face1 == None or edge.face2 == None:
-            edge.v1.fix = True
-            edge.v2.fix = True
-            edge.vertex = edge.center()
+def _calculateVertexPoint(vertex):
+    if vertex.fix:
+        vertex.vertex = copy.copy(vertex)
+    else:
+        averageFaces = Vertex()
+        averageEdges = Vertex()
+        nEdges = len(vertex.edges)
+        nSharpEdges=0
+        sharpEdges=[]
+        for edge in vertex.edges:
+            if edge.sharpness > 0:
+                sharpEdges.append(edge)
+        # crease edge
+        if len(sharpEdges)==2:
+            v = Vertex(vertex.x, vertex.y, vertex.z)
+            v = utils_vertex.vertex_scale(6)
+            v = utils_vertex.vertex_add(v,sharpEdges[0].center)
+            v = utils_vertex.vertex_add(v,sharpEdges[1].center
+            v = utils_vertex.vertex_divide(8)
+        # sharp corner
+        elif len(sharpEdges)>2:
+            v = Vertex(vertex.x, vertex.y, vertex.z)
         else:
-            vsum = Vertex()
-            nElements = 2
-            vsum = utils_vertex.vertex_add(vsum, edge.v1)
-            vsum = utils_vertex.vertex_add(vsum, edge.v2)
-            if edge.face1 != None:
-                vsum = utils_vertex.vertex_add(vsum, edge.face1.vertex)
-                nElements += 1
-            if edge.face2 != None:
-                vsum = utils_vertex.vertex_add(vsum, edge.face2.vertex)
-                nElements += 1
-            vsum = utils_vertex.vertex_divide(vsum, nElements)
-            edge.vertex = vsum
-        if edge.v1.fix and edge.v2.fix:
-            edge.vertex.fix = True
-    #vertex point depends on amount of sharp creases
-    for vertex in mesh.vertices:
-        if vertex.fix:
-            vertex.vertex = copy.copy(vertex)
-        else:
-            averageFaces = Vertex()
-            averageEdges = Vertex()
-            nEdges = len(vertex.edges)
-
             for edge in vertex.edges:
                 face = edge.face1
                 if edge.v2 is vertex:
@@ -138,9 +126,21 @@ def _catmullVerticesCreases(mesh):
             v = utils_vertex.vertex_add(v,averageFaces)
             v = utils_vertex.vertex_add(v,averageEdges)
             v = utils_vertex.vertex_scale(v,1.0/nEdges)
-            vertex.vertex = v
+        vertex.vertex = v
 
 def _catmullVertices(mesh):
+    # stays the same
+    for face in mesh.faces:
+        face.vertex = face.center()
+    # edge point = center if crease =1
+    for edge in mesh.edges:
+        self._calculateEdgePoint(edge)
+    #vertex point depends on amount of sharp creases
+    for vertex in mesh.vertices:
+        self._calculateVertexPoint(vertex)
+        
+# old, working version without creases
+def _catmullVerticesBackup(mesh):
     for face in mesh.faces:
         face.vertex = face.center()
 
