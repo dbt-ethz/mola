@@ -137,10 +137,10 @@ def _catmullVertices(mesh):
         face.vertex = face.center()
     # edge point = center if crease =1
     for edge in mesh.edges:
-        self._calculateEdgePoint(edge)
+        _calculateEdgePoint(edge)
     #vertex point depends on amount of sharp creases
     for vertex in mesh.vertices:
-        self._calculateVertexPoint(vertex)
+        _calculateVertexPoint(vertex)
 
 # old, working version without creases
 def _catmullVerticesBackup(mesh):
