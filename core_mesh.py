@@ -85,7 +85,6 @@ class Mesh:
         """
         return self.bounding_box().center()
 
-    
     def edge_adjacent_to_vertices(self, v1, v2):
         for edge in v1.edges:
             if edge.v2 == v2 or edge.v1 == v2:
@@ -119,7 +118,18 @@ class Mesh:
         self.faces.append(f)
         return f
 
-    def add_faces_by_indices(self, faceList):
+    def add_vertex_from_coordinates(self,vertexcoordinates):
+        return add_vertex(vertexcoordinates[0],vertexcoordinates[1],vertexcoordinates[1])
+
+    def set_vertices_from_coordinates(self, verticescoordinates):
+        for faceIndices in facesIndices:
+            self.add_face_by_indices(faceIndices)
+
+    def set_faces_indices(self, facesIndices):
+        for faceIndices in facesIndices:
+            self.add_face_by_indices(faceIndices)
+
+    def add_faces_from_indices(self, faceList):
         for vertexIds in faceList:
             self.add_face_by_indices(vertexIds)
 
