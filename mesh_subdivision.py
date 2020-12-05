@@ -105,17 +105,23 @@ def _calculateVertexPoint(vertex):
         nEdges = len(vertex.edges)
         nSharpEdges=0
         sharpEdges=[]
+        vSharpness=0
         for edge in vertex.edges:
             if edge.sharpness > 0:
                 sharpEdges.append(edge)
+                vSharpness+=edge.sharpness
+
         # crease edge
         if len(sharpEdges)==2:
+            averageSharpness=vSharpness/2
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
             v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
             v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
 
             v = utils_vertex.vertex_divide(v,8)
+            # blend between v and vsharp.
+            v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
         # sharp corner
         elif len(sharpEdges)>2:
             v = Vertex(vertex.x, vertex.y, vertex.z)
