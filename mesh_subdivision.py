@@ -22,10 +22,15 @@ def _collect_new_faces(mesh):
 
     for edge in mesh.edges:
         newMesh.vertices.append(edge.vertex)
+
+        # edgePrev
+        # edgeNext
+
         edge1 = newMesh.add_edge(edge.v1.vertex,edge.vertex)
         edge2 = newMesh.add_edge(edge.vertex,edge.v2.vertex)
         edge1.sharpness=edge.sharpness
         edge2.sharpness=edge.sharpness
+
 
     for face in mesh.faces:
         newMesh.vertices.append(face.vertex)
@@ -103,17 +108,16 @@ def _calculateVertexPoint(vertex):
         averageFaces = Vertex()
         averageEdges = Vertex()
         nEdges = len(vertex.edges)
-        nSharpEdges=0
         sharpEdges=[]
         vSharpness=0
         for edge in vertex.edges:
             if edge.sharpness > 0:
                 sharpEdges.append(edge)
-                vSharpness+=edge.sharpness
+                vSharpness += edge.sharpness
 
         # crease edge
         if len(sharpEdges)==2:
-            averageSharpness=vSharpness/2
+            averageSharpness = vSharpness / 2
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
             v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
@@ -125,6 +129,7 @@ def _calculateVertexPoint(vertex):
         # sharp corner
         elif len(sharpEdges)>2:
             v = Vertex(vertex.x, vertex.y, vertex.z)
+
         else:
             for edge in vertex.edges:
                 face = edge.face1
