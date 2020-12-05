@@ -85,6 +85,7 @@ class Mesh:
         """
         return self.bounding_box().center()
 
+    
     def edge_adjacent_to_vertices(self, v1, v2):
         for edge in v1.edges:
             if edge.v2 == v2 or edge.v1 == v2:
