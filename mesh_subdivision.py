@@ -126,7 +126,7 @@ def _calculateVertexPoint(vertex):
         averageEdges = Vertex()
         nEdges = len(vertex.edges)
         sharpEdges=[]
-        vSharpness=0
+        vSharpness= 0
         for edge in vertex.edges:
             if edge.sharpness >= 1:
                 sharpEdges.append(edge)
