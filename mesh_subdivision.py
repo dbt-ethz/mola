@@ -42,7 +42,7 @@ def _collect_new_faces(mesh):
 
         edge1.sharpness=edge.sharpness
         if len(prevSharpEdges1)==1:
-            edge1.sharpness = int(max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0))
+            edge1.sharpness = max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
 
         #if len(prevSharpEdges1)==1:
         #    if prevSharpEdges1[0].sharpness>=1 or edge.sharpness>=1:
@@ -53,7 +53,7 @@ def _collect_new_faces(mesh):
 
         edge2.sharpness=edge.sharpness
         if len(prevSharpEdges2)==1:
-            edge2.sharpness = int(max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0))
+            edge2.sharpness = (max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
         #if len(prevSharpEdges2)==1:
         #    if prevSharpEdges2[0].sharpness>=1 or edge.sharpness>=1:
         #        edge2.sharpness=1
@@ -125,8 +125,8 @@ def _calculateEdgePoint(edge):
         if edge.v1.fix and edge.v2.fix:
             edge.vertex.fix = True
         #if (edge.sharpness<1):
-        vSmooth=utils_vertex.vertex_scale(edge.vertex,1-edge.sharpness)
-        vSharp=utils_vertex.vertex_scale(edge.center(),edge.sharpness)
+        vSmooth = utils_vertex.vertex_scale(edge.vertex,1-edge.sharpness)
+        vSharp = utils_vertex.vertex_scale(edge.center(),edge.sharpness)
         v=utils_vertex.vertex_add(vSmooth,vSharp)
     else:
         edge.vertex = edge.center()
@@ -146,7 +146,7 @@ def _calculateVertexPoint(vertex):
             vSharpness += edge.sharpness
 
         # crease edge
-        if len(sharpEdges)==2:
+        if len(sharpEdges) == 2:
             averageSharpness = vSharpness / 2
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
@@ -154,11 +154,11 @@ def _calculateVertexPoint(vertex):
             v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
 
             v = utils_vertex.vertex_divide(v,8)
-            if (averageSharpness)<1:
+            if (averageSharpness) < 1:
                 # blend between v and vsharp.
                 v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
         # sharp corner
-        elif len(sharpEdges)>2:
+        elif len(sharpEdges) > 2:
             v = Vertex(vertex.x, vertex.y, vertex.z)
 
         else:
@@ -176,7 +176,7 @@ def _calculateVertexPoint(vertex):
             v = utils_vertex.vertex_scale(v,nEdges-3)
             v = utils_vertex.vertex_add(v,averageFaces)
             v = utils_vertex.vertex_add(v,averageEdges)
-            v = utils_vertex.vertex_scale(v,1.0/nEdges)
+            v = utils_vertex.vertex_scale(v, 1.0 / nEdges)
         vertex.vertex = v
 
 def _catmullVertices(mesh):
