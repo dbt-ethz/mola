@@ -43,19 +43,19 @@ def _collect_new_faces(mesh):
         edge1.sharpness=edge.sharpness
 
         if len(prevSharpEdges1)==1:
-            if (prevSharpEdges1[0].sharpness>=1 or edge.sharpness>=1)
+            if prevSharpEdges1[0].sharpness>=1 or edge.sharpness>=1:
                 edge1.sharpness=1
             else:
-                s=max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
+                s = max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
                 edge1.sharpness=s
 
         edge2.sharpness=edge.sharpness
         if len(prevSharpEdges2)==1:
-            if (prevSharpEdges1[1].sharpness>=1 or edge.sharpness>=1)
+            if prevSharpEdges1[1].sharpness>=1 or edge.sharpness>=1:
                 edge2.sharpness=1
             else:
-                s=max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
-                edge2.sharpness=s
+                s = max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
+                edge2.sharpness = s
 
 
     for face in mesh.faces:
