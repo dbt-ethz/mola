@@ -234,7 +234,8 @@ def _translate_face_vertices(mesh,values):
         normal=utils_face.face_normal(face)
         normal.scale(value)
         face.vertex.add(normal)
-
+        
+#see paper https://doi.org/10.1145/280814.280826
 def subdivide_mesh_catmull(mesh, values=[]):
     _catmullVertices(mesh)
     if len(values)>0:
