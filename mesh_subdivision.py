@@ -143,8 +143,9 @@ def _calculateVertexPoint(vertex):
             v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
 
             v = utils_vertex.vertex_divide(v,8)
-            # blend between v and vsharp.
-            v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
+            if (sharpEdges[0]+sharpEdges[1])<2:
+                # blend between v and vsharp.
+                v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
         # sharp corner
         elif len(sharpEdges)>2:
             v = Vertex(vertex.x, vertex.y, vertex.z)
