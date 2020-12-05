@@ -90,7 +90,7 @@ def _calculateEdgePoint(edge):
         if edge.v1.fix and edge.v2.fix:
             edge.vertex.fix = True
         if (edge.sharpness<1):
-            vSmooth=utils_vertex.vertex_scale(edge.vertex,(1-edge.sharpness))
+            vSmooth=utils_vertex.vertex_scale(edge.vertex,1-edge.sharpness))
             vSharp=utils_vertex.vertex_scale(edge.center(),edge.sharpness))
             v=utils_vertex.vertex_add(vSmooth,vSharp)
     else:
