@@ -133,24 +133,25 @@ def _calculateVertexPoint(vertex):
         sharpEdges=[]
         vSharpness= 0 #not sure if this should be summarised for all edges or only for sharp edges
         for edge in vertex.edges:
-            if edge.sharpness >= 1: #not sure if this should be bigger 0 or >=1
+            if edge.sharpness >0: #not sure if this should be bigger 0 or >=1
                 sharpEdges.append(edge)
-                vSharpness += edge.sharpness
+            vSharpness += edge.sharpness
 
         # A vertex point corresponding to a vertex adjacent to zero or one sharp edges
         # is computed using the smooth vertex rule
         # A vertex point corresponding to a vertex v adjacent to three or more sharp edge
         # is computed using the corner rule
-        # crease edge
+
         if len(sharpEdges) == 2:
-            averageSharpness = vSharpness / 2
+            averageSharpness = vSharpness / nEdges
+            #if averageSharpness >= 1 a vertex point corresponding to a vertex v adjacent to two sharp edges
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
             v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
             v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
             v = utils_vertex.vertex_divide(v,8)
             if (averageSharpness) < 1:
-                # blend between v and vsharp.
+                # linear blend between the crease vertex and corner masks if averageSharpness <1
                 v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
         # sharp corner
         elif len(sharpEdges) > 2:
