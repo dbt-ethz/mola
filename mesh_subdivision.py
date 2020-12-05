@@ -132,18 +132,17 @@ def _calculateVertexPoint(vertex):
         vertex.vertex = copy.copy(vertex)
     else:
         averageFaces = Vertex()
-        averageEdges = Vertex()
-        nEdges = len(vertex.edges)
+        averageEdges = Vertex() 
         sharpEdges=[]
         vSharpness=0
         for edge in vertex.edges:
             if edge.sharpness > 0:
                 sharpEdges.append(edge)
-                vSharpness += edge.sharpness
+            vSharpness += edge.sharpness
 
         # crease edge
         if len(sharpEdges)==2:
-            averageSharpness = vSharpness / 2
+            averageSharpness = vSharpness / len(vertex.edges)
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
             v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
