@@ -133,7 +133,7 @@ def _calculateVertexPoint(vertex):
         sharpEdges=[]
         vSharpness= 0 #not sure if this should be summarised for all edges or only for sharp edges
         for edge in vertex.edges:
-            if edge.sharpness >0: #not sure if this should be bigger 0 or >=1
+            if edge.sharpness >=1: #not sure if this should be bigger 0 or >=1
                 sharpEdges.append(edge)
             vSharpness += edge.sharpness
 
