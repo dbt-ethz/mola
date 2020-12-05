@@ -28,7 +28,7 @@ def _collect_new_faces(mesh):
         #averageSharpness1=
         for cedge in edge.v1.edges:
             if cedge!=edge:
-                if cedge.sharpness > =1:
+                if cedge.sharpness >=1:
                     prevSharpEdges1.append(cedge)
 
         # edgeNext
