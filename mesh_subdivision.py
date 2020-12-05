@@ -41,21 +41,23 @@ def _collect_new_faces(mesh):
         edge2 = newMesh.add_edge(edge.vertex,edge.v2.vertex)
 
         edge1.sharpness=edge.sharpness
+        s = max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
 
-        if len(prevSharpEdges1)==1:
-            if prevSharpEdges1[0].sharpness>=1 or edge.sharpness>=1:
-                edge1.sharpness=1
-            else:
-                s = max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
-                edge1.sharpness=s
+        #if len(prevSharpEdges1)==1:
+        #    if prevSharpEdges1[0].sharpness>=1 or edge.sharpness>=1:
+        #        edge1.sharpness=1
+        #    else:
+        #        s = max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
+        #        edge1.sharpness=s
 
         edge2.sharpness=edge.sharpness
-        if len(prevSharpEdges2)==1:
-            if prevSharpEdges2[0].sharpness>=1 or edge.sharpness>=1:
-                edge2.sharpness=1
-            else:
-                s = max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
-                edge2.sharpness = s
+        s = max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
+        #if len(prevSharpEdges2)==1:
+        #    if prevSharpEdges2[0].sharpness>=1 or edge.sharpness>=1:
+        #        edge2.sharpness=1
+        #    else:
+        #        s = max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
+        #        edge2.sharpness = s
 
 
     for face in mesh.faces:
@@ -150,7 +152,7 @@ def _calculateVertexPoint(vertex):
             v = utils_vertex.vertex_add(v,sharpEdges[1].other_vertex(vertex))
 
             v = utils_vertex.vertex_divide(v,8)
-            if (sharpEdges[0].sharpness+sharpEdges[1].sharpness)<2:
+            if (averageSharpness)<1:
                 # blend between v and vsharp.
                 v = utils_vertex.vertex_between_rel(v,vertex,averageSharpness)
         # sharp corner
