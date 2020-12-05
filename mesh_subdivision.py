@@ -135,7 +135,7 @@ def _calculateVertexPoint(vertex):
         for edge in vertex.edges:
             if edge.sharpness >=1: #not sure if this should be bigger 0 or >=1
                 sharpEdges.append(edge)
-                vSharpness += edge.sharpness
+            vSharpness += edge.sharpness
 
         # A vertex point corresponding to a vertex adjacent to zero or one sharp edges
         # is computed using the smooth vertex rule
@@ -143,7 +143,7 @@ def _calculateVertexPoint(vertex):
         # is computed using the corner rule
 
         if len(sharpEdges) == 2:
-            averageSharpness = vSharpness / 2
+            averageSharpness = vSharpness / nEdges
             #if averageSharpness >= 1 a vertex point corresponding to a vertex v adjacent to two sharp edges
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
