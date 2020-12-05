@@ -33,11 +33,11 @@ def _collect_new_faces(mesh):
                     prevSharpEdges1.append(cedge)
 
         # edgeNext
-        prevSharpEdges2=[]
+        nextSharpEdges=[]
         for cedge in edge.v2.edges:
             if cedge!=edge:
                 if cedge.sharpness >0: # or >=1?
-                    prevSharpEdges2.append(cedge)
+                    nextSharpEdges.append(cedge)
 
         edge1 = newMesh.add_edge(edge.v1.vertex,edge.vertex)
         edge2 = newMesh.add_edge(edge.vertex,edge.v2.vertex)
@@ -50,8 +50,8 @@ def _collect_new_faces(mesh):
 
         edge2.sharpness = edge.sharpness
         nextSharpness=0
-        if len(prevSharpEdges2) >= 1:
-            nextSharpness=prevSharpEdges2[0].sharpness
+        if len(nextSharpEdges) >= 1:
+            nextSharpness=nextSharpEdges[0].sharpness
         edge2.sharpness = max((nextSharpness + 3 * edge.sharpness) / 4 - 1,0)
 
     for face in mesh.faces:
