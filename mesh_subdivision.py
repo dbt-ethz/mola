@@ -46,7 +46,7 @@ def _collect_new_faces(mesh):
 
         edge2.sharpness = edge.sharpness
         if len(prevSharpEdges2)==1:
-            edge2.sharpness = (max((prevSharpEdges2[0].sharpness + 3 * edge.sharpness) / 4 - 1,0)
+            edge2.sharpness = max((prevSharpEdges2[0].sharpness + 3 * edge.sharpness) / 4 - 1,0)
 
     for face in mesh.faces:
         newMesh.vertices.append(face.vertex)
