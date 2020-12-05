@@ -42,12 +42,12 @@ def _collect_new_faces(mesh):
 
         edge1.sharpness=edge.sharpness
         if len(prevSharpEdges1)==1:
-            s=max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/4-1,0)
+            s=max((prevSharpEdges1[0].sharpness+3*edge.sharpness)/2-1,0)
             edge1.sharpness=s
 
         edge2.sharpness=edge.sharpness
         if len(prevSharpEdges2)==1:
-            s=max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/4-1,0)
+            s=max((prevSharpEdges2[0].sharpness+3*edge.sharpness)/2-1,0)
             edge2.sharpness=s
 
 
@@ -234,7 +234,7 @@ def _translate_face_vertices(mesh,values):
         normal=utils_face.face_normal(face)
         normal.scale(value)
         face.vertex.add(normal)
-        
+
 #see paper https://doi.org/10.1145/280814.280826
 def subdivide_mesh_catmull(mesh, values=[]):
     _catmullVertices(mesh)
