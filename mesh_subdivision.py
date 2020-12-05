@@ -28,25 +28,25 @@ def _collect_new_faces(mesh):
         #averageSharpness1=
         for cedge in edge.v1.edges:
             if cedge!=edge:
-                if cedge.sharpness>0:
+                if cedge.sharpness > 0:
                     prevSharpEdges1.append(cedge)
 
         # edgeNext
         prevSharpEdges2=[]
         for cedge in edge.v2.edges:
             if cedge!=edge:
-                if cedge.sharpness>0:
+                if cedge.sharpness > 0:
                     prevSharpEdges2.append(cedge)
 
         edge1 = newMesh.add_edge(edge.v1.vertex,edge.vertex)
         edge2 = newMesh.add_edge(edge.vertex,edge.v2.vertex)
 
         edge1.sharpness=edge.sharpness
-        if len(prevSharpEdges1)==1:
+        if len(prevSharpEdges1) == 1:
             edge1.sharpness = max((prevSharpEdges1[0].sharpness + 3 * edge.sharpness) / 4 - 1,0)
 
         edge2.sharpness = edge.sharpness
-        if len(prevSharpEdges2)==1:
+        if len(prevSharpEdges2) == 1:
             edge2.sharpness = max((prevSharpEdges2[0].sharpness + 3 * edge.sharpness) / 4 - 1,0)
 
     for face in mesh.faces:
@@ -128,13 +128,13 @@ def _calculateVertexPoint(vertex):
         sharpEdges=[]
         vSharpness=0
         for edge in vertex.edges:
-            if edge.sharpness >= 1:
+            if edge.sharpness > 0:
                 sharpEdges.append(edge)
-                vSharpness += edge.sharpness
+            vSharpness += edge.sharpness
 
         # crease edge
         if len(sharpEdges) == 2:
-            averageSharpness = vSharpness / 2
+            averageSharpness = vSharpness / nEdges
             v = Vertex(vertex.x, vertex.y, vertex.z)
             v = utils_vertex.vertex_scale(v,6)
             v = utils_vertex.vertex_add(v,sharpEdges[0].other_vertex(vertex))
