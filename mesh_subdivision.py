@@ -69,7 +69,7 @@ def subdivide_mesh(mesh,values=[]):
     return _collect_new_faces(mesh)
 
 def _calculateEdgePoint(edge):
-    if (edge.sharpness==0):
+    if (edge.sharpness<1):
         if edge.face1 == None or edge.face2 == None:
             edge.v1.fix = True
             edge.v2.fix = True
@@ -89,8 +89,13 @@ def _calculateEdgePoint(edge):
                 edge.vertex = vsum
         if edge.v1.fix and edge.v2.fix:
             edge.vertex.fix = True
+        if (edge.sharpness<1):
+            vSmooth=utils_vertex.vertex_scale(edge.vertex,(1-edge.sharpness))
+            vSharp=utils_vertex.vertex_scale(edge.center(),edge.sharpness))
+            v=utils_vertex.vertex_add(vSmooth,vSharp)
     else:
         edge.vertex = edge.center()
+
 def _calculateVertexPoint(vertex):
     if vertex.fix:
         vertex.vertex = copy.copy(vertex)
