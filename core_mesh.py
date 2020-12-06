@@ -129,7 +129,7 @@ class Mesh:
         self.faces.append(f)
         return f
 
-    def add_face_by_indices(self, vertexIds):
+    def add_face_by_ids(self, vertexIds):
         face_vertices=[]
         for id in vertexIds:
             face_vertices.append(self.vertices[id])
@@ -137,20 +137,29 @@ class Mesh:
         self.faces.append(f)
         return f
 
+    def set_faces_by_ids(self, facesIndices):
+        for faceIndices in facesIndices:
+            self.add_face_by_ids(faceIndices)
+
+    def add_faces_by_ids(self, faceList):
+        for vertexIds in faceList:
+            self.add_face_by_ids(vertexIds)
+
     def add_vertex_from_coordinates(self,vertexcoordinates):
         return add_vertex(vertexcoordinates[0],vertexcoordinates[1],vertexcoordinates[1])
 
     def set_vertices_from_coordinates(self, verticescoordinates):
         for faceIndices in facesIndices:
-            self.add_face_by_indices(faceIndices)
+            self.add_face_by_ids(faceIndices)
 
-    def set_faces_indices(self, facesIndices):
-        for faceIndices in facesIndices:
-            self.add_face_by_indices(faceIndices)
-
-    def add_faces_from_indices(self, faceList):
-        for vertexIds in faceList:
-            self.add_face_by_indices(vertexIds)
+    def add_edge_by_id(self, id1,id2):
+        v1=self.vertices[i1]
+        v2=self.vertices[i2]
+        edge = Edge(v1,v2)
+        v1.edges.append(edge)
+        v2.edges.append(edge)
+        self.edges.append(edge)
+        return edge
 
     def add_edge(self, v1,v2):
         edge = Edge(v1,v2)
