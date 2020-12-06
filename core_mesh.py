@@ -91,6 +91,25 @@ class Mesh:
                 return edge
         return None
 
+    def adjacent_edge_from_vertexids(self, i1,i2):
+        v1=vertices[i1]
+        v2=vertices[i2]
+        for edge in v1.edges:
+            if edge.v2 == v2 or edge.v1 == v2:
+                return edge
+        return None
+
+    def adjacent_face_from_vertexids(self, i1,i2):
+        v1=vertices[i1]
+        v2=vertices[i2]
+        edge = adjacent_edge_from_vertexids(i1,i2)
+        if edge != None:
+            if edge.v1 == v1:
+                return edge.face1
+            else:
+                return edge.face2
+        return None
+
     def face_adjacent_to_vertices(self, v1, v2):
         edge = v1.edge_adjacent_to_vertex(v2)
         if edge != None:
