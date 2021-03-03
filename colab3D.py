@@ -25,7 +25,7 @@ __canvasHeight = "56.25vw"
 
 __positionsWelded = []
 
-def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,1,1,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1):
+def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges=False,edgesWidth=1.0,showWireframe=False,showPointsCloud=False,showPointsNumbers=False,backgroundColor=(0,0,0),edgesColor=(1,1,1,1),pointColor=(1,1,1),pointSize=10,numberColor=(1,1,1),numberSize=1, significant_digits = 3):
   """
   Displays Mesh.
   Arguments:
@@ -135,7 +135,8 @@ def display_faces(faces):
     cIndex=0
     for face in faces:
         for v in face.vertices:
-            positions.extend((v.x,v.y,v.z))
+
+            positions.extend(round(v.x,significant_digits),round(v.y,significant_digits),round(v.z,significant_digits))
             colors.extend(face.color)
         indices.extend([cIndex, cIndex+1, cIndex+2])
         if len(face.vertices)>3:
