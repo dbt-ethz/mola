@@ -78,7 +78,7 @@ def display_mesh(mesh,canvasWidth=None,canvasHeight=None,showAxis=True,showEdges
     for v in mesh.vertices:
       __positionsWelded.extend((v.x,v.y,v.z))
 
-  return display_faces(mesh.faces)
+  return display_faces(mesh.faces, significant_digits)
 
 
 
@@ -126,7 +126,7 @@ def display_faces_welded(faces):
 
 
 
-def display_faces(faces):
+def display_faces(faces, significant_digits = 3):
     __begin3D()
     positions=[]
     indices=[]
