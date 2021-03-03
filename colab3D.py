@@ -135,8 +135,8 @@ def display_faces(faces, significant_digits=3):
     for face in faces:
         for v in face.vertices:
 
-            positions.extend(round(v.x, 3), round(
-                v.y, 3), round(v.z, 3))
+            positions.extend((round(v.x, significant_digits), round(
+                v.y, significant_digits), round(v.z, significant_digits)))
             colors.extend(face.color)
         indices.extend([cIndex, cIndex+1, cIndex+2])
         if len(face.vertices) > 3:
