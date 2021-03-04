@@ -169,9 +169,9 @@ def construct_sphere(radius=1, cx=0,cy=0,cz=0,u_res=10,v_res=10):
 
   mesh = Mesh()
   for v in range(v_res+1):
-    theta = math.pi * (v / v_res)
+    theta = math.pi * (float(v) / v_res)
     for u in range(u_res):
-      phi = 2.0 * math.pi * (u / u_res)
+      phi = 2.0 * math.pi * (float(u) / u_res)
       cartesian = _polar_to_cartesian(radius,theta,phi)
       mesh.add_vertex(cartesian[0]+cx,cartesian[1]+cy,cartesian[2]+cz)
 
