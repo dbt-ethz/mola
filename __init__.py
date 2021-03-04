@@ -19,6 +19,6 @@ from .utils_math import *
 from .utils_mesh import *
 from .utils_poly import *
 from .utils_vertex import *
-from .utils_grid import *
+#from .utils_grid import *
 
 __all__ = [name for name in dir() if not name.startswith('_')]
