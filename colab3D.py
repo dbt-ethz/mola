@@ -26,7 +26,7 @@ __canvasHeight = "56.25vw"
 __positionsWelded = []
 
 
-def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, welded=True):
+def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, welded=False):
     """
     Displays Mesh.
     Arguments:
