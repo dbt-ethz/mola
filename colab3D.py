@@ -80,9 +80,9 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     mesh.update_topology()
 
     for v in mesh.vertices:
-        v.x = round(v.x, 2)
-        v.y = round(v.y, 2)
-        v.z = round(v.z, 2)
+        v.x = round(v.x, significant_digits)
+        v.y = round(v.y, significant_digits)
+        v.z = round(v.z, significant_digits)
 
     if(showPointsNumbers):
         global __positionsWelded
