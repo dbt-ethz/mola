@@ -124,7 +124,9 @@ def display_faces_welded(faces, significant_digits=2):
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex += 1
-    print(positions)
+
+    positions = [round(p, significant_digits) for p in positions]
+
     __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
