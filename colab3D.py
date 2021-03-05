@@ -83,7 +83,7 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
                 v.y, significant_digits), round(v.z, significant_digits)))
 
     if welded is True:
-        display_faces_welded(mesh.faces, significant_digits)
+        return display_faces_welded(mesh.faces, significant_digits)
     else:
         return display_faces(mesh.faces, significant_digits)
 
@@ -125,6 +125,8 @@ def display_faces_welded(faces, significant_digits=2):
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex += 1
+
+    positions = [round(p, significant_digits) for p in positions]          
     __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
