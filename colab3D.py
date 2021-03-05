@@ -26,7 +26,7 @@ __canvasHeight = "56.25vw"
 __positionsWelded = []
 
 
-def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=3):
+def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, mode="unwelded"):
     """
     Displays Mesh.
     Arguments:
@@ -54,6 +54,10 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     numberColor : tuple (r,g,b)
                   r,g,b values, 0.0 to 1.0
     numberSize : float
+    significant_digits: interger
+                precision 0 to 15
+    mode : string
+                values "welded" or "unwelded"
     """
     global __canvasWidth, __canvasHeight, __showAxis, __showEdges, __edgesWidth, __showWireframe, __showPointsCloud, __showPointsNumbers, __backgroundColor, __edgesColor, __pointColor, __pointSize, __numberColor, __numberSize
     if(canvasWidth):
@@ -73,13 +77,23 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     __numberColor = numberColor
     __numberSize = numberSize
 
+    mesh.update_topology()
+
+    for v in mesh.vertices:
+        v.x = round(v.x, 2)
+        v.y = round(v.y, 2)
+        v.z = round(v.z, 2)
+
     if(showPointsNumbers):
         global __positionsWelded
         __positionsWelded = []
         for v in mesh.vertices:
-            __positionsWelded.extend((v.x, v.y, v.z))
+            __positionsWelded.extend(v.x, v.y, v.z)
 
-    return display_faces(mesh.faces, significant_digits)
+    if mode == "unwelded":
+        return display_faces(mesh.faces)
+    elif mode == "welded":
+        return display_faces_welded(mesh.faces)
 
 
 def display_faces_welded(faces):
@@ -134,9 +148,7 @@ def display_faces(faces, significant_digits=3):
 
     for face in faces:
         for v in face.vertices:
-
-            positions.extend((round(v.x, significant_digits), round(
-                v.y, significant_digits), round(v.z, significant_digits)))
+            positions.extend(v.x, v.y, v.z)
             colors.extend(face.color)
         indices.extend([cIndex, cIndex+1, cIndex+2])
         if len(face.vertices) > 3:
