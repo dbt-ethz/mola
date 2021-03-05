@@ -82,13 +82,13 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
             __positionsWelded.extend((round(v.x, significant_digits), round(
                 v.y, significant_digits), round(v.z, significant_digits)))
 
-    if welded:
+    if welded is True:
         display_faces_welded(mesh.faces, significant_digits)
     else:
         return display_faces(mesh.faces, significant_digits)
 
 
-def display_faces_welded(faces, significant_digits=2):
+def display_faces_welded(faces):
     __begin3D()
     verticesDict = {}
     positions = []
@@ -96,6 +96,7 @@ def display_faces_welded(faces, significant_digits=2):
     colors = []
     cIndex = 0
     for face in faces:
+        col = face.color
         # triangle
         for i in range(3):
             p = face.vertices[i]
@@ -124,9 +125,6 @@ def display_faces_welded(faces, significant_digits=2):
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex += 1
-
-    #positions = [round(p, significant_digits) for p in positions]
-
     __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
