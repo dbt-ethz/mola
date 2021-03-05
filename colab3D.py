@@ -99,8 +99,7 @@ def display_faces_welded(faces, significant_digits=2):
         # triangle
         for i in range(3):
             p = face.vertices[i]
-            ptuple = (round(p.x, significant_digits), round(
-                p.y, significant_digits), round(p.z, significant_digits))
+            ptuple = (p.x, p.y, p.z)
             if ptuple in verticesDict:
                 indices.append(verticesDict[ptuple])
             else:
@@ -112,8 +111,7 @@ def display_faces_welded(faces, significant_digits=2):
         # quad
         if len(face.vertices) > 3:
             p = face.vertices[3]
-            ptuple = (round(p.x, significant_digits), round(
-                p.y, significant_digits), round(p.z, significant_digits))
+            ptuple = (p.x, p.y, p.z)
             i0 = indices[-3]
             i1 = indices[-1]
             indices.append(i0)
@@ -126,6 +124,9 @@ def display_faces_welded(faces, significant_digits=2):
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex += 1
+
+    positions = [tuple([round(x, significant_digits) for x in pos]) for pos in positions]
+
     __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
