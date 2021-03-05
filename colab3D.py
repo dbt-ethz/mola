@@ -26,7 +26,7 @@ __canvasHeight = "56.25vw"
 __positionsWelded = []
 
 
-def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, mode="unwelded"):
+def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, welded=True):
     """
     Displays Mesh.
     Arguments:
@@ -54,10 +54,8 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     numberColor : tuple (r,g,b)
                   r,g,b values, 0.0 to 1.0
     numberSize : float
-    significant_digits: interger
-                precision 0 to 15
-    mode : string
-                values "welded" or "unwelded"
+    significant_digits: integer
+    welded : Boolean
     """
     global __canvasWidth, __canvasHeight, __showAxis, __showEdges, __edgesWidth, __showWireframe, __showPointsCloud, __showPointsNumbers, __backgroundColor, __edgesColor, __pointColor, __pointSize, __numberColor, __numberSize
     if(canvasWidth):
@@ -77,26 +75,20 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     __numberColor = numberColor
     __numberSize = numberSize
 
-    mesh.update_topology()
-
-    for v in mesh.vertices:
-        v.x = round(v.x, significant_digits)
-        v.y = round(v.y, significant_digits)
-        v.z = round(v.z, significant_digits)
-
     if(showPointsNumbers):
         global __positionsWelded
         __positionsWelded = []
         for v in mesh.vertices:
-            __positionsWelded.extend(v.x, v.y, v.z)
+            __positionsWelded.extend((round(v.x, significant_digits), round(
+                v.y, significant_digits), round(v.z, significant_digits)))
 
-    if mode == "unwelded":
-        return display_faces(mesh.faces)
-    elif mode == "welded":
-        return display_faces_welded(mesh.faces)
+    if welded:
+        display_faces_welded(mesh.faces, significant_digits)
+    else:
+        return display_faces(mesh.faces, significant_digits)
 
 
-def display_faces_welded(faces):
+def display_faces_welded(faces, significant_digits=2):
     __begin3D()
     verticesDict = {}
     positions = []
@@ -104,11 +96,11 @@ def display_faces_welded(faces):
     colors = []
     cIndex = 0
     for face in faces:
-        col = face.color
         # triangle
         for i in range(3):
             p = face.vertices[i]
-            ptuple = (p.x, p.y, p.z)
+            ptuple = (round(p.x, significant_digits), round(
+                p.y, significant_digits), round(p.z, significant_digits))
             if ptuple in verticesDict:
                 indices.append(verticesDict[ptuple])
             else:
@@ -120,7 +112,8 @@ def display_faces_welded(faces):
         # quad
         if len(face.vertices) > 3:
             p = face.vertices[3]
-            ptuple = (p.x, p.y, p.z)
+            ptuple = (round(p.x, significant_digits), round(
+                p.y, significant_digits), round(p.z, significant_digits))
             i0 = indices[-3]
             i1 = indices[-1]
             indices.append(i0)
@@ -138,7 +131,7 @@ def display_faces_welded(faces):
     return __code
 
 
-def display_faces(faces, significant_digits=3):
+def display_faces(faces, significant_digits=2):
     __begin3D()
     positions = []
     indices = []
@@ -148,7 +141,8 @@ def display_faces(faces, significant_digits=3):
 
     for face in faces:
         for v in face.vertices:
-            positions.extend((v.x, v.y, v.z))
+            positions.extend((round(v.x, significant_digits), round(
+                v.y, significant_digits), round(v.z, significant_digits)))
             colors.extend(face.color)
         indices.extend([cIndex, cIndex+1, cIndex+2])
         if len(face.vertices) > 3:
