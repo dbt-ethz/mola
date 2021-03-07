@@ -26,7 +26,7 @@ __canvasHeight = "56.25vw"
 __positionsWelded = []
 
 
-def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=3):
+def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showEdges=False, edgesWidth=1.0, showWireframe=False, showPointsCloud=False, showPointsNumbers=False, backgroundColor=(0, 0, 0), edgesColor=(1, 1, 1, 1), pointColor=(1, 1, 1), pointSize=10, numberColor=(1, 1, 1), numberSize=1, significant_digits=2, welded=False):
     """
     Displays Mesh.
     Arguments:
@@ -54,6 +54,8 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
     numberColor : tuple (r,g,b)
                   r,g,b values, 0.0 to 1.0
     numberSize : float
+    significant_digits: integer
+    welded : Boolean
     """
     global __canvasWidth, __canvasHeight, __showAxis, __showEdges, __edgesWidth, __showWireframe, __showPointsCloud, __showPointsNumbers, __backgroundColor, __edgesColor, __pointColor, __pointSize, __numberColor, __numberSize
     if(canvasWidth):
@@ -77,12 +79,16 @@ def display_mesh(mesh, canvasWidth=None, canvasHeight=None, showAxis=True, showE
         global __positionsWelded
         __positionsWelded = []
         for v in mesh.vertices:
-            __positionsWelded.extend((v.x, v.y, v.z))
+            __positionsWelded.extend((round(v.x, significant_digits), round(
+                v.y, significant_digits), round(v.z, significant_digits)))
 
-    return display_faces(mesh.faces, significant_digits)
+    if welded is True:
+        return display_faces_welded(mesh.faces, significant_digits)
+    else:
+        return display_faces(mesh.faces, significant_digits)
 
 
-def display_faces_welded(faces):
+def display_faces_welded(faces, significant_digits=2):
     __begin3D()
     verticesDict = {}
     positions = []
@@ -119,12 +125,14 @@ def display_faces_welded(faces):
                 colors.extend(face.color)
                 indices.append(cIndex)
                 cIndex += 1
+
+    positions = [round(p, significant_digits) for p in positions]          
     __draw_mesh_with_colors(positions, indices, colors)
     __end3D()
     return __code
 
 
-def display_faces(faces, significant_digits=3):
+def display_faces(faces, significant_digits=2):
     __begin3D()
     positions = []
     indices = []
@@ -134,7 +142,6 @@ def display_faces(faces, significant_digits=3):
 
     for face in faces:
         for v in face.vertices:
-
             positions.extend((round(v.x, significant_digits), round(
                 v.y, significant_digits), round(v.z, significant_digits)))
             colors.extend(face.color)

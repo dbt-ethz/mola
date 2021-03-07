@@ -21,7 +21,8 @@ def mesh_from_rhino_mesh(obj):
     return mesh
 
 def display_mesh(mesh):
-    display_faces(mesh.faces)
+
+    return display_faces(mesh.faces)
 
 #todo: method to turn rhino mesh into molamesh
 
@@ -37,7 +38,7 @@ def display_faces(faces):
             faceIndices.append(len(vertices))
             vertices.append((v.x,v.y,v.z))
             vertexColors.append((f.color[0]*255,f.color[1]*255,f.color[2]*255))
-            
+           
         p = len(f.vertices)
         if p <= 4:
             # add one face if it is tri or quad
@@ -54,9 +55,7 @@ def display_faces(faces):
             faces = [[a, b, c_index] for a, b in pairwise(faceIndices + faceIndices[0:1])]
             facesIndices.extend(faces)
 
-    a = rs.AddMesh(vertices,facesIndices,None,None,vertexColors)
-
-    return a
+    return rs.AddMesh(vertices,facesIndices,None,None,vertexColors)
 
 
 def centroid_points(points):
@@ -71,3 +70,4 @@ def pairwise(iterable):
     b = iterable[1:]
 
     return zip(a, b)
+
