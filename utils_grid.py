@@ -8,7 +8,10 @@ __email__      = ['<dbt@arch.ethz.ch>']
 import math
 from mola import utils_math
 from mola.core_mesh import Mesh
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    pass
 
 def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):

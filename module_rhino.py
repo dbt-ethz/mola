@@ -21,19 +21,53 @@ def mesh_from_rhino_mesh(obj):
     return mesh
 
 def display_mesh(mesh):
-    display_faces(mesh.faces)
+
+    return display_faces(mesh.faces)
 
 #todo: method to turn rhino mesh into molamesh
 
 def display_faces(faces):
-    vertices=[]
-    facesIndices=[]
-    vertexColors=[]
+    vertices = []
+    vertexColors = []
+    facesIndices = []
+
     for f in faces:
-        faceIndices=[]
+        faceIndices = []
+        # add vertices
         for v in f.vertices:
             faceIndices.append(len(vertices))
             vertices.append((v.x,v.y,v.z))
             vertexColors.append((f.color[0]*255,f.color[1]*255,f.color[2]*255))
-        facesIndices.append(faceIndices)
-    rs.AddMesh(vertices,facesIndices,None,None,vertexColors)
+           
+        p = len(f.vertices)
+        if p <= 4:
+            # add one face if it is tri or quad
+            facesIndices.append(faceIndices)
+  
+        else:
+            # add multiple faces if it is ngon  
+            points = [(v.x, v.y, v.z) for v in f.vertices]
+            center_pt = centroid_points(points)
+            c_index = len(vertices)
+            vertices.append(center_pt)
+            vertexColors.append((f.color[0]*255,f.color[1]*255,f.color[2]*255))
+
+            faces = [[a, b, c_index] for a, b in pairwise(faceIndices + faceIndices[0:1])]
+            facesIndices.extend(faces)
+
+    return rs.AddMesh(vertices,facesIndices,None,None,vertexColors)
+
+
+def centroid_points(points):
+    p = len(points)
+    x, y, z = zip(*points)
+
+    return [sum(x) / p, sum(y) / p, sum(z) / p]
+
+
+def pairwise(iterable):
+    a = iterable[:-1]
+    b = iterable[1:]
+
+    return zip(a, b)
+
