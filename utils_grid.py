@@ -13,6 +13,18 @@ try:
 except ImportError:
     pass
 
+def color_numpyarray_from_value_numpyarray(value_array,min_source,max_source,min_target_hue,max_target_hue):
+    ndim=value_array.ndim
+    new_shape=[]
+    for i in range(ndim):
+        new_shape.append(value_array.shape[i])
+    new_shape.append(3)
+    new_shape=tuple(new_shape)
+    color_array=(new_shape)
+    with np.nditer(value_array) as it:
+        for x in it:
+            color_array[it.multi_index]=[1,0,0]
+
 def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):
         for j in range(grid.ny):
