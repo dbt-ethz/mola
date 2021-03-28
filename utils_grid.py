@@ -34,6 +34,7 @@ def color_numpyarray_from_value_numpyarray(value_array,min_source,max_source,min
         for x in it:
             hue=utils_math.math_map(x, min_source, max_source, min_target_hue, max_target_hue)
             color_array[it.multi_index]=color_hue_to_rgb(hue)
+    return color_array
 
 def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):
