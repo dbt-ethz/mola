@@ -5,6 +5,7 @@ __copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zuric
 __license__    = 'MIT License'
 __email__      = ['<dbt@arch.ethz.ch>']
 
+import colorsys
 import math
 from mola import utils_math
 from mola.core_mesh import Mesh
@@ -12,6 +13,14 @@ try:
     import numpy as np
 except ImportError:
     pass
+
+def color_hue_to_rgb(hue):
+    """
+    Converts a color defined as Hue (HSV, saturation and value assumed to be 100%) into red, green and blue
+    and returns (r,g,b,1)
+    """
+    col = colorsys.hsv_to_rgb(hue, 1, 1)
+    return (col[0], col[1], col[2], 1) # alpha = 100 %
 
 def color_numpyarray_from_value_numpyarray(value_array,min_source,max_source,min_target_hue,max_target_hue):
     ndim=value_array.ndim
@@ -23,7 +32,8 @@ def color_numpyarray_from_value_numpyarray(value_array,min_source,max_source,min
     color_array=(new_shape)
     with np.nditer(value_array) as it:
         for x in it:
-            color_array[it.multi_index]=[1,0,0]
+            hue=utils_math.math_map(x, min_source, max_source, min_target_hue, max_target_hue)
+            color_array[it.multi_index]=color_hue_to_rgb(hue)
 
 def grid_set_values_at_borders(grid, value):
     for i in range(grid.nx):
