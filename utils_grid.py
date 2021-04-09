@@ -87,6 +87,12 @@ def numpy_to_voxel_mesh(voxel_bools, voxel_colors):
     voxel_colors : numpy.ndarray
         Numpy Array of shape (nX,nY,nZ,3) containing r,g,b values for each voxel.
     """
+    #add one dimension if input is 2d
+    if voxel_bools.ndim == 2 and voxel_colors.ndim == 3:
+        voxel_bools = voxel_bools[:,:,np.newaxis]
+        voxel_colors = np.expand_dims(voxel_colors, axis=2)
+
+
     shape = voxel_bools.shape
     nx, ny, nz = shape[0], shape[1], shape[2]
     mesh = Mesh()
