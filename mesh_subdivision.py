@@ -1,30 +1,31 @@
 from __future__ import division
+import math
+import copy
+from mola import utils_vertex
+from mola import utils_face
+from mola.core_face import Face
+from mola.core_vertex import Vertex
+from mola.core_mesh import Mesh
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__author__     = ['Benjamin Dillenburger','Demetris Shammas','Mathias Bernhard']
-__copyright__  = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
-__license__    = 'MIT License'
-__email__      = ['<dbt@arch.ethz.ch>']
+__author__ = ['Benjamin Dillenburger', 'Demetris Shammas', 'Mathias Bernhard']
+__copyright__ = 'Copyright 2019 / Digital Building Technologies DBT / ETH Zurich'
+__license__ = 'MIT License'
+__email__ = ['<dbt@arch.ethz.ch>']
 
-from mola.core_mesh import Mesh
-from mola.core_vertex import Vertex
-from mola.core_face import Face
-from mola import utils_face
-from mola import utils_vertex
-import copy
-import math
 
 def _collect_new_faces(mesh):
-    newMesh=Mesh()
+    newMesh = Mesh()
     for face in mesh.faces:
         v1 = face.vertices[-2]
         v2 = face.vertices[-1]
         for v3 in face.vertices:
-            edge1 = mesh.edge_adjacent_to_vertices(v1,v2)
-            edge2 = mesh.edge_adjacent_to_vertices(v2,v3)
-            if (edge1 != None) and (edge2!= None):
-                newFace = Face([edge1.vertex, v2.vertex, edge2.vertex, face.vertex])
+            edge1 = mesh.edge_adjacent_to_vertices(v1, v2)
+            edge2 = mesh.edge_adjacent_to_vertices(v2, v3)
+            if (edge1 != None) and (edge2 != None):
+                newFace = Face(
+                    [edge1.vertex, v2.vertex, edge2.vertex, face.vertex])
                 newFace.color = face.color
                 newFace.group = face.group
                 newMesh.faces.append(newFace)
@@ -33,16 +34,18 @@ def _collect_new_faces(mesh):
     newMesh.update_topology()
     return newMesh
 
-def subdivide_mesh(mesh,values=[]):
+
+def subdivide_mesh(mesh, values=[]):
     for face in mesh.faces:
-        face.vertex=utils_face.center(face)
+        face.vertex = face.center()
     for edge in mesh.edges:
         edge.vertex = edge.center()
     for vertex in mesh.vertices:
-        vertex.vertex = Vertex(vertex.x,vertex.y,vertex.z)
-    if len(values)>0:
-        _translate_face_vertices(mesh,values)
+        vertex.vertex = Vertex(vertex.x, vertex.y, vertex.z)
+    if len(values) > 0:
+        _translate_face_vertices(mesh, values)
     return _collect_new_faces(mesh)
+
 
 def _catmullVertices(mesh):
     for face in mesh.faces:
@@ -82,31 +85,36 @@ def _catmullVertices(mesh):
                 if edge.v2 is vertex:
                     face = edge.face2
                 if face != None:
-                    averageFaces = utils_vertex.vertex_add(averageFaces, face.vertex)
-                averageEdges=utils_vertex.vertex_add(averageEdges,edge.center())
+                    averageFaces = utils_vertex.vertex_add(
+                        averageFaces, face.vertex)
+                averageEdges = utils_vertex.vertex_add(
+                    averageEdges, edge.center())
             averageEdges = utils_vertex.vertex_scale(averageEdges, 2.0/nEdges)
             averageFaces = utils_vertex.vertex_scale(averageFaces, 1.0/nEdges)
 
             v = Vertex(vertex.x, vertex.y, vertex.z)
-            v = utils_vertex.vertex_scale(v,nEdges-3)
-            v = utils_vertex.vertex_add(v,averageFaces)
-            v = utils_vertex.vertex_add(v,averageEdges)
-            v = utils_vertex.vertex_scale(v,1.0/nEdges)
+            v = utils_vertex.vertex_scale(v, nEdges-3)
+            v = utils_vertex.vertex_add(v, averageFaces)
+            v = utils_vertex.vertex_add(v, averageEdges)
+            v = utils_vertex.vertex_scale(v, 1.0/nEdges)
             vertex.vertex = v
 
-def _translate_face_vertices(mesh,values):
-    for face,value in zip(mesh.faces, values):
-        normal=utils_face.face_normal(face)
+
+def _translate_face_vertices(mesh, values):
+    for face, value in zip(mesh.faces, values):
+        normal = utils_face.face_normal(face)
         normal.scale(value)
         face.vertex.add(normal)
 
+
 def subdivide_mesh_catmull(mesh, values=[]):
     _catmullVertices(mesh)
-    if len(values)>0:
-        _translate_face_vertices(mesh,values)
+    if len(values) > 0:
+        _translate_face_vertices(mesh, values)
     return _collect_new_faces(mesh)
 
-def subdivide_face_split_grid(face,nU,nV):
+
+def subdivide_face_split_grid(face, nU, nV):
     """
     splits a triangle, quad or a rectangle into a regular grid
     """
@@ -142,19 +150,20 @@ def subdivide_face_split_grid(face,nU,nV):
         v0 = face.vertices[0]
         vs1 = gridVertices[0]
         for v in range(len(vs1) - 1):
-            f = Face([v0,vs1[v],vs1[v + 1]])
+            f = Face([v0, vs1[v], vs1[v + 1]])
             utils_face.face_copy_properties(face, f)
             faces.append(f)
         for u in range(len(gridVertices) - 1):
             vs1 = gridVertices[u]
             vs2 = gridVertices[u + 1]
             for v in range(len(vs1) - 1):
-                f = Face([vs1[v],vs1[v + 1], vs2[v + 1], vs2[v]])
+                f = Face([vs1[v], vs1[v + 1], vs2[v + 1], vs2[v]])
                 utils_face.face_copy_properties(face, f)
                 faces.append(f)
         return faces
 
-def _vertices_between(v1,v2,n):
+
+def _vertices_between(v1, v2, n):
     row = []
     deltaV = utils_vertex.vertex_subtract(v2, v1)
     deltaV = utils_vertex.vertex_divide(deltaV, n)
@@ -163,6 +172,7 @@ def _vertices_between(v1,v2,n):
         row.append(utils_vertex.vertex_add(addV, v1))
     row.append(v2)
     return row
+
 
 def subdivide_face_split_rel_free_quad(face, indexEdge,  split1,  split2):
     """
@@ -183,13 +193,15 @@ def subdivide_face_split_rel_free_quad(face, indexEdge,  split1,  split2):
         return face
 
     # constrain indexEdge to be either 0 or 1
-    indexEdge = indexEdge%2
+    indexEdge = indexEdge % 2
 
     indexEdge1 = (indexEdge + 1) % len(face.vertices)
     indexEdge2 = (indexEdge + 2) % len(face.vertices)
     indexEdge3 = (indexEdge + 3) % len(face.vertices)
-    p1 = utils_vertex.vertex_between_rel(face.vertices[indexEdge], face.vertices[indexEdge1], split1)
-    p2 = utils_vertex.vertex_between_rel(face.vertices[indexEdge2 ], face.vertices[indexEdge3], split2)
+    p1 = utils_vertex.vertex_between_rel(
+        face.vertices[indexEdge], face.vertices[indexEdge1], split1)
+    p2 = utils_vertex.vertex_between_rel(
+        face.vertices[indexEdge2], face.vertices[indexEdge3], split2)
     faces = []
     if indexEdge == 0:
         f1 = Face([face.vertices[0], p1, p2, face.vertices[3]])
@@ -200,10 +212,11 @@ def subdivide_face_split_rel_free_quad(face, indexEdge,  split1,  split2):
     elif indexEdge == 1:
         f1 = Face([face.vertices[0], face.vertices[1], p1, p2])
         f2 = Face([p2, p1, face.vertices[2], face.vertices[3]])
-        utils_face.face_copy_properties(face,f1)
-        utils_face.face_copy_properties(face,f2)
+        utils_face.face_copy_properties(face, f1)
+        utils_face.face_copy_properties(face, f2)
         faces.extend([f1, f2])
     return faces
+
 
 def subdivide_face_extrude(face, height=0.0, capBottom=False, capTop=True):
     """
@@ -220,39 +233,42 @@ def subdivide_face_extrude(face, height=0.0, capBottom=False, capTop=True):
     capTop : bool
         Toggle if top face (extrusion face) should be created, default True
     """
-    normal=utils_face.face_normal(face)
-    normal=utils_vertex.vertex_scale(normal,height)
+    normal = utils_face.face_normal(face)
+    normal = utils_vertex.vertex_scale(normal, height)
     # calculate vertices
-    new_vertices=[]
+    new_vertices = []
     for i in range(len(face.vertices)):
         new_vertices.append(utils_vertex.vertex_add(face.vertices[i], normal))
     # faces
-    new_faces=[]
+    new_faces = []
     if capBottom:
         new_faces.append(face)
     for i in range(len(face.vertices)):
-        i2=i+1
-        if i2>=len(face.vertices):
-            i2=0
-        v0=face.vertices[i]
-        v1=face.vertices[i2]
-        v2=new_vertices[i2]
-        v3=new_vertices[i]
-        new_faces.append(Face([v0,v1,v2,v3]))
+        i2 = i+1
+        if i2 >= len(face.vertices):
+            i2 = 0
+        v0 = face.vertices[i]
+        v1 = face.vertices[i2]
+        v2 = new_vertices[i2]
+        v3 = new_vertices[i]
+        new_faces.append(Face([v0, v1, v2, v3]))
     if capTop:
         new_faces.append(Face(new_vertices))
     for new_face in new_faces:
-        utils_face.face_copy_properties(face,new_face)
+        utils_face.face_copy_properties(face, new_face)
     return new_faces
 
-def subdivide_mesh_extrude_tapered(mesh,heights,fractions,doCaps):
+
+def subdivide_mesh_extrude_tapered(mesh, heights, fractions, doCaps):
     new_mesh = Mesh()
-    for face,height,fraction,doCap in zip(mesh.faces,heights,fractions,doCaps):
-        new_mesh.faces.extend(subdivide_face_extrude_tapered(face,height,fraction,doCap))
+    for face, height, fraction, doCap in zip(mesh.faces, heights, fractions, doCaps):
+        new_mesh.faces.extend(subdivide_face_extrude_tapered(
+            face, height, fraction, doCap))
     new_mesh.update_topology()
     return new_mesh
 
-def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
+
+def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5, doCap=True):
     """
     Extrudes the face tapered like a window by creating an
     offset face and quads between every original edge and the
@@ -290,7 +306,7 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         n2 = face.vertices[(i + 1) % num]
         n3 = new_vertices[(i + 1) % num]
         n4 = new_vertices[i]
-        new_face = Face([n1,n2,n3,n4])
+        new_face = Face([n1, n2, n3, n4])
         new_faces.append(new_face)
 
     # create the closing cap face
@@ -299,8 +315,9 @@ def subdivide_face_extrude_tapered(face, height=0.0, fraction=0.5,doCap=True):
         new_faces.append(cap_face)
 
     for new_face in new_faces:
-        utils_face.face_copy_properties(face,new_face)
+        utils_face.face_copy_properties(face, new_face)
     return new_faces
+
 
 def subdivide_face_split_roof(face, height):
     """
@@ -315,7 +332,7 @@ def subdivide_face_split_roof(face, height):
     """
     faces = []
     normal = utils_face.face_normal(face)
-    normal = utils_vertex.vertex_scale(normal,height)
+    normal = utils_vertex.vertex_scale(normal, height)
     if len(face.vertices) == 4:
         ev1 = utils_vertex.vertex_center(face.vertices[0], face.vertices[1])
         ev1 = utils_vertex.vertex_add(ev1, normal)
@@ -328,7 +345,7 @@ def subdivide_face_split_roof(face, height):
         faces.append(Face([face.vertices[3], face.vertices[0], ev1, ev2]))
 
         for f in faces:
-            utils_face.face_copy_properties(face,f)
+            utils_face.face_copy_properties(face, f)
         return faces
 
     elif len(face.vertices) == 3:
@@ -346,6 +363,7 @@ def subdivide_face_split_roof(face, height):
             utils_face.face_copy_properties(face, f)
         return faces
     return [face]
+
 
 def subdivide_face_extrude_to_point(face, point):
     """
@@ -369,6 +387,7 @@ def subdivide_face_extrude_to_point(face, point):
         faces.append(f)
     return faces
 
+
 def subdivide_face_extrude_to_point_center(face, height=0.0):
     """
     Extrudes the face to the center point moved by height
@@ -383,22 +402,25 @@ def subdivide_face_extrude_to_point_center(face, height=0.0):
         The distance of the new point to the face center, default 0
     """
     normal = utils_face.face_normal(face)
-    normal = utils_vertex.vertex_scale(normal,height)
+    normal = utils_vertex.vertex_scale(normal, height)
     center = utils_face.face_center(face)
-    center = utils_vertex.vertex_add(center,normal)
-    return subdivide_face_extrude_to_point(face,center)
+    center = utils_vertex.vertex_add(center, normal)
+    return subdivide_face_extrude_to_point(face, center)
 
-def subdivide_mesh_extrude_to_point_center(mesh,heights,doExtrudes):
+
+def subdivide_mesh_extrude_to_point_center(mesh, heights, doExtrudes):
     new_mesh = Mesh()
-    for face,height,doExtrude in zip(mesh.faces,heights,doExtrudes):
+    for face, height, doExtrude in zip(mesh.faces, heights, doExtrudes):
         if doExtrude:
-            new_mesh.faces.extend(subdivide_face_extrude_to_point_center(face,height))
+            new_mesh.faces.extend(
+                subdivide_face_extrude_to_point_center(face, height))
         else:
             new_mesh.faces.append(face)
     new_mesh.update_topology()
     return new_mesh
 
-def subdivide_face_offset_planar(face,offsets):
+
+def subdivide_face_offset_planar(face, offsets):
     newPts = []
     for i in range(len(face.vertices)):
         iP = i - 1
@@ -408,17 +430,20 @@ def subdivide_face_offset_planar(face,offsets):
         v0 = face.vertices[iP]
         v1 = face.vertices[i]
         v2 = face.vertices[iN]
-        newPts.append(utils_vertex.vertex_offset_point(v0, v1, v2, offsets[iP], offsets[i]))
+        newPts.append(utils_vertex.vertex_offset_point(
+            v0, v1, v2, offsets[iP], offsets[i]))
     f = Face(newPts)
     utils_face.face_copy_properties(face, f)
     return f
 
-def subdivide_face_split_offset(face,offset):
+
+def subdivide_face_split_offset(face, offset):
     offsets = [offset] * len(face.vertices)
     return subdivide_face_split_offsets(face, offsets)
 
-def subdivide_face_split_offsets(face,offsets):
-    offsetFace = subdivide_face_offset_planar(face,offsets)
+
+def subdivide_face_split_offsets(face, offsets):
+    offsetFace = subdivide_face_offset_planar(face, offsets)
     nOffsetFaces = 0
     for o in offsets:
         if(abs(o) > 0):
@@ -427,7 +452,8 @@ def subdivide_face_split_offsets(face,offsets):
     for i in range(len(face.vertices)):
         if(abs(offsets[i]) > 0):
             i2 = (i + 1) % len(face.vertices)
-            f = Face([face.vertices[i], face.vertices[i2], offsetFace.vertices[i2], offsetFace.vertices[i]])
+            f = Face([face.vertices[i], face.vertices[i2],
+                      offsetFace.vertices[i2], offsetFace.vertices[i]])
             utils_face.face_copy_properties(face, f)
             faces.append(f)
     faces.append(offsetFace)
@@ -435,6 +461,7 @@ def subdivide_face_split_offsets(face,offsets):
         if(utils_face.face_area(f) < 0):
             f.vertices.reverse()
     return faces
+
 
 def subdivide_face_split_rel_multiple(face, direction, splits):
     sA = []
@@ -445,8 +472,8 @@ def subdivide_face_split_rel_multiple(face, direction, splits):
     lB = face.vertices[(direction + 2) % len(face.vertices)]
 
     for i in range(len(splits)):
-        sA.append(utils_vertex.vertex_between_rel(sA[0], lA,splits[i]))
-        sB.append(utils_vertex.vertex_between_rel(sB[0], lB,splits[i]))
+        sA.append(utils_vertex.vertex_between_rel(sA[0], lA, splits[i]))
+        sB.append(utils_vertex.vertex_between_rel(sB[0], lB, splits[i]))
     sA.append(lA)
     sB.append(lB)
 
@@ -462,6 +489,7 @@ def subdivide_face_split_rel_multiple(face, direction, splits):
             result.append(f)
     return result
 
+
 def subdivide_face_split_rel(face, direction, split):
     """
     Splits face in given direction.
@@ -475,6 +503,7 @@ def subdivide_face_split_rel(face, direction, split):
         Position of the split relative to initial face points (0 to 1)
     """
     return subdivide_face_split_rel_multiple(face, direction, [split])
+
 
 def subdivide_face_split_frame(face, w):
     """
@@ -490,34 +519,36 @@ def subdivide_face_split_frame(face, w):
     faces = []
     innerVertices = []
     for i in range(len(face.vertices)):
-      if(i == 0):
-        vp = face.vertices[len(face.vertices)-1]
-      else:
-        vp = face.vertices[i - 1]
-      v = face.vertices[i]
-      vn = face.vertices[(i + 1) % len(face.vertices)]
-      vnn = face.vertices[(i + 2) % len(face.vertices)]
+        if(i == 0):
+            vp = face.vertices[len(face.vertices)-1]
+        else:
+            vp = face.vertices[i - 1]
+        v = face.vertices[i]
+        vn = face.vertices[(i + 1) % len(face.vertices)]
+        vnn = face.vertices[(i + 2) % len(face.vertices)]
 
-      th1 = utils_vertex.vertex_angle_triangle(vp,v,vn)
-      th2 = utils_vertex.vertex_angle_triangle(v,vn,vnn)
+        th1 = utils_vertex.vertex_angle_triangle(vp, v, vn)
+        th2 = utils_vertex.vertex_angle_triangle(v, vn, vnn)
 
-      w1 = w / math.sin(th1)
-      w2 = w / math.sin(th2)
+        w1 = w / math.sin(th1)
+        w2 = w / math.sin(th2)
 
-      vs1 = _vertices_frame(v, vn, w1, w2)
-      vs2 = _vertices_frame(_vertices_frame(vp, v, w1, w1)[2], _vertices_frame(vn, vnn, w2, w2)[1], w1, w2)
-      innerVertices.append(vs2[1])
-      f1 = Face([vs1[0], vs2[0], vs2[1], vs1[1]])
-      utils_face.face_copy_properties(face, f1)
-      f2 = Face([vs1[1], vs2[1], vs2[2], vs1[2]])
-      utils_face.face_copy_properties(face, f2)
-      faces.extend([f1, f2])
+        vs1 = _vertices_frame(v, vn, w1, w2)
+        vs2 = _vertices_frame(_vertices_frame(vp, v, w1, w1)[
+                              2], _vertices_frame(vn, vnn, w2, w2)[1], w1, w2)
+        innerVertices.append(vs2[1])
+        f1 = Face([vs1[0], vs2[0], vs2[1], vs1[1]])
+        utils_face.face_copy_properties(face, f1)
+        f2 = Face([vs1[1], vs2[1], vs2[2], vs1[2]])
+        utils_face.face_copy_properties(face, f2)
+        faces.extend([f1, f2])
     fInner = Face(innerVertices)
     utils_face.face_copy_properties(face, fInner)
     faces.append(fInner)
     return faces
 
-def _vertices_frame(v1,v2,w1,w2):
+
+def _vertices_frame(v1, v2, w1, w2):
     p1 = utils_vertex.vertex_between_abs(v1, v2, w1)
     p2 = utils_vertex.vertex_between_abs(v2, v1, w2)
     return [v1, p1, p2, v2]
