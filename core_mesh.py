@@ -109,6 +109,12 @@ class Mesh:
         f = Face(vertices)
         self.faces.append(f)
         return f
+    
+    def add_face_from_v_index(self, index):
+        vertices = [self.vertices[i] for i in index]
+        f = Face(vertices)
+        self.faces.append(f)
+        return f
 
     def face_properties(self,face_analyse):
         values=[]
