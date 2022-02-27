@@ -6,7 +6,6 @@ from .core_edge import *
 from .core_face import *
 from .core_grid import *
 from .core_mesh import *
-from .core_mesh import add_face_from_v_index
 from .core_vertex import *
 from .graph import *
 from .io import *
