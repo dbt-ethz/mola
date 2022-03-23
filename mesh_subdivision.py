@@ -6,6 +6,7 @@ from mola import utils_face
 from mola.core_face import Face
 from mola.core_vertex import Vertex
 from mola.core_mesh import Mesh
+from mola.utils_vertex import vertex_distance
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -552,3 +553,20 @@ def _vertices_frame(v1, v2, w1, w2):
     p1 = utils_vertex.vertex_between_abs(v1, v2, w1)
     p2 = utils_vertex.vertex_between_abs(v2, v1, w2)
     return [v1, p1, p2, v2]
+
+def subdivide_face_split_cell(face, x, y):
+    """
+    Subidivide face into cells with given size
+
+    Arguments:
+    ----------
+    face : mola.core.Face
+        The face to be split
+    x : float
+    y : float
+    """
+    disU = vertex_distance(face.vertices[0], face.vertices[1])
+    disV = vertex_distance(face.vertices[1], face.vertices[2])
+    dis = [int(disU/x), int(disV/y)]
+
+    return subdivide_face_split_grid(face, *dis)

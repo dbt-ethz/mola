@@ -1,6 +1,7 @@
 """
 This is where the module documentation goes
 """
+from .city_subdivison import *
 from .core_box import *
 from .core_edge import *
 from .core_face import *
