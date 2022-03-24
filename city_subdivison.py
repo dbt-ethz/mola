@@ -1,18 +1,17 @@
+from __future__ import division
 from ast import Raise
 from asyncio import proactor_events
 from logging import raiseExceptions
 import re
-from __future__ import division
 import string
 import sys
 import os
 import random
 from tokenize import group
 from webbrowser import get
-from mola.core_mesh import Mesh
-from utils_face import face_normal
+from .core_mesh import Mesh
+from .utils_face import face_normal
 import mola
-
 
 class Engine:
     def __init__(self, mesh):
@@ -36,10 +35,19 @@ class Engine:
             "others": (0, 0, 0, 1)
         }
         self.groups = [
-            "block", "block_s", "block_ss", "plaza", "plot", "road", "construct_up", 
+            0, "block", "block_s", "block_ss", "plaza", "plot", "road", "construct_up", 
             "construct_side", "construct_down", "roof", "wall", "panel", "facade",
             "frame", "glass", "brick"
         ]
+        self.groups_block = {
+            "block", "block_s", "block_ss"
+        }
+        self.groups_building = {
+            "plot", "road", "construct_up", "construct_side", "construct_down",
+        }
+        self.groups_facade = {
+            "roof", "wall", "panel", "facade", "frame", "glass", "brick"
+        }
         self.parent_children_rule = {
             "block":{
                 "group_children": "group_by_default",
@@ -98,8 +106,8 @@ class Engine:
             raise Exception("input is not a mola mesh!!")
 
         self._mesh = value
-        for f in self._mesh.faces:
-            f.group = "block"
+        # for f in self._mesh.faces:
+        #     f.group = "block"
 
     def group_by_index(self, faces, child_a, child_b):
         "assign group value child_a and child_b to a set of faces according to their index"
@@ -110,7 +118,7 @@ class Engine:
     def group_by_orientation(self, faces, up, down, side):
         "assign group value up, side and down to a set of faces according to each face's orientation"
         for f in faces:
-            normal_z = face_normal(f).z
+            normal_z = mola.face_normal(f).z
             if normal_z > 0.1:
                 f.group = up
             elif normal_z < -0.1:
@@ -158,37 +166,67 @@ class Engine:
 
         return new_faces
 
-    def subdivide(self, iter):
-        for _ in range(iter):
-            new_mesh = mola.Mesh()
-            remaining_faces = self.mesh.faces
-            for rule in self.rules:
-                select_from = rule[0]["select_from"]
-                ratio = rule[0]["ratio"]
-                subd = rule[1]["subd"]
-                arg = rule[1]["arg"]
+    def subdivide(self, rules):
+        new_mesh = mola.Mesh()
+        remaining_faces = self.mesh.faces
+        for rule in rules:
+            select_from = rule[0]["select_from"]
+            ratio = rule[0]["ratio"]
+            subd = rule[1]["subd"]
+            arg = rule[1]["arg"]
 
-                selected_faces = []
-                unseleted_faces = []
-                for f in remaining_faces:
-                    if f.group == select_from:
-                        selected_faces.append(f)
-                    else:
-                        unseleted_faces.append(f)
+            selected_faces = []
+            unseleted_faces = []
+            for f in remaining_faces:
+                if f.group == select_from:
+                    selected_faces.append(f)
+                else:
+                    unseleted_faces.append(f)
 
-                new_faces = self.subidivide_by_group(select_from, selected_faces, ratio , subd, *arg)
-                new_mesh.faces.extend(new_faces)
-                remaining_faces = unseleted_faces
-            new_mesh.faces.extend(unseleted_faces)
-            self._mesh = new_mesh
+            new_faces = self.subidivide_by_group(select_from, selected_faces, ratio , subd, *arg)
+            new_mesh.faces.extend(new_faces)
+            remaining_faces = unseleted_faces
+        new_mesh.faces.extend(unseleted_faces)
+        self._mesh = new_mesh
 
         self.color_by_group()
         return self._mesh
 
-    def side_to_wall(self):
+    def subdivide_block(self, iter=1):
+        for f in self._mesh.faces:
+            if f.group == 0:
+                f.group = "block"
+        rules_block = []
+        for rule in self.rules:
+            if rule[0]["select_from"] in self.groups_block:
+                rules_block.append(rule)
+        
+        for _ in range(iter):
+            self.subdivide(rules_block)
+
+    def subdivide_building(self, iter=1):
+        for f in self._mesh.faces:
+            if f.group[:5] == "block": 
+                f.group = "plot"
+        rules_building = []
+        for rule in self.rules:
+            if rule[0]["select_from"] in self.groups_building:
+                rules_building.append(rule)
+        
+        for _ in range(iter):
+            self.subdivide(rules_building)
+
+    def subdivide_facade(self, iter=1):
         for f in self._mesh.faces:
             if f.group == "construct_side":
                 f.group = "wall"
+        rules_facade = []
+        for rule in self.rules:
+            if rule[0]["select_from"] in self.groups_facade:
+                rules_facade.append(rule)
+        
+        for _ in range(iter):
+            self.subdivide(rules_facade)
 
     def color_by_group(self):
         # for f in self._mesh.faces:
