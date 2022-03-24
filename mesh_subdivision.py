@@ -565,8 +565,12 @@ def subdivide_face_split_cell(face, x, y):
     x : float
     y : float
     """
-    disU = vertex_distance(face.vertices[0], face.vertices[1])
-    disV = vertex_distance(face.vertices[1], face.vertices[2])
-    dis = [int(disU/x), int(disV/y)]
+    disU = int(vertex_distance(face.vertices[0], face.vertices[1])/x)
+    disV = int(vertex_distance(face.vertices[1], face.vertices[2])/y)
+    if disU == 0:
+        disU = 1
+    if disV == 0:
+        disV = 1
+    dis = [disU, disV]
 
     return subdivide_face_split_grid(face, *dis)
