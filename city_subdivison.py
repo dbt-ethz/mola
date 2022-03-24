@@ -170,7 +170,7 @@ class Engine:
         new_mesh = mola.Mesh()
         remaining_faces = self.mesh.faces
         for rule in rules:
-            select_from = rule[0]["select_from"]
+            select = rule[0]["select"]
             ratio = rule[0]["ratio"]
             subd = rule[1]["subd"]
             arg = rule[1]["arg"]
@@ -178,12 +178,12 @@ class Engine:
             selected_faces = []
             unseleted_faces = []
             for f in remaining_faces:
-                if f.group == select_from:
+                if f.group == select:
                     selected_faces.append(f)
                 else:
                     unseleted_faces.append(f)
 
-            new_faces = self.subidivide_by_group(select_from, selected_faces, ratio , subd, *arg)
+            new_faces = self.subidivide_by_group(select, selected_faces, ratio , subd, *arg)
             new_mesh.faces.extend(new_faces)
             remaining_faces = unseleted_faces
         new_mesh.faces.extend(unseleted_faces)
@@ -198,7 +198,7 @@ class Engine:
                 f.group = "block"
         rules_block = []
         for rule in self.rules:
-            if rule[0]["select_from"] in self.groups_block:
+            if rule[0]["select"] in self.groups_block:
                 rules_block.append(rule)
         
         for _ in range(iter):
@@ -210,7 +210,7 @@ class Engine:
                 f.group = "plot"
         rules_building = []
         for rule in self.rules:
-            if rule[0]["select_from"] in self.groups_building:
+            if rule[0]["select"] in self.groups_building:
                 rules_building.append(rule)
         
         for _ in range(iter):
@@ -222,7 +222,7 @@ class Engine:
                 f.group = "wall"
         rules_facade = []
         for rule in self.rules:
-            if rule[0]["select_from"] in self.groups_facade:
+            if rule[0]["select"] in self.groups_facade:
                 rules_facade.append(rule)
         
         for _ in range(iter):
