@@ -35,18 +35,18 @@ class Engine:
             "others": (0, 0, 0, 1)
         }
         self.groups = [
-            0, "block", "block_s", "block_ss", "plaza", "plot", "road", "construct_up", 
-            "construct_side", "construct_down", "roof", "wall", "panel", "facade",
+            0, "block", "block_s", "block_ss", "block_sss", "plaza", "plot", "road", "construct_up", 
+            "construct_side", "construct_down", "roof", "roof_s", "roof_f", "wall", "panel", "facade",
             "frame", "glass", "brick"
         ]
         self.groups_block = {
-            "block", "block_s", "block_ss"
+            "block", "block_s", "block_ss", "block_sss"
         }
         self.groups_building = {
             "plot", "road", "construct_up", "construct_side", "construct_down",
         }
         self.groups_facade = {
-            "roof", "wall", "panel", "facade", "frame", "glass", "brick"
+            "roof", "wall", "panel", "facade", "frame", "glass", "brick", "roof_s"
         }
         self.parent_children_rule = {
             "block":{
@@ -60,6 +60,11 @@ class Engine:
                 "undivided": "plaza"
             },
             "block_ss":{
+                "group_children": "group_by_default",
+                "group_children_into": ["block_sss"],
+                "undivided": "plaza"
+            },
+            "block_sss":{
                 "group_children": "group_by_default",
                 "group_children_into": ["plot"],
                 "undivided": "plaza"
@@ -91,8 +96,13 @@ class Engine:
             },
             "roof":{
                 "group_children": "group_by_default",
-                "group_children_into": ["roof"],
-                "undivided": "roof"
+                "group_children_into": ["roof_s"],
+                "undivided": "roof_f"
+            },
+            "roof_s":{
+                "group_children": "group_by_default",
+                "group_children_into": ["roof_f"],
+                "undivided": "roof_f"
             }
         }
 
@@ -220,6 +230,8 @@ class Engine:
         for f in self._mesh.faces:
             if f.group == "construct_side":
                 f.group = "wall"
+            elif f.group =="construct_up":
+                f.group = "roof"
         rules_facade = []
         for rule in self.rules:
             if rule[0]["select"] in self.groups_facade:
