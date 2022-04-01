@@ -30,6 +30,10 @@ class Face:
         self.color = (1,1,1,1)
         self.group = 0
 
+    @property
+    def face_area(self):
+        return self.area()
+
     def area(self):
         """
         Returns the area of the face.
@@ -38,6 +42,10 @@ class Face:
             return utils_vertex.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2])
         else:
             return utils_vertex.triangle_area(self.vertices[0], self.vertices[1], self.vertices[2]) + utils_vertex.triangle_area(self.vertices[2], self.vertices[3], self.vertices[0])
+
+    @property
+    def face_perimeter(self):
+        return self.perimeter()
 
     def perimeter(self):
         """
@@ -50,11 +58,19 @@ class Face:
             sum += utils_vertex.vertex_distance(v1,v2)
         return sum
 
+    @property
+    def face_compactness(self):
+        return self.compactness()
+
     def compactness(self):
         """
         Returns the compactness of the face as the ratio between area and perimeter.
         """
         return self.area() / self.perimeter()
+
+    @property
+    def face_angle_horizontal(self):
+        return self.angle_horizontal()
 
     def angle_horizontal(self):
         """
@@ -62,6 +78,10 @@ class Face:
         """
         n = self.normal()
         return math.atan2(n.y, n.x)
+
+    @property
+    def face_angle_vertical(self):
+        return self.angle_vertical()
 
     def angle_vertical(self):
         """
@@ -72,6 +92,10 @@ class Face:
         #return vecUtils.angle(n, nXY)
         # alternative, probably less computationally intense:
         return math.asin(n.z)
+
+    @property
+    def face_curvature(self):
+        return self.curvature()
 
     def curvature(self):
         """
@@ -94,12 +118,20 @@ class Face:
             vPrev = v
         return sumD / num_faces
 
+    @property
+    def face_center(self):
+        return self.center()
+
     def center(self):
         """
         Returns the center point (type Vertex) of the face.
         Note: not the center of gravity, just the average of its vertices.
         """
         return utils_vertex.vertices_list_center(self.vertices)
+
+    @property
+    def face_normal(self):
+        return self.normal()
 
     def normal(self):
         """
