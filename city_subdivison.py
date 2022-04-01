@@ -123,7 +123,12 @@ class Engine(Mesh):
             f.group = child
 
     def subdivide(self, faces, subd_method, *args, group=False):
-        selected_faces, unselected_by_ratio, unselected_by_filter = faces[0], faces[1], faces[2]
+        selected_faces, unselected_by_ratio, unselected_by_filter = []
+        if type(faces[0]) == mola.Face:
+            selected_faces = faces
+        else:
+            selected_faces, unselected_by_ratio, unselected_by_filter = faces[0], faces[1], faces[2]
+
         if selected_faces == []:
             return
         
