@@ -1,7 +1,6 @@
 from __future__ import division
 from ast import Raise
 from asyncio import proactor_events
-from hashlib import new
 from logging import raiseExceptions
 import re
 import string
@@ -123,61 +122,57 @@ class Engine(Mesh):
         for f in faces:
             f.group = child
 
-    def subdivide(self, faces, my_filter, ratio, subd_method, *args, group=False):
-        selected_faces =[] 
-        unselected_by_ratio = []
-        unselected_by_filter = []
+    def subdivide(self, faces, subd_method, *args, group=False):
+        selected_faces = unselected_by_ratio = unselected_by_filter = []
+        if type(faces[0]) == mola.Face:
+            selected_faces = faces
+        else:
+            selected_faces, unselected_by_ratio, unselected_by_filter = faces[0], faces[1], faces[2]
+
+        if selected_faces == []:
+            return
+        
+        subdivide_method = getattr(mola, "subdivide_" + subd_method)
+
+        if group:
+            parent_group = selected_faces[0].group
+            group_children = self.successor_rules[parent_group]["group_children"]
+            group_method = getattr(self, group_children)
+            group_args = self.successor_rules[parent_group]["divide_to"]
+            undivide_group = self.successor_rules[parent_group]["undivided"]
+        else:
+            group_method = None
+            group_args = []
+            undivide_group = None
+
         new_faces = []
-        for f in faces:
-            if my_filter(f):
-                if random.random() < ratio:
-                    selected_faces.append(f)
-                else:
-                    unselected_by_ratio.append(f)
-            else:   
-                unselected_by_filter.append(f)
 
-        if selected_faces != []:
-            subdivide_method = getattr(mola, "subdivide_" + subd_method)
+        if subd_method[:4] == "mesh":  # mesh subidivision
+            new_mesh = mola.Mesh()
+            for f in selected_faces:
+                new_mesh.faces.append(f)
 
+            new_mesh.update_topology()
+            new_mesh = subdivide_method(new_mesh, *args)
             if group:
-                parent_group = selected_faces[0].group
-                group_children = self.successor_rules[parent_group]["group_children"]
-                group_method = getattr(self, group_children)
-                group_args = self.successor_rules[parent_group]["divide_to"]
-                undivide_group = self.successor_rules[parent_group]["undivided"]
-            else:
-                group_method = None
-                group_args = []
-                undivide_group = None
-
-            if subd_method[:4] == "mesh":  # mesh subidivision
-                new_mesh = mola.Mesh()
-                for f in selected_faces:
-                    new_mesh.faces.append(f)
-
-                new_mesh.update_topology()
-                new_mesh = subdivide_method(new_mesh, *args)
+                group_method(new_mesh.faces, *group_args)
+            new_faces.extend(new_mesh.faces)
+        
+        elif subd_method[:4] == "face":  # face subidivision
+            for f in selected_faces:
+                subdivided_faces = subdivide_method(f, *args)
                 if group:
-                    group_method(new_mesh.faces, *group_args)
-                new_faces.extend(new_mesh.faces)
-            
-            elif subd_method[:4] == "face":  # face subidivision
-                for f in selected_faces:
-                    subdivided_faces = subdivide_method(f, *args)
-                    if group:
-                        group_method(subdivided_faces, *group_args)
-                    new_faces.extend(subdivided_faces)
-            else:
-                raise Exception("subdivision method couldnt be found!!")
+                    group_method(subdivided_faces, *group_args)
+                new_faces.extend(subdivided_faces)
+        else:
+            raise Exception("subdivision method couldnt be found!!")
         
         # add back unselected faces by ratio and by filter
-        if unselected_by_ratio != []:
-            for f in unselected_by_ratio:
-                if group:
-                    f.group = undivide_group
-                new_faces.append(f)
-            
+        for f in unselected_by_ratio:
+            if group:
+                f.group = undivide_group
+            new_faces.append(f)
+        
         new_faces.extend(unselected_by_filter)
 
         if group:
