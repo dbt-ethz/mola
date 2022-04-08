@@ -124,6 +124,28 @@ class Engine(Mesh):
             f.group = child
 
     def subdivide(self, faces, my_filter, ratio, subd_method, *args, group=False):
+        """divide selected faces, return divided faces.
+
+        Attributes
+        ----------
+        faces : mola.Face
+            A list of mola.Face
+        my_filter : lumbda function
+            Example: def my_filter(face):
+                        return face.group == "block"
+        ratio : float
+            After filter, faces return true will get selected again by ratio 
+        subd_method : mola.subdivision function
+        *args : Any
+            args for subd_method
+        group: boolean
+            Decide if the subdivided faces will be grouped according to successor_rules
+
+        Returns
+        ----------
+        faces: mola.Face
+            A list of subdivided faces and unselected faces
+        """
         selected_faces =[] 
         unselected_by_ratio = []
         unselected_by_filter = []
