@@ -47,6 +47,11 @@ class Engine(Mesh):
     """
     def __init__(self):
         super(Engine, self).__init__()
+        # self.groups = [
+        #     0, "block", "block_s", "block_ss", "block_sss", "plaza", "plot", "road", "construct_up", 
+        #     "construct_side", "construct_down", "roof", "roof_s", "roof_f", "wall", "panel", "facade",
+        #     "frame", "glass", "brick"
+        # ]
         self.successor_rules = {
             "block":{
                 "divide_to": ["block"],
@@ -107,15 +112,13 @@ class Engine(Mesh):
         values = [Engine.groups().index(f.group) for f in faces]
         mola.color_faces_by_values(faces, values)
 
-    @staticmethod
-    def group_by_index(faces, child_a, child_b):
+    def group_by_index(self, faces, child_a, child_b):
         "assign group value child_a and child_b to a set of faces according to their index"
         for f in faces[:-1]:
             f.group = child_a
         faces[-1].group = child_b
 
-    @staticmethod
-    def group_by_orientation(faces, up, down, side):
+    def group_by_orientation(self, faces, up, down, side):
         "assign group value up, side and down to a set of faces according to each face's orientation"
         for f in faces:
             normal_z = mola.face_normal(f).z
@@ -126,33 +129,97 @@ class Engine(Mesh):
             else:
                 f.group = side
 
-    @staticmethod
-    def group_by_default(faces, child):
+    def group_by_default(self, faces, child):
         for f in faces:
             f.group = child
 
-    @staticmethod
-    def subdivide(faces, filter, ratio, rule, labling):
-        to_be_divided_faces = []
-        undivided_faces = []
-        unselected_faces = []
-        devidied_faces = []
+    def subdivide(self, faces, my_filter, ratio, subd_method, *args, group=False):
+        """divide selected faces, return divided faces.
 
+        Attributes
+        ----------
+        faces : mola.Face
+            A list of mola.Face
+        my_filter : lumbda function
+            Example: def my_filter(face):
+                        return face.group == "block"
+        ratio : float
+            After filter, faces return true will get selected again by ratio 
+        subd_method : mola.subdivision function
+        *args : Any
+            args for subd_method
+        group: boolean
+            Decide if the subdivided faces will be grouped according to successor_rules
+
+        Returns
+        ----------
+        faces: mola.Face
+            A list of subdivided faces and unselected faces
+        """
+        selected_faces =[] 
+        unselected_by_ratio = []
+        unselected_by_filter = []
+        new_faces = []
         for f in faces:
-            if filter(f):
+            if my_filter(f):
                 if random.random() < ratio:
-                    to_be_divided_faces.append(f)
+                    selected_faces.append(f)
                 else:
-                    undivided_faces.append(f)
+                    unselected_by_ratio.append(f)
+            else:   
+                unselected_by_filter.append(f)
+
+        if selected_faces != []:
+            subdivide_method = getattr(mola, "subdivide_" + subd_method)
+
+            if group:
+                parent_group = selected_faces[0].group
+                group_children = self.successor_rules[parent_group]["group_children"]
+                group_method = getattr(self, group_children)
+                group_args = self.successor_rules[parent_group]["divide_to"]
+                undivide_group = self.successor_rules[parent_group]["undivided"]
             else:
-                unselected_faces.append(f)
+                group_method = None
+                group_args = []
+                undivide_group = None
 
-        for f in to_be_divided_faces:
-            devidied_faces.append(rule(f))
+            if subd_method[:4] == "mesh":  # mesh subidivision
+                new_mesh = mola.Mesh()
+                for f in selected_faces:
+                    new_mesh.faces.append(f)
 
-        labling(devidied_faces, undivided_faces)
+                new_mesh.update_topology()
+                new_mesh = subdivide_method(new_mesh, *args)
+                if group:
+                    group_method(new_mesh.faces, *group_args)
+                new_faces.extend(new_mesh.faces)
+            
+            elif subd_method[:4] == "face":  # face subidivision
+                for f in selected_faces:
+                    subdivided_faces = subdivide_method(f, *args)
+                    if group:
+                        group_method(subdivided_faces, *group_args)
+                    new_faces.extend(subdivided_faces)
+            else:
+                raise Exception("subdivision method couldnt be found!!")
+        
+        # add back unselected faces by ratio and by filter
+        if unselected_by_ratio != []:
+            for f in unselected_by_ratio:
+                if group:
+                    f.group = undivide_group
+                new_faces.append(f)
+            
+        new_faces.extend(unselected_by_filter)
 
-        devidied_faces = [face for faces in devidied_faces for face in faces]
-
-        return devidied_faces + undivided_faces + unselected_faces
-
+        if group:
+            self.color_by_group(new_faces)
+        return new_faces
+    
+    def change_face_group(self, faces, group_before, group_after):
+        for f in faces:
+            if group_before == "all":
+                f.group = group_after
+            else:
+                if f.group == group_before:
+                    f.group = group_after
