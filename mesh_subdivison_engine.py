@@ -1,19 +1,20 @@
 from __future__ import division
-from ast import Raise
-from asyncio import proactor_events
-from hashlib import new
-from logging import raiseExceptions
-import re
-import string
-import sys
-import os
 import random
 import operator
-from tokenize import group
-from webbrowser import get
 from .core_mesh import Mesh
 from .utils_face import face_normal
 import mola
+
+
+def color_by_group(faces):
+    groups = []
+    for f in faces:
+        if not (f.group in groups):
+            groups.append(f.group)
+
+    values = [groups.index(f.group) for f in faces]
+    mola.color_faces_by_values(faces, values)
+
 
 
 def filter(attr, relate, arg):
@@ -43,76 +44,75 @@ def selector(faces, filter, ratio):
 
 
 class Engine(Mesh):
-    """
+    """A mesh class contains severial subdivide, group and color methods.
+
+    Attributes
+    ----------
     """
     def __init__(self):
         super(Engine, self).__init__()
-        self.successor_rules = {
-            "block":{
-                "divide_to": ["block"],
-                "undivided": "plaza",
-                "group_children": "group_by_default",
-            },
-            "plot":{
-                "divide_to": ["road", "construct_up"],
-                "undivided": "plaza",
-                "group_children": "group_by_index",
-            },
-            "construct_up":{
-                "divide_to": ["construct_up", "construct_down", "construct_side"],
-                "undivided": "roof",
-                "group_children": "group_by_orientation",
-            },
-            "construct_side":{
-                "divide_to": ["construct_up", "construct_down", "construct_side"],
-                "undivided": "wall",
-                "group_children": "group_by_orientation",
-            },
-            "wall":{
-                "divide_to": ["panel"],
-                "undivided": "facade",
-                "group_children": "group_by_default",
-            },
-            "panel":{
-                "divide_to": ["frame", "glass"],
-                "undivided": "brick",
-                "group_children": "group_by_index",
-            },
-            "roof":{
-                "divide_to": ["roof"],
-                "undivided": "roof",
-                "group_children": "group_by_default",
-            },
-        }
+#region
+    #     self.successor_rules = {
+    #         "block":{
+    #             "divide_to": ["block"],
+    #             "undivided": "plaza",
+    #             "group_children": "group_by_default",
+    #         },
+    #         "plot":{
+    #             "divide_to": ["road", "construct_up"],
+    #             "undivided": "plaza",
+    #             "group_children": "group_by_index",
+    #         },
+    #         "construct_up":{
+    #             "divide_to": ["construct_up", "construct_down", "construct_side"],
+    #             "undivided": "roof",
+    #             "group_children": "group_by_orientation",
+    #         },
+    #         "construct_side":{
+    #             "divide_to": ["construct_up", "construct_down", "construct_side"],
+    #             "undivided": "wall",
+    #             "group_children": "group_by_orientation",
+    #         },
+    #         "wall":{
+    #             "divide_to": ["panel"],
+    #             "undivided": "facade",
+    #             "group_children": "group_by_default",
+    #         },
+    #         "panel":{
+    #             "divide_to": ["frame", "glass"],
+    #             "undivided": "brick",
+    #             "group_children": "group_by_index",
+    #         },
+    #         "roof":{
+    #             "divide_to": ["roof"],
+    #             "undivided": "roof",
+    #             "group_children": "group_by_default",
+    #         },
+    #     }
 
-    @classmethod
-    def from_mesh(cls, mesh):
-        "convert a mola Mesh to a mola Engine"
-        engine = cls()
-        engine.faces = mesh.faces
+    # @classmethod
+    # def from_mesh(cls, mesh):
+    #     "convert a mola Mesh to a mola Engine"
+    #     engine = cls()
+    #     engine.faces = mesh.faces
 
-        return engine
+    #     return engine
 
+    # @staticmethod
+    # def groups():
+    #     _groups = [
+    #         0, "block", "block_s", "block_ss", "block_sss", "plaza", "plot", "road", "construct_up", 
+    #         "construct_side", "construct_down", "roof", "roof_s", "roof_f", "wall", "panel", "facade",
+    #         "frame", "glass", "brick"
+    #     ]
+    #     return _groups
+#endregion
     @staticmethod
-    def groups():
-        _groups = [
-            0, "block", "block_s", "block_ss", "block_sss", "plaza", "plot", "road", "construct_up", 
-            "construct_side", "construct_down", "roof", "roof_s", "roof_f", "wall", "panel", "facade",
-            "frame", "glass", "brick"
-        ]
-        return _groups
-
-    @staticmethod
-    def color_by_group(faces):
-        values = [Engine.groups().index(f.group) for f in faces]
-        mola.color_faces_by_values(faces, values)
-
-    @staticmethod
-    def group_by_index(faces, child_a, child_b):
+    def group_by_index(faces, group_a, group_b):
         "assign group value child_a and child_b to a set of faces according to their index"
         for f in faces[:-1]:
-            f.group = child_a
-        faces[-1].group = child_b
+            f.group = group_a
+        faces[-1].group = group_b
 
     @staticmethod
     def group_by_orientation(faces, up, down, side):
@@ -131,8 +131,41 @@ class Engine(Mesh):
         for f in faces:
             f.group = child
 
+
     @staticmethod
-    def subdivide(faces, filter, ratio, rule, labling):
+    def color_by_group(faces):
+        groups = []
+        for f in faces:
+            if not (f.group in groups):
+                groups.append(f.group)
+
+        values = [groups.index(f.group) for f in faces]
+        mola.color_faces_by_values(faces, values)
+
+    @staticmethod
+    def subdivide(faces, filter, rule, labeling, ratio=1.0):
+        """
+        Subdivide a group of faces according to customized rules
+
+        Attributes:
+        ----------
+        faces : list of mola.core.Face
+            The faces to be split
+        filter : a customized filter, returning faces which fit the condition
+        rule :  a customized mola.subdivide_face_xxxx() method with arguments
+        labeling: a custmoized funtion to assign values to mola.Face.group for each face
+        ratio(opt) : float
+            ratio of filtered faces to be subdivided
+
+        Return:
+        -------
+        faces : list of mola.core.Face 
+
+        Example:
+        --------
+        >>> from mola import engine_subdivide_face
+        >>> ...
+        """
         to_be_divided_faces = []
         undivided_faces = []
         unselected_faces = []
@@ -150,9 +183,10 @@ class Engine(Mesh):
         for f in to_be_divided_faces:
             devidied_faces.append(rule(f))
 
-        labling(devidied_faces, undivided_faces)
+        labeling(devidied_faces, undivided_faces)
 
         devidied_faces = [face for faces in devidied_faces for face in faces]
 
         return devidied_faces + undivided_faces + unselected_faces
+
 

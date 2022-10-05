@@ -1,7 +1,6 @@
 """
 This is where the module documentation goes
 """
-from .mesh_subdivison_engine import *
 from .core_box import *
 from .core_edge import *
 from .core_face import *
@@ -13,6 +12,7 @@ from .io import *
 from .mesh_factory import *
 from .mesh_marching_cubes import *
 from .mesh_subdivision import *
+from .mesh_subdivison_engine import *
 from .slicer import *
 from .utils_color import *
 from .utils_face import *
