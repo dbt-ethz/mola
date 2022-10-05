@@ -17,30 +17,30 @@ def color_by_group(faces):
 
 
 
-def filter(attr, relate, arg):
-    ops = {'>': operator.gt,
-           '<': operator.lt,
-           '>=': operator.ge,
-           '<=': operator.le,
-           '==': operator.eq}
+# def filter(attr, relate, arg):
+#     ops = {'>': operator.gt,
+#            '<': operator.lt,
+#            '>=': operator.ge,
+#            '<=': operator.le,
+#            '==': operator.eq}
 
-    return lambda f: ops[relate](getattr(f, attr), arg)
+#     return lambda f: ops[relate](getattr(f, attr), arg)
 
 
-def selector(faces, filter, ratio):
-    selected = []
-    unselected_by_ratio = []
-    unselected_by_filer = []
-    for f in faces:
-        if filter(f):
-            if random.random() < ratio:
-                selected.append(f)
-            else:
-                unselected_by_ratio.append(f)
-        else:
-            unselected_by_filer.append(f)
+# def selector(faces, filter, ratio):
+#     selected = []
+#     unselected_by_ratio = []
+#     unselected_by_filer = []
+#     for f in faces:
+#         if filter(f):
+#             if random.random() < ratio:
+#                 selected.append(f)
+#             else:
+#                 unselected_by_ratio.append(f)
+#         else:
+#             unselected_by_filer.append(f)
     
-    return selected, unselected_by_ratio, unselected_by_filer
+#     return selected, unselected_by_ratio, unselected_by_filer
 
 
 class Engine(Mesh):
@@ -51,7 +51,10 @@ class Engine(Mesh):
     """
     def __init__(self):
         super(Engine, self).__init__()
-#region
+        self._rule = None
+        self._ratio = 1.0
+        self._filter = None
+        self._labeling = None
     #     self.successor_rules = {
     #         "block":{
     #             "divide_to": ["block"],
@@ -90,13 +93,13 @@ class Engine(Mesh):
     #         },
     #     }
 
-    # @classmethod
-    # def from_mesh(cls, mesh):
-    #     "convert a mola Mesh to a mola Engine"
-    #     engine = cls()
-    #     engine.faces = mesh.faces
+    @classmethod
+    def from_mesh(cls, mesh):
+        "convert a mola Mesh to a mola Engine"
+        engine = cls()
+        engine.faces = mesh.faces
 
-    #     return engine
+        return engine
 
     # @staticmethod
     # def groups():
@@ -106,7 +109,34 @@ class Engine(Mesh):
     #         "frame", "glass", "brick"
     #     ]
     #     return _groups
-#endregion
+    @property
+    def rule(self):
+        return self._rule
+    @rule.setter
+    def rule(self, rule):
+        self._rule = rule
+
+    @property
+    def filter(self):
+        return self._filter
+    @filter.setter
+    def filter(self, filter):
+        self._filter = filter
+
+    @property
+    def ratio(self):
+        return self._ratio
+    @ratio.setter
+    def ratio(self, ratio):
+        self._ratio = ratio
+    
+    @property
+    def labeling(self):
+        return self._labeling
+    @labeling.setter
+    def labeling(self, labeling):
+        self._labeling = labeling
+
     @staticmethod
     def group_by_index(faces, group_a, group_b):
         "assign group value child_a and child_b to a set of faces according to their index"
@@ -189,4 +219,27 @@ class Engine(Mesh):
 
         return devidied_faces + undivided_faces + unselected_faces
 
+    def subdivide(self, iteration=1):
+        for _ in range(iteration):
+            to_be_divided_faces = []
+            undivided_faces = []
+            unselected_faces = []
+            devidied_faces = []
 
+            for f in self.faces:
+                if self.filter(f):
+                    if random.random() < self.ratio:
+                        to_be_divided_faces.append(f)
+                    else:
+                        undivided_faces.append(f)
+                else:
+                    unselected_faces.append(f)
+
+            for f in to_be_divided_faces:
+                devidied_faces.append(self.rule(f))
+
+            self.labeling(devidied_faces, undivided_faces)
+
+            devidied_faces = [face for faces in devidied_faces for face in faces]
+
+            self.faces = devidied_faces + undivided_faces + unselected_faces
