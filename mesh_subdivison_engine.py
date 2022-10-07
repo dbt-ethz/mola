@@ -219,27 +219,27 @@ class Engine(Mesh):
 
         return devidied_faces + undivided_faces + unselected_faces
 
-    def subdivide(self, iteration=1):
-        for _ in range(iteration):
-            to_be_divided_faces = []
-            undivided_faces = []
-            unselected_faces = []
-            devidied_faces = []
+    # def subdivide(self, iteration=1):
+    #     for _ in range(iteration):
+    #         to_be_divided_faces = []
+    #         undivided_faces = []
+    #         unselected_faces = []
+    #         devidied_faces = []
 
-            for f in self.faces:
-                if self.filter(f):
-                    if random.random() < self.ratio:
-                        to_be_divided_faces.append(f)
-                    else:
-                        undivided_faces.append(f)
-                else:
-                    unselected_faces.append(f)
+    #         for f in self.faces:
+    #             if self.filter(f):
+    #                 if random.random() < self.ratio:
+    #                     to_be_divided_faces.append(f)
+    #                 else:
+    #                     undivided_faces.append(f)
+    #             else:
+    #                 unselected_faces.append(f)
 
-            for f in to_be_divided_faces:
-                devidied_faces.append(self.rule(f))
+    #         for f in to_be_divided_faces:
+    #             devidied_faces.append(self.rule(f))
 
-            self.labeling(devidied_faces, undivided_faces)
+    #         self.labeling(devidied_faces, undivided_faces)
 
-            devidied_faces = [face for faces in devidied_faces for face in faces]
+    #         devidied_faces = [face for faces in devidied_faces for face in faces]
 
-            self.faces = devidied_faces + undivided_faces + unselected_faces
+    #         self.faces = devidied_faces + undivided_faces + unselected_faces
